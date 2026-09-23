@@ -334,3 +334,7 @@
 .a2MenuDock{display:none!important}
 .a2MobileMenu{padding-bottom:24px!important}
 @media(max-width:800px){.a2MobileMenu{padding-bottom:calc(24px + env(safe-area-inset-bottom))!important}}
+
+/* Keep menu cards clean: simple glyph icons without background artwork */
+.a2Groups a:after{display:none!important;content:none!important}
+.a2Groups a{background:linear-gradient(105deg,#07182df5,#0a2340f0)!important}
