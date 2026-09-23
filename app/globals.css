@@ -210,3 +210,5 @@
 }
 
 @media(max-width:430px){.a2MenuHero{flex-basis:280px!important;min-height:280px!important}.a2Logo{margin-top:145px!important}.a2Search{margin-bottom:18px!important}}
+
+.a2Groups section{width:calc(100% - 36px)!important}
