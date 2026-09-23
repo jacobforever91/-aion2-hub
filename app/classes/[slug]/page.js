@@ -4,7 +4,7 @@ import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useState} from "react";
 import {ArrowLeft, BookOpen, Crosshair, Shield, Sparkles, Sword} from "lucide-react";
-import {classData, classList, emblemBase} from "../classData";
+import {classData, classList, emblemBase, skillIconIds} from "../classData";
 
 export default function ClassDetails() {
   const {slug} = useParams();
@@ -56,6 +56,7 @@ export default function ClassDetails() {
           <div className="classSkillGrid" role="tabpanel">
             {skills.map((skill, index) => (
               <article className="classSkillItem" key={skill}>
+                <img className="classSkillIcon" src={`https://aion2hub.com/api/skill-icon/${skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}`} alt="" aria-hidden="true" loading="lazy" />
                 <span className="classSkillIndex">{String(index + 1).padStart(2,"0")}</span>
                 <span className="classSkillName">{skill}</span>
                 <span className="classSkillType">{skillType === "active" ? "ACTIVA" : "PASIVA"}</span>
