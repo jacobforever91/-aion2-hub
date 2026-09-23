@@ -16,87 +16,27 @@
 .intelFeature{max-width:1180px;margin:0 auto 26px;min-height:330px;padding:52px;display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center;border:1px solid #ffffff18;background:radial-gradient(circle at 80% 30%,#3c9fbc2a,transparent 35%),linear-gradient(120deg,#07151f,#03090e);overflow:hidden}.intelFeature small{font-size:8px;letter-spacing:4px;color:#72ddf7}.intelFeature h3{margin:12px 0 15px;font:400 clamp(30px,4vw,54px)/.95 Georgia,serif}.intelFeature p{max-width:500px;color:#8fa9b4;font-size:11px;line-height:1.8}.intelFeature a{display:inline-block;margin-top:18px;color:#9cecff;font-size:9px;letter-spacing:2px}.classStrip{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#ffffff1b;border:1px solid #ffffff1b;transform:rotate(-2deg)}.classStrip b{padding:20px 14px;background:#07131c;font:400 10px sans-serif;letter-spacing:1.5px;color:#bad2db}.classStrip b:nth-child(odd){color:#8fe7fb}.intelGrid a:first-child{display:none}@media(max-width:800px){.intelFeature{min-height:0;padding:30px 20px;grid-template-columns:1fr;gap:28px}.intelFeature h3{font-size:35px}.classStrip{transform:none}.classStrip b{padding:14px 9px;font-size:8px}.intelGrid a:first-child{display:none}}
 .combatShowcase{max-width:1180px;margin:70px auto 0;padding:55px;display:grid;grid-template-columns:.7fr 1.3fr;gap:55px;align-items:center;border-top:1px solid #244757;border-bottom:1px solid #244757;background:radial-gradient(circle at 80% 50%,#8b27331c,transparent 34%),linear-gradient(90deg,#07141c,#03080c)}.combatCopy small{font-size:8px;letter-spacing:4px;color:#e08b93}.combatCopy h3{margin:12px 0;font:400 clamp(34px,4vw,55px)/.92 Georgia,serif}.combatCopy p{color:#8ca4ae;font-size:11px;line-height:1.75}.combatCopy a{display:inline-block;margin-top:16px;font-size:9px;letter-spacing:2px;color:#9cecff}.combatFlow{display:flex;align-items:center;justify-content:space-between}.combatFlow>div{width:105px;aspect-ratio:1;border:1px solid #31515f;background:#07141d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}.combatFlow span{font-size:7px;color:#678692}.combatFlow b{font:400 11px Georgia,serif;letter-spacing:1px}.combatFlow small{font-size:7px;color:#70909c}.combatFlow>i{font-style:normal;color:#3b7388}@media(max-width:800px){.combatShowcase{margin-top:50px;padding:35px 20px;grid-template-columns:1fr;gap:30px}.combatFlow{display:grid;grid-template-columns:1fr 24px 1fr;gap:10px}.combatFlow>div{width:100%;aspect-ratio:1.35}.combatFlow>i{text-align:center}.combatFlow>i:nth-of-type(2){display:none}}
 .progressionShowcase{padding:115px 7vw;background:radial-gradient(circle at 15% 50%,#17465d55,transparent 30%),linear-gradient(120deg,#02070b,#07131b);color:#eaf8fc}.progressionIntro{max-width:1180px;margin:auto}.progressionIntro>span{font-size:8px;letter-spacing:5px;color:#79def5}.progressionIntro h2{margin:14px 0;font:400 clamp(42px,6vw,78px)/.88 Georgia,serif}.progressionIntro p{max-width:480px;color:#88a0aa;font-size:11px;line-height:1.8}.progressionRail{max-width:1180px;margin:60px auto 0;display:flex;align-items:center}.progressionRail a{flex:1;min-height:155px;padding:22px;border:1px solid #294a59;background:#06121a;display:flex;flex-direction:column;justify-content:center;transition:.25s}.progressionRail a:hover{transform:translateY(-5px);border-color:#78dff7}.progressionRail small{font-size:7px;color:#567582}.progressionRail b{margin:10px 0 6px;font:400 14px Georgia,serif;letter-spacing:1px}.progressionRail span{font-size:8px;color:#72909b}.progressionRail i{padding:0 8px;font-style:normal;color:#4c8195}.progressionFoot{max-width:1180px;margin:20px auto 0;display:flex;gap:14px;font-size:8px;letter-spacing:1.5px;color:#647f89}.progressionFoot b{color:#99e8fa}@media(max-width:800px){.progressionShowcase{padding:80px 20px}.progressionIntro h2{font-size:45px}.progressionRail{margin-top:40px;display:grid;grid-template-columns:1fr 24px 1fr;gap:8px}.progressionRail a{min-height:115px;padding:16px}.progressionRail i{text-align:center}.progressionRail i:nth-of-type(2),.progressionRail i:nth-of-type(4){display:none}.progressionRail a:last-child{grid-column:1/4}.progressionFoot{margin-top:25px;flex-direction:column;line-height:1.5}}
-/* Mobile navigation rebuild */
+/* Mobile menu — approved concept, clean implementation */
+.mobileMenuHero,.discordMenu{display:none}
 @media(max-width:800px){
-.mobileOverlay{padding:calc(max(20px,env(safe-area-inset-top)) + 4px) 20px max(24px,env(safe-area-inset-bottom));overflow-y:auto;background:radial-gradient(circle at 50% 0,#163a4c66,transparent 32%),#03090e}
-.overlayTop{position:sticky;top:0;z-index:2;padding:10px 0 18px;background:linear-gradient(#03090ef5 75%,transparent)}
-.overlaySearch{margin:14px 0 22px;border-radius:4px;padding:17px 16px}
-.mobileOverlay nav{display:flex;flex-direction:column;gap:0}
-.mobileOverlay nav section{padding:16px 0 12px;border-top:1px solid #254452}
-.mobileOverlay nav h3{margin:0 0 7px;font-size:8px;letter-spacing:3.5px}
-.mobileOverlay nav a{min-height:42px;align-items:center;padding:10px 2px;font-size:12px;border-bottom:1px solid #ffffff08}
-.mobileOverlay nav a b{font-size:13px}
-.overlayRegion{position:static;margin:16px 0 0;padding:18px 0 8px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.overlayRegion span{grid-column:1/-1;margin:0 0 3px}
-.overlayRegion button{min-height:42px;font-size:8px}
-}
-
-/* iPhone overlay layout fix: region belongs after all menu groups */
-@media(max-width:800px){
-.mobileOverlay{display:flex;flex-direction:column}
-.mobileOverlay .overlayTop,.mobileOverlay .overlaySearch,.mobileOverlay nav,.mobileOverlay .overlayRegion{width:100%;max-width:none}
-.mobileOverlay nav{order:3}
-.mobileOverlay .overlayRegion{order:4}
-.mobileOverlay nav section{width:100%}
-.mobileOverlay nav a{width:100%;justify-content:space-between}
-.overlayRegion{position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;margin-top:18px!important}
-}
-/* Approved mobile menu visual */
-@media(max-width:800px){
-.mobileOverlay{background:radial-gradient(circle at 50% -10%,#15394a70,transparent 34%),linear-gradient(180deg,#030b11,#02070b 60%,#03090d);padding-left:22px;padding-right:22px}
-.overlayTop{padding:14px 0 20px}.overlayTop>b{font-size:22px;letter-spacing:4px}.overlayTop small{font-size:8px}
-.overlaySearch{margin:10px 0 24px;min-height:62px;display:flex;align-items:center;border-color:#3185a7;background:#071722cc;box-shadow:inset 0 0 30px #0c344333}
-.mobileOverlay nav section{padding:18px 6px 14px;border-top:1px solid #315365}
-.mobileOverlay nav h3{color:#80e7ff;font-size:9px;letter-spacing:4px;margin-bottom:10px}
-.mobileOverlay nav a{min-height:48px;padding:11px 4px;font-size:13px;color:#d6e1e6;border-bottom:0}
-.mobileOverlay nav a b{color:#63a9c3;font-size:18px;font-weight:300}
-.overlayRegion{display:flex!important;flex-direction:column!important;gap:0!important;padding:18px 6px 8px!important;border-top:1px solid #315365!important}
-.overlayRegion>span{width:100%;margin:0 0 10px!important;color:#80e7ff!important;font-size:9px!important;letter-spacing:4px!important}
-.overlayRegion>a{width:100%;min-height:48px;display:grid;grid-template-columns:32px 1fr 20px;align-items:center;color:#d6e1e6;border:0;background:transparent;padding:8px 4px}
-.overlayRegion>a i{font-style:normal;color:#70a9c0;font-size:18px}.overlayRegion>a b{font-size:13px;font-weight:400}.overlayRegion>a em{font-style:normal;color:#63a9c3;font-size:22px}
-}
-/* Hard reset mobile overlay — isolate from legacy rules */
-@media(max-width:800px){
-.mobileOverlay{display:block!important;position:fixed!important;inset:0!important;z-index:100!important;overflow-y:auto!important;padding:calc(env(safe-area-inset-top) + 22px) 22px calc(env(safe-area-inset-bottom) + 30px)!important;transform:translateY(-105%)!important;opacity:0!important;background:#030a0f!important}
-.mobileOverlay.isOpen{transform:translateY(0)!important;opacity:1!important}
-.mobileOverlay .overlayTop{position:relative!important;top:auto!important;display:flex!important;order:initial!important;width:100%!important;margin:0!important;padding:8px 0 22px!important;background:transparent!important}
-.mobileOverlay .overlaySearch{position:relative!important;display:flex!important;width:100%!important;margin:0 0 26px!important;padding:18px!important}
-.mobileOverlay nav{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important;transform:none!important}
-.mobileOverlay nav section{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:18px 6px!important;transform:none!important;border-top:1px solid #315365!important}
-.mobileOverlay nav h3{display:block!important;width:100%!important;margin:0 0 10px!important}
-.mobileOverlay nav a{position:relative!important;display:flex!important;width:100%!important;min-height:48px!important;margin:0!important;padding:11px 4px!important;align-items:center!important;justify-content:space-between!important;transform:none!important}
-.mobileOverlay .overlayRegion{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:18px 6px!important;inset:auto!important;transform:none!important;border-top:1px solid #315365!important}
-.mobileOverlay .overlayRegion>span{display:block!important;width:100%!important;margin:0 0 10px!important}
-.mobileOverlay .overlayRegion>a{position:relative!important;display:grid!important;width:100%!important;grid-template-columns:32px 1fr 20px!important;min-height:48px!important;margin:0!important;padding:8px 4px!important;transform:none!important}
-}
-/* Approved concept: rebuilt mobile menu */
-@media(max-width:800px){
-.mobileOverlay{padding:0 22px 34px!important;background:radial-gradient(circle at 50% 4%,#16435b55,transparent 24%),linear-gradient(180deg,#06121a,#02080c 46%,#03090d)!important}
-.mobileMenuHero{height:155px;margin:0 -22px 0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0b1d28aa,#06121ad9);border-bottom:1px solid #163849}
-.mobileMenuHero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24516b33,transparent 65%);pointer-events:none}
-.menuClose{position:absolute;right:18px;top:18px;width:34px;height:34px;border:0;background:transparent;color:#70a9c0;font-size:27px;font-weight:200;z-index:2}
-.menuLogo{position:relative;font:400 35px Georgia,serif;letter-spacing:5px;color:#f1f8fb}.menuLogo em{font-style:normal;color:#6dd9f7}.menuLogo small{display:block;text-align:center;margin-top:4px;font:500 9px sans-serif;letter-spacing:7px;color:#79b8ce}.mobileMenuHero p{position:relative;margin:14px 0 0;font-size:7px;letter-spacing:4px;color:#7697a5}
-.mobileOverlay .overlaySearch{height:58px!important;min-height:58px!important;margin:14px 0 12px!important;padding:0 16px!important;border:1px solid #2683ac!important;border-radius:4px!important;background:#071722dd!important;font-size:21px!important;color:#46bce9!important}.overlaySearch span{font-size:12px!important;letter-spacing:0!important;margin-left:14px!important;color:#9fb2bb!important;text-transform:none}
-.mobileOverlay nav section{padding:17px 4px 12px!important}.mobileOverlay nav section:first-child{border-top:0!important}.mobileOverlay nav h3{font-size:8px!important;letter-spacing:4px!important;color:#7fe6ff!important}
-.mobileOverlay nav a{display:grid!important;grid-template-columns:34px 1fr 20px!important;min-height:42px!important;padding:6px 0!important}.mobileOverlay nav a i{font-style:normal;color:#6d9eb2;font-size:18px;text-align:center}.mobileOverlay nav a span{font-size:12px;color:#d8e1e5;padding-left:8px}.mobileOverlay nav a b{font-size:21px!important;color:#65abc5!important;font-weight:300}
-.mobileOverlay .overlayRegion{padding:17px 4px 12px!important}.overlayRegion>a{grid-template-columns:34px 1fr 20px!important;min-height:42px!important;padding:6px 0!important}.overlayRegion>a i{text-align:center}.overlayRegion>a b{font-size:12px!important;color:#d8e1e5!important;padding-left:8px}.overlayRegion>a em{font-size:21px!important}
-.discordMenu{margin:16px 4px 0;min-height:58px;border:1px solid #315365;border-radius:4px;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;padding:0 12px;color:#dce6ea}.discordMenu i{font-style:normal;font-size:20px;color:#7285ff}.discordMenu span{font-size:12px}.discordMenu b{font-size:21px;color:#6b7fff}
-}
-/* V3 isolated menu: exact approved composition */
-@media(max-width:800px){
-.mobileMenuV3{display:block!important;position:fixed!important;inset:0!important;z-index:120!important;overflow-y:auto!important;box-sizing:border-box!important;padding:0 22px 36px!important;transform:translateY(-105%)!important;opacity:0!important;background:radial-gradient(ellipse at 50% 3%,#173e5255,transparent 23%),#030a0f!important}
-.mobileMenuV3.isOpen{transform:translateY(0)!important;opacity:1!important}
-.mobileMenuV3 .mobileMenuHero{height:154px!important;margin:0 -22px!important;display:flex!important;position:relative!important;align-items:center!important;justify-content:center!important;flex-direction:column!important}
-.mobileMenuV3 .menuLogo{font:400 35px Georgia,serif!important;letter-spacing:5px!important}.mobileMenuV3 .menuLogo small{display:block!important}.mobileMenuV3 .mobileMenuHero p{display:block!important}
-.mobileMenuV3 .overlaySearch{position:relative!important;width:100%!important;height:58px!important;min-height:58px!important;margin:14px 0 12px!important;padding:0 16px!important;display:flex!important;align-items:center!important;box-sizing:border-box!important}
-.mobileMenuV3 nav{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important}
-.mobileMenuV3 nav section{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:17px 4px 12px!important;box-sizing:border-box!important;border-top:1px solid #315365!important}
-.mobileMenuV3 nav section:first-child{border-top:0!important}
-.mobileMenuV3 nav h3{position:relative!important;display:block!important;width:100%!important;margin:0 0 9px!important;padding:0!important}
-.mobileMenuV3 nav a{position:relative!important;display:grid!important;grid-template-columns:34px minmax(0,1fr) 20px!important;width:100%!important;min-height:42px!important;margin:0!important;padding:6px 0!important;box-sizing:border-box!important;align-items:center!important;transform:none!important}
-.mobileMenuV3 nav a i{display:block!important}.mobileMenuV3 nav a span{display:block!important}.mobileMenuV3 nav a b{display:block!important;text-align:right!important}
-.mobileMenuV3 .overlayRegion{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:17px 4px 12px!important;box-sizing:border-box!important;border-top:1px solid #315365!important;inset:auto!important;transform:none!important}
-.mobileMenuV3 .overlayRegion>span{position:relative!important;display:block!important;width:100%!important;margin:0 0 9px!important;padding:0!important}
-.mobileMenuV3 .overlayRegion>a{position:relative!important;display:grid!important;grid-template-columns:34px minmax(0,1fr) 20px!important;width:100%!important;min-height:42px!important;margin:0!important;padding:6px 0!important;box-sizing:border-box!important;align-items:center!important;transform:none!important}
-.mobileMenuV3 .discordMenu{position:relative!important;width:calc(100% - 8px)!important;margin:16px 4px 0!important;box-sizing:border-box!important}
+.presentationHome .cinemaNav{display:none}
+.mobileOverlay{display:block;position:fixed;inset:0;z-index:100;overflow-y:auto;padding:0 22px 36px;background:radial-gradient(ellipse at 50% 4%,#173e5255,transparent 24%),#030a0f;color:#d8e1e5;transform:translateY(-105%);opacity:0;transition:.28s ease}
+.mobileOverlay.isOpen{transform:translateY(0);opacity:1}
+.mobileMenuHero{height:154px;margin:0 -22px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0b1d28aa,#06121ad9);border-bottom:1px solid #163849}
+.menuClose{position:absolute;right:18px;top:18px;width:36px;height:36px;border:0;background:transparent;color:#72a8bc;font-size:29px}
+.menuLogo{font:400 35px Georgia,serif;letter-spacing:5px;color:#f1f8fb}.menuLogo em{font-style:normal;color:#6dd9f7}.menuLogo small{display:block;text-align:center;margin-top:4px;font:500 9px sans-serif;letter-spacing:7px;color:#79b8ce}
+.mobileMenuHero p{margin:14px 0 0;font-size:7px;letter-spacing:4px;color:#7697a5}
+.overlaySearch{height:58px;margin:14px 0 12px;padding:0 16px;display:flex;align-items:center;border:1px solid #2683ac;border-radius:4px;background:#071722dd;color:#46bce9;font-size:21px}
+.overlaySearch span{margin-left:14px;color:#9fb2bb;font-size:12px;text-transform:none;letter-spacing:0}
+.mobileOverlay nav{display:block;width:100%}
+.mobileOverlay nav section{width:100%;padding:17px 4px 12px;border-top:1px solid #315365}
+.mobileOverlay nav section:first-child{border-top:0}
+.mobileOverlay nav h3,.overlayRegion>span{display:block;margin:0 0 9px;color:#7fe6ff;font-size:8px;letter-spacing:4px}
+.mobileOverlay nav a,.overlayRegion>a{display:grid;width:100%;grid-template-columns:34px minmax(0,1fr) 20px;align-items:center;min-height:42px;padding:6px 0;color:#d8e1e5}
+.mobileOverlay nav a i,.overlayRegion>a i{font-style:normal;color:#6d9eb2;font-size:18px;text-align:center}
+.mobileOverlay nav a span,.overlayRegion>a b{padding-left:8px;font-size:12px;font-weight:400}
+.mobileOverlay nav a b,.overlayRegion>a em{font-style:normal;text-align:right;color:#65abc5;font-size:21px;font-weight:300}
+.overlayRegion{position:static;width:100%;margin:0;padding:17px 4px 12px;border-top:1px solid #315365;transform:none}
+.discordMenu{min-height:58px;margin:16px 4px 0;padding:0 12px;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;border:1px solid #315365;border-radius:4px;color:#dce6ea}
+.discordMenu i{font-style:normal;font-size:20px;color:#7285ff}.discordMenu span{font-size:12px}.discordMenu b{font-size:21px;color:#6b7fff}
 }
