@@ -82,3 +82,21 @@
 .mobileOverlay .overlayRegion{padding:17px 4px 12px!important}.overlayRegion>a{grid-template-columns:34px 1fr 20px!important;min-height:42px!important;padding:6px 0!important}.overlayRegion>a i{text-align:center}.overlayRegion>a b{font-size:12px!important;color:#d8e1e5!important;padding-left:8px}.overlayRegion>a em{font-size:21px!important}
 .discordMenu{margin:16px 4px 0;min-height:58px;border:1px solid #315365;border-radius:4px;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;padding:0 12px;color:#dce6ea}.discordMenu i{font-style:normal;font-size:20px;color:#7285ff}.discordMenu span{font-size:12px}.discordMenu b{font-size:21px;color:#6b7fff}
 }
+/* V3 isolated menu: exact approved composition */
+@media(max-width:800px){
+.mobileMenuV3{display:block!important;position:fixed!important;inset:0!important;z-index:120!important;overflow-y:auto!important;box-sizing:border-box!important;padding:0 22px 36px!important;transform:translateY(-105%)!important;opacity:0!important;background:radial-gradient(ellipse at 50% 3%,#173e5255,transparent 23%),#030a0f!important}
+.mobileMenuV3.isOpen{transform:translateY(0)!important;opacity:1!important}
+.mobileMenuV3 .mobileMenuHero{height:154px!important;margin:0 -22px!important;display:flex!important;position:relative!important;align-items:center!important;justify-content:center!important;flex-direction:column!important}
+.mobileMenuV3 .menuLogo{font:400 35px Georgia,serif!important;letter-spacing:5px!important}.mobileMenuV3 .menuLogo small{display:block!important}.mobileMenuV3 .mobileMenuHero p{display:block!important}
+.mobileMenuV3 .overlaySearch{position:relative!important;width:100%!important;height:58px!important;min-height:58px!important;margin:14px 0 12px!important;padding:0 16px!important;display:flex!important;align-items:center!important;box-sizing:border-box!important}
+.mobileMenuV3 nav{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important}
+.mobileMenuV3 nav section{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:17px 4px 12px!important;box-sizing:border-box!important;border-top:1px solid #315365!important}
+.mobileMenuV3 nav section:first-child{border-top:0!important}
+.mobileMenuV3 nav h3{position:relative!important;display:block!important;width:100%!important;margin:0 0 9px!important;padding:0!important}
+.mobileMenuV3 nav a{position:relative!important;display:grid!important;grid-template-columns:34px minmax(0,1fr) 20px!important;width:100%!important;min-height:42px!important;margin:0!important;padding:6px 0!important;box-sizing:border-box!important;align-items:center!important;transform:none!important}
+.mobileMenuV3 nav a i{display:block!important}.mobileMenuV3 nav a span{display:block!important}.mobileMenuV3 nav a b{display:block!important;text-align:right!important}
+.mobileMenuV3 .overlayRegion{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:17px 4px 12px!important;box-sizing:border-box!important;border-top:1px solid #315365!important;inset:auto!important;transform:none!important}
+.mobileMenuV3 .overlayRegion>span{position:relative!important;display:block!important;width:100%!important;margin:0 0 9px!important;padding:0!important}
+.mobileMenuV3 .overlayRegion>a{position:relative!important;display:grid!important;grid-template-columns:34px minmax(0,1fr) 20px!important;width:100%!important;min-height:42px!important;margin:0!important;padding:6px 0!important;box-sizing:border-box!important;align-items:center!important;transform:none!important}
+.mobileMenuV3 .discordMenu{position:relative!important;width:calc(100% - 8px)!important;margin:16px 4px 0!important;box-sizing:border-box!important}
+}
