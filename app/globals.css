@@ -131,3 +131,26 @@
 .a2Groups a>span{text-shadow:0 2px 7px #000!important}.a2Groups a>span small{line-height:1.35!important}
 .a2Discord{box-shadow:0 10px 25px #0008,0 0 22px #586cff28,inset 0 0 30px #344c9a30!important}
 }
+
+/* VISION interactive mockup integration — real UI */
+.visionDock{display:none}
+@media(max-width:800px){
+.a2MobileMenu{padding-bottom:104px!important}
+.a2MenuHero{flex-basis:330px!important;background:
+ radial-gradient(circle at 50% 18%,#d9f6ff40 0 2%,transparent 16%),
+ radial-gradient(ellipse at 20% 47%,#eef8ff35 0 8%,transparent 34%),
+ radial-gradient(ellipse at 80% 47%,#9d55db35 0 8%,transparent 34%),
+ linear-gradient(180deg,#1a4c75 0%,#102b4b 42%,#071424 75%,#030b14 100%)!important}
+.a2MenuHero:before{left:-1%!important;top:28px!important;width:48%!important;height:250px!important;clip-path:polygon(0 0,75% 0,100% 30%,73% 42%,100% 58%,70% 66%,91% 100%,35% 80%,0 100%)!important;background:linear-gradient(135deg,#f8fcffb8,#8dbfe766 42%,#2d6e9d11 76%)!important;filter:drop-shadow(0 0 18px #c6ebff55)!important}
+.a2MenuHero:after{right:-1%!important;top:28px!important;width:48%!important;height:250px!important;clip-path:polygon(25% 0,100% 0,100% 100%,65% 80%,9% 100%,30% 66%,0 58%,27% 42%,0 30%)!important;background:linear-gradient(225deg,#b775e399,#54256f77 44%,#27123d11 76%)!important;filter:drop-shadow(0 0 20px #a74de766)!important}
+.a2Logo{margin-top:105px!important}.a2Logo>span{font-size:52px!important}.a2Logo>span em{font-size:67px!important}.a2Logo>small{font-size:14px!important}
+.a2Search{margin-top:18px!important}
+.a2Groups section{background-color:#071a2c!important;background-image:linear-gradient(90deg,#061426f5 0%,#0a1f35e8 48%,#123a5abf 100%),radial-gradient(circle at 88% 45%,#55b9ef35,transparent 30%)!important}
+.a2Groups section:nth-of-type(1){background-image:linear-gradient(90deg,#061426f5,#0a1f35d9),radial-gradient(circle at 82% 32%,#d7b76a2e,transparent 30%)!important}
+.a2Groups section:nth-of-type(2){background-image:linear-gradient(90deg,#061426f5,#0a1f35df),radial-gradient(circle at 84% 70%,#e4904225,transparent 34%)!important}
+.a2Groups section:nth-of-type(3){background-image:linear-gradient(90deg,#061426f5,#0a1f35df),radial-gradient(circle at 84% 45%,#784bc938,transparent 34%)!important}
+.a2Groups a i{transform:perspective(80px) rotateY(-5deg)!important}
+.visionDock{position:fixed!important;display:grid!important;grid-template-columns:repeat(5,1fr)!important;left:0!important;right:0!important;bottom:0!important;height:82px!important;z-index:10003!important;background:linear-gradient(180deg,#06111df7,#020811)!important;border-top:1px solid #5abcf055!important;box-shadow:0 -10px 30px #000a,0 -1px 18px #45bfff25!important;padding:8px 8px max(8px,env(safe-area-inset-bottom))!important}
+.visionDock a,.visionDock button{border:0!important;background:none!important;color:#8ea4b9!important;text-decoration:none!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;font:10px Arial,sans-serif!important}
+.visionDock svg{width:22px!important;height:22px!important;stroke-width:1.7!important}.visionDock a:first-child{color:#7bdcff!important;text-shadow:0 0 8px #55cfff!important}.visionDock a:first-child svg{filter:drop-shadow(0 0 6px #55cfff)!important}.dockDots{font-size:20px!important;line-height:14px!important;letter-spacing:2px!important}
+}
