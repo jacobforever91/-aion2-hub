@@ -1,5 +1,6 @@
 "use client";
 import {useState} from "react";
+import {Shield, Sparkles, Swords, BookOpen, Users, Hammer, Badge, Crown, Map, Skull, ScrollText, Compass, ChartNoAxesCombined, Wrench, Globe2, Flag, MessageCircle} from "lucide-react";
 const menus={GAME:[["Classes","/classes"],["Skills","/database"],["Progression","/database"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Class Builds","/classes"],["PvE Builds","/classes"],["PvP Builds","/classes"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
 export default function Home(){const[open,setOpen]=useState(false);return <main className="homeV2 presentationHome">
 <header className="cinemaNav"><a className="cinemaBrand" href="/"><b>AION <i>2</i></b><span>HUB</span></a><div className="cinemaLinks">{Object.entries(menus).map(([name,items])=><div className="navGroup" key={name}><button>{name}<small>⌄</small></button><div className="dropMenu">{items.map(x=><a href={x[1]} key={x[0]}>{x[0]}<b>→</b></a>)}</div></div>)}</div><div className="cinemaActions"><button>GLOBAL⌄</button><button className="searchBtn">⌕</button></div></header>
@@ -8,14 +9,14 @@ export default function Home(){const[open,setOpen]=useState(false);return <main 
   <div className="a2MenuHero"><button className="a2Close" onClick={()=>setOpen(false)} aria-label="Close menu">×</button><div className="a2Logo">AION <em>2</em><small>HUB</small></div><p>ALL OF ATREIA IN ONE PLACE</p></div>
   <div className="a2Search">⌕ <span>Search AION 2...</span></div>
   <div className="a2Groups">
-    <section><h3>GAME</h3><a href="/classes"><i>♜</i><span>Classes</span><b>›</b></a><a href="/database"><i>✦</i><span>Skills</span><b>›</b></a></section>
-    <section><h3>DATABASE</h3><a href="/database"><i>⚔</i><span>Items</span><b>›</b></a><a href="/database"><i>▣</i><span>Skills</span><b>›</b></a><a href="/database"><i>●</i><span>NPCs</span><b>›</b></a><a href="/database"><i>◆</i><span>Crafting</span><b>›</b></a></section>
-    <section><h3>BUILDS</h3><a href="/classes"><i>♜</i><span>Class Builds</span><b>›</b></a><a href="/classes"><i>♛</i><span>PvE Builds</span><b>›</b></a><a href="/classes"><i>⚔</i><span>PvP Builds</span><b>›</b></a></section>
-    <section><h3>WORLD</h3><a href="/database"><i>◫</i><span>Map</span><b>›</b></a><a href="/database"><i>♉</i><span>Dungeons &amp; Bosses</span><b>›</b></a><a href="/database"><i>▤</i><span>Lore</span><b>›</b></a></section>
-    <section><h3>GUIDES</h3><a href="/database"><i>◒</i><span>Beginner Guide</span><b>›</b></a><a href="/database"><i>▥</i><span>Progression Guide</span><b>›</b></a><a href="/database"><i>⚙</i><span>Tips &amp; Tools</span><b>›</b></a></section>
-    <section><h3>REGION</h3><a href="/"><i>◎</i><span>Global</span><b>›</b></a><a href="/"><i>◉</i><span>KR / TW</span><b>›</b></a></section>
+    <section><h3>GAME</h3><a href="/classes"><i><Shield/></i><span>Classes</span><b>›</b></a><a href="/database"><i><Sparkles/></i><span>Skills</span><b>›</b></a></section>
+    <section><h3>DATABASE</h3><a href="/database"><i><Swords/></i><span>Items</span><b>›</b></a><a href="/database"><i><BookOpen/></i><span>Skills</span><b>›</b></a><a href="/database"><i><Users/></i><span>NPCs</span><b>›</b></a><a href="/database"><i><Hammer/></i><span>Crafting</span><b>›</b></a></section>
+    <section><h3>BUILDS</h3><a href="/classes"><i><Badge/></i><span>Class Builds</span><b>›</b></a><a href="/classes"><i><Crown/></i><span>PvE Builds</span><b>›</b></a><a href="/classes"><i><Swords/></i><span>PvP Builds</span><b>›</b></a></section>
+    <section><h3>WORLD</h3><a href="/database"><i><Map/></i><span>Map</span><b>›</b></a><a href="/database"><i><Skull/></i><span>Dungeons &amp; Bosses</span><b>›</b></a><a href="/database"><i><ScrollText/></i><span>Lore</span><b>›</b></a></section>
+    <section><h3>GUIDES</h3><a href="/database"><i><Compass/></i><span>Beginner Guide</span><b>›</b></a><a href="/database"><i><ChartNoAxesCombined/></i><span>Progression Guide</span><b>›</b></a><a href="/database"><i><Wrench/></i><span>Tips &amp; Tools</span><b>›</b></a></section>
+    <section><h3>REGION</h3><a href="/"><i><Globe2/></i><span>Global</span><b>›</b></a><a href="/"><i><Flag/></i><span>KR / TW</span><b>›</b></a></section>
   </div>
-  <div className="a2Discord"><i>☁</i><span>Join Our Discord</span><b>›</b></div>
+  <div className="a2Discord"><i><MessageCircle/></i><span>Join Our Discord</span><b>›</b></div>
 </div>
 <section className="gamePanel introPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>A NEW AGE OF ATREIA</span><h1>AION <strong>2</strong></h1><p>Your saga takes flight. Two factions. One world.</p><a href="#factions">DISCOVER THE WORLD ↓</a></div></section>
 <section id="factions" className="gamePanel factionPanel elyosPanel"><div className="panelShade"/><div className="panelCopy leftCopy"><span>THE CELESTIAL REALM</span><h2>ELYOS</h2><p>Discover one of AION 2's two factions and enter Atreia from the Elyos side.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ELYOS →</a></div><div className="panelIndex">01</div></section>
