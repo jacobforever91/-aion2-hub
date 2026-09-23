@@ -216,3 +216,5 @@
 .a2Discord{grid-template-columns:62px minmax(0,1fr) 24px!important}.a2Discord>span{min-width:0!important}
 
 @media(min-width:801px){.mobileFloatNav{display:flex!important;position:absolute!important;z-index:21!important;top:14px!important;left:calc(4.5vw + 150px)!important;right:auto!important;gap:8px!important;pointer-events:none!important}.mobileFloatNav>button,.mobileFloatNav>a{pointer-events:auto!important;width:38px!important;height:38px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px solid #70dfff55!important;border-radius:6px!important;background:#071522bf!important;color:#dff8ff!important;box-shadow:0 0 14px #28b9ff24!important}.mobileFloatNav>button{flex-direction:column!important;gap:4px!important}.mobileFloatNav>button i{display:block!important;width:16px!important;height:1.5px!important;background:#eafaff!important;box-shadow:0 0 6px #a9efff!important}.homeRoof{font-size:22px!important;line-height:1!important;color:#c7f2ff!important;text-shadow:0 0 9px #74ddff!important}}
+
+.cinemaLinks{display:none!important}
