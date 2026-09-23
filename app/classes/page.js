@@ -30,7 +30,9 @@ export default function Classes() {
       <div className="classGrid" aria-label="Clases de AION 2">
         {classes.map(({name, emblem}) => (
           <div className="classIcon" key={name} role="img" aria-label={name} title={name}>
-            <img src={`${emblemBase}/${emblem}.webp`} alt="" />
+            <span className="classEmblemCrop">
+              <img src={`${emblemBase}/${emblem}.webp`} alt="" />
+            </span>
           </div>
         ))}
       </div>
