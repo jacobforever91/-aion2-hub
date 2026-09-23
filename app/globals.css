@@ -40,3 +40,16 @@
 .discordMenu{min-height:58px;margin:16px 4px 0;padding:0 12px;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;border:1px solid #315365;border-radius:4px;color:#dce6ea}
 .discordMenu i{font-style:normal;font-size:20px;color:#7285ff}.discordMenu span{font-size:12px}.discordMenu b{font-size:21px;color:#6b7fff}
 }
+
+/* Mobile menu containment fix */
+@media(max-width:800px){
+.mobileOverlay.mobileMenuV3{display:flex!important;flex-direction:column!important;position:fixed!important;inset:0!important;overflow-y:auto!important;padding:0 22px 36px!important;transform:translateY(-105%)!important}
+.mobileOverlay.mobileMenuV3.isOpen{transform:translateY(0)!important}
+.mobileMenuV3 .mobileMenuHero{display:flex!important;position:relative!important;flex:0 0 154px!important;order:1!important}
+.mobileMenuV3 .overlaySearch{position:relative!important;order:2!important;flex:none!important}
+.mobileMenuV3 nav{position:relative!important;display:block!important;order:3!important;flex:none!important}
+.mobileMenuV3 nav section{position:relative!important;display:block!important;float:none!important;clear:both!important}
+.mobileMenuV3 .overlayRegion{position:relative!important;inset:auto!important;order:4!important;display:block!important;float:none!important;clear:both!important;transform:none!important}
+.mobileMenuV3 .discordMenu{position:relative!important;inset:auto!important;order:5!important;display:grid!important;float:none!important;clear:both!important;transform:none!important}
+.mobileMenuV3 nav a,.mobileMenuV3 .overlayRegion a{position:relative!important;float:none!important}
+}
