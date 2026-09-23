@@ -1,23 +1,8 @@
-const sections=[
-["Database","Items, skills, monsters, NPCs, quests and rewards","12K+","◈"],
-["Builds","Discover builds and prepare your own setup","META","⚔"],
-["Classes","Class identity, skills, gear and progression","8","♜"],
-["World Map","Bosses, gathering, NPCs and exploration routes","LIVE","⌖"],
-["Dungeons","Mechanics, encounters, loot and requirements","PVE","◆"],
-["Crafting","Recipes, materials and progression paths","RECIPES","✧"],
-["Guides","Leveling, gearing, PvE, PvP and progression","NEW","☷"],
-["Tools","Planners, calculators, trackers and utilities","LAB","⚙"]
-];
-const updates=[
-["GLOBAL LAUNCH","September 2026","Global release information and regional data will stay clearly separated."],
-["DATABASE","Connected knowledge","Items can lead to sources, bosses, dungeons, maps and crafting materials."],
-["REGIONS","Global · KR/TW","Switch regions without mixing balance, content or progression information."]
-];
-export default function Home(){return <main>
-<nav><a className="brand" href="#"><b>AION <i>2</i> HUB</b><small>DATABASE & TOOLS</small></a><div className="navlinks"><a href="/database">Database</a><a href="#builds">Builds</a><a href="/classes">Classes</a><a href="#world">World</a><a href="#guides">Guides</a></div><div className="navActions"><button className="region">🌐 GLOBAL⌄</button><button className="menu">☰</button></div></nav>
-<section className="hero"><div className="heroGlow"/><div className="eyebrow">✦ THE ALL-IN-ONE AION 2 COMPANION ✦</div><h1>One world.<br/><em>Every answer.</em></h1><p>Search the entire world of AION 2 from one place — builds, items, skills, bosses, quests, maps, crafting and guides.</p><div className="search"><span>⌕</span><input placeholder="Search items, bosses, quests, skills..."/><kbd>⌘ K</kbd></div><div className="chips"><span>⚔ Builds</span><span>✦ Items</span><span>♜ Bosses</span><span>◇ Quests</span><span>⌖ Maps</span></div><div className="status"><b>● LIVE FOUNDATION</b><span>Global + KR/TW architecture</span><span>•</span><span>Mobile ready</span></div></section>
-<section className="updates"><div className="updateInner">{updates.map(x=><article key={x[0]}><small>{x[0]}</small><h3>{x[1]}</h3><p>{x[2]}</p></article>)}</div></section>
-<section className="content" id="database"><div className="heading"><div><small>EXPLORE THE HUB</small><h2>Everything connects here</h2><p>Start anywhere. Every page will lead you to the information you need next.</p></div><span className="version">AION 2 HUB • PHASE 01</span></div><div className="grid">{sections.map((s,i)=><article id={i===1?"builds":i===2?"classes":i===3?"world":i===6?"guides":undefined} key={s[0]}><div className="cardTop"><div className="icon">{s[3]}</div><span>{s[2]}</span></div><h3>{s[0]}</h3><p>{s[1]}</p><a href="#">Explore <b>→</b></a></article>)}</div></section>
-<section className="vision"><small>THE HUB VISION</small><h2>Stop searching ten websites.<br/><em>Find it here.</em></h2><p>Our goal is to connect every useful piece of AION 2 knowledge into one fast, searchable companion.</p><div className="flow"><span>ITEM</span><b>→</b><span>DROP SOURCE</span><b>→</b><span>BOSS</span><b>→</b><span>DUNGEON</span><b>→</b><span>MAP</span></div></section>
-<footer><div><b>AION <i>2</i> HUB</b><p>Independent community companion for AION 2.</p></div><div className="footerTags"><span>GLOBAL</span><span>KR / TW</span><span>DATA SEPARATED</span></div></footer>
+const gateways=[["Classes","Choose your path","/classes","♜"],["Builds","Find your setup","#builds","⚔"],["Items","Gear & materials","/database","✦"],["Bosses","Hunt & rewards","/database","◆"],["Dungeons","Enter the challenge","/database","◇"],["World Map","Explore Atreia","#world","⌖"]];
+export default function Home(){return <main className="homeV2">
+<header className="cinemaNav"><a className="cinemaBrand" href="/"><b>AION <i>2</i></b><span>HUB</span></a><div className="cinemaLinks"><a href="/classes">GAME</a><a href="/database">DATABASE</a><a href="#builds">BUILDS</a><a href="#world">WORLD</a><a href="#guides">GUIDES</a></div><div className="cinemaActions"><button>GLOBAL⌄</button><button className="searchBtn">⌕</button><button className="menu">☰</button></div></header>
+<section className="cinemaHero"><div className="skyOrb"/><div className="wing wingL"/><div className="wing wingR"/><div className="heroMist"/><div className="cinemaCopy"><span className="chapter">A NEW ERA OF ATREIA</span><h1>AION <strong>2</strong><small>HUB</small></h1><p>Everything you need for your journey. One place.</p><div className="heroButtons"><a href="/database">EXPLORE THE HUB</a><button aria-label="Search">⌕ SEARCH AION 2</button></div></div><div className="scrollCue"><span>SCROLL TO EXPLORE</span><b>⌄</b></div></section>
+<section className="gateway"><div className="gatewayTitle"><span>START YOUR JOURNEY</span><h2>Where do you want to go?</h2></div><div className="gatewayGrid">{gateways.map(x=><a href={x[2]} key={x[0]}><i>{x[3]}</i><div><b>{x[0]}</b><span>{x[1]}</span></div><strong>→</strong></a>)}</div></section>
+<section className="homeSpotlight"><div><span>BUILT FOR PLAYERS</span><h2>See it.<br/>Find it.<br/><em>Play.</em></h2><p>No walls of text. Follow visual connections from class to skill, gear, boss, dungeon and map.</p></div><div className="spotFlow"><b>CLASS</b><i>→</i><b>SKILL</b><i>→</i><b>BUILD</b><i>→</i><b>GEAR</b><i>→</i><b>BOSS</b></div></section>
+<footer><div><b>AION <i>2</i> HUB</b><p>Independent community companion for AION 2.</p></div><div className="footerTags"><span>GLOBAL</span><span>KR / TW</span></div></footer>
 </main>}
