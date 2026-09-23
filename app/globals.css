@@ -72,3 +72,10 @@
 .a2Groups a i{display:block!important;font-style:normal!important;text-align:center!important;color:#6e9daf!important;font-size:18px!important}.a2Groups a span{display:block!important;padding-left:8px!important;font-size:12px!important}.a2Groups a b{display:block!important;text-align:right!important;color:#65acc6!important;font-size:21px!important;font-weight:300!important}
 .a2Discord{position:relative!important;display:grid!important;width:auto!important;grid-template-columns:44px 1fr 20px!important;align-items:center!important;min-height:58px!important;margin:16px 4px 0!important;padding:0 12px!important;border:1px solid #315463!important;border-radius:4px!important}.a2Discord i{font-style:normal!important;color:#7284ff!important;font-size:20px!important}.a2Discord span{font-size:12px!important}.a2Discord b{text-align:right!important;color:#7180ff!important;font-size:21px!important}
 }
+/* Fantasy icon polish */
+@media(max-width:800px){
+.a2Groups a i,.a2Discord i{width:34px!important;height:34px!important;display:grid!important;place-items:center!important;border-radius:9px!important;background:radial-gradient(circle at 50% 35%,#164a62,#07151e 72%)!important;border:1px solid #2a6d87!important;box-shadow:0 0 14px #29b9e62b,inset 0 0 10px #5bdcff14!important;color:#8be8ff!important}
+.a2Groups a i svg,.a2Discord i svg{width:20px!important;height:20px!important;stroke-width:1.65!important;filter:drop-shadow(0 0 4px #44cfff88)}
+.a2Groups section:nth-of-type(4) a:nth-of-type(2) i{color:#d08cff!important;border-color:#744391!important;background:radial-gradient(circle,#40214f,#100b18 72%)!important;box-shadow:0 0 15px #c74cff35!important}
+.a2Discord i{color:#8293ff!important;border-color:#4453a5!important;background:radial-gradient(circle,#26358a,#0b1231 72%)!important}
+}
