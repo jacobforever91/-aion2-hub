@@ -4,7 +4,7 @@ const menus={GAME:[["Classes","/classes"],["Skills","/database"],["Progression",
 export default function Home(){const[open,setOpen]=useState(false);return <main className="homeV2 presentationHome">
 <header className="cinemaNav"><a className="cinemaBrand" href="/"><b>AION <i>2</i></b><span>HUB</span></a><div className="cinemaLinks">{Object.entries(menus).map(([name,items])=><div className="navGroup" key={name}><button>{name}<small>⌄</small></button><div className="dropMenu">{items.map(x=><a href={x[1]} key={x[0]}>{x[0]}<b>→</b></a>)}</div></div>)}</div><div className="cinemaActions"><button>GLOBAL⌄</button><button className="searchBtn">⌕</button></div></header>
 <div className="mobileFloatNav"><button onClick={()=>setOpen(true)} aria-label="Open menu"><i/><i/><i/></button><a href="/" aria-label="Home"><span className="homeRoof">⌂</span></a></div>
-<div className={"mobileOverlay "+(open?"isOpen":"")}>
+<div className={"mobileOverlay mobileMenuV3 "+(open?"isOpen":"")}>
 <div className="mobileMenuHero"><button className="menuClose" onClick={()=>setOpen(false)} aria-label="Close menu">×</button><div className="menuLogo">AION <em>2</em><small>HUB</small></div><p>ALL OF ATREIA IN ONE PLACE</p></div>
 <div className="overlaySearch">⌕ <span>Search AION 2...</span></div>
 <nav>
