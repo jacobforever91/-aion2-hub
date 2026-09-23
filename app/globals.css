@@ -279,3 +279,42 @@
 @media(prefers-reduced-motion:reduce){.a2MobileMenu{transition:none!important}}
 
 .a2MenuDock.isVisible{opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+
+/* Desktop menu cleanup after visual review */
+@media(min-width:801px){
+ .a2MobileMenu{background:radial-gradient(ellipse at 50% 0,#103253 0,transparent 44%),linear-gradient(180deg,#050f1c,#020812 75%)!important}
+ .a2MenuHero{position:relative!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-end!important;width:calc(100% + 48px)!important;flex:0 0 clamp(260px,40svh,370px)!important;min-height:0!important;margin:0 -24px!important;padding:20px 28px 24px!important;overflow:hidden!important;background-image:linear-gradient(180deg,#02091400 38%,#020914cc 83%,#020914 100%),url("/aion-menu-art.webp")!important;background-size:cover!important;background-position:center 23%!important;border-bottom:1px solid #58c8ff77!important}
+ .a2MenuHero:before,.a2MenuHero:after,.visionHeroArt{display:none!important}
+ .a2Logo{position:relative!important;z-index:3!important;margin:0!important;text-align:center!important;text-shadow:0 0 22px #44caff88!important}
+ .a2Logo>span{display:block!important;color:#f4fbff!important;font:400 clamp(42px,5vw,68px)/.92 Georgia,serif!important;letter-spacing:3px!important}
+ .a2Logo>span em{font-size:1.14em!important;font-style:normal!important;color:#5bdcff!important}
+ .a2Logo>small{display:block!important;margin-top:7px!important;color:#a4eaff!important;font:500 10px/1.3 system-ui,sans-serif!important;letter-spacing:8px!important}
+ .a2MenuHero>p{position:relative!important;z-index:3!important;margin:9px 0 0!important;color:#d3eaf5!important;font:600 8px/1.3 system-ui,sans-serif!important;letter-spacing:5px!important}
+ .a2Close{position:absolute!important;z-index:5!important;top:18px!important;right:24px!important;display:grid!important;place-items:center!important;width:44px!important;height:44px!important;border:1px solid #70dfff88!important;border-radius:50%!important;background:#06182acc!important;color:#e4f8ff!important;font:300 30px/1 system-ui,sans-serif!important;cursor:pointer!important}
+ .a2Search{box-sizing:border-box!important;width:min(900px,calc(100% - 48px))!important;height:58px!important;min-height:58px!important;margin:18px auto 20px!important;padding:0 18px!important;display:flex!important;align-items:center!important;gap:13px!important;border:1px solid #49cfff!important;border-radius:999px!important;background:linear-gradient(100deg,#06172bea,#0b2850ec)!important;box-shadow:0 0 20px #32c8ff29!important;color:#78dbff!important}
+ .a2Search>span{margin:0!important;color:#80e1ff!important;font-size:22px!important}
+ .a2Search input{flex:1!important;min-width:0!important;border:0!important;outline:0!important;background:transparent!important;color:#eef9ff!important;font:400 16px/1.3 system-ui,sans-serif!important}
+ .a2Search input::placeholder{color:#a7bfd4!important;opacity:1!important}
+ .a2Search button{padding:6px!important;border:0!important;background:transparent!important;color:#8ee4ff!important;font-size:20px!important;cursor:pointer!important}
+ .a2Groups{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important;width:min(1160px,calc(100% - 48px))!important;margin:0 auto!important}
+ .a2Groups section{box-sizing:border-box!important;position:relative!important;width:100%!important;min-width:0!important;margin:0!important;padding:14px 12px 10px!important;border:1px solid #3784af!important;border-radius:16px!important;background:linear-gradient(140deg,#0b1b30f5,#0a2540e8)!important;box-shadow:0 0 20px #1cbaff17,inset 0 0 20px #47caff0b!important}
+ .a2Groups section h3{display:flex!important;align-items:center!important;gap:10px!important;margin:0 0 8px!important;color:#e8d08c!important;font:700 10px/1.2 Georgia,serif!important;letter-spacing:4px!important}
+ .a2Groups section h3:after{content:""!important;flex:1!important;height:1px!important;background:linear-gradient(90deg,#b79d5b,#b79d5b00)!important}
+ .a2Groups a{position:relative!important;display:grid!important;grid-template-columns:48px minmax(0,1fr) 18px!important;align-items:center!important;gap:10px!important;width:100%!important;min-width:0!important;min-height:70px!important;margin:0 0 5px!important;padding:7px!important;overflow:hidden!important;border:1px solid #8edbff2b!important;border-radius:11px!important;background:linear-gradient(100deg,#06172df2 0%,#0a2340eb 68%,#0d2c4add 100%)!important;color:#f0f6fb!important;text-decoration:none!important}
+ .a2Groups a:last-child{margin-bottom:0!important}
+ .a2Groups a:after{content:""!important;position:absolute!important;z-index:0!important;top:0!important;right:0!important;bottom:0!important;width:38%!important;opacity:.58!important;pointer-events:none!important;mask-image:linear-gradient(90deg,transparent,#000 38%)!important;-webkit-mask-image:linear-gradient(90deg,transparent,#000 38%)!important;background-image:linear-gradient(90deg,transparent,#07182a88),url("/aion-menu-art.webp")!important;background-size:cover,auto 260%!important;background-position:center,right 22%!important}
+ .a2Groups a:nth-of-type(2):after{background-position:center,left 30%!important}
+ .a2Groups a:nth-of-type(3):after{background-position:center,center 44%!important}
+ .a2Groups a>i{position:relative!important;z-index:2!important;display:grid!important;place-items:center!important;width:46px!important;height:46px!important;margin:0!important;border:1px solid #4aa4c4!important;border-radius:10px!important;background:radial-gradient(circle at 50% 35%,#1b5470,#071725 76%)!important;color:#a8edff!important}
+ .a2Groups a>i svg{width:23px!important;height:23px!important;stroke-width:1.7!important}
+ .a2Groups a>span{position:relative!important;z-index:2!important;display:block!important;min-width:0!important;padding:0!important;color:#eef5fb!important;font:400 clamp(14px,1.15vw,17px)/1.2 Georgia,serif!important;letter-spacing:0!important;text-shadow:0 2px 7px #000!important}
+ .a2Groups a>span small{display:block!important;margin-top:4px!important;color:#aabaca!important;font:400 11px/1.35 system-ui,sans-serif!important;letter-spacing:0!important;white-space:normal!important}
+ .a2Groups a>b{position:relative!important;z-index:2!important;display:block!important;text-align:center!important;color:#9ae6ff!important;font:300 24px/1 system-ui,sans-serif!important}
+ .a2Discord{box-sizing:border-box!important;display:grid!important;grid-template-columns:54px minmax(0,1fr) 24px!important;align-items:center!important;width:min(900px,calc(100% - 48px))!important;min-height:72px!important;margin:18px auto 20px!important;padding:8px 14px!important;border:1px solid #47bfff!important;border-radius:16px!important;background:linear-gradient(100deg,#07172dec,#132955e8)!important;box-shadow:0 0 22px #587cff26!important;color:#eff5ff!important}
+ .a2Discord>i{display:grid!important;place-items:center!important;width:46px!important;height:46px!important;border:1px solid #7978ff!important;border-radius:11px!important;background:#222260!important;color:#a8aaff!important}
+ .a2Discord>i svg{width:24px!important;height:24px!important}
+ .a2Discord>span{min-width:0!important;color:#f1f4fb!important;font:400 17px/1.2 Georgia,serif!important}
+ .a2Discord>span small{display:block!important;margin-top:4px!important;color:#abb7d0!important;font:400 11px/1.35 system-ui,sans-serif!important;letter-spacing:0!important}
+ .a2Discord>b{color:#b9a9ff!important;text-align:center!important;font:300 24px/1 system-ui,sans-serif!important}
+ .a2MenuDock{height:74px!important}
+}
