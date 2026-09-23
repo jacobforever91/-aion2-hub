@@ -377,7 +377,7 @@
 .classBack svg{width:21px;height:21px;stroke-width:1.8}
 .classGrid{position:fixed;top:50%;left:18px;z-index:5;box-sizing:border-box;width:66px;max-height:calc(100svh - 112px);margin:0;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:10px;overflow-y:auto;transform:translateY(-50%);scrollbar-width:none}
 .classGrid::-webkit-scrollbar{display:none}
-.classIcon{box-sizing:border-box;flex:0 0 56px;width:56px;height:56px;display:grid;place-items:center;overflow:hidden;border:1px solid #205573;border-radius:50%;background:radial-gradient(circle at 50% 45%,#0d2637,#050d17 78%);cursor:default;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
-.classIcon img{display:block;width:100%;height:100%;object-fit:cover;object-position:left center}
+.classIcon{position:relative;box-sizing:border-box;flex:0 0 56px;width:56px;height:56px;display:block;overflow:hidden;border:1px solid #205573;border-radius:50%;background:radial-gradient(circle at 50% 45%,#0d2637,#050d17 78%);cursor:default;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.classIcon img{position:absolute;left:0;top:50%;display:block;width:450%;height:auto;max-width:none;transform:translateY(-50%)}
 .classIcon:hover{transform:scale(1.06);border-color:#6fe4ff;background:#0b2639;box-shadow:0 0 15px #36cfff45}
 @media(max-width:520px){.classBack{top:max(14px,env(safe-area-inset-top));left:14px;width:42px;height:42px}.classGrid{left:10px;width:58px;max-height:calc(100svh - 100px);gap:7px}.classIcon{flex-basis:48px;width:48px;height:48px}}
