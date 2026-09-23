@@ -382,6 +382,48 @@
 .classIcon img{position:absolute;left:-62.5%;top:-79%;display:block;width:663%;height:auto;max-width:none}
 .classIcon:hover{transform:scale(1.06);border-color:#6fe4ff;background:#0b2639;box-shadow:0 0 15px #36cfff45}
 @media(max-width:520px){.classBack{top:max(14px,env(safe-area-inset-top));left:14px;width:42px;height:42px}.classGrid{left:10px;width:62px;max-height:calc(100svh - 100px);gap:7px}.classIcon{flex-basis:52px;width:52px;height:52px}}
-
-.classIcon{cursor:pointer}
-awk: line 1: runaway regular expression //\* Class  ...
+/* Class detail pages */
+.classIcon{cursor:pointer;text-decoration:none}
+.classDetailPage{min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 50% -12%,#10304a 0,#071421 32%,#030812 72%);padding:50px 28px 72px}
+.classDetailWrap{width:min(100%,1080px);margin:0 auto}
+.classDetailPage>.classBack{position:fixed;top:20px;left:20px}
+.classBreadcrumb,.classEyebrow{color:#65d9ff;font-size:10px;font-weight:800;letter-spacing:2.5px}
+.classBreadcrumb{display:inline-flex;gap:10px;margin:0 0 22px;color:#8ab7cb;text-decoration:none}
+.classBreadcrumb span{color:#3689a6}
+.classDetailHero{display:grid;grid-template-columns:190px minmax(0,1fr);gap:36px;align-items:center;padding:34px 40px;border:1px solid #1c5069;border-radius:14px;background:linear-gradient(115deg,#081725 0%,#0a1e2d 64%,#0b2638 100%);box-shadow:0 18px 55px #0005,inset 0 0 50px #123c531c;position:relative;overflow:hidden}
+.classDetailHero:after{content:"";position:absolute;width:380px;height:380px;right:-105px;top:-230px;border:1px solid #5bdbff15;border-radius:50%;box-shadow:0 0 0 34px #5bdbff08,0 0 0 75px #5bdbff05;pointer-events:none}
+.classDetailCrest{width:166px;height:166px;display:grid;place-items:center;border:1px solid #28627c;border-radius:50%;background:radial-gradient(circle,#12364a,#06121e 69%);box-shadow:0 0 45px #29bde71c,inset 0 0 30px #3abdd41c}
+.classDetailCrest .classEmblemCrop{width:76%;height:88%}
+.classDetailCrest img{position:absolute;left:-62.5%;top:-79%;width:663%;height:auto;max-width:none}
+.classDetailIntro{position:relative;z-index:1}
+.classDetailIntro h1{margin:9px 0 10px;font:500 clamp(42px,6vw,68px)/1 Georgia,"Times New Roman",serif;letter-spacing:-1px;color:#eef8fc}
+.classDetailIntro>p{max-width:700px;margin:0;color:#9db3c1;font-size:15px;line-height:1.75}
+.classMeta{display:flex;flex-wrap:wrap;gap:9px;margin-top:21px}
+.classMeta span{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #20465a;border-radius:6px;background:#06131f;color:#b4d0dd;font-size:11px}
+.classMeta svg{width:15px;height:15px;color:#67dfff;stroke-width:1.8}
+.classPlaystyle{display:grid;grid-template-columns:205px 1fr;gap:18px;align-items:start;margin:18px 0 38px;padding:22px 26px;border-left:2px solid #3ec6ec;background:linear-gradient(90deg,#071a29,#06111c99 90%)}
+.classSectionMark{display:flex;align-items:center;gap:10px;padding-top:3px;color:#71dff5;font-size:9px;font-weight:800;letter-spacing:2px}
+.classSectionMark svg{width:17px;height:17px}
+.classPlaystyle p{margin:0;color:#b7cbd5;font-size:14px;line-height:1.8}
+.classSkills{padding-top:2px}
+.classSkillsHeading{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}
+.classSkillsHeading h2{margin:8px 0 0;color:#edf7fa;font:500 34px/1.1 Georgia,"Times New Roman",serif}
+.classSkillCount{display:flex;align-items:center;gap:7px;color:#72dafa;font-size:13px}
+.classSkillCount svg{width:17px;height:17px}.classSkillCount span{color:#8299a7;font-size:10px}
+.classSkillTabs{display:flex;gap:8px;border-bottom:1px solid #153548;margin-bottom:14px}
+.classSkillTabs button{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid transparent;border-bottom:0;border-radius:7px 7px 0 0;background:transparent;color:#8199a8;font:600 12px system-ui;cursor:pointer}
+.classSkillTabs button span{color:#5fa7bf;font-size:10px}
+.classSkillTabs button.isSelected{border-color:#1b536d;background:#092035;color:#ddf6ff}.classSkillTabs button.isSelected span{color:#71e3ff}
+.classSkillGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.classSkillItem{min-width:0;min-height:48px;display:grid;grid-template-columns:31px minmax(0,1fr) auto;align-items:center;gap:11px;padding:8px 12px;border:1px solid #15364a;border-radius:6px;background:linear-gradient(100deg,#071725,#081a28);transition:border-color .18s ease,background .18s ease}
+.classSkillItem:hover{border-color:#2d718d;background:#0a2030}
+.classSkillIndex{color:#4d91aa;font:600 10px/1 ui-monospace,monospace}
+.classSkillName{overflow-wrap:anywhere;color:#d9e8ed;font-size:12px}
+.classSkillType{color:#588598;font-size:8px;letter-spacing:1px}
+.classDataNote{margin:13px 0 0;color:#587485;font-size:10px;letter-spacing:.25px}
+.classDetailNav{display:flex;flex-wrap:wrap;gap:7px;margin-top:38px;padding-top:17px;border-top:1px solid #122e40}
+.classDetailNav a{padding:8px 10px;border:1px solid #17384b;border-radius:4px;color:#7f9aa8;font-size:10px;transition:.18s}
+.classDetailNav a:hover,.classDetailNav a.current{border-color:#287797;color:#7ee3ff;background:#081c2b}
+.classNotFound{min-height:85vh;display:grid;align-content:center;justify-items:center;text-align:center}
+.classNotFound h1{font:500 42px Georgia,serif}.classNotFound>a{color:#67dfff}
+@media(max-width:700px){.classDetailPage{padding:78px 16px 48px}.classDetailPage>.classBack{top:14px;left:14px;width:42px;height:42px}.classDetailWrap{max-width:560px}.classBreadcrumb{margin-bottom:14px;font-size:9px}.classDetailHero{grid-template-columns:1fr;justify-items:start;gap:17px;padding:22px 20px}.classDetailCrest{width:96px;height:96px}.classDetailIntro h1{font-size:46px}.classDetailIntro>p{font-size:13px}.classMeta{gap:7px;margin-top:15px}.classMeta span{font-size:10px;padding:8px 9px}.classPlaystyle{grid-template-columns:1fr;gap:12px;padding:18px 17px;margin-bottom:30px}.classPlaystyle p{font-size:13px}.classSkillsHeading h2{font-size:30px}.classSkillGrid{grid-template-columns:1fr;gap:7px}.classSkillItem{min-height:46px}.classSkillType{font-size:7px}.classDetailNav{gap:6px;margin-top:30px}.classDetailNav a{font-size:9px;padding:7px 8px}}
