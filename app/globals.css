@@ -69,3 +69,16 @@
 .mobileOverlay .overlayRegion>span{display:block!important;width:100%!important;margin:0 0 10px!important}
 .mobileOverlay .overlayRegion>a{position:relative!important;display:grid!important;width:100%!important;grid-template-columns:32px 1fr 20px!important;min-height:48px!important;margin:0!important;padding:8px 4px!important;transform:none!important}
 }
+/* Approved concept: rebuilt mobile menu */
+@media(max-width:800px){
+.mobileOverlay{padding:0 22px 34px!important;background:radial-gradient(circle at 50% 4%,#16435b55,transparent 24%),linear-gradient(180deg,#06121a,#02080c 46%,#03090d)!important}
+.mobileMenuHero{height:155px;margin:0 -22px 0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg,#0b1d28aa,#06121ad9);border-bottom:1px solid #163849}
+.mobileMenuHero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#24516b33,transparent 65%);pointer-events:none}
+.menuClose{position:absolute;right:18px;top:18px;width:34px;height:34px;border:0;background:transparent;color:#70a9c0;font-size:27px;font-weight:200;z-index:2}
+.menuLogo{position:relative;font:400 35px Georgia,serif;letter-spacing:5px;color:#f1f8fb}.menuLogo em{font-style:normal;color:#6dd9f7}.menuLogo small{display:block;text-align:center;margin-top:4px;font:500 9px sans-serif;letter-spacing:7px;color:#79b8ce}.mobileMenuHero p{position:relative;margin:14px 0 0;font-size:7px;letter-spacing:4px;color:#7697a5}
+.mobileOverlay .overlaySearch{height:58px!important;min-height:58px!important;margin:14px 0 12px!important;padding:0 16px!important;border:1px solid #2683ac!important;border-radius:4px!important;background:#071722dd!important;font-size:21px!important;color:#46bce9!important}.overlaySearch span{font-size:12px!important;letter-spacing:0!important;margin-left:14px!important;color:#9fb2bb!important;text-transform:none}
+.mobileOverlay nav section{padding:17px 4px 12px!important}.mobileOverlay nav section:first-child{border-top:0!important}.mobileOverlay nav h3{font-size:8px!important;letter-spacing:4px!important;color:#7fe6ff!important}
+.mobileOverlay nav a{display:grid!important;grid-template-columns:34px 1fr 20px!important;min-height:42px!important;padding:6px 0!important}.mobileOverlay nav a i{font-style:normal;color:#6d9eb2;font-size:18px;text-align:center}.mobileOverlay nav a span{font-size:12px;color:#d8e1e5;padding-left:8px}.mobileOverlay nav a b{font-size:21px!important;color:#65abc5!important;font-weight:300}
+.mobileOverlay .overlayRegion{padding:17px 4px 12px!important}.overlayRegion>a{grid-template-columns:34px 1fr 20px!important;min-height:42px!important;padding:6px 0!important}.overlayRegion>a i{text-align:center}.overlayRegion>a b{font-size:12px!important;color:#d8e1e5!important;padding-left:8px}.overlayRegion>a em{font-size:21px!important}
+.discordMenu{margin:16px 4px 0;min-height:58px;border:1px solid #315365;border-radius:4px;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;padding:0 12px;color:#dce6ea}.discordMenu i{font-style:normal;font-size:20px;color:#7285ff}.discordMenu span{font-size:12px}.discordMenu b{font-size:21px;color:#6b7fff}
+}
