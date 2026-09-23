@@ -318,3 +318,6 @@
  .a2Discord>b{color:#b9a9ff!important;text-align:center!important;font:300 24px/1 system-ui,sans-serif!important}
  .a2MenuDock{height:74px!important}
 }
+
+/* Keep the quick navigation dock at the bottom; global nav uses top: 0 */
+.a2MenuDock{top:auto!important;bottom:0!important;margin:0!important}
