@@ -224,3 +224,5 @@
 @media(min-width:801px){.cinemaNav{padding-left:calc(34px + clamp(44px,2.35vw,54px))!important}.mobileFloatNav{top:9px!important}.mobileFloatNav>button,.mobileFloatNav>a{width:clamp(44px,2.35vw,54px)!important;height:clamp(44px,2.35vw,54px)!important}.mobileFloatNav>button i{width:clamp(18px,1vw,22px)!important}.homeRoof{font-size:clamp(22px,1.2vw,28px)!important}}@media(min-width:801px) and (max-width:1199px){.mobileFloatNav{right:calc(4.5vw + 105px)!important}}
 
 @media(min-width:801px){.mobileFloatNav{position:fixed!important;top:calc((82px - clamp(44px,2.35vw,54px))/2)!important;z-index:80!important}}@media(max-width:800px){.mobileFloatNav{top:max(24px,env(safe-area-inset-top))!important}}
+
+@media(min-width:801px){.mobileFloatNav{right:18px!important}.cinemaActions{position:absolute!important;right:calc(18px + clamp(44px,2.35vw,54px) + 12px)!important;top:50%!important;transform:translateY(-50%)!important;margin:0!important}}
