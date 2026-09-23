@@ -79,3 +79,16 @@
 .a2Groups section:nth-of-type(4) a:nth-of-type(2) i{color:#d08cff!important;border-color:#744391!important;background:radial-gradient(circle,#40214f,#100b18 72%)!important;box-shadow:0 0 15px #c74cff35!important}
 .a2Discord i{color:#8293ff!important;border-color:#4453a5!important;background:radial-gradient(circle,#26358a,#0b1231 72%)!important}
 }
+/* AION 2 VISION mobile concept */
+@media(max-width:800px){
+.a2MenuHero{flex-basis:185px!important;background:radial-gradient(circle at 70% 30%,#245a7c66,transparent 24%),radial-gradient(circle at 25% 35%,#1a497166,transparent 30%),linear-gradient(180deg,#0b2639,#06131d 72%,#030b10)!important}
+.a2Logo{text-align:center!important;text-shadow:0 0 18px #55cfff55!important}.a2Logo>span{display:block!important;font:400 42px Georgia,serif!important;letter-spacing:2px!important;color:#f2f7fa!important}.a2Logo>span em{font-size:54px!important;color:#62d8ff!important;text-shadow:0 0 18px #29bfff!important}.a2Logo>small{margin-top:-4px!important;font-size:12px!important;letter-spacing:9px!important;color:#8eeaff!important}
+.a2MenuHero p{font-size:7px!important;letter-spacing:5px!important;color:#9cdff0!important}
+.a2Search{box-shadow:0 0 16px #2fbff72b,inset 0 0 22px #0b436033!important;background:linear-gradient(90deg,#071722,#092236)!important}
+.a2Groups section{margin:0 0 10px!important;padding:18px 8px 14px!important;border:1px solid #153b4e!important;border-radius:10px!important;background:linear-gradient(90deg,#06131cfa,#071b29e8 65%,#0b2b3b99)!important;box-shadow:inset 0 0 28px #0e456022!important}
+.a2Groups h3{margin:-29px 0 13px -8px!important;width:max-content!important;padding:0 8px!important;background:#030b10!important;color:#69e4ff!important}
+.a2Groups a{min-height:55px!important;border-bottom:1px solid #15364766!important}.a2Groups a:last-child{border-bottom:0!important}
+.a2Groups a>span,.a2Discord>span{font-size:13px!important;color:#eef5f7!important}.a2Groups a>span small,.a2Discord>span small{display:block!important;margin-top:3px!important;padding:0!important;font-size:8px!important;font-weight:400!important;color:#78a9bc!important;letter-spacing:0!important}
+.a2Groups a i,.a2Discord i{width:40px!important;height:40px!important;border-radius:8px!important}.a2Groups a i svg,.a2Discord i svg{width:24px!important;height:24px!important}
+.a2Discord{min-height:72px!important;border-color:#35bfff!important;box-shadow:0 0 16px #24bfff30,inset 0 0 20px #153f632e!important;background:linear-gradient(90deg,#071527,#09233a)!important}
+}
