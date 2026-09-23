@@ -382,3 +382,6 @@
 .classIcon img{position:absolute;left:-62.5%;top:-79%;display:block;width:663%;height:auto;max-width:none}
 .classIcon:hover{transform:scale(1.06);border-color:#6fe4ff;background:#0b2639;box-shadow:0 0 15px #36cfff45}
 @media(max-width:520px){.classBack{top:max(14px,env(safe-area-inset-top));left:14px;width:42px;height:42px}.classGrid{left:10px;width:62px;max-height:calc(100svh - 100px);gap:7px}.classIcon{flex-basis:52px;width:52px;height:52px}}
+
+.classIcon{cursor:pointer}
+awk: line 1: runaway regular expression //\* Class  ...
