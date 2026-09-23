@@ -41,3 +41,17 @@
 .mobileOverlay nav a{width:100%;justify-content:space-between}
 .overlayRegion{position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;margin-top:18px!important}
 }
+/* Approved mobile menu visual */
+@media(max-width:800px){
+.mobileOverlay{background:radial-gradient(circle at 50% -10%,#15394a70,transparent 34%),linear-gradient(180deg,#030b11,#02070b 60%,#03090d);padding-left:22px;padding-right:22px}
+.overlayTop{padding:14px 0 20px}.overlayTop>b{font-size:22px;letter-spacing:4px}.overlayTop small{font-size:8px}
+.overlaySearch{margin:10px 0 24px;min-height:62px;display:flex;align-items:center;border-color:#3185a7;background:#071722cc;box-shadow:inset 0 0 30px #0c344333}
+.mobileOverlay nav section{padding:18px 6px 14px;border-top:1px solid #315365}
+.mobileOverlay nav h3{color:#80e7ff;font-size:9px;letter-spacing:4px;margin-bottom:10px}
+.mobileOverlay nav a{min-height:48px;padding:11px 4px;font-size:13px;color:#d6e1e6;border-bottom:0}
+.mobileOverlay nav a b{color:#63a9c3;font-size:18px;font-weight:300}
+.overlayRegion{display:flex!important;flex-direction:column!important;gap:0!important;padding:18px 6px 8px!important;border-top:1px solid #315365!important}
+.overlayRegion>span{width:100%;margin:0 0 10px!important;color:#80e7ff!important;font-size:9px!important;letter-spacing:4px!important}
+.overlayRegion>a{width:100%;min-height:48px;display:grid;grid-template-columns:32px 1fr 20px;align-items:center;color:#d6e1e6;border:0;background:transparent;padding:8px 4px}
+.overlayRegion>a i{font-style:normal;color:#70a9c0;font-size:18px}.overlayRegion>a b{font-size:13px;font-weight:400}.overlayRegion>a em{font-style:normal;color:#63a9c3;font-size:22px}
+}
