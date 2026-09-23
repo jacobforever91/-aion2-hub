@@ -182,3 +182,22 @@
 .a2Logo{margin-top:235px!important;position:relative!important;z-index:3!important}.a2MenuHero>p{position:relative!important;z-index:3!important}
 .a2Close{z-index:5!important;background:#06182acc!important;border:1px solid #65d7ff88!important;box-shadow:0 0 18px #3fcaff55!important}
 }
+
+/* VISION hero framing correction — mobile */
+@media(max-width:800px){
+.a2MenuHero{
+  flex-basis:350px!important;
+  min-height:350px!important;
+  background-size:100% auto!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+  background-color:#020b16!important;
+}
+.a2Logo{margin-top:190px!important}
+.a2MenuHero>p{margin-top:8px!important}
+.a2Search{margin-top:14px!important}
+}
+@media(max-width:430px){
+.a2MenuHero{flex-basis:335px!important;min-height:335px!important;background-size:100% auto!important;background-position:center top!important}
+.a2Logo{margin-top:180px!important}
+}
