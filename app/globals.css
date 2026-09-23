@@ -30,3 +30,14 @@
 .overlayRegion span{grid-column:1/-1;margin:0 0 3px}
 .overlayRegion button{min-height:42px;font-size:8px}
 }
+
+/* iPhone overlay layout fix: region belongs after all menu groups */
+@media(max-width:800px){
+.mobileOverlay{display:flex;flex-direction:column}
+.mobileOverlay .overlayTop,.mobileOverlay .overlaySearch,.mobileOverlay nav,.mobileOverlay .overlayRegion{width:100%;max-width:none}
+.mobileOverlay nav{order:3}
+.mobileOverlay .overlayRegion{order:4}
+.mobileOverlay nav section{width:100%}
+.mobileOverlay nav a{width:100%;justify-content:space-between}
+.overlayRegion{position:relative!important;inset:auto!important;transform:none!important;z-index:auto!important;margin-top:18px!important}
+}
