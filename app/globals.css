@@ -154,3 +154,23 @@
 .visionDock a,.visionDock button{border:0!important;background:none!important;color:#8ea4b9!important;text-decoration:none!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;font:10px Arial,sans-serif!important}
 .visionDock svg{width:22px!important;height:22px!important;stroke-width:1.7!important}.visionDock a:first-child{color:#7bdcff!important;text-shadow:0 0 8px #55cfff!important}.visionDock a:first-child svg{filter:drop-shadow(0 0 6px #55cfff)!important}.dockDots{font-size:20px!important;line-height:14px!important;letter-spacing:2px!important}
 }
+
+/* Illustrated card architecture */
+@media(max-width:800px){
+.visionHeroArt{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.visionHeroArt span{position:absolute;display:grid;place-items:center;font-family:Georgia,serif}
+.elyosSilhouette{left:-8px;bottom:16px;width:43%;height:225px;color:#effaff;font-size:72px;background:radial-gradient(ellipse at 42% 34%,#fff 0 3%,#bcdcf39a 4% 10%,transparent 29%),conic-gradient(from 210deg at 45% 48%,transparent,#e7f5ff5c,transparent 25%,#9ec9e84c,transparent 46%);filter:drop-shadow(0 0 18px #bde9ff)}
+.asmoSilhouette{right:-8px;bottom:16px;width:43%;height:225px;color:#dca2ff;font-size:72px;background:radial-gradient(ellipse at 58% 34%,#e9bfff 0 3%,#8d4ec59a 4% 10%,transparent 29%),conic-gradient(from 30deg at 55% 48%,transparent,#a452d95c,transparent 25%,#56277455,transparent 46%);filter:drop-shadow(0 0 18px #a14fdd)}
+.atreiaCitadel{left:36%;right:36%;top:20px;height:120px;color:#d8f3ff99;font-size:48px;text-shadow:0 0 12px #76d8ff,0 30px 20px #4cb8e777}
+.a2Groups a{overflow:hidden!important;border-radius:10px!important}
+.a2Groups a:after{content:"";position:absolute!important;z-index:0!important;right:0!important;top:0!important;bottom:0!important;width:58%!important;opacity:.8!important;mask-image:linear-gradient(90deg,transparent,#000 30%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);background:radial-gradient(circle at 70% 45%,#68cfff38,transparent 25%),linear-gradient(135deg,#1d5c852b,#071424)!important}
+.a2Groups a>i,.a2Groups a>span,.a2Groups a>b{position:relative!important;z-index:2!important}
+.visionClasses:after{background:radial-gradient(circle at 78% 34%,#f4df9d55,transparent 17%),linear-gradient(135deg,#4b3b1e22,#164768cc)!important}
+.visionSkills:after{background:radial-gradient(circle at 78% 45%,#b36aff70,transparent 18%),linear-gradient(135deg,#39206022,#18133dcc)!important}
+.visionItems:after{background:radial-gradient(circle at 76% 50%,#f3a44755,transparent 20%),linear-gradient(135deg,#59331722,#392514aa)!important}
+.visionBook:after{background:radial-gradient(circle at 76% 50%,#75d8ff55,transparent 20%),linear-gradient(135deg,#164e6d22,#102c44bb)!important}
+.visionNpc:after{background:radial-gradient(circle at 76% 42%,#e8c5a850,transparent 19%),linear-gradient(135deg,#47332422,#263546bb)!important}
+.visionCraft:after{background:radial-gradient(circle at 78% 50%,#ff8a3c66,transparent 20%),linear-gradient(135deg,#60301822,#3e1d12bb)!important}
+.visionClassBuild:after{background:radial-gradient(circle at 78% 38%,#f3d68a50,transparent 20%),linear-gradient(135deg,#57431c22,#17354cbb)!important}
+.visionPve:after{background:radial-gradient(circle at 78% 45%,#8f62ff66,transparent 22%),linear-gradient(135deg,#2c1f6422,#121a46cc)!important}
+}
