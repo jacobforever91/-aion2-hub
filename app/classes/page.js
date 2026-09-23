@@ -1,1 +1,59 @@
-const classes=[["Templar","Tank","Shield · Defense","🛡"],["Gladiator","Melee","Heavy weapon · Pressure","⚔"],["Assassin","Melee","Burst · Mobility","◭"],["Ranger","Ranged","Bow · Precision","➶"],["Sorcerer","Magic","Elements · Burst","✦"],["Spiritmaster","Magic","Spirits · Control","◉"],["Cleric","Support","Healing · Holy magic","✚"],["Chanter","Support","Buffs · Combat","♢"]];export default function Classes(){return <main><nav><a className="brand" href="/"><b>AION <i>2</i> HUB</b><small>DATABASE & TOOLS</small></a><div className="navlinks"><a href="/database">Database</a><a href="/classes">Classes</a><a href="/#builds">Builds</a><a href="/#guides">Guides</a></div><div className="navActions"><button className="region">🌐 GLOBAL⌄</button></div></nav><section className="subHero classHero"><small>CHOOSE YOUR PATH</small><h1>Eight classes.<br/><em>Your playstyle.</em></h1><p>Understand a class at a glance, then jump directly into skills, builds and recommended gear.</p></section><section className="content"><div className="heading"><div><small>CLASS INDEX</small><h2>Explore every class</h2><p>Role first. Details when you want them.</p></div><span className="version">8 CLASSES</span></div><div className="classGrid">{classes.map(x=><article key={x[0]}><div className="classSymbol">{x[3]}</div><div><small>{x[1]}</small><h3>{x[0]}</h3><p>{x[2]}</p></div><b>→</b></article>)}</div></section><section className="vision"><small>CLASS FLOW</small><h2>See the class.<br/><em>Build the character.</em></h2><div className="flow"><span>CLASS</span><b>→</b><span>SKILLS</span><b>→</b><span>BUILD</span><b>→</b><span>GEAR</span><b>→</b><span>DROP SOURCE</span></div></section></main>} 
+import {Shield, Swords, Compass, Sparkles, Users, BookOpen, Crown, Map} from "lucide-react";
+
+const classes = [
+  { name: "Templar", role: "Tank", weapon: "Longsword", focus: "Defensive frontline · protects allies", icon: Shield },
+  { name: "Gladiator", role: "Tank / DPS", weapon: "Greatsword", focus: "Heavy melee · pressure and damage", icon: Swords },
+  { name: "Assassin", role: "DPS", weapon: "Dagger", focus: "Close-range burst · high mobility", icon: Compass },
+  { name: "Ranger", role: "DPS", weapon: "Bow", focus: "Ranged attacks · precision", icon: Map },
+  { name: "Sorcerer", role: "DPS", weapon: "Spellbook", focus: "Elemental magic · burst damage", icon: Sparkles },
+  { name: "Spiritmaster", role: "DPS", weapon: "Orb", focus: "Spirit control · sustained pressure", icon: Users },
+  { name: "Cleric", role: "Healer", weapon: "Mace", focus: "Healing · group support", icon: BookOpen },
+  { name: "Chanter", role: "Healer / DPS", weapon: "Staff", focus: "Healing and buffs · close combat", icon: Crown },
+];
+
+export default function Classes() {
+  return (
+    <main className="classPage">
+      <nav>
+        <a className="brand" href="/"><b>AION <i>2</i> HUB</b><small>DATABASE &amp; TOOLS</small></a>
+        <div className="navlinks">
+          <a href="/database">Database</a>
+          <a href="/classes">Classes</a>
+          <a href="/#builds">Builds</a>
+          <a href="/#guides">Guides</a>
+        </div>
+        <div className="navActions"><span className="region">GLOBAL</span></div>
+      </nav>
+
+      <section className="classRosterHero">
+        <div>
+          <small>GLOBAL · CLASS ROSTER</small>
+          <h1>Choose your class</h1>
+          <p>Eight paths into AION 2. Compare each role and main weapon.</p>
+        </div>
+        <div className="classCount"><strong>08</strong><span>CLASSES<br/>AVAILABLE</span></div>
+      </section>
+
+      <section className="classRoster">
+        <div className="classRosterHeading">
+          <div><small>FIND YOUR PATH</small><h2>Global classes</h2></div>
+          <span>8 CLASSES</span>
+        </div>
+
+        <div className="classGrid">
+          {classes.map(({name, role, weapon, focus, icon: Icon}) => (
+            <article className="classCard" key={name}>
+              <div className="classCardTop">
+                <span className="classSymbol"><Icon aria-hidden="true"/></span>
+                <span className="classRole">{role}</span>
+              </div>
+              <h3>{name}</h3>
+              <p>{focus}</p>
+              <div className="classWeapon"><span>Main weapon</span><strong>{weapon}</strong></div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
