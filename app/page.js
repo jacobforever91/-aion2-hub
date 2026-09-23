@@ -16,7 +16,7 @@ export default function Home(){const[open,setOpen]=useState(false);return <main 
 </nav>
 <div className="overlayRegion"><span>REGION</span><a href="/"><i>◎</i><b>Global</b><em>›</em></a><a href="/"><i>◉</i><b>KR / TW</b><em>›</em></a></div>
 <div className="discordMenu"><i>☁</i><span>Join Our Discord</span><b>›</b></div>
-</div>>
+</div>
 <section className="gamePanel introPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>A NEW AGE OF ATREIA</span><h1>AION <strong>2</strong></h1><p>Your saga takes flight. Two factions. One world.</p><a href="#factions">DISCOVER THE WORLD ↓</a></div></section>
 <section id="factions" className="gamePanel factionPanel elyosPanel"><div className="panelShade"/><div className="panelCopy leftCopy"><span>THE CELESTIAL REALM</span><h2>ELYOS</h2><p>Discover one of AION 2's two factions and enter Atreia from the Elyos side.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ELYOS →</a></div><div className="panelIndex">01</div></section>
 <section className="gamePanel factionPanel asmoPanel"><div className="panelShade"/><div className="panelCopy rightCopy"><span>THE OTHER SKY</span><h2>ASMODIANS</h2><p>Cross to the opposing faction and discover another side of the world of AION 2.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ASMODIANS →</a></div><div className="panelIndex">02</div></section>
