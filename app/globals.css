@@ -53,3 +53,21 @@
 .mobileMenuV3 .discordMenu{position:relative!important;inset:auto!important;order:5!important;display:grid!important;float:none!important;clear:both!important;transform:none!important}
 .mobileMenuV3 nav a,.mobileMenuV3 .overlayRegion a{position:relative!important;float:none!important}
 }
+
+/* A2 mobile menu: isolated namespace */
+.a2MobileMenu{display:none}
+@media(max-width:800px){
+.a2MobileMenu{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;overflow-y:auto;background:#030b10;color:#dbe4e8;padding:0 22px 34px;transform:translateY(-105%);opacity:0;transition:.25s ease}
+.a2MobileMenu.isOpen{transform:translateY(0);opacity:1}
+.a2MenuHero{position:relative;flex:0 0 150px;margin:0 -22px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 0,#173b4d,#07141c 58%,#030b10);border-bottom:1px solid #234656}
+.a2Close{position:absolute;top:18px;right:18px;border:0;background:none;color:#79a8ba;font-size:28px}
+.a2Logo{font:400 34px Georgia,serif;letter-spacing:5px;color:#eef8fb}.a2Logo em{font-style:normal;color:#69d9f6}.a2Logo small{display:block;text-align:center;margin-top:4px;font:500 9px sans-serif;letter-spacing:7px;color:#78bad0}
+.a2MenuHero p{margin:14px 0 0;font-size:7px;letter-spacing:4px;color:#7999a6}
+.a2Search{flex:0 0 58px;margin:14px 0 10px;padding:0 16px;display:flex;align-items:center;border:1px solid #2984ab;border-radius:4px;background:#071722;color:#54c7ef;font-size:20px}.a2Search span{margin-left:14px;color:#9eafb7;font-size:12px}
+.a2Groups{display:block;position:static}
+.a2Groups section{display:block;position:static;padding:17px 4px 12px;border-bottom:1px solid #2c5060}
+.a2Groups h3{margin:0 0 9px;color:#7ee5fb;font-size:8px;letter-spacing:4px}
+.a2Groups a{position:static;display:grid;grid-template-columns:36px minmax(0,1fr) 20px;align-items:center;min-height:42px;padding:5px 0;color:#dbe4e8;text-decoration:none}
+.a2Groups a i{font-style:normal;text-align:center;color:#6e9daf;font-size:18px}.a2Groups a span{padding-left:8px;font-size:12px}.a2Groups a b{text-align:right;color:#65acc6;font-size:21px;font-weight:300}
+.a2Discord{position:static;display:grid;grid-template-columns:44px 1fr 20px;align-items:center;min-height:58px;margin:16px 4px 0;padding:0 12px;border:1px solid #315463;border-radius:4px}.a2Discord i{font-style:normal;color:#7284ff;font-size:20px}.a2Discord span{font-size:12px}.a2Discord b{text-align:right;color:#7180ff;font-size:21px}
+}
