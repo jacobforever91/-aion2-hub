@@ -55,3 +55,17 @@
 .overlayRegion>a{width:100%;min-height:48px;display:grid;grid-template-columns:32px 1fr 20px;align-items:center;color:#d6e1e6;border:0;background:transparent;padding:8px 4px}
 .overlayRegion>a i{font-style:normal;color:#70a9c0;font-size:18px}.overlayRegion>a b{font-size:13px;font-weight:400}.overlayRegion>a em{font-style:normal;color:#63a9c3;font-size:22px}
 }
+/* Hard reset mobile overlay — isolate from legacy rules */
+@media(max-width:800px){
+.mobileOverlay{display:block!important;position:fixed!important;inset:0!important;z-index:100!important;overflow-y:auto!important;padding:calc(env(safe-area-inset-top) + 22px) 22px calc(env(safe-area-inset-bottom) + 30px)!important;transform:translateY(-105%)!important;opacity:0!important;background:#030a0f!important}
+.mobileOverlay.isOpen{transform:translateY(0)!important;opacity:1!important}
+.mobileOverlay .overlayTop{position:relative!important;top:auto!important;display:flex!important;order:initial!important;width:100%!important;margin:0!important;padding:8px 0 22px!important;background:transparent!important}
+.mobileOverlay .overlaySearch{position:relative!important;display:flex!important;width:100%!important;margin:0 0 26px!important;padding:18px!important}
+.mobileOverlay nav{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:0!important;transform:none!important}
+.mobileOverlay nav section{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:18px 6px!important;transform:none!important;border-top:1px solid #315365!important}
+.mobileOverlay nav h3{display:block!important;width:100%!important;margin:0 0 10px!important}
+.mobileOverlay nav a{position:relative!important;display:flex!important;width:100%!important;min-height:48px!important;margin:0!important;padding:11px 4px!important;align-items:center!important;justify-content:space-between!important;transform:none!important}
+.mobileOverlay .overlayRegion{position:relative!important;display:block!important;width:100%!important;margin:0!important;padding:18px 6px!important;inset:auto!important;transform:none!important;border-top:1px solid #315365!important}
+.mobileOverlay .overlayRegion>span{display:block!important;width:100%!important;margin:0 0 10px!important}
+.mobileOverlay .overlayRegion>a{position:relative!important;display:grid!important;width:100%!important;grid-template-columns:32px 1fr 20px!important;min-height:48px!important;margin:0!important;padding:8px 4px!important;transform:none!important}
+}
