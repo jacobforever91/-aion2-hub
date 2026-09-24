@@ -1,29 +1,43 @@
 "use client";
 
-import Link from "next/link";
+import {useState} from "react";
 import {ArrowLeft} from "lucide-react";
+import ClassInfo from "./ClassInfo";
 import {classList, emblemBase} from "./classData";
 
 export default function Classes() {
+  const [selectedSlug, setSelectedSlug] = useState("templar");
+
   function goBack() {
     if (window.history.length > 1) window.history.back();
     else window.location.assign("/");
   }
 
   return (
-    <main className="classPage">
+    <main className="classPage classBrowsePage">
       <button className="classBack" type="button" onClick={goBack} aria-label="Regresar">
         <ArrowLeft aria-hidden="true" />
       </button>
-      <div className="classGrid" aria-label="Clases de AION 2">
+      <div className="classGrid" role="list" aria-label="Elige una clase">
         {classList.map(({name, slug, emblem}) => (
-          <Link className="classIcon" href={`/classes/${slug}`} key={slug} aria-label={`Ver clase ${name}`} title={name}>
+          <button
+            className={`classIcon${selectedSlug === slug ? " isSelected" : ""}`}
+            type="button"
+            key={slug}
+            onClick={() => setSelectedSlug(slug)}
+            aria-label={`Ver clase ${name}`}
+            aria-pressed={selectedSlug === slug}
+            title={name}
+          >
             <span className="classEmblemCrop" aria-hidden="true">
               <img src={`${emblemBase}/${emblem}.webp`} alt="" />
             </span>
-          </Link>
+          </button>
         ))}
       </div>
+      <section className="classInlineContent" aria-live="polite">
+        <ClassInfo key={selectedSlug} slug={selectedSlug} onSelectClass={setSelectedSlug} />
+      </section>
     </main>
   );
 }
