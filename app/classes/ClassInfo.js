@@ -5,6 +5,12 @@ import {useEffect, useState} from "react";
 import {ArrowLeft, Crosshair, Shield, Sword, X} from "lucide-react";
 import {classData, classList, emblemBase, skillIconIds} from "./classData";
 
+// The icon proxy does not serve Chanter's Survival Willpower image.
+function skillIconUrl(id) {
+  if (id === "18790000") return "https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp";
+  return `https://aion2hub.com/api/skill-icon/${id}`;
+}
+
 function formatSkillDescription(template, levelData, fallback) {
   if (!template || !levelData?.token_values) return fallback?.replace(/\\n/g, "\n");
   return template.replace(/\{([^{}]+)\}/g, (_match, token) => levelData.token_values[token] ?? "?").replace(/\\n/g, "\n");
@@ -115,7 +121,7 @@ export default function ClassInfo({slug, onSelectClass}) {
             const skillId = skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)];
             return (
             <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type: skillType})} aria-label={`View ${skill} details`}>
-              <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={`https://aion2hub.com/api/skill-icon/${skillId}`} alt="" aria-hidden="true" loading="lazy" />
+              <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={skillIconUrl(skillId)} alt="" aria-hidden="true" loading="lazy" />
               <span className="classSkillName">{skill}</span>
             </button>
           )})}
@@ -130,7 +136,7 @@ export default function ClassInfo({slug, onSelectClass}) {
           <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Close skill details"><X aria-hidden="true" /></button>
           <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "active" ? "ACTIVE SKILL" : "PASSIVE SKILL"}</span>
           <div className="skillModalSkillIdentity">
-            <img src={`https://aion2hub.com/api/skill-icon/${selectedSkill.id}`} alt={`Icono de ${selectedSkill.name}`} />
+            <img src={skillIconUrl(selectedSkill.id)} alt={`Icono de ${selectedSkill.name}`} />
             <div><h2 id="skillModalTitle">{selectedSkill.name}</h2><span>{selectedSkill.type === "active" ? "Active skill" : "Passive skill"}</span></div>
           </div>
           <div className="skillModalDivider" />
