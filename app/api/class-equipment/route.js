@@ -136,6 +136,7 @@ const slotAliases = {
   Gloves: ["gloves", "glove"], Pants: ["pants", "greaves", "leggings"], Boots: ["boots", "boot"], Cape: ["cape", "cloak"],
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
+const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
 
 function localGeneralItems(category, slot) {
   return equipmentData.items.filter((item) => {
@@ -153,50 +154,25 @@ async function getGeneralEquipment(request) {
   const itemId = params.get("item");
   const grade = params.get("grade") || "";
   const search = (params.get("q") || "").trim().slice(0, 80);
-  const page = Math.max(1, Math.min(999, Number(params.get("page")) || 1));
   if (!equipmentFamilies.has(category)) return Response.json({error: "Unknown equipment type."}, {status: 400});
   if (!["GLOBAL", "KR_TW"].includes(region)) return Response.json({error: "Unknown data region."}, {status: 400});
   if (category === "Weapons" ? Boolean(slot) : !equipmentSlots[category]?.has(slot)) return Response.json({error: "Unknown equipment slot."}, {status: 400});
   if (grade && !gradeOptions.has(grade)) return Response.json({error: "Unknown rarity."}, {status: 400});
-  const localItems = region === "GLOBAL" ? localGeneralItems(category, slot) : [];
-
-  try {
-    if (itemId) {
-      if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
-      const itemHtml = await readSource(`/database/items/${itemId}${region === "KR_TW" ? "?region=kr" : ""}`);
-      const item = getItemInfo(itemHtml, itemId);
-      if (!item.name) return Response.json({error: "Item not found."}, {status: 404});
-      return Response.json({...item, region, official: false});
-    }
-
-    const url = new URL("/database", source);
-    url.searchParams.set("cat", category);
-    if (slot) {
-      url.searchParams.set("view", "type");
-      url.searchParams.set("sc", slot);
-    }
-    if (region === "KR_TW") url.searchParams.set("region", "kr");
-    if (grade) url.searchParams.set("grade", grade);
-    if (search) url.searchParams.set("q", search);
-    if (page > 1) url.searchParams.set("page", String(page));
-    const html = await readSource(`${url.pathname}${url.search}`);
-    return Response.json({region, category, slot, items: getItems(html), ...getPageInfo(html), source: "unofficial-community-reference"});
-  } catch (error) {
-    if (itemId) {
-      const localItem = region === "GLOBAL" ? equipmentData.items.find((item) => item.id === itemId) : null;
-      if (localItem) return Response.json({...localItem, rarity: localItem.grade, region, official: false});
-      return Response.json({error: "Item details are temporarily unavailable."}, {status: 502});
-    }
-    const fallback = localItems.filter((item) =>
-      (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
-    );
-    if (fallback.length) return Response.json({
-      region, category, slot, items: fallback.map(({id, name, grade}) => ({id, name, grade})),
-      total: fallback.length, page: 1, pages: 1, source: "reviewed-local-snapshot",
-    });
-    console.error("General equipment lookup failed:", error);
-    return Response.json({error: "The equipment database is temporarily unavailable. Please try again later."}, {status: 502});
+  if (itemId) {
+    if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
+    const item = region === "GLOBAL" ? equipmentData.items.find((entry) => entry.id === itemId) : null;
+    if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
+    return Response.json({...item, rarity: item.grade, region, official: false});
   }
+
+  const filtered = (region === "GLOBAL" ? localGeneralItems(category, slot) : []).filter((item) =>
+    (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
+  );
+  return Response.json({
+    region, category, slot,
+    items: filtered.map(({id, name, grade}) => ({id, name, grade, category, family: category, icon: equipmentArt[category]})),
+    total: filtered.length, page: 1, pages: 1, source: "reviewed-local-snapshot",
+  });
 }
 
 export async function GET(request) {
