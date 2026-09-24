@@ -10,7 +10,7 @@ export default function ClassDetails() {
 
   return (
     <main className="classDetailPage">
-      <Link className="classBack" href="/classes" aria-label="Volver al selector de clases">
+      <Link className="classBack" href="/classes" aria-label="Back to the class selector">
         <ArrowLeft aria-hidden="true" />
       </Link>
       <div className="classDetailWrap">
