@@ -5,18 +5,45 @@ import {useEffect, useState} from "react";
 import {ArrowLeft, Crosshair, Shield, Sword, X} from "lucide-react";
 import {classData, classList, emblemBase, skillIconIds} from "./classData";
 
+function formatSkillDescription(template, levelData, fallback) {
+  if (!template || !levelData?.token_values) return fallback;
+  return template.replace(/\{([^{}]+)\}/g, (_match, token) => levelData.token_values[token] ?? "?");
+}
+
+function formatSkillStats(levelData, fallbackStats = []) {
+  if (!levelData) return fallbackStats;
+  const stats = [];
+  const range = (min, max) => {
+    if (min == null && max == null) return null;
+    if (min == null) return String(max);
+    if (max == null || String(min) === String(max)) return String(min);
+    return `${min}–${max}`;
+  };
+  const damage = range(levelData.dmg_min, levelData.dmg_max);
+  const healing = range(levelData.heal_min, levelData.heal_max);
+  if (damage) stats.push({label: "Daño", value: damage});
+  if (healing) stats.push({label: "Curación", value: healing});
+  if (Number(levelData.cooldown) > 0) stats.push({label: "Enfriamiento", value: `${levelData.cooldown} s`});
+  if (Number(levelData.cost_mp) > 0) stats.push({label: "Maná", value: String(levelData.cost_mp)});
+  if (Number(levelData.cost_hp) > 0) stats.push({label: "Vida", value: String(levelData.cost_hp)});
+  if (Number(levelData.cost_dp) > 0) stats.push({label: "DP", value: String(levelData.cost_dp)});
+  if (Number(levelData.casting_time) > 0) stats.push({label: "Lanzamiento", value: `${levelData.casting_time} s`});
+  return stats.length ? stats : fallbackStats;
+}
+
 export default function ClassInfo({slug, onSelectClass}) {
   const detail = classData[slug];
   const selected = classList.find((entry) => entry.slug === slug);
   const [skillType, setSkillType] = useState("active");
   const [selectedSkill, setSelectedSkill] = useState(null);
-  const [skillDescription, setSkillDescription] = useState("");
+  const [skillInfo, setSkillInfo] = useState(null);
   const [descriptionState, setDescriptionState] = useState("idle");
+  const [skillLevel, setSkillLevel] = useState(1);
 
   useEffect(() => {
     if (!selectedSkill) return;
     const controller = new AbortController();
-    setSkillDescription("");
+    setSkillInfo(null);
     setDescriptionState("loading");
 
     fetch(`/api/skill-description/${selectedSkill.id}`, {signal: controller.signal})
@@ -24,8 +51,9 @@ export default function ClassInfo({slug, onSelectClass}) {
         if (!response.ok) throw new Error("Could not load skill description");
         return response.json();
       })
-      .then(({description}) => {
-        setSkillDescription(description);
+      .then((info) => {
+        setSkillInfo(info);
+        setSkillLevel(1);
         setDescriptionState("ready");
       })
       .catch((error) => {
@@ -52,6 +80,10 @@ export default function ClassInfo({slug, onSelectClass}) {
   if (!selected || !detail) return null;
 
   const skills = detail[skillType];
+  const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Nivel máximo")?.value) || 1;
+  const currentSkillLevel = skillInfo?.levels?.find(({level}) => level === skillLevel) || skillInfo?.levels?.[0];
+  const currentDescription = formatSkillDescription(skillInfo?.descriptionTemplate, currentSkillLevel, skillInfo?.description);
+  const currentStats = formatSkillStats(currentSkillLevel, skillInfo?.stats);
   return (
     <div className="classInfoPanel">
       {!onSelectClass && <Link className="classBreadcrumb" href="/classes">CLASES <span>/</span> {selected.name.toUpperCase()}</Link>}
@@ -99,10 +131,40 @@ export default function ClassInfo({slug, onSelectClass}) {
           <div className="skillModalDivider" />
           <p id="skillModalDescription" className={`skillModalDescription is${descriptionState}`}>
             {descriptionState === "loading" && "Cargando descripción…"}
-            {descriptionState === "ready" && skillDescription}
+            {descriptionState === "ready" && currentDescription}
             {descriptionState === "error" && "No se pudo cargar la descripción en este momento. Inténtalo de nuevo."}
           </p>
-          {descriptionState === "ready" && <small className="skillModalSource">Descripción de habilidad · Datos Global</small>}
+          {descriptionState === "ready" && skillInfo && <div className="skillModalData">
+            {(skillInfo.requiredLevel || skillInfo.mastery) && <div className="skillModalBadges">
+              {skillInfo.requiredLevel && <span>Nivel requerido {skillInfo.requiredLevel}</span>}
+              {skillInfo.mastery && <span>{skillInfo.mastery === "Mastery" ? "Maestría" : skillInfo.mastery}</span>}
+            </div>}
+            {maxSkillLevel > 1 && <div className="skillLevelControl">
+              <div className="skillLevelHeading"><label htmlFor="skill-level">Nivel de habilidad</label><output htmlFor="skill-level">{skillLevel} / {maxSkillLevel}</output></div>
+              <input id="skill-level" type="range" min="1" max={maxSkillLevel} value={skillLevel} onChange={(event) => setSkillLevel(Number(event.target.value))} />
+            </div>}
+            {currentStats?.length > 0 && <div className="skillModalStats" aria-label={`Valores principales en nivel ${skillLevel}`}>
+              {currentStats.map(({label, value}) => <div className="skillModalStat" key={`${label}-${value}`}><span>{label}</span><strong>{value}</strong></div>)}
+            </div>}
+            {skillInfo.properties && <p className="skillModalProperties">{skillInfo.properties}</p>}
+            {skillInfo.specialties?.length > 0 && <section className="skillModalSection">
+              <h3>Especializaciones</h3>
+              <ul className="skillModalList">
+                {skillInfo.specialties.map((specialty, index) => <li className={skillLevel >= specialty.level ? "isUnlocked" : ""} key={`${specialty.level}-${index}`}><span className="skillModalLevel">Nv. {specialty.level}</span><span>{specialty.description}</span></li>)}
+              </ul>
+            </section>}
+            {skillInfo.chain?.length > 1 && <section className="skillModalSection">
+              <h3>Cadena de habilidades</h3>
+              <ol className="skillModalChain">{skillInfo.chain.map((entry) => <li key={`${entry.name}-${entry.step}`}><span>{entry.step}</span>{entry.name}</li>)}</ol>
+            </section>}
+            {skillInfo.details?.length > 0 && <section className="skillModalSection">
+              <h3>Detalles</h3>
+              <dl className="skillModalDetails">
+                {skillInfo.details.map(({label, value}) => <div key={`${label}-${value}`}><dt>{label}</dt><dd>{value === "Active" ? "Activa" : value === "Passive" ? "Pasiva" : value === "Physical" ? "Físico" : value === "Magical" ? "Mágico" : value}</dd></div>)}
+              </dl>
+            </section>}
+            <small className="skillModalSource">Datos Global de habilidades</small>
+          </div>}
         </section>
       </div>}
 
