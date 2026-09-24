@@ -175,7 +175,7 @@ export default function ClassEquipment({slug}) {
       </div>)}
 
       <div className="equipmentToolbar">
-        <form className="equipmentSearch" onSubmit={(event) => { event.preventDefault(); setPageInfo((current) => ({...current, page: 1})); setSubmittedSearch(search.trim()); }}>
+        <form className="equipmentSearch searchHalo" onSubmit={(event) => { event.preventDefault(); setPageInfo((current) => ({...current, page: 1})); setSubmittedSearch(search.trim()); }}>
           <Search aria-hidden="true" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search all items in this slot…" aria-label="Search all items in this equipment slot" />
           <button type="submit">Search</button>
         </form>

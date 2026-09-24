@@ -102,7 +102,7 @@ export default function ClassInfo({slug, onSelectClass}) {
 
       <section className="classSkills" aria-label="Global class skills">
         <style jsx global>{`.classSkillSearch{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:0 14px;border:1px solid #28536b;border-radius:8px;background:#071521;color:#70dfff}.classSkillSearch:focus-within{border-color:#70dfff}.classSkillSearch svg{width:18px;height:18px;flex:none}.classSkillSearch input{width:100%;min-width:0;height:44px;border:0;outline:none;background:transparent;color:#e8f4fb;font:inherit}.classSkillSearch input::placeholder{color:#8fa9b8}.classSkillEmpty{padding:24px;color:#9bb7c4;text-align:center}`}</style>
-        <label className="classSkillSearch"><Search aria-hidden="true"/><input type="search" aria-label="Search skills by name" placeholder="Search skills by name…" value={query} onChange={(event) => setQuery(event.target.value)}/></label>
+        <label className="classSkillSearch searchHalo"><Search aria-hidden="true"/><input type="search" aria-label="Search skills by name" placeholder="Search skills by name…" value={query} onChange={(event) => setQuery(event.target.value)}/></label>
         <div className="classSkillTabs" role="tablist" aria-label="Skill type">
           <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Active <span>{detail.active.length}</span></button>
           <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Passive <span>{detail.passive.length}</span></button>

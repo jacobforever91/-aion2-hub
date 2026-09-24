@@ -638,3 +638,11 @@
 .classInfoPanel .classSkillName{font-size:12px;line-height:1.4;letter-spacing:0;overflow-wrap:anywhere}
 @media(max-width:1050px){.classInfoPanel .classSkillGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.classInfoPanel .classSkillGrid{grid-template-columns:1fr;gap:7px}}
+
+/* Shared cyan halo for search fields throughout the site. */
+body .searchHalo,body .search:has(input),body .overlaySearch:has(input),body .a2Search:has(input){border:2px solid #46e5ff!important;border-radius:8px!important;background:#071521!important;box-shadow:0 0 10px #32dfff45,inset 0 0 6px #32dfff0d!important;transition:border-color .18s ease,box-shadow .18s ease}
+body .searchHalo:focus-within,body .search:has(input):focus-within,body .overlaySearch:has(input):focus-within,body .a2Search:has(input):focus-within{border-color:#95f4ff!important;box-shadow:0 0 14px #32dfff66,0 0 0 2px #46e5ff20!important}
+body .searchHalo input::placeholder{color:#9ebac9;opacity:1}
+body .equipmentSearch.searchHalo{padding:3px 7px}
+body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shadow:none}
+@media(prefers-reduced-motion:reduce){body .searchHalo,body .search:has(input),body .overlaySearch:has(input),body .a2Search:has(input){transition:none}}

@@ -184,7 +184,7 @@ export default function DatabaseBrowser() {
           <p>Search class skills, Stigmas, all 90 Wings, and all 208 Pets together, then open any entry inside the hub.</p>
         </header>
 
-        <label className={styles.search}>
+        <label className={`${styles.search} searchHalo`}>
           <Search aria-hidden="true" />
           <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search skills, Stigmas, Wings, Pets, or class…" aria-label="Search the game encyclopedia" />
           {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search"><X aria-hidden="true" /></button>}

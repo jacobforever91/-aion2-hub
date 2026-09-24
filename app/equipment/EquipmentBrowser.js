@@ -145,7 +145,7 @@ export default function EquipmentBrowser() {
       </div>
 
       <div className="equipmentToolbar generalEquipmentToolbar">
-        <form className="equipmentSearch" onSubmit={(event) => { event.preventDefault(); changeFilter(() => setSubmittedSearch(search.trim())); }}>
+        <form className="equipmentSearch searchHalo" onSubmit={(event) => { event.preventDefault(); changeFilter(() => setSubmittedSearch(search.trim())); }}>
           <Search aria-hidden="true" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search equipment by name…" aria-label="Search equipment by name" />
           <button type="submit">Search</button>
         </form>
