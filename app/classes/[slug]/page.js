@@ -57,9 +57,7 @@ export default function ClassDetails() {
             {skills.map((skill, index) => (
               <article className="classSkillItem" key={skill}>
                 <img className="classSkillIcon" src={`https://aion2hub.com/api/skill-icon/${skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}`} alt="" aria-hidden="true" loading="lazy" />
-                <span className="classSkillIndex">{String(index + 1).padStart(2,"0")}</span>
                 <span className="classSkillName">{skill}</span>
-                <span className="classSkillType">{skillType === "active" ? "ACTIVA" : "PASIVA"}</span>
               </article>
             ))}
           </div>
