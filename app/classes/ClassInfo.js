@@ -40,7 +40,6 @@ function formatSkillStats(levelData, fallbackStats = []) {
 export default function ClassInfo({slug, onSelectClass}) {
   const detail = classData[slug];
   const selected = classList.find((entry) => entry.slug === slug);
-  const [skillType, setSkillType] = useState("active");
   const [query, setQuery] = useState("");
   useEffect(() => { setQuery(""); setSelectedSkill(null); }, [slug]);
   const [selectedSkill, setSelectedSkill] = useState(null);
@@ -87,10 +86,14 @@ export default function ClassInfo({slug, onSelectClass}) {
 
   if (!selected || !detail) return null;
 
-  const skills = detail[skillType]
-    .map((name, index) => ({name, id: skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}))
-    .filter(({name}) => name.toLowerCase().includes(query.trim().toLowerCase()))
-    .sort((a, b) => a.name.localeCompare(b.name, "en", {sensitivity: "base"}));
+  const skillGroups = ["active", "passive"].map((type) => ({
+    type,
+    skills: detail[type]
+      .map((name, index) => ({name, id: skillIconIds[slug][index + (type === "passive" ? detail.active.length : 0)]}))
+      .filter(({name}) => name.toLowerCase().includes(query.trim().toLowerCase()))
+      .sort((a, b) => a.name.localeCompare(b.name, "en", {sensitivity: "base"}))
+  }));
+  const hasSkillMatches = skillGroups.some(({skills}) => skills.length > 0);
   const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Max Level")?.value) || 1;
   const currentSkillLevel = skillInfo?.levels?.find(({level}) => level === skillLevel) || skillInfo?.levels?.[0];
   const currentDescription = formatSkillDescription(skillInfo?.descriptionTemplate, currentSkillLevel, skillInfo?.description);
@@ -104,20 +107,20 @@ export default function ClassInfo({slug, onSelectClass}) {
         <h2 className="classSelectedName"><span aria-hidden="true" />{selected.name}</h2>
         <style jsx global>{`.classSkillSearch{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:0 14px;border:1px solid #28536b;border-radius:8px;background:#071521;color:#70dfff}.classSkillSearch:focus-within{border-color:#70dfff}.classSkillSearch svg{width:18px;height:18px;flex:none}.classSkillSearch input{width:100%;min-width:0;height:44px;border:0;outline:none;background:transparent;color:#e8f4fb;font:inherit}.classSkillSearch input::placeholder{color:#8fa9b8}.classSkillEmpty{padding:24px;color:#9bb7c4;text-align:center}`}</style>
         <label className="classSkillSearch searchHalo"><Search aria-hidden="true"/><input type="search" aria-label="Search skills by name" placeholder="Search skills by name…" value={query} onChange={(event) => setQuery(event.target.value)}/></label>
-        <div className="classSkillTabs" role="tablist" aria-label="Skill type">
-          <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Active <span>{detail.active.length}</span></button>
-          <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Passive <span>{detail.passive.length}</span></button>
-        </div>
-        <div className="classSkillGrid" role="tabpanel">
-          {skills.map(({name: skill, id: skillId}) => {
-            return (
-            <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type: skillType})} aria-label={`View ${skill} details`}>
-              <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={skillIconUrl(skillId)} alt="" aria-hidden="true" loading="lazy" />
-              <span className="classSkillName">{skill}</span>
-            </button>
-          )})}
-        </div>
-        {skills.length === 0 && <p className="classSkillEmpty" role="status">No skills match your search.</p>}
+        {skillGroups.map(({type, skills}) => (
+          (!query.trim() || skills.length > 0) && <section className={`classSkillSection ${type === "passive" ? "isPassive" : "isActive"}`} aria-label={`${type === "active" ? "Active" : "Passive"} skills`} key={type}>
+            <h3 className="classSkillSectionTitle">{type === "active" ? "Active skills" : "Passive skills"} <span>{detail[type].length}</span></h3>
+            <div className="classSkillGrid">
+              {skills.map(({name: skill, id: skillId}) => (
+                <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type})} aria-label={`View ${skill} details`}>
+                  <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={skillIconUrl(skillId)} alt="" aria-hidden="true" loading="lazy" />
+                  <span className="classSkillName">{skill}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ))}
+        {!hasSkillMatches && <p className="classSkillEmpty" role="status">No skills match your search.</p>}
         <p className="classDataNote">Global skill list · Launch Scale Test · Sep 19, 2026</p>
       </section>
 

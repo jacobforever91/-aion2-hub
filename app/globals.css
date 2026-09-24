@@ -657,3 +657,13 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
   .classBrowsePage .classGrid{top:70px;left:clamp(16px,1.5vw,24px);max-height:calc(100svh - 76px);gap:clamp(7px,.7vw,10px);transform:none}
   .classBrowsePage .classInlineContent{margin-left:clamp(100px,7.5vw,130px);padding-left:10px}
 }
+
+/* Show active and passive skills together in separate stacked sections. */
+.classInfoPanel .classSkillSection + .classSkillSection{margin-top:24px;padding-top:17px;border-top:1px solid #346077}
+.classInfoPanel .classSkillSectionTitle{display:flex;align-items:center;gap:9px;margin:0 0 11px;color:#e4f5fc;font:400 20px/1.25 Georgia,"Times New Roman",serif}
+.classInfoPanel .classSkillSectionTitle span{padding:3px 7px;border:1px solid #2e6077;border-radius:4px;color:#8cdef7;font:500 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif}
+.classInfoPanel .classSkillSectionTitle:after{content:"";height:1px;flex:1;background:#28536a}
+.classInfoPanel .classSkillSection.isPassive .classSkillSectionTitle{color:#ecdfc2}
+.classInfoPanel .classSkillSection.isPassive .classSkillSectionTitle span{border-color:#786648;color:#e3c48f}
+.classInfoPanel .classSkillSection.isPassive .classSkillItem{border-color:#5c594f;background:linear-gradient(100deg,#15232f,#182633)}
+@media(max-width:540px){.classInfoPanel .classSkillSection + .classSkillSection{margin-top:20px;padding-top:14px}.classInfoPanel .classSkillSectionTitle{font-size:18px}}
