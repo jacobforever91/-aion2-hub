@@ -43,7 +43,6 @@ function WingsCatalog() {
   const [query,setQuery]=useState("");
   const [selectedGrades,setSelectedGrades]=useState([]);
   const [faction,setFaction]=useState("All factions");
-  const [enchant,setEnchant]=useState(0);
   const [selected,setSelected]=useState(wingItems.find(item=>item.id==="30101000"));
   const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(!selectedGrades.length||selectedGrades.includes(item.grade))&&(faction==="All factions"||item.faction===faction)),[query,selectedGrades,faction]);
   const selectedVisible=visible.find((item)=>item.id===selected.id)||visible[0]||selected;
@@ -51,13 +50,7 @@ function WingsCatalog() {
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Search the wings catalog and inspect enchantment information and documented stat bonuses.</p></header>
-      <section className={styles.progressCard}>
-        <div className={styles.progressHeading}><div><span className={styles.kicker}>ENCHANTMENT</span><h2>Progression to <em>+10</em></h2></div><strong>+{enchant}<small> / +10</small></strong></div>
-        <input aria-label="Preview enchantment level" type="range" min="0" max="10" value={enchant} onChange={event=>setEnchant(Number(event.target.value))}/>
-        <div className={styles.scale}><span>+0</span><span>+5</span><span>+10</span></div>
-        <p className={styles.hint}>The source confirms enchantment levels up to +10. Stat changes at each intermediate level are not available in this reference, so this control marks the level without estimating values.</p>
-      </section>
+      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Filter by rarity and faction, then inspect each wing’s recorded stats and maximum enchantment level.</p></header>
       <div className={styles.layout}>
         <section className={styles.catalog}>
           <div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
