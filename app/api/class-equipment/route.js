@@ -122,7 +122,7 @@ function getItemInfo(html, id) {
   const rarity = properties.find((value) => gradeOptions.has(value)) || "";
   const equipType = properties.find((value) => /^(MainHand|OffHand)$/i.test(value)) || "";
   const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Boots|Gloves|Pants|Cape|Ring|Earring|Necklace|Accessory|Armor)$/i.test(value)) || "";
-  return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain, sourceUrl: `${source}/database/items/${id}`};
+  return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain};
 }
 
 export async function GET(request) {
@@ -146,7 +146,7 @@ export async function GET(request) {
       if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
       const item = localItems.find((entry) => entry.id === itemId);
       if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
-      return Response.json({...item, sourceUrl: item.source.url});
+      return Response.json(item);
     }
 
     const categories = [...new Set(localItems.map(({category}) => category))].map((name) => ({

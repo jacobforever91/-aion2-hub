@@ -61,7 +61,6 @@ function ItemModal({slug, item, onClose}) {
         {details.details?.length > 0 && <section className="equipmentModalSection"><h3>Item details</h3><dl className="equipmentStatGrid">{details.details.map(({label, value}) => <div key={`${label}-${value}`}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>}
         {details.upgrades && <section className="equipmentModalSection"><h3>Upgrades</h3><p className="equipmentUpgradeText">{details.upgrades}</p></section>}
         {details.obtain?.length > 0 && <section className="equipmentModalSection"><h3>How to obtain</h3><ul className="equipmentObtainList">{details.obtain.map((line, index) => <li key={`${index}-${line}`}>{line}</li>)}</ul></section>}
-        <a className="equipmentSource" href={details.sourceUrl} target="_blank" rel="noreferrer">{details.source?.name || "Item data source"} ↗</a>
         {details.source?.official === false && <p className="equipmentDataNote">Unofficial reference snapshot · {details.source.region} · {details.source.capturedAt}. Values may change in the released Global version.</p>}
       </>}
     </section>
