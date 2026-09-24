@@ -67,7 +67,7 @@ function WingsCatalog() {
           {selectedVisible.cosmetic?<div className={styles.hint}><strong>Cosmetic wing</strong><br/>The KR reference lists this Special wing with no collection effects and no enhancement. This is community-presented KR data; Global may differ.</div>:selectedVisible.stats.length>0?<><h3>Recorded stats</h3><div className={styles.stats}>{selectedVisible.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Values are transcribed from this item record. The reference does not provide a stat breakdown for every enchant step.</small></>:<p className={styles.hint}>This reference lists the wing’s name, faction, and grade, but does not include individual stats for this item.</p>}</>:<p className={styles.empty}>No wings match the selected rarity, faction, and search.</p>}
         </aside>
       </div>
-      <SourceNote>Item records and equipment stats: AION2.app, 2026-09-18 snapshot. Special-wing cosmetic classification: <a href="https://www.aion2timers.com/wings/" target="_blank" rel="noreferrer">Aion 2 Timers KR collection catalog</a>, table snapshot 2026-09-22, based on NCSOFT’s Korean disclosure and item dictionary. Both are reference sources, not Global confirmation; Global data may differ.</SourceNote>
+      <SourceNote>Item records and equipment stats: independent AION 2 reference snapshots. Special-wing cosmetic classification: KR collection data, table snapshot 2026-09-22, based on NCSOFT’s Korean disclosure and item dictionary. These are reference sources, not Global confirmation; Global data may differ.</SourceNote>
     </div>
   </main>;
 }
