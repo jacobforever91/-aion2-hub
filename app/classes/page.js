@@ -15,17 +15,17 @@ export default function Classes() {
 
   return (
     <main className="classPage classBrowsePage">
-      <button className="classBack" type="button" onClick={goBack} aria-label="Regresar">
+      <button className="classBack" type="button" onClick={goBack} aria-label="Back">
         <ArrowLeft aria-hidden="true" />
       </button>
-      <div className="classGrid" role="list" aria-label="Elige una clase">
+      <div className="classGrid" role="list" aria-label="Choose a class">
         {classList.map(({name, slug, emblem}) => (
           <button
             className={`classIcon${selectedSlug === slug ? " isSelected" : ""}`}
             type="button"
             key={slug}
             onClick={() => setSelectedSlug(slug)}
-            aria-label={`Ver clase ${name}`}
+            aria-label={`View ${name} class`}
             aria-pressed={selectedSlug === slug}
             title={name}
           >
