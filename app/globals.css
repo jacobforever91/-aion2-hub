@@ -439,7 +439,8 @@
 @media(max-width:700px){.classSkillsHeading{min-height:53px}}
 /* Inline class browser: keep the emblems visible beside the selected class. */
 .classBrowsePage{display:flex;align-items:stretch}
-.classBrowsePage .classGrid{z-index:6}
+/* Class selectors must size to their emblems, not the global nav height. */
+.classBrowsePage .classGrid{height:auto;z-index:6}
 .classBrowsePage .classIcon{padding:0;font:inherit;appearance:none;-webkit-appearance:none;cursor:pointer}
 .classBrowsePage .classIcon.isSelected{border-color:#72e5ff;background:radial-gradient(circle at 50% 45%,#12445a,#071522 78%);box-shadow:0 0 0 2px #52d8ff24,0 0 22px #36cfff45}
 .classInlineContent{box-sizing:border-box;flex:1;min-width:0;min-height:100svh;margin-left:clamp(142px,10vw,190px);padding:38px clamp(22px,3vw,58px) 56px;display:flex;align-items:flex-start}
