@@ -7,6 +7,8 @@ import styles from "./progression.module.css";
 import catalogData from "./catalogData.json";
 
 const tierColors = {Common:"#e8eef3",Rare:"#50baff",Epic:"#c579ff",Unique:"#ffd45b",Special:"#ff665f",Heroic:"#ff665f"};
+const wingGrades = ["Common","Rare","Epic","Unique","Special"];
+const wingGradeCounts = Object.fromEntries(wingGrades.map((grade) => [grade, catalogData.wings.filter((item) => item.grade === grade).length]));
 const genusColors = {Fera:"#91d679",Cogni:"#65d9f4",Natura:"#8fe0b4",Varian:"#bd9aff",Special:"#ffc76c"};
 const wingItems = catalogData.wings.map((item) => ({
   ...item,
@@ -39,11 +41,13 @@ function SourceNote({children}) {
 
 function WingsCatalog() {
   const [query,setQuery]=useState("");
-  const [grade,setGrade]=useState("All grades");
+  const [selectedGrades,setSelectedGrades]=useState([]);
   const [faction,setFaction]=useState("All factions");
   const [enchant,setEnchant]=useState(0);
   const [selected,setSelected]=useState(wingItems.find(item=>item.id==="30101000"));
-  const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(grade==="All grades"||item.grade===grade)&&(faction==="All factions"||item.faction===faction)),[query,grade,faction]);
+  const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(!selectedGrades.length||selectedGrades.includes(item.grade))&&(faction==="All factions"||item.faction===faction)),[query,selectedGrades,faction]);
+  const selectedVisible=visible.find((item)=>item.id===selected.id)||visible[0]||selected;
+  const toggleGrade=(grade)=>setSelectedGrades((current)=>current.includes(grade)?current.filter((value)=>value!==grade):[...current,grade]);
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
@@ -56,13 +60,17 @@ function WingsCatalog() {
       </section>
       <div className={styles.layout}>
         <section className={styles.catalog}>
-          <div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by grade" value={grade} onChange={event=>setGrade(event.target.value)}><option>All grades</option>{["Common","Rare","Special","Epic","Unique"].map(value=><option key={value}>{value}</option>)}</select><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
-          <div className={styles.count}>{visible.length} of {wingItems.length} wings · 45 Elyos · 45 Asmodians</div><div className={styles.tierLegend} aria-label="Wing grade color guide">{["Common","Rare","Epic","Unique","Special"].map(value=><span key={value} className={styles.tierBadge} style={{"--tier-color":tierColors[value]}}>{value}</span>)}</div>
-          <div className={styles.list}>{visible.map(item=><button id={`wing-${item.id}`} key={item.id} className={`${styles.item} ${styles.tierItem} ${selected.id===item.id?styles.selected:""}`} style={{"--tier-color":tierColors[item.grade],"--ix38":`${-item.iconPosition[0]*38}px`,"--iy38":`${-item.iconPosition[1]*38}px`,"--ix58":`${-item.iconPosition[0]*58}px`,"--iy58":`${-item.iconPosition[1]*58}px`}} onClick={()=>setSelected(item)}><span className={`${styles.itemIcon} ${styles.artIcon} ${styles.wingArtIcon}`} aria-hidden="true"/><span className={styles.itemCopy}><strong>{item.name}</strong><small>{item.faction}</small></span><span className={styles.tierBadge}>{item.grade}</span>{item.enhancementCap&&<span className={styles.levelPill}>+{item.enhancementCap}</span>}</button>)}</div>
+          <div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
+          <div className={styles.count}>Showing {visible.length} of {wingItems.length} wings · 45 Elyos · 45 Asmodians</div>
+          <div className={styles.tierLegend} role="group" aria-label="Filter wings by rarity">
+            <button type="button" className={`${styles.tierBadge} ${styles.tierFilter} ${selectedGrades.length===0?styles.tierFilterActive:""}`} style={{"--tier-color":"#8ca8b7"}} aria-pressed={selectedGrades.length===0} onClick={()=>setSelectedGrades([])}>All rarities</button>
+            {wingGrades.map(value=><button type="button" key={value} className={`${styles.tierBadge} ${styles.tierFilter} ${selectedGrades.includes(value)?styles.tierFilterActive:""}`} style={{"--tier-color":tierColors[value]}} aria-pressed={selectedGrades.includes(value)} title={`Show ${wingGradeCounts[value]} ${value} wings`} onClick={()=>toggleGrade(value)}>{value}<span className={styles.filterCount}>{wingGradeCounts[value]}</span></button>)}
+          </div>
+          <div className={styles.list}>{visible.map(item=><button id={`wing-${item.id}`} key={item.id} className={`${styles.item} ${styles.tierItem} ${selectedVisible.id===item.id?styles.selected:""}`} style={{"--tier-color":tierColors[item.grade],"--ix38":`${-item.iconPosition[0]*38}px`,"--iy38":`${-item.iconPosition[1]*38}px`,"--ix58":`${-item.iconPosition[0]*58}px`,"--iy58":`${-item.iconPosition[1]*58}px`}} onClick={()=>setSelected(item)}><span className={`${styles.itemIcon} ${styles.artIcon} ${styles.wingArtIcon}`} aria-hidden="true"/><span className={styles.itemCopy}><strong>{item.name}</strong><small>{item.faction}</small></span><span className={styles.tierBadge} style={{"--tier-color":tierColors[item.grade]}}>{item.grade}</span>{item.enhancementCap&&<span className={styles.levelPill}>+{item.enhancementCap}</span>}</button>)}</div>
           {!visible.length&&<p className={styles.empty}>No wings match this search.</p>}
         </section>
-        <aside className={styles.detail}><div className={styles.detailHeading}><span className={`${styles.detailIcon} ${styles.artIcon} ${styles.wingArtIcon}`} style={{"--tier-color":tierColors[selected.grade],"--ix38":`${-selected.iconPosition[0]*38}px`,"--iy38":`${-selected.iconPosition[1]*38}px`,"--ix58":`${-selected.iconPosition[0]*58}px`,"--iy58":`${-selected.iconPosition[1]*58}px`}} aria-hidden="true"/><div><span className={styles.kicker}>SELECTED WING</span><h2>{selected.name}</h2></div></div><p className={styles.meta}><span className={styles.tierBadge} style={{"--tier-color":tierColors[selected.grade]}}>{selected.grade}</span> · {selected.faction}{selected.enhancementCap?` · Enchantable to +${selected.enhancementCap}`:""}</p>
-          {selected.stats.length>0?<><h3>Recorded stats</h3><div className={styles.stats}>{selected.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Values are transcribed from this item record. The reference does not provide a stat breakdown for every enchant step.</small></>:<p className={styles.hint}>This reference lists the wing’s name, faction, and grade, but does not include individual stats for this item.</p>}
+        <aside className={styles.detail}>{visible.length>0?<><div className={styles.detailHeading}><span className={`${styles.detailIcon} ${styles.artIcon} ${styles.wingArtIcon}`} style={{"--tier-color":tierColors[selectedVisible.grade],"--ix38":`${-selectedVisible.iconPosition[0]*38}px`,"--iy38":`${-selectedVisible.iconPosition[1]*38}px`,"--ix58":`${-selectedVisible.iconPosition[0]*58}px`,"--iy58":`${-selectedVisible.iconPosition[1]*58}px`}} aria-hidden="true"/><div><span className={styles.kicker}>SELECTED WING</span><h2>{selectedVisible.name}</h2></div></div><p className={styles.meta}><span className={styles.tierBadge} style={{"--tier-color":tierColors[selectedVisible.grade]}}>{selectedVisible.grade}</span> · {selectedVisible.faction}{selectedVisible.enhancementCap?` · Enchantable to +${selectedVisible.enhancementCap}`:""}</p>
+          {selectedVisible.stats.length>0?<><h3>Recorded stats</h3><div className={styles.stats}>{selectedVisible.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Values are transcribed from this item record. The reference does not provide a stat breakdown for every enchant step.</small></>:<p className={styles.hint}>This reference lists the wing’s name, faction, and grade, but does not include individual stats for this item.</p>}</>:<p className={styles.empty}>No wings match the selected rarity, faction, and search.</p>}
         </aside>
       </div>
       <SourceNote>Reference catalog lists 90 wings (45 Elyos and 45 Asmodians). Individual stat values are shown where the item record includes them.</SourceNote>
