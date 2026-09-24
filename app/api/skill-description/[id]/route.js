@@ -1,9 +1,10 @@
-import {skillIconIds} from "../../../classes/classData";
+import {skillIconIds} from "../../../classes/classData.js";
 
 const validSkillIds = new Set(Object.values(skillIconIds).flat());
 
 function decodeHtml(value) {
   return value
+    .replace(/<!--\s*-->/g, " ")
     .replace(/<[^>]*>/g, "")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
@@ -12,6 +13,71 @@ function decodeHtml(value) {
     .replace(/&#39;|&#x27;/g, "'")
     .replace(/&nbsp;/g, " ")
     .trim();
+}
+
+function readSection(html, title) {
+  const start = html.indexOf(`>${title}</h2>`);
+  if (start < 0) return "";
+  const end = html.indexOf("</section>", start);
+  return html.slice(start, end < 0 ? undefined : end);
+}
+
+function readPairs(html, rowPattern, labelMap) {
+  const pairs = [];
+  for (const [, row] of html.matchAll(rowPattern)) {
+    const spans = [...row.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/g)].map((match) => decodeHtml(match[1]));
+    if (spans.length < 2 || !spans[0] || !spans[1]) continue;
+    pairs.push({label: labelMap[spans[0]] || spans[0], value: spans[1]});
+  }
+  return pairs;
+}
+
+const statLabels = {Damage: "Daño", Heal: "Curación", Cooldown: "Enfriamiento", MP: "Maná", HP: "Vida", DP: "DP", "Cast time": "Tiempo de lanzamiento"};
+const detailLabels = {Type: "Tipo", "Damage type": "Tipo de daño", Weapon: "Arma", Range: "Alcance", Max: "Nivel máximo", "Required level": "Nivel requerido", Duration: "Duración", Target: "Objetivo"};
+
+function parseSkillPage(html) {
+  const descriptionMatch = html.match(/class="[^"]*whitespace-pre-line[^"]*"[^>]*>\s*<span>([\s\S]*?)<\/span>/);
+  const propertiesMatch = html.match(/<p class="text-xs text-amber[^\"]*whitespace-pre-line[^\"]*">\s*<span>([\s\S]*?)<\/span>/);
+  const statsHtml = html.match(/<div class="flex flex-wrap gap-1\.5 mt-3">([\s\S]*?)<\/section>/)?.[1] || "";
+  const detailsHtml = readSection(html, "Details");
+  const specialtyHtml = readSection(html, "Specialty");
+  const chainHtml = readSection(html, "Chain");
+  const headerMeta = html.match(/<h1[^>]*>[\s\S]*?<\/h1>\s*<div class="flex flex-wrap items-center gap-2 mt-1\.5[^\"]*">([\s\S]*?)<\/div>/)?.[1] || "";
+  const headerValues = [...headerMeta.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/g)].map((match) => decodeHtml(match[1]).replace(/^·\s*/, "")).filter(Boolean);
+  const stats = [...statsHtml.matchAll(/<span class="text-gray-500[^\"]*">([^<]*)<\/span>\s*<span class="font-semibold[^\"]*">([^<]*)<\/span>/g)].map(([, label, value]) => ({label: statLabels[decodeHtml(label)] || decodeHtml(label), value: decodeHtml(value)}));
+  const levelsMatch = html.match(/\\"levels\\":(\[\{[\s\S]*?\}\]),\\"specs\\"/);
+  let levels = [];
+  let descriptionTemplate = "";
+  if (levelsMatch) {
+    try {
+      levels = JSON.parse(levelsMatch[1].replace(/\\"/g, '"'));
+      const dataTail = html.slice(levelsMatch.index);
+      const templateMatch = dataTail.match(/\\"description\\":\\"((?:\\\\.|[^\\"])*)\\",\\"properties\\"/);
+      if (templateMatch) descriptionTemplate = JSON.parse(`"${templateMatch[1]}"`);
+    } catch {
+      levels = [];
+    }
+  }
+  const specialties = [...specialtyHtml.matchAll(/<div class="flex items-start gap-2[^\"]*">([\s\S]*?)<\/div>/g)].map(([, row]) => {
+    const levelText = row.match(/<span class="flex-shrink-0 px-1\.5[^\"]*">([\s\S]*?)<\/span>/)?.[1] || "";
+    const effectMatch = row.match(/<span class="text-sm text-gray[^\"]*">([\s\S]*?)<\/span>/);
+    return {level: Number(decodeHtml(levelText).match(/\d+/)?.[0] || 0), description: effectMatch ? decodeHtml(effectMatch[1]) : ""};
+  }).filter((entry) => entry.description);
+  const chain = [...chainHtml.matchAll(/<span class="text-sm [^\"]*">([\s\S]*?)<\/span>\s*<span class="text-\[10px\][^\"]*">([\s\S]*?)<\/span>/g)].map(([, name, step]) => ({name: decodeHtml(name), step: decodeHtml(step)})).filter((entry) => entry.name);
+
+  return {
+    description: descriptionMatch ? decodeHtml(descriptionMatch[1]) : "",
+    properties: propertiesMatch ? decodeHtml(propertiesMatch[1]) : "",
+    stats,
+    specialties,
+    chain,
+    levels,
+    descriptionTemplate,
+    details: readPairs(detailsHtml, /<div class="flex items-baseline justify-between[^\"]*">([\s\S]*?)<\/div>/g, detailLabels),
+    category: headerValues[1] || "",
+    mastery: headerValues[2] || "",
+    requiredLevel: headerValues.find((value) => /Required level/i.test(value))?.match(/\d+/)?.[0] || "",
+  };
 }
 
 export async function GET(_request, {params}) {
@@ -28,11 +94,10 @@ export async function GET(_request, {params}) {
     if (!response.ok) throw new Error(`Skill source returned ${response.status}`);
 
     const html = await response.text();
-    const match = html.match(/class="[^"]*whitespace-pre-line[^"]*"[^>]*>\s*<span>([\s\S]*?)<\/span>/);
-    const description = match ? decodeHtml(match[1]) : "";
-    if (!description) throw new Error("Skill description was not found");
+    const skill = parseSkillPage(html);
+    if (!skill.description) throw new Error("Skill description was not found");
 
-    return Response.json({description});
+    return Response.json(skill);
   } catch {
     return Response.json({error: "No se pudo cargar la descripción."}, {status: 502});
   }
