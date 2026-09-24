@@ -667,3 +667,12 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .classInfoPanel .classSkillSection.isPassive .classSkillSectionTitle span{border-color:#786648;color:#e3c48f}
 .classInfoPanel .classSkillSection.isPassive .classSkillItem{border-color:#5c594f;background:linear-gradient(100deg,#15232f,#182633)}
 @media(max-width:540px){.classInfoPanel .classSkillSection + .classSkillSection{margin-top:20px;padding-top:14px}.classInfoPanel .classSkillSectionTitle{font-size:18px}}
+
+/* Stigma is a distinct group between regular active and passive skills. */
+.classInfoPanel .classSkillSection.isStigma{border-top-color:#775a96}
+.classInfoPanel .classSkillSection.isStigma .classSkillSectionTitle{color:#e9d5fa}
+.classInfoPanel .classSkillSection.isStigma .classSkillSectionTitle:before{content:"✦";color:#c597f3;font:400 17px/1 Georgia,serif}
+.classInfoPanel .classSkillSection.isStigma .classSkillSectionTitle span{border-color:#8061a0;color:#d7b3f6}
+.classInfoPanel .classSkillSection.isStigma .classSkillSectionTitle:after{background:#684f83}
+.classInfoPanel .classSkillSection.isStigma .classSkillItem{border-color:#604a7d;background:linear-gradient(100deg,#191b32,#111e30)}
+.classInfoPanel .classSkillSection.isStigma .classSkillItem:hover{border-color:#ae81d6;background:#25203e}

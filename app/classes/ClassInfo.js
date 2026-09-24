@@ -86,10 +86,17 @@ export default function ClassInfo({slug, onSelectClass}) {
 
   if (!selected || !detail) return null;
 
-  const skillGroups = ["active", "passive"].map((type) => ({
+  // The class lists place 13 regular/common skills before their Stigma skills.
+  const regularSkillCount = 13;
+  const skillGroups = [
+    {type: "active", names: detail.active.slice(0, regularSkillCount), iconOffset: 0},
+    {type: "stigma", names: detail.active.slice(regularSkillCount), iconOffset: regularSkillCount},
+    {type: "passive", names: detail.passive, iconOffset: detail.active.length}
+  ].map(({type, names, iconOffset}) => ({
     type,
-    skills: detail[type]
-      .map((name, index) => ({name, id: skillIconIds[slug][index + (type === "passive" ? detail.active.length : 0)]}))
+    total: names.length,
+    skills: names
+      .map((name, index) => ({name, id: skillIconIds[slug][iconOffset + index]}))
       .filter(({name}) => name.toLowerCase().includes(query.trim().toLowerCase()))
       .sort((a, b) => a.name.localeCompare(b.name, "en", {sensitivity: "base"}))
   }));
@@ -107,9 +114,9 @@ export default function ClassInfo({slug, onSelectClass}) {
         <h2 className="classSelectedName"><span aria-hidden="true" />{selected.name}</h2>
         <style jsx global>{`.classSkillSearch{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:0 14px;border:1px solid #28536b;border-radius:8px;background:#071521;color:#70dfff}.classSkillSearch:focus-within{border-color:#70dfff}.classSkillSearch svg{width:18px;height:18px;flex:none}.classSkillSearch input{width:100%;min-width:0;height:44px;border:0;outline:none;background:transparent;color:#e8f4fb;font:inherit}.classSkillSearch input::placeholder{color:#8fa9b8}.classSkillEmpty{padding:24px;color:#9bb7c4;text-align:center}`}</style>
         <label className="classSkillSearch searchHalo"><Search aria-hidden="true"/><input type="search" aria-label="Search skills by name" placeholder="Search skills by name…" value={query} onChange={(event) => setQuery(event.target.value)}/></label>
-        {skillGroups.map(({type, skills}) => (
-          (!query.trim() || skills.length > 0) && <section className={`classSkillSection ${type === "passive" ? "isPassive" : "isActive"}`} aria-label={`${type === "active" ? "Active" : "Passive"} skills`} key={type}>
-            <h3 className="classSkillSectionTitle">{type === "active" ? "Active skills" : "Passive skills"} <span>{detail[type].length}</span></h3>
+        {skillGroups.map(({type, total, skills}) => (
+          (!query.trim() || skills.length > 0) && <section className={`classSkillSection is${type[0].toUpperCase() + type.slice(1)}`} aria-label={`${type[0].toUpperCase() + type.slice(1)} skills`} key={type}>
+            <h3 className="classSkillSectionTitle">{type[0].toUpperCase() + type.slice(1)} skills <span>{total}</span></h3>
             <div className="classSkillGrid">
               {skills.map(({name: skill, id: skillId}) => (
                 <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type})} aria-label={`View ${skill} details`}>
@@ -129,10 +136,10 @@ export default function ClassInfo({slug, onSelectClass}) {
         <style jsx global>{`.skillModal{width:min(760px,calc(100vw - 28px))!important;max-height:min(96svh,1100px)!important;padding:58px clamp(22px,5vw,38px) 30px!important;scrollbar-width:none;-ms-overflow-style:none}.skillModal::-webkit-scrollbar{display:none}.skillModalClose{top:14px!important;right:14px!important;z-index:2;width:38px;height:38px}.skillModal.hasSkillChain{width:min(1040px,calc(100vw - 32px))!important;max-height:min(98svh,1300px)!important}.skillModalData{margin-top:24px!important}.skillModalBadges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 17px}.skillModalBadges span{padding:6px 10px;border:1px solid #24546b;border-radius:4px;background:#071725;color:#9fd8e9;font-size:10px;letter-spacing:.25px}.skillModalStats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin:0 0 16px}.skillModalStat{display:flex;flex-direction:column;gap:6px;padding:10px 11px;border:1px solid #1c4055;border-radius:5px;background:#071521}.skillModalStat span{color:#88a3b1;font-size:9px;letter-spacing:.8px;text-transform:uppercase}.skillModalStat strong{color:#d8f7ff;font-size:15px;font-weight:650}.skillModalProperties{display:inline-flex;margin:0 0 15px;padding:7px 10px;border:1px solid #24546b;border-radius:4px;background:#071725;color:#9fd8e9;font-size:11px;line-height:1.5}.skillModalSection{margin-top:17px;padding-top:14px;border-top:1px solid #19384c}.skillModalSection h3{margin:0 0 10px;color:#75dfff;font-size:10px;letter-spacing:1.6px;text-transform:uppercase}.skillModalList{display:grid;gap:8px;margin:0;padding:0;list-style:none}.skillModalList li{display:grid;grid-template-columns:54px minmax(0,1fr);align-items:start;gap:10px;color:#c0d2dc;font-size:12px;line-height:1.55}.skillModalLevel{padding:4px 6px;border:1px solid #244d62;border-radius:4px;color:#73dfff;font-size:9px;text-align:center;white-space:nowrap}.skillModalSource{display:block;margin-top:22px;color:#7893a2;font-size:9px;letter-spacing:.6px}.skillModalDetails{grid-template-columns:repeat(2,minmax(0,1fr))!important}.skillModalDetails>div{display:grid!important;grid-template-columns:minmax(90px,.8fr) minmax(0,1fr);align-items:baseline;gap:8px}.skillModalDetails dt{white-space:nowrap}.skillModalDetails dd{overflow-wrap:anywhere}.skillModalData{margin-top:24px!important}.skillModalBadges{margin-bottom:17px!important}.skillModalChain{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}.skillModalChainItem{display:flex;align-items:center;gap:9px;min-width:0;padding:7px 10px;border:1px solid #1d4055;border-radius:5px;background:#071521}.skillModalChainItem img{width:34px;height:34px;flex:none;object-fit:contain;border:1px solid #234d63;border-radius:5px;background:#06111d}.skillModalChainItem span{color:#ccdde4;font-size:12px;line-height:1.35}.skillModalSkillIdentity{display:flex;align-items:center;gap:12px;margin:0 0 16px;padding:10px 12px;border:1px solid #1c4055;border-radius:6px;background:#071521}.skillModalSkillIdentity img{width:48px;height:48px;flex:none;object-fit:cover;border:1px solid #327b96;border-radius:7px;background:#06111d}.skillModalSkillIdentity h2{margin:0!important;color:#eef8fc!important;font:400 24px/1.2 Georgia,"Times New Roman",serif!important}.skillModalSkillIdentity span{display:block;margin-top:4px;color:#79a2b5;font-size:9px;letter-spacing:1px;text-transform:uppercase}.skillLevelControl{margin:18px 0 20px;padding:15px 16px;border:1px solid #1c4055;border-radius:5px;background:#071521}.skillLevelHeading{display:flex;justify-content:space-between;gap:12px;margin-bottom:13px;line-height:1.5;color:#9bb7c4;font-size:10px;letter-spacing:.5px}.skillLevelHeading output{color:#70ddff;font-weight:700;font-variant-numeric:tabular-nums}.skillLevelControl input{display:block;width:100%;height:8px;margin:0;accent-color:#54d9ff;cursor:pointer}.skillModalList li{opacity:.62;transition:opacity .18s ease,color .18s ease}.skillModalList li.isUnlocked{opacity:1}.skillModalList li.isUnlocked .skillModalLevel{border-color:#2582a0;background:#0a2b3d;color:#8de8ff}@media(max-width:520px){.skillModalDetails{grid-template-columns:1fr!important}.skillModal{width:calc(100vw - 20px)!important;max-height:92svh!important;padding:56px 22px 24px!important}.skillModal.hasSkillChain{width:calc(100vw - 16px)!important;max-height:96svh!important}.skillModalDetails>div{grid-template-columns:minmax(88px,.72fr) minmax(0,1fr)}}`}</style>
         <section className={`skillModal${skillInfo?.chain?.length > 1 ? " hasSkillChain" : ""}`} role="dialog" aria-modal="true" aria-labelledby="skillModalTitle" aria-describedby="skillModalDescription">
           <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Close skill details"><X aria-hidden="true" /></button>
-          <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "active" ? "ACTIVE SKILL" : "PASSIVE SKILL"}</span>
+          <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "stigma" ? "STIGMA SKILL" : selectedSkill.type === "active" ? "ACTIVE SKILL" : "PASSIVE SKILL"}</span>
           <div className="skillModalSkillIdentity">
             <img src={skillIconUrl(selectedSkill.id)} alt={`Icono de ${selectedSkill.name}`} />
-            <div><h2 id="skillModalTitle">{selectedSkill.name}</h2><span>{selectedSkill.type === "active" ? "Active skill" : "Passive skill"}</span></div>
+            <div><h2 id="skillModalTitle">{selectedSkill.name}</h2><span>{selectedSkill.type === "stigma" ? "Stigma skill" : selectedSkill.type === "active" ? "Active skill" : "Passive skill"}</span></div>
           </div>
           <div className="skillModalDivider" />
           <p id="skillModalDescription" className={`skillModalDescription is${descriptionState}`}>
