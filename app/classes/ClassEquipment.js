@@ -4,6 +4,11 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import {ChevronLeft, ChevronRight, Gem, Search, Shield, Sword, X} from "lucide-react";
 
 const grades = ["All grades", "Common", "Rare", "Epic", "Unique", "Heroic", "Special"];
+const equipmentArtwork = {
+  Weapon: "/equipment-art/weapon.webp",
+  Armor: "/equipment-art/armor.webp",
+  Accessories: "/equipment-art/accessory.webp",
+};
 
 function ItemModal({slug, item, onClose}) {
   const [details, setDetails] = useState(null);
@@ -39,7 +44,7 @@ function ItemModal({slug, item, onClose}) {
       <button className="equipmentModalClose" type="button" onClick={onClose} aria-label="Close item details"><X aria-hidden="true" /></button>
       <div className="equipmentModalEyebrow">CLASS EQUIPMENT · GLOBAL DATABASE</div>
       <div className="equipmentModalTitleRow">
-        <img src={item.icon} alt="" />
+        <img src={item.art} alt="" />
         <div><h2 id="equipmentModalTitle">{details?.name || item.name}</h2><p>{[details?.rarity || item.grade, details?.itemType, details?.equipType && details.equipType !== "MainHand" ? details.equipType : ""].filter(Boolean).join(" · ")}</p></div>
       </div>
 
@@ -159,8 +164,8 @@ export default function ClassEquipment({slug}) {
       {state === "loading" && <p className="equipmentLoading">Loading items…</p>}
       {state === "error" && <p className="equipmentLoading isError">Could not load the item list. Please try again.</p>}
       {state === "ready" && visibleItems.length > 0 && <div className="equipmentItemGrid">
-        {visibleItems.map((item) => <button className="equipmentItemCard" type="button" key={item.id} onClick={() => setSelectedItem(item)}>
-          <span className="equipmentItemIcon"><img src={item.icon} alt="" loading="lazy" /></span>
+        {visibleItems.map((item) => <button className="equipmentItemCard" type="button" key={item.id} onClick={() => setSelectedItem({...item, art: equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor})}>
+          <span className="equipmentItemIcon"><img src={equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor} alt="" loading="lazy" /></span>
           <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade grade${item.grade}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
         </button>)}
       </div>}

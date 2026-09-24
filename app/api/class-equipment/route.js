@@ -64,11 +64,10 @@ function getItems(html) {
   const items = [];
   for (const [, id, anchor] of html.matchAll(/<a\b[^>]*href="\/database\/items\/(\d+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
     const title = anchor.match(/\btitle="([^"]+)"/i)?.[1];
-    const image = anchor.match(/<img\b[^>]*src="([^"]+)"/i)?.[1];
     const labels = [...anchor.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/gi)].map(([, value]) => plain(value)).filter(Boolean);
     const name = title || labels.at(-2) || plain(anchor);
     const grade = labels.at(-1) || "";
-    items.push({id, name, grade, icon: image ? new URL(image, source).href : `${source}/api/icon/items/${id}`});
+    items.push({id, name, grade});
   }
   return items;
 }
@@ -122,7 +121,7 @@ function getItemInfo(html, id) {
   const rarity = properties.find((value) => gradeOptions.has(value)) || "";
   const equipType = properties.find((value) => /^(MainHand|OffHand)$/i.test(value)) || "";
   const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Boots|Gloves|Pants|Cape|Ring|Earring|Necklace|Accessory|Armor)$/i.test(value)) || "";
-  return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain, icon: `${source}/api/icon/items/${id}`, sourceUrl: `${source}/database/items/${id}`};
+  return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain, sourceUrl: `${source}/database/items/${id}`};
 }
 
 export async function GET(request) {
