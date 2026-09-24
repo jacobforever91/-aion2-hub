@@ -164,6 +164,10 @@ export async function GET(request) {
     return Response.json({className, category, items, ...info, source});
   } catch (error) {
     console.error("Class equipment lookup failed:", error);
-    return Response.json({error: "The equipment database is temporarily unavailable.", diagnostic: error instanceof Error ? error.message : String(error)}, {status: 502});
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const message = errorMessage.includes("403")
+      ? "The equipment source is currently rejecting requests from this site (HTTP 403)."
+      : "The equipment database is temporarily unavailable. Please try again later.";
+    return Response.json({error: message}, {status: 502});
   }
 }
