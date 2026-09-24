@@ -79,7 +79,7 @@ export default function ClassEquipment({slug}) {
     const controller = new AbortController();
     setCatalogState("loading");
     fetch(`/api/class-equipment?class=${slug}`, {signal: controller.signal})
-      .then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(`${response.status}: ${data.diagnostic || data.error || "Could not load classes"}`); return data; })
+      .then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not load classes"); return data; })
       .then((data) => {
         const nextCategories = data.categories || [];
         setCategories(nextCategories);
@@ -134,7 +134,7 @@ export default function ClassEquipment({slug}) {
     </div>
 
     {catalogState === "loading" && <p className="equipmentLoading">Loading class equipment…</p>}
-    {catalogState === "error" && <p className="equipmentLoading isError">The equipment catalog is temporarily unavailable. Please try again later. <span>{catalogError}</span></p>}
+    {catalogState === "error" && <p className="equipmentLoading isError">{catalogError || "The equipment catalog is temporarily unavailable. Please try again later."}</p>}
     {catalogState === "ready" && <>
       {[["Weapon", weaponCategories, Sword], ["Armor", armorCategories, Shield], ["Accessories", accessoryCategories, Gem]].map(([group, entries, GroupIcon]) => entries.length > 0 && <div className="equipmentCategoryGroup" key={group}>
         <div className="equipmentCategoryTitle"><GroupIcon aria-hidden="true" /><span>{group}</span><i /></div>
