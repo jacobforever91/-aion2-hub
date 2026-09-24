@@ -584,5 +584,8 @@
 .classWeaponEmpty{display:flex;flex-direction:column;justify-content:space-between}
 .classWeaponEmpty p{max-width:340px;margin:10px 0 2px;color:#839ba7;font-size:10px;line-height:1.55}
 .classWeaponNote{margin:11px 0 0;color:#627f8d;font-size:8px;letter-spacing:.25px}
-@media(max-width:700px){.classWeapons{margin:22px 0 26px;padding:16px 14px 13px}.classWeaponsHeading{align-items:flex-start;flex-direction:column;gap:6px}.classWeaponsHeading p{text-align:left}.classWeaponGrid{gap:7px}.classWeaponCard{min-height:100px;padding:10px}.classWeaponIdentity{gap:9px}.classWeaponIdentity>svg{width:48px;height:48px}.classWeaponIdentity h3{font-size:17px}}
+.classEquipment>.classWeapons{margin:8px 0 22px;padding:17px 18px 13px}
+.classWeaponsHeading h3{margin:5px 0 0;color:#eaf5f9;font:400 clamp(22px,2.6vw,29px)/1.1 Georgia,"Times New Roman",serif}
+.classWeaponIdentity h4{margin:0;color:#e7f4f8;font:400 20px/1.15 Georgia,"Times New Roman",serif}
+@media(max-width:700px){.classWeapons{margin:22px 0 26px;padding:16px 14px 13px}.classEquipment>.classWeapons{margin:5px 0 18px;padding:15px 13px 12px}.classWeaponsHeading{align-items:flex-start;flex-direction:column;gap:6px}.classWeaponsHeading p{text-align:left}.classWeaponGrid{gap:7px}.classWeaponCard{min-height:100px;padding:10px}.classWeaponIdentity{gap:9px}.classWeaponIdentity>svg{width:48px;height:48px}.classWeaponIdentity h3,.classWeaponIdentity h4{font-size:17px}}
 @media(max-width:460px){.classWeaponGrid{grid-template-columns:1fr}.classWeaponCard{min-height:88px}.classWeaponIdentity>svg{width:52px;height:52px}}

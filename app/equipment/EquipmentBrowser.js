@@ -3,13 +3,14 @@
 import {useState} from "react";
 import Link from "next/link";
 import {ArrowLeft} from "lucide-react";
-import {classData, classList, emblemBase} from "../classes/classData";
+import {classList, classWeapons, emblemBase} from "../classes/classData";
 import ClassEquipment from "../classes/ClassEquipment";
 
 export default function EquipmentBrowser() {
   const [selectedSlug, setSelectedSlug] = useState("templar");
   const selectedClass = classList.find(({slug}) => slug === selectedSlug) || classList[0];
-  const selectedData = classData[selectedClass.slug];
+  const weapons = classWeapons[selectedClass.slug];
+  const weaponSummary = [weapons.main.name, weapons.secondary && `${weapons.secondary.kind}: ${weapons.secondary.name}`].filter(Boolean).join(" · ");
 
   return (
     <main className="classPage classBrowsePage equipmentBrowsePage">
@@ -38,7 +39,7 @@ export default function EquipmentBrowser() {
           <header className="equipmentClassHeading">
             <span className="classEyebrow">GLOBAL · CLASS EQUIPMENT</span>
             <h1>{selectedClass.name}</h1>
-            <p>{selectedData.weapon} · Weapons, armor and accessories for this class.</p>
+            <p>{weaponSummary} · Weapons, armor and accessories for this class.</p>
           </header>
           <ClassEquipment key={selectedSlug} slug={selectedSlug} />
         </div>

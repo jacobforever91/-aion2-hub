@@ -2,6 +2,8 @@
 
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {ChevronLeft, ChevronRight, Gem, Search, Shield, Sword, X} from "lucide-react";
+import {classWeapons} from "./classData";
+import WeaponGlyph from "./WeaponGlyph";
 
 const grades = ["All grades", "Common", "Rare", "Epic", "Unique", "Heroic", "Special"];
 const equipmentArtwork = {
@@ -68,6 +70,7 @@ function ItemModal({slug, item, onClose}) {
 }
 
 export default function ClassEquipment({slug}) {
+  const weapons = classWeapons[slug];
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [items, setItems] = useState([]);
@@ -137,6 +140,27 @@ export default function ClassEquipment({slug}) {
       <div><span className="classEyebrow">CLASS DATABASE · REFERENCE DATA</span><h2>Equipment</h2><p>Browse this class’s weapons, armor and accessories. Select an item to see its stats and source details.</p></div>
       <div className="classEquipmentCount"><Gem aria-hidden="true" />{selectedCategory ? selectedCategory.count : "…"}<span>items</span></div>
     </div>
+
+    <section className="classWeapons" aria-label={`${slug} weapon loadout`}>
+      <div className="classWeaponsHeading">
+        <div><span className="classEyebrow">CLASS LOADOUT</span><h3>Weapons</h3></div>
+        <p>Regional reference data from KR/TW. Global equipment may differ.</p>
+      </div>
+      <div className="classWeaponGrid">
+        <article className="classWeaponCard">
+          <span className="classWeaponSlot">Main weapon</span>
+          <div className="classWeaponIdentity"><WeaponGlyph type={weapons.main.icon} /><div><h4>{weapons.main.name}</h4><span>Class weapon</span></div></div>
+        </article>
+        {weapons.secondary ? <article className={`classWeaponCard${weapons.secondary.kind === "Alternate main weapon" ? " isAlternate" : ""}`}>
+          <span className="classWeaponSlot">{weapons.secondary.kind}</span>
+          <div className="classWeaponIdentity"><WeaponGlyph type={weapons.secondary.icon} /><div><h4>{weapons.secondary.name}</h4><span>{weapons.secondary.kind === "Off-hand" ? "Secondary slot" : "Can be equipped instead of the main weapon"}</span></div></div>
+        </article> : <article className="classWeaponCard classWeaponEmpty">
+          <span className="classWeaponSlot">Off-hand</span>
+          <p>No separate class weapon is listed for this slot in the regional reference.</p>
+        </article>}
+      </div>
+      <p className="classWeaponNote">Unofficial KR/TW reference · weapon slot details are not yet confirmed for Global.</p>
+    </section>
 
     {catalogState === "loading" && <p className="equipmentLoading">Loading class equipment…</p>}
     {catalogState === "error" && <p className="equipmentLoading isError">{catalogError || "The equipment catalog is temporarily unavailable. Please try again later."}</p>}
