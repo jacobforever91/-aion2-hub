@@ -621,3 +621,11 @@
 .classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin-top:5px;font-size:clamp(38px,4.2vw,60px)}
 .classMeta{margin-top:16px}
 @media(max-width:700px){.classDetailHero,.classInfoPanel .classDetailHero{grid-template-columns:58px minmax(0,1fr);gap:13px;padding:17px 15px}.classDetailCrest,.classInfoPanel .classDetailCrest{width:58px;height:58px;border-radius:10px}.classDetailCrest .classEmblemCrop,.classInfoPanel .classDetailCrest .classEmblemCrop{width:78%;height:86%}.classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin:4px 0 8px;font-size:clamp(32px,8vw,42px)}.classDetailIntro>p,.classInfoPanel .classDetailIntro>p{font-size:12px;line-height:1.55}.classMeta{gap:6px;margin-top:12px}.classMeta span{padding:7px 8px;font-size:9px}}
+
+/* Approved ruins backdrop: isolated from foreground to preserve contrast. */
+.classPage.classBrowsePage,.classDetailPage{position:relative;isolation:isolate;background:#030812}
+.classPage.classBrowsePage::before,.classDetailPage::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(3,8,18,.24),rgba(3,8,18,.10)),url('/backgrounds/skills-atreia-ruins.webp') center bottom/cover no-repeat}
+.classBrowsePage .classSkillTabs,.classDetailPage .classSkillTabs{background:rgba(3,8,18,.65);border-radius:7px 7px 0 0}
+.classBrowsePage .classSkillTabs button,.classDetailPage .classSkillTabs button{color:#b2c8d4}
+.classBrowsePage .classDataNote,.classDetailPage .classDataNote{color:#aac0ce;text-shadow:0 1px 3px #030812}
+@media(max-width:700px){.classPage.classBrowsePage::before,.classDetailPage::before{background-position:70% bottom}}
