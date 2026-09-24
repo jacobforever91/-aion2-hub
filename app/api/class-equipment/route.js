@@ -2,7 +2,7 @@ import {classList} from "../../classes/classData.js";
 import equipmentData from "../../classes/equipmentData.json";
 
 const source = "https://aion2hub.com";
-const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special"]);
+const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
 const classNames = new Map(classList.map(({slug, name}) => [slug, name]));
 const sourceClassNames = new Map([["spiritmaster", "Elementalist"]]);
 
@@ -63,12 +63,13 @@ function getPageInfo(html) {
 
 function getItems(html) {
   const items = [];
-  for (const [, id, anchor] of html.matchAll(/<a\b[^>]*href="\/database\/items\/(\d+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
-    const title = anchor.match(/\btitle="([^"]+)"/i)?.[1];
+  for (const [, attributes, id, anchor] of html.matchAll(/<a\b([^>]*href="\/database\/items\/(\d+)"[^>]*)>([\s\S]*?)<\/a>/gi)) {
+    const title = attributes.match(/\btitle="([^"]+)"/i)?.[1];
     const labels = [...anchor.matchAll(/<span\b[^>]*>([\s\S]*?)<\/span>/gi)].map(([, value]) => plain(value)).filter(Boolean);
-    const name = title || labels.at(-2) || plain(anchor);
-    const grade = labels.at(-1) || "";
-    items.push({id, name, grade});
+    const name = title || labels.find((label) => !gradeOptions.has(label) && !/^(?:GLOBAL|KR\/TW)$/i.test(label)) || plain(anchor);
+    const grade = labels.find((label) => gradeOptions.has(label)) || "";
+    const iconPath = anchor.match(/<img\b[^>]*src="([^"]+)"/i)?.[1] || `/api/icon/items/${id}`;
+    items.push({id, name, grade, icon: iconPath.startsWith("http") ? iconPath : `${source}${iconPath}`});
   }
   return items;
 }
@@ -121,12 +122,86 @@ function getItemInfo(html, id) {
   const requiredLevel = properties.find((value) => /^Requires Lv\s*\d+/i.test(value))?.match(/\d+/)?.[0] || "";
   const rarity = properties.find((value) => gradeOptions.has(value)) || "";
   const equipType = properties.find((value) => /^(MainHand|OffHand)$/i.test(value)) || "";
-  const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Boots|Gloves|Pants|Cape|Ring|Earring|Necklace|Accessory|Armor)$/i.test(value)) || "";
+  const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Torso|Breastplate|Shoulder|Pauldrons|Boots|Gloves|Pants|Cape|Cloak|Ring|Earring|Necklace|Bracelet|Brooch|Accessory|Armor)$/i.test(value)) || "";
   return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain};
+}
+
+const equipmentFamilies = new Set(["Weapons", "Armor", "Accessories"]);
+const equipmentSlots = {
+  Armor: new Set(["Helmet", "Torso", "Shoulder", "Gloves", "Pants", "Boots", "Cape"]),
+  Accessories: new Set(["Necklace", "Earring", "Ring", "Bracelet", "Brooch"]),
+};
+const slotAliases = {
+  Helmet: ["helmet"], Torso: ["torso", "breastplate", "chest"], Shoulder: ["shoulder", "pauldrons"],
+  Gloves: ["gloves", "glove"], Pants: ["pants", "greaves", "leggings"], Boots: ["boots", "boot"], Cape: ["cape", "cloak"],
+  Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
+};
+
+function localGeneralItems(category, slot) {
+  return equipmentData.items.filter((item) => {
+    if (!slot) return category === "Weapons" && item.group === "Weapon";
+    const aliases = slotAliases[slot] || [];
+    return aliases.includes(String(item.category || "").toLowerCase()) || aliases.includes(String(item.equipType || "").toLowerCase());
+  });
+}
+
+async function getGeneralEquipment(request) {
+  const params = new URL(request.url).searchParams;
+  const category = params.get("category") || "Weapons";
+  const slot = params.get("slot") || "";
+  const region = params.get("region") || "GLOBAL";
+  const itemId = params.get("item");
+  const grade = params.get("grade") || "";
+  const search = (params.get("q") || "").trim().slice(0, 80);
+  const page = Math.max(1, Math.min(999, Number(params.get("page")) || 1));
+  if (!equipmentFamilies.has(category)) return Response.json({error: "Unknown equipment type."}, {status: 400});
+  if (!["GLOBAL", "KR_TW"].includes(region)) return Response.json({error: "Unknown data region."}, {status: 400});
+  if (category === "Weapons" ? Boolean(slot) : !equipmentSlots[category]?.has(slot)) return Response.json({error: "Unknown equipment slot."}, {status: 400});
+  if (grade && !gradeOptions.has(grade)) return Response.json({error: "Unknown rarity."}, {status: 400});
+  const localItems = region === "GLOBAL" ? localGeneralItems(category, slot) : [];
+
+  try {
+    if (itemId) {
+      if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
+      const itemHtml = await readSource(`/database/items/${itemId}${region === "KR_TW" ? "?region=kr" : ""}`);
+      const item = getItemInfo(itemHtml, itemId);
+      if (!item.name) return Response.json({error: "Item not found."}, {status: 404});
+      return Response.json({...item, region, official: false});
+    }
+
+    const url = new URL("/database", source);
+    url.searchParams.set("cat", category);
+    if (slot) {
+      url.searchParams.set("view", "type");
+      url.searchParams.set("sc", slot);
+    }
+    if (region === "KR_TW") url.searchParams.set("region", "kr");
+    if (grade) url.searchParams.set("grade", grade);
+    if (search) url.searchParams.set("q", search);
+    if (page > 1) url.searchParams.set("page", String(page));
+    const html = await readSource(`${url.pathname}${url.search}`);
+    return Response.json({region, category, slot, items: getItems(html), ...getPageInfo(html), source: "unofficial-community-reference"});
+  } catch (error) {
+    if (itemId) {
+      const localItem = region === "GLOBAL" ? equipmentData.items.find((item) => item.id === itemId) : null;
+      if (localItem) return Response.json({...localItem, rarity: localItem.grade, region, official: false});
+      return Response.json({error: "Item details are temporarily unavailable."}, {status: 502});
+    }
+    const fallback = localItems.filter((item) =>
+      (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
+    );
+    if (fallback.length) return Response.json({
+      region, category, slot, items: fallback.map(({id, name, grade}) => ({id, name, grade})),
+      total: fallback.length, page: 1, pages: 1, source: "reviewed-local-snapshot",
+    });
+    console.error("General equipment lookup failed:", error);
+    return Response.json({error: "The equipment database is temporarily unavailable. Please try again later."}, {status: 502});
+  }
 }
 
 export async function GET(request) {
   const params = new URL(request.url).searchParams;
+  if (params.get("view") === "general") return getGeneralEquipment(request);
   const slug = params.get("class") || "";
   const className = classNames.get(slug);
   if (!className) return Response.json({error: "Unknown class."}, {status: 400});
