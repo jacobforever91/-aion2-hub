@@ -33,3 +33,16 @@ export const classData = {
   cleric:{role:"Healer",weapon:"Mace",summary:"The Cleric keeps the party alive with healing and protection and can revive fallen allies. The class can also deal ranged damage when the situation allows.",playstyle:"Watch party health, balance direct and sustained healing with shields, and stay in a safe position. Add attacks between heals when the party is stable.",active:["Earth’s Retribution","Judgment Thunder","Debilitating Mark","Divine Aura","Chain of Torment","Lightning Strike Scattershot","Light of Regeneration","Condemnation","Healing Light","Radiant Recovery","Bolt","Defiance","Dodge","Power Burst","Absolution","Benevolence","Prayer of Amplification","Summon Resurrection","Earth Punishment","Salvation","Root","Light of Protection","Yustiel’s Power","Voice of Doom","Assault Mark","Noble Aura"],passive:["Warm Benediction","Empyrean Lords’ Benediction","Empyrean Lord’s Grace","Healing Enhancement","Immortal Veil","Heal Block","Prayer of Concentration","Earth’s Grace","Survival Willpower","Radiant Benediction"]},
   chanter:{role:"Healer / DPS",weapon:"Staff",summary:"The Chanter combines support with close-range combat, strengthening the party with mantras, providing healing, and fighting with a staff.",playstyle:"Keep party buffs active while weaving in strikes and healing as the fight demands. The Chanter brings durability and sustained damage as a hybrid support class.",active:["Onslaught","Incandescent Blow","Rushing Smash","Impactful Crush","Dark Crush","Gust Rampage","Heat Wave Blow","Recuperation","Tremor Crush","Wave Blow","Spinning Strike","Defiance","Dodge","Obliterate","Undefeated Mantra","Focused Defense","Sprint Mantra","Fracturing Blow","Marchutan’s Wrath","Impeding Authority","Ensnaring Mark","Healing Touch","Power of the Storm","Guardian Blessing","Assault Shock","Barrier Spell"],passive:["Blessing of Life","Crossguard","Protection Circle","Inspiring Spell","Attack Preparation","Impact Hit","Raging Spell","Earth’s Promise","Survival Willpower","Wind’s Promise"]},
 };
+
+// Weapon slots are based on the KR/TW reference build and community equipment
+// records. The Global version may differ; alternatives are labeled separately.
+export const classWeapons = {
+  templar: {main: {name: "Longsword", icon: "longsword"}, secondary: {name: "Shield", icon: "shield", kind: "Off-hand"}},
+  gladiator: {main: {name: "Greatsword", icon: "greatsword"}, secondary: {name: "Polearm", icon: "polearm", kind: "Alternate main weapon"}},
+  assassin: {main: {name: "Dagger", icon: "daggers"}},
+  ranger: {main: {name: "Bow", icon: "bow"}},
+  sorcerer: {main: {name: "Spellbook", icon: "spellbook"}},
+  spiritmaster: {main: {name: "Orb", icon: "orb"}},
+  cleric: {main: {name: "Mace", icon: "mace"}},
+  chanter: {main: {name: "Staff", icon: "staff"}},
+};

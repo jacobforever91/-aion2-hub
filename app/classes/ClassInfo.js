@@ -3,7 +3,8 @@
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import {ArrowLeft, Crosshair, Shield, Sword, X} from "lucide-react";
-import {classData, classList, emblemBase, skillIconIds} from "./classData";
+import {classData, classList, classWeapons, emblemBase, skillIconIds} from "./classData";
+import WeaponGlyph from "./WeaponGlyph";
 
 function formatSkillDescription(template, levelData, fallback) {
   if (!template || !levelData?.token_values) return fallback?.replace(/\\n/g, "\n");
@@ -34,6 +35,7 @@ function formatSkillStats(levelData, fallbackStats = []) {
 export default function ClassInfo({slug, onSelectClass}) {
   const detail = classData[slug];
   const selected = classList.find((entry) => entry.slug === slug);
+  const weapons = classWeapons[slug];
   const [skillType, setSkillType] = useState("active");
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [skillInfo, setSkillInfo] = useState(null);
@@ -103,6 +105,27 @@ export default function ClassInfo({slug, onSelectClass}) {
           </div>
         </div>
       </header>
+
+      <section className="classWeapons" aria-label={`${selected.name} weapons`}>
+        <div className="classWeaponsHeading">
+          <div><span className="classEyebrow">CLASS LOADOUT</span><h2>Weapons</h2></div>
+          <p>Regional reference data from KR/TW. Global equipment may differ.</p>
+        </div>
+        <div className="classWeaponGrid">
+          <article className="classWeaponCard">
+            <span className="classWeaponSlot">Main weapon</span>
+            <div className="classWeaponIdentity"><WeaponGlyph type={weapons.main.icon} /><div><h3>{weapons.main.name}</h3><span>Class weapon</span></div></div>
+          </article>
+          {weapons.secondary ? <article className={`classWeaponCard${weapons.secondary.kind === "Alternate main weapon" ? " isAlternate" : ""}`}>
+            <span className="classWeaponSlot">{weapons.secondary.kind}</span>
+            <div className="classWeaponIdentity"><WeaponGlyph type={weapons.secondary.icon} /><div><h3>{weapons.secondary.name}</h3><span>{weapons.secondary.kind === "Off-hand" ? "Secondary slot" : "Can be equipped instead of the main weapon"}</span></div></div>
+          </article> : <article className="classWeaponCard classWeaponEmpty">
+            <span className="classWeaponSlot">Off-hand</span>
+            <p>No separate class weapon is listed for this slot in the regional reference.</p>
+          </article>}
+        </div>
+        <p className="classWeaponNote">Unofficial KR/TW reference · weapon slot details are not yet confirmed for Global.</p>
+      </section>
 
       <section className="classSkills" aria-label="Global class skills">
         <div className="classSkillsHeading" aria-hidden="true" />
