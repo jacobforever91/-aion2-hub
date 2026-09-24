@@ -149,10 +149,6 @@ export default function EquipmentBrowser() {
         <p>{region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
       </div>
 
-      <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
-        {categories.map(({id, name, icon: Icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><Icon aria-hidden="true" />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
-      </div>
-
       <div className="equipmentToolbar generalEquipmentToolbar">
         <form className="equipmentSearch" onSubmit={(event) => { event.preventDefault(); changeFilter(() => setSubmittedSearch(search.trim())); }}>
           <Search aria-hidden="true" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search equipment by name…" aria-label="Search equipment by name" />
@@ -161,6 +157,10 @@ export default function EquipmentBrowser() {
         <div className="equipmentGradeFilters" aria-label="Filter by rarity">
           {grades.map((entry) => <button type="button" key={entry} aria-pressed={grade === entry} className={`${grade === entry ? "isSelected " : ""}${entry === "All rarities" ? "gradeAll" : gradeClass(entry)}`} onClick={() => changeFilter(() => setGrade(entry))}>{entry}</button>)}
         </div>
+      </div>
+
+      <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
+        {categories.map(({id, name, icon: Icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><Icon aria-hidden="true" />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
       </div>
 
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
