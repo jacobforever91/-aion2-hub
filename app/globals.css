@@ -480,9 +480,7 @@
 .skillModalDivider{width:58px;height:2px;margin:0 0 20px;background:linear-gradient(90deg,#64e0ff,transparent)}
 .skillModalDescription{min-height:54px;margin:0;color:#d3e1e8;font-size:15px;line-height:1.8;white-space:pre-line}
 .skillModalDescription.isloading,.skillModalDescription.iserror{color:#91aaba}
-.skillModalSource{display:block;margin-top:22px;color:#668797;font-size:9px;letter-spacing:.6px}
-.skillModalSource a{color:#71dfff;text-decoration:underline;text-underline-offset:3px}
-@keyframes skillBackdropIn{from{opacity:0}to{opacity:1}}
+.skillModalSource{display:block;margin-top:22px;color:#668797;font-size:9px;letter-spacing:.6px}@keyframes skillBackdropIn{from{opacity:0}to{opacity:1}}
 @keyframes skillModalIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:520px){.skillModalBackdrop{padding:14px}.skillModal{max-height:82svh;padding:30px 22px 24px;border-radius:10px}.skillModalDescription{font-size:14px;line-height:1.7}}
 @media(prefers-reduced-motion:reduce){.skillModalBackdrop,.skillModal{animation:none}}
