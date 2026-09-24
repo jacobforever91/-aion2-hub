@@ -13,7 +13,7 @@ const wingFactionOrder = {Elyos:0,Asmodians:1};
 const genusColors = {Fera:"#91d679",Cogni:"#65d9f4",Natura:"#8fe0b4",Varian:"#bd9aff",Special:"#ffc76c"};
 const wingItems = catalogData.wings.map((item) => ({
   ...item,
-  stats: catalogData.wingDetails[item.id]?.stats || [],
+  ...(catalogData.wingDetails[item.id] || {stats: []}),
 })).sort((a,b)=>wingGradeOrder[a.grade]-wingGradeOrder[b.grade]||a.name.localeCompare(b.name)||(wingFactionOrder[a.faction]??99)-(wingFactionOrder[b.faction]??99));
 
 const feraChances = [
@@ -51,7 +51,7 @@ function WingsCatalog() {
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Filter by rarity and faction, then inspect each wing’s recorded stats.</p></header>
+      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Filter by rarity and faction. Equipment wings show their recorded stats; Special wings are listed as cosmetics in the KR reference.</p></header>
       <div className={styles.layout}>
         <section className={styles.catalog}>
           <div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
@@ -64,10 +64,10 @@ function WingsCatalog() {
           {!visible.length&&<p className={styles.empty}>No wings match this search.</p>}
         </section>
         <aside className={styles.detail}>{visible.length>0?<><div className={styles.detailHeading}><span className={`${styles.detailIcon} ${styles.artIcon} ${styles.wingArtIcon}`} style={{"--tier-color":tierColors[selectedVisible.grade],"--ix38":`${-selectedVisible.iconPosition[0]*38}px`,"--iy38":`${-selectedVisible.iconPosition[1]*38}px`,"--ix58":`${-selectedVisible.iconPosition[0]*58}px`,"--iy58":`${-selectedVisible.iconPosition[1]*58}px`}} aria-hidden="true"/><div><span className={styles.kicker}>SELECTED WING</span><h2>{selectedVisible.name}</h2></div></div><p className={styles.meta}><span className={styles.tierBadge} style={{"--tier-color":tierColors[selectedVisible.grade]}}>{selectedVisible.grade}</span> · {selectedVisible.faction}</p>
-          {selectedVisible.stats.length>0?<><h3>Recorded stats</h3><div className={styles.stats}>{selectedVisible.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Values are transcribed from this item record. The reference does not provide a stat breakdown for every enchant step.</small></>:<p className={styles.hint}>This reference lists the wing’s name, faction, and grade, but does not include individual stats for this item.</p>}</>:<p className={styles.empty}>No wings match the selected rarity, faction, and search.</p>}
+          {selectedVisible.cosmetic?<div className={styles.hint}><strong>Cosmetic wing</strong><br/>The KR reference lists this Special wing with no collection effects and no enhancement. This is community-presented KR data; Global may differ.</div>:selectedVisible.stats.length>0?<><h3>Recorded stats</h3><div className={styles.stats}>{selectedVisible.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Values are transcribed from this item record. The reference does not provide a stat breakdown for every enchant step.</small></>:<p className={styles.hint}>This reference lists the wing’s name, faction, and grade, but does not include individual stats for this item.</p>}</>:<p className={styles.empty}>No wings match the selected rarity, faction, and search.</p>}
         </aside>
       </div>
-      <SourceNote>Reference catalog lists 90 wings (45 Elyos and 45 Asmodians). Individual stat values are shown where the item record includes them.</SourceNote>
+      <SourceNote>Item records and equipment stats: AION2.app, 2026-09-18 snapshot. Special-wing cosmetic classification: <a href="https://www.aion2timers.com/wings/" target="_blank" rel="noreferrer">Aion 2 Timers KR collection catalog</a>, table snapshot 2026-09-22, based on NCSOFT’s Korean disclosure and item dictionary. Both are reference sources, not Global confirmation; Global data may differ.</SourceNote>
     </div>
   </main>;
 }
