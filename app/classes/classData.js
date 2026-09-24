@@ -35,10 +35,10 @@ export const classData = {
 };
 
 // Weapon slots are based on the KR/TW reference build and community equipment
-// records. The Global version may differ; alternatives are labeled separately.
+// records. The Global version may differ. Only list separately verified slots.
 export const classWeapons = {
   templar: {main: {name: "Longsword", icon: "longsword"}, secondary: {name: "Shield", icon: "shield", kind: "Off-hand"}},
-  gladiator: {main: {name: "Greatsword", icon: "greatsword"}, secondary: {name: "Polearm", icon: "polearm", kind: "Alternate main weapon"}},
+  gladiator: {main: {name: "Greatsword", icon: "greatsword"}},
   assassin: {main: {name: "Dagger", icon: "daggers"}},
   ranger: {main: {name: "Bow", icon: "bow"}},
   sorcerer: {main: {name: "Spellbook", icon: "spellbook"}},

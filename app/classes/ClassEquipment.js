@@ -12,7 +12,16 @@ const equipmentArtwork = {
   Accessories: "/equipment-art/accessory.webp",
 };
 
-function ItemModal({slug, item, onClose}) {
+function weaponIconForCategory(slug, category) {
+  const normalized = String(category || "").toLowerCase().replace(/[^a-z]/g, "").replace(/s$/, "");
+  const candidates = [classWeapons[slug]?.main, classWeapons[slug]?.secondary].filter(Boolean);
+  return candidates.find(({name}) => {
+    const weaponName = name.toLowerCase().replace(/[^a-z]/g, "").replace(/s$/, "");
+    return normalized === weaponName || (normalized === "magicbook" && weaponName === "spellbook") || (normalized === "guard" && weaponName === "shield");
+  })?.icon || null;
+}
+
+function ItemModal({slug, item, region, onClose}) {
   const [details, setDetails] = useState(null);
   const [state, setState] = useState("loading");
 
@@ -20,7 +29,7 @@ function ItemModal({slug, item, onClose}) {
     const controller = new AbortController();
     setDetails(null);
     setState("loading");
-    fetch(`/api/class-equipment?class=${slug}&item=${item.id}`, {signal: controller.signal})
+    fetch(`/api/class-equipment?class=${slug}&region=${region}&item=${item.id}`, {signal: controller.signal})
       .then((response) => {
         if (!response.ok) throw new Error("Could not load item");
         return response.json();
@@ -28,7 +37,7 @@ function ItemModal({slug, item, onClose}) {
       .then((data) => { setDetails(data); setState("ready"); })
       .catch((error) => { if (error.name !== "AbortError") setState("error"); });
     return () => controller.abort();
-  }, [slug, item.id]);
+  }, [slug, item.id, region]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -44,9 +53,9 @@ function ItemModal({slug, item, onClose}) {
   return <div className="equipmentModalBackdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <section className="equipmentModal" role="dialog" aria-modal="true" aria-labelledby="equipmentModalTitle">
       <button className="equipmentModalClose" type="button" onClick={onClose} aria-label="Close item details"><X aria-hidden="true" /></button>
-      <div className="equipmentModalEyebrow">CLASS EQUIPMENT · GLOBAL DATABASE</div>
+      <div className="equipmentModalEyebrow">CLASS EQUIPMENT · {region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL DATABASE"}</div>
       <div className="equipmentModalTitleRow">
-        <img src={item.art} alt="" />
+        <span className="equipmentModalTitleArt">{item.weaponIconType ? <WeaponGlyph type={item.weaponIconType} /> : <img src={item.art} alt="" />}</span>
         <div><h2 id="equipmentModalTitle">{details?.name || item.name}</h2><p>{[details?.rarity || item.grade, details?.itemType, details?.equipType && details.equipType !== "MainHand" ? details.equipType : ""].filter(Boolean).join(" · ")}</p></div>
       </div>
 
@@ -71,6 +80,7 @@ function ItemModal({slug, item, onClose}) {
 
 export default function ClassEquipment({slug}) {
   const weapons = classWeapons[slug];
+  const [region, setRegion] = useState("KR_TW");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [items, setItems] = useState([]);
@@ -86,7 +96,7 @@ export default function ClassEquipment({slug}) {
   useEffect(() => {
     const controller = new AbortController();
     setCatalogState("loading");
-    fetch(`/api/class-equipment?class=${slug}`, {signal: controller.signal})
+    fetch(`/api/class-equipment?class=${slug}&region=${region}`, {signal: controller.signal})
       .then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not load classes"); return data; })
       .then((data) => {
         const nextCategories = data.categories || [];
@@ -96,13 +106,13 @@ export default function ClassEquipment({slug}) {
       })
       .catch((error) => { if (error.name !== "AbortError") { setCatalogError(error.message); setCatalogState("error"); } });
     return () => controller.abort();
-  }, [slug]);
+  }, [slug, region]);
 
   useEffect(() => {
     if (!selectedCategory) return;
     const controller = new AbortController();
     setState("loading");
-    const query = new URLSearchParams({class: slug, category: selectedCategory.code, page: String(pageInfo.page)});
+    const query = new URLSearchParams({class: slug, region, category: selectedCategory.code, page: String(pageInfo.page)});
     if (grade !== "All grades") query.set("grade", grade);
     if (submittedSearch) query.set("q", submittedSearch);
     fetch(`/api/class-equipment?${query}`, {signal: controller.signal})
@@ -114,7 +124,7 @@ export default function ClassEquipment({slug}) {
       })
       .catch((error) => { if (error.name !== "AbortError") setState("error"); });
     return () => controller.abort();
-  }, [slug, selectedCategory, grade, pageInfo.page, submittedSearch]);
+  }, [slug, region, selectedCategory, grade, pageInfo.page, submittedSearch]);
 
   const visibleItems = useMemo(() => items, [items]);
   const weaponCategories = categories.filter(({group}) => group === "Weapon");
@@ -141,25 +151,30 @@ export default function ClassEquipment({slug}) {
       <div className="classEquipmentCount"><Gem aria-hidden="true" />{selectedCategory ? selectedCategory.count : "…"}<span>items</span></div>
     </div>
 
+    <div className="equipmentRegionBar" aria-label="Choose item data region">
+      <div className="equipmentRegionChoices" role="group" aria-label="Item data region">
+        <button type="button" className={region === "GLOBAL" ? "isSelected" : ""} aria-pressed={region === "GLOBAL"} onClick={() => { setRegion("GLOBAL"); setPageInfo((current) => ({...current, page: 1})); }}>Global</button>
+        <button type="button" className={region === "KR_TW" ? "isSelected" : ""} aria-pressed={region === "KR_TW"} onClick={() => { setRegion("KR_TW"); setPageInfo((current) => ({...current, page: 1})); }}>KR / TW</button>
+      </div>
+      <p>{region === "KR_TW" ? "Unofficial Korea / Taiwan client v110 snapshot · captured September 9, 2026. Stats may differ from Global." : "Global catalog snapshot · community reference, not official. Values may change before release."}</p>
+    </div>
+
     <section className="classWeapons" aria-label={`${slug} weapon loadout`}>
       <div className="classWeaponsHeading">
         <div><span className="classEyebrow">CLASS LOADOUT</span><h3>Weapons</h3></div>
-        <p>Regional reference data from KR/TW. Global equipment may differ.</p>
+        <p>{region === "KR_TW" ? "Unofficial KR / TW reference values are shown below." : "Global item values are shown below where available."}</p>
       </div>
       <div className="classWeaponGrid">
         <article className="classWeaponCard">
           <span className="classWeaponSlot">Main weapon</span>
           <div className="classWeaponIdentity"><WeaponGlyph type={weapons.main.icon} /><div><h4>{weapons.main.name}</h4><span>Class weapon</span></div></div>
         </article>
-        {weapons.secondary ? <article className={`classWeaponCard${weapons.secondary.kind === "Alternate main weapon" ? " isAlternate" : ""}`}>
+        {weapons.secondary && <article className="classWeaponCard">
           <span className="classWeaponSlot">{weapons.secondary.kind}</span>
-          <div className="classWeaponIdentity"><WeaponGlyph type={weapons.secondary.icon} /><div><h4>{weapons.secondary.name}</h4><span>{weapons.secondary.kind === "Off-hand" ? "Secondary slot" : "Can be equipped instead of the main weapon"}</span></div></div>
-        </article> : <article className="classWeaponCard classWeaponEmpty">
-          <span className="classWeaponSlot">Off-hand</span>
-          <p>No separate class weapon is listed for this slot in the regional reference.</p>
+          <div className="classWeaponIdentity"><WeaponGlyph type={weapons.secondary.icon} /><div><h4>{weapons.secondary.name}</h4><span>Secondary slot</span></div></div>
         </article>}
       </div>
-      <p className="classWeaponNote">Unofficial KR/TW reference · weapon slot details are not yet confirmed for Global.</p>
+      <p className="classWeaponNote">Only weapons documented in the regional reference are listed here. Global slot details may differ.</p>
     </section>
 
     {catalogState === "loading" && <p className="equipmentLoading">Loading class equipment…</p>}
@@ -188,15 +203,15 @@ export default function ClassEquipment({slug}) {
       {state === "loading" && <p className="equipmentLoading">Loading items…</p>}
       {state === "error" && <p className="equipmentLoading isError">Could not load the item list. Please try again.</p>}
       {state === "ready" && visibleItems.length > 0 && <div className="equipmentItemGrid">
-        {visibleItems.map((item) => <button className="equipmentItemCard" type="button" key={item.id} onClick={() => setSelectedItem({...item, art: equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor})}>
-          <span className="equipmentItemIcon"><img src={equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor} alt="" loading="lazy" /></span>
+        {visibleItems.map((item) => <button className="equipmentItemCard" type="button" key={item.id} onClick={() => setSelectedItem({...item, art: equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor, weaponIconType: selectedCategory?.group === "Weapon" ? weaponIconForCategory(slug, selectedCategory.code) : null})}>
+          <span className="equipmentItemIcon">{selectedCategory?.group === "Weapon" && weaponIconForCategory(slug, selectedCategory.code) ? <WeaponGlyph type={weaponIconForCategory(slug, selectedCategory.code)} /> : <img src={equipmentArtwork[selectedCategory?.group] || equipmentArtwork.Armor} alt="" loading="lazy" />}</span>
           <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade grade${item.grade}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
         </button>)}
       </div>}
       {state === "ready" && visibleItems.length === 0 && <p className="equipmentLoading">No items match these filters.</p>}
       {state === "ready" && pageInfo.pages > 1 && <div className="equipmentPagination"><button type="button" disabled={pageInfo.page <= 1} onClick={() => setPageInfo((current) => ({...current, page: current.page - 1}))}><ChevronLeft aria-hidden="true" />Previous</button><span>Page {pageInfo.page} of {pageInfo.pages}</span><button type="button" disabled={pageInfo.page >= pageInfo.pages} onClick={() => setPageInfo((current) => ({...current, page: current.page + 1}))}>Next<ChevronRight aria-hidden="true" /></button></div>}
-      <p className="equipmentDataNote">Some entries use an unofficial Global test snapshot. Check each item’s source and version; values may change in the released game.</p>
+      <p className="equipmentDataNote">{region === "KR_TW" ? "KR / TW entries are an unofficial regional reference and are kept separate from Global data." : "Global entries are unofficial test snapshots and may change in the released game."}</p>
     </>}
-    {selectedItem && <ItemModal slug={slug} item={selectedItem} onClose={closeItem} />}
+    {selectedItem && <ItemModal slug={slug} item={selectedItem} region={region} onClose={closeItem} />}
   </section>;
 }

@@ -131,6 +131,8 @@ export async function GET(request) {
   const className = classNames.get(slug);
   if (!className) return Response.json({error: "Unknown class."}, {status: 400});
   const sourceClassName = sourceClassNames.get(slug) || className;
+  const region = params.get("region") || "KR_TW";
+  if (!["GLOBAL", "KR_TW"].includes(region)) return Response.json({error: "Unknown region."}, {status: 400});
 
   const category = params.get("category");
   const page = Math.max(1, Math.min(99, Number(params.get("page")) || 1));
@@ -138,39 +140,32 @@ export async function GET(request) {
   const search = (params.get("q") || "").trim().slice(0, 80);
   const itemId = params.get("item");
 
-  // A reviewed local snapshot keeps the first Templar weapon available even
-  // when the community reference is unreachable from serverless deployments.
-  const localItems = equipmentData.items.filter((item) => item.class === slug);
-  if (localItems.length) {
-    if (itemId) {
-      if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
-      const item = localItems.find((entry) => entry.id === itemId);
-      if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
-      return Response.json(item);
-    }
+  // Keep reviewed regional records separate from the Global catalog. KR/TW
+  // snapshots are local and never fall through to Global item pages.
+  const allLocalItems = equipmentData.items.filter((item) => item.class === slug);
+  const localItems = allLocalItems.filter((item) => (item.region || (item.source?.region?.startsWith("Global") ? "GLOBAL" : "KR_TW")) === region);
+  const localCategories = () => [...new Set(localItems.map(({category}) => category))].map((name) => ({
+    code: name,
+    name,
+    count: String(localItems.filter((item) => item.category === name).length),
+    group: localItems.find((item) => item.category === name)?.group || "Armor",
+  }));
 
-    const categories = [...new Set(localItems.map(({category}) => category))].map((name) => ({
-      code: name,
-      name,
-      count: String(localItems.filter((item) => item.category === name).length),
-      group: localItems.find((item) => item.category === name)?.group || "Armor",
-    }));
-    if (!category) return Response.json({className, categories, source: "reviewed-local-snapshot"});
+  if (itemId) {
+    if (!/^[0-9]{8,12}(?:-kr-tw)?$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
+    const localItem = localItems.find((entry) => entry.id === itemId);
+    if (localItem) return Response.json(localItem);
+    if (region === "KR_TW") return Response.json({error: "This item is not in the reviewed KR/TW catalog yet."}, {status: 404});
+  }
+
+  if (region === "KR_TW") {
+    if (!category) return Response.json({className, categories: localCategories(), source: "reviewed-kr-tw-snapshot", region});
     const categoryItems = localItems.filter((item) => item.category === category);
-    if (!categoryItems.length) return Response.json({className, category, items: [], total: 0, page: 1, pages: 1, source: "reviewed-local-snapshot"});
     const filteredItems = categoryItems.filter((item) =>
       (!grade || grade === "All grades" || item.grade === grade) &&
       (!search || item.name.toLowerCase().includes(search.toLowerCase()))
     );
-    return Response.json({
-      className,
-      category,
-      items: filteredItems.map(({id, name, grade}) => ({id, name, grade})),
-      total: filteredItems.length,
-      page: 1,
-      pages: 1,
-      source: "reviewed-local-snapshot",
-    });
+    return Response.json({className, category, items: filteredItems.map(({id, name, grade}) => ({id, name, grade})), total: filteredItems.length, page: 1, pages: 1, source: "reviewed-kr-tw-snapshot", region});
   }
 
   try {
@@ -193,12 +188,28 @@ export async function GET(request) {
       if (page > 1) url.searchParams.set("page", String(page));
     }
     const html = await readSource(`${url.pathname}${url.search}`);
-    if (!category) return Response.json({className, categories: getClassCategories(html), source: source});
+    if (!category) {
+      const categories = getClassCategories(html);
+      const seen = new Set(categories.map(({code}) => code));
+      for (const local of localCategories()) if (!seen.has(local.code)) categories.push(local);
+      return Response.json({className, categories, source, region});
+    }
     const items = getItems(html);
     const info = getPageInfo(html);
     return Response.json({className, category, items, ...info, source});
   } catch (error) {
     console.error("Class equipment lookup failed:", error);
+    if (!itemId && !category && localItems.length) return Response.json({className, categories: localCategories(), source: "reviewed-global-snapshot", region});
+    if (category && !itemId) {
+      const categoryItems = localItems.filter((item) => item.category === category);
+      if (categoryItems.length) {
+        const filteredItems = categoryItems.filter((item) =>
+          (!grade || grade === "All grades" || item.grade === grade) &&
+          (!search || item.name.toLowerCase().includes(search.toLowerCase()))
+        );
+        return Response.json({className, category, items: filteredItems.map(({id, name, grade}) => ({id, name, grade})), total: filteredItems.length, page: 1, pages: 1, source: "reviewed-global-snapshot", region});
+      }
+    }
     const errorMessage = error instanceof Error ? error.message : String(error);
     const message = errorMessage.includes("403")
       ? "The equipment source is currently rejecting requests from this site (HTTP 403)."

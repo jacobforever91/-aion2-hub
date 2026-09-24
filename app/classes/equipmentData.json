@@ -12,39 +12,126 @@
       "equipType": "MainHand",
       "itemType": "Sword",
       "stats": [
-        { "label": "Min Attack", "value": "67" },
-        { "label": "Max Attack", "value": "84" },
-        { "label": "Accuracy", "value": "150" },
-        { "label": "Critical Hit", "value": "50" },
-        { "label": "Block", "value": "200" },
-        { "label": "Parry Damage Reduction Rate", "value": "19%" },
-        { "label": "Shield Block Damage Reduction Rate", "value": "30%" },
-        { "label": "Parry Damage Reduction Amount", "value": "100,000" },
-        { "label": "Shield Block Damage Reduction Amount", "value": "100,000" }
+        {
+          "label": "Min Attack",
+          "value": "67"
+        },
+        {
+          "label": "Max Attack",
+          "value": "84"
+        },
+        {
+          "label": "Accuracy",
+          "value": "150"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "50"
+        },
+        {
+          "label": "Block",
+          "value": "200"
+        },
+        {
+          "label": "Parry Damage Reduction Rate",
+          "value": "19%"
+        },
+        {
+          "label": "Shield Block Damage Reduction Rate",
+          "value": "30%"
+        },
+        {
+          "label": "Parry Damage Reduction Amount",
+          "value": "100,000"
+        },
+        {
+          "label": "Shield Block Damage Reduction Amount",
+          "value": "100,000"
+        }
       ],
       "imprints": [
-        { "label": "Combat Speed", "value": "4.45% ~ 5.19%" },
-        { "label": "Damage Boost", "value": "2.49% ~ 2.93%" },
-        { "label": "Multi-hit Chance", "value": "3.3% ~ 3.87%" },
-        { "label": "Weapon Damage Boost", "value": "3.3% ~ 3.87%" },
-        { "label": "Status Effect Chance", "value": "8.8% ~ 10.19%" },
-        { "label": "Might", "value": "8 ~ 16" },
-        { "label": "Precision", "value": "8 ~ 16" },
-        { "label": "Attack", "value": "15 ~ 24" },
-        { "label": "Critical Hit", "value": "23 ~ 33" },
-        { "label": "Critical Attack", "value": "33 ~ 45" },
-        { "label": "Back Attack", "value": "33 ~ 45" },
-        { "label": "Front Attack", "value": "33 ~ 45" },
-        { "label": "Accuracy", "value": "31 ~ 43" },
-        { "label": "Block", "value": "18 ~ 28" },
-        { "label": "MP", "value": "70 ~ 88" },
-        { "label": "HP", "value": "141 ~ 169" },
-        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+        {
+          "label": "Combat Speed",
+          "value": "4.45% ~ 5.19%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.49% ~ 2.93%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.3% ~ 3.87%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "3.3% ~ 3.87%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "8.8% ~ 10.19%"
+        },
+        {
+          "label": "Might",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Precision",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Attack",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Back Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Front Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Accuracy",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "Block",
+          "value": "18 ~ 28"
+        },
+        {
+          "label": "MP",
+          "value": "70 ~ 88"
+        },
+        {
+          "label": "HP",
+          "value": "141 ~ 169"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +5. At +5: Min Attack +6, Max Attack +6.",
       "source": {
@@ -66,38 +153,122 @@
       "equipType": "Helmet",
       "itemType": "Armor",
       "stats": [
-        { "label": "Defense", "value": "74" },
-        { "label": "HP", "value": "42" }
+        {
+          "label": "Defense",
+          "value": "74"
+        },
+        {
+          "label": "HP",
+          "value": "42"
+        }
       ],
       "imprints": [
-        { "label": "Incoming Heal", "value": "7.59% ~ 8.8%" },
-        { "label": "Status Effect Resist", "value": "2.16% ~ 2.55%" },
-        { "label": "Smite", "value": "0.46% ~ 0.6%" },
-        { "label": "Endurance", "value": "1.15% ~ 1.39%" },
-        { "label": "Attack increase", "value": "0.46% ~ 0.6%" },
-        { "label": "Perfect Resist", "value": "2.3% ~ 2.72%" },
-        { "label": "Dexterity", "value": "9 ~ 17" },
-        { "label": "Constitution", "value": "9 ~ 17" },
-        { "label": "Willpower", "value": "9 ~ 17" },
-        { "label": "Attack", "value": "5 ~ 13" },
-        { "label": "Critical Hit", "value": "6 ~ 14" },
-        { "label": "Accuracy", "value": "11 ~ 20" },
-        { "label": "Defense", "value": "38 ~ 51" },
-        { "label": "Evasion", "value": "9 ~ 17" },
-        { "label": "Critical Damage Defense", "value": "56 ~ 71" },
-        { "label": "Back Defense", "value": "56 ~ 71" },
-        { "label": "Critical Hit Resist", "value": "7 ~ 15" },
-        { "label": "Block", "value": "9 ~ 17" },
-        { "label": "MP", "value": "23 ~ 33" },
-        { "label": "HP", "value": "46 ~ 60" },
-        { "label": "Natural MP Regen", "value": "6 ~ 14" },
-        { "label": "Natural HP Regen", "value": "12 ~ 21" },
-        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+        {
+          "label": "Incoming Heal",
+          "value": "7.59% ~ 8.8%"
+        },
+        {
+          "label": "Status Effect Resist",
+          "value": "2.16% ~ 2.55%"
+        },
+        {
+          "label": "Smite",
+          "value": "0.46% ~ 0.6%"
+        },
+        {
+          "label": "Endurance",
+          "value": "1.15% ~ 1.39%"
+        },
+        {
+          "label": "Attack increase",
+          "value": "0.46% ~ 0.6%"
+        },
+        {
+          "label": "Perfect Resist",
+          "value": "2.3% ~ 2.72%"
+        },
+        {
+          "label": "Dexterity",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Constitution",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Willpower",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Attack",
+          "value": "5 ~ 13"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "6 ~ 14"
+        },
+        {
+          "label": "Accuracy",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Defense",
+          "value": "38 ~ 51"
+        },
+        {
+          "label": "Evasion",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Critical Damage Defense",
+          "value": "56 ~ 71"
+        },
+        {
+          "label": "Back Defense",
+          "value": "56 ~ 71"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "7 ~ 15"
+        },
+        {
+          "label": "Block",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "MP",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "HP",
+          "value": "46 ~ 60"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "6 ~ 14"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "12 ~ 21"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +10. At +10: Defense +250, HP +200.",
       "source": {
@@ -119,40 +290,130 @@
       "equipType": "Pants",
       "itemType": "Armor",
       "stats": [
-        { "label": "Defense", "value": "173" },
-        { "label": "HP", "value": "75" }
+        {
+          "label": "Defense",
+          "value": "173"
+        },
+        {
+          "label": "HP",
+          "value": "75"
+        }
       ],
       "imprints": [
-        { "label": "Damage Tolerance", "value": "4.32% ~ 5.04%" },
-        { "label": "Perfect Chance", "value": "1.98% ~ 2.35%" },
-        { "label": "Endurance", "value": "1.32% ~ 1.59%" },
-        { "label": "Attack increase", "value": "0.87% ~ 1.07%" },
-        { "label": "Double Resist", "value": "1.32% ~ 1.59%" },
-        { "label": "Status Effect Resist", "value": "2.83% ~ 3.32%" },
-        { "label": "Multi-hit Resist", "value": "1.98% ~ 2.35%" },
-        { "label": "Dexterity", "value": "4 ~ 12" },
-        { "label": "Constitution", "value": "6 ~ 14" },
-        { "label": "Willpower", "value": "5 ~ 13" },
-        { "label": "Attack", "value": "9 ~ 17" },
-        { "label": "Critical Hit", "value": "13 ~ 22" },
-        { "label": "Accuracy", "value": "19 ~ 29" },
-        { "label": "Defense", "value": "110 ~ 134" },
-        { "label": "Evasion", "value": "11 ~ 20" },
-        { "label": "Critical Damage Defense", "value": "112 ~ 136" },
-        { "label": "Back Defense", "value": "112 ~ 136" },
-        { "label": "Front Defense", "value": "112 ~ 136" },
-        { "label": "Critical Hit Resist", "value": "19 ~ 29" },
-        { "label": "Block", "value": "11 ~ 20" },
-        { "label": "MP", "value": "42 ~ 55" },
-        { "label": "HP", "value": "85 ~ 105" },
-        { "label": "Natural MP Regen", "value": "9 ~ 17" },
-        { "label": "Natural HP Regen", "value": "19 ~ 29" },
-        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+        {
+          "label": "Damage Tolerance",
+          "value": "4.32% ~ 5.04%"
+        },
+        {
+          "label": "Perfect Chance",
+          "value": "1.98% ~ 2.35%"
+        },
+        {
+          "label": "Endurance",
+          "value": "1.32% ~ 1.59%"
+        },
+        {
+          "label": "Attack increase",
+          "value": "0.87% ~ 1.07%"
+        },
+        {
+          "label": "Double Resist",
+          "value": "1.32% ~ 1.59%"
+        },
+        {
+          "label": "Status Effect Resist",
+          "value": "2.83% ~ 3.32%"
+        },
+        {
+          "label": "Multi-hit Resist",
+          "value": "1.98% ~ 2.35%"
+        },
+        {
+          "label": "Dexterity",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Constitution",
+          "value": "6 ~ 14"
+        },
+        {
+          "label": "Willpower",
+          "value": "5 ~ 13"
+        },
+        {
+          "label": "Attack",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "13 ~ 22"
+        },
+        {
+          "label": "Accuracy",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Defense",
+          "value": "110 ~ 134"
+        },
+        {
+          "label": "Evasion",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Critical Damage Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Back Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Front Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Block",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "MP",
+          "value": "42 ~ 55"
+        },
+        {
+          "label": "HP",
+          "value": "85 ~ 105"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +5. At +5: Defense +41, HP +15.",
       "source": {
@@ -174,37 +435,1023 @@
       "equipType": "Ring",
       "itemType": "Accessory",
       "stats": [
-        { "label": "Attack", "value": "54" },
-        { "label": "Defense", "value": "130" }
+        {
+          "label": "Attack",
+          "value": "54"
+        },
+        {
+          "label": "Defense",
+          "value": "130"
+        }
       ],
       "imprints": [
-        { "label": "Might", "value": "4 ~ 12" },
-        { "label": "Precision", "value": "4 ~ 12" },
-        { "label": "Intelligence", "value": "8 ~ 16" },
-        { "label": "Flight Power", "value": "16,200 ~ 18,637" },
-        { "label": "Attack", "value": "14 ~ 23" },
-        { "label": "Critical Hit", "value": "21 ~ 31" },
-        { "label": "Accuracy", "value": "29 ~ 40" },
-        { "label": "Defense", "value": "168 ~ 200" },
-        { "label": "Evasion", "value": "16 ~ 25" },
-        { "label": "Critical Hit Resist", "value": "30 ~ 42" },
-        { "label": "Block", "value": "17 ~ 27" },
-        { "label": "MP", "value": "64 ~ 81" },
-        { "label": "HP", "value": "130 ~ 157" },
-        { "label": "Natural MP Regen", "value": "15 ~ 24" },
-        { "label": "Natural HP Regen", "value": "30 ~ 42" },
-        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+        {
+          "label": "Might",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Precision",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Intelligence",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Flight Power",
+          "value": "16,200 ~ 18,637"
+        },
+        {
+          "label": "Attack",
+          "value": "14 ~ 23"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Accuracy",
+          "value": "29 ~ 40"
+        },
+        {
+          "label": "Defense",
+          "value": "168 ~ 200"
+        },
+        {
+          "label": "Evasion",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "30 ~ 42"
+        },
+        {
+          "label": "Block",
+          "value": "17 ~ 27"
+        },
+        {
+          "label": "MP",
+          "value": "64 ~ 81"
+        },
+        {
+          "label": "HP",
+          "value": "130 ~ 157"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "30 ~ 42"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "4" },
-        { "label": "Soul imprint selection", "value": "Choose 4 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "4"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 4 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +15. At +15: Attack +28, Defense +112.",
       "source": {
         "name": "AION2 Hub (independent community reference)",
         "region": "Global Launch Scale Test snapshot",
         "capturedAt": "2026-09-19",
+        "official": false
+      }
+    },
+    {
+      "id": "110250008-kr-tw",
+      "sourceId": "110250008",
+      "region": "KR_TW",
+      "class": "templar",
+      "group": "Weapon",
+      "category": "Longsword",
+      "name": "Tempest Longsword",
+      "grade": "Rare",
+      "itemLevel": "23",
+      "requiredLevel": "15",
+      "equipType": "MainHand",
+      "itemType": "Sword",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "96"
+        },
+        {
+          "label": "Max Attack",
+          "value": "120"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "5.17% ~ 6.02%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.32% ~ 2.74%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.66% ~ 4.28%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "5.61% ~ 6.52%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "8.62% ~ 9.98%"
+        },
+        {
+          "label": "Might",
+          "value": "29 ~ 40"
+        },
+        {
+          "label": "Precision",
+          "value": "29 ~ 40"
+        },
+        {
+          "label": "Attack",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "14 ~ 23"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Back Attack",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Front Attack",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Accuracy",
+          "value": "26 ~ 37"
+        },
+        {
+          "label": "Block",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "MP",
+          "value": "57 ~ 73"
+        },
+        {
+          "label": "HP",
+          "value": "115 ~ 139"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110150005-kr-tw",
+      "sourceId": "110150005",
+      "region": "KR_TW",
+      "class": "gladiator",
+      "group": "Weapon",
+      "category": "Greatsword",
+      "name": "Comet Greatsword",
+      "grade": "Rare",
+      "itemLevel": "33",
+      "requiredLevel": "25",
+      "equipType": "MainHand",
+      "itemType": "Greatsword",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "145"
+        },
+        {
+          "label": "Max Attack",
+          "value": "196"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "5.62% ~ 6.53%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.53% ~ 2.98%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.98% ~ 4.65%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "6.1% ~ 7.09%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "9.37% ~ 10.85%"
+        },
+        {
+          "label": "Might",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Precision",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Attack",
+          "value": "12 ~ 21"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Back Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Front Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Accuracy",
+          "value": "28 ~ 39"
+        },
+        {
+          "label": "Block",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "MP",
+          "value": "62 ~ 78"
+        },
+        {
+          "label": "HP",
+          "value": "125 ~ 151"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110340065-kr-tw",
+      "sourceId": "110340065",
+      "region": "KR_TW",
+      "class": "assassin",
+      "group": "Weapon",
+      "category": "Dagger",
+      "name": "Defender Dagger",
+      "grade": "Epic",
+      "itemLevel": "34",
+      "requiredLevel": "20",
+      "equipType": "MainHand",
+      "itemType": "Dagger",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "123"
+        },
+        {
+          "label": "Max Attack",
+          "value": "158"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "200"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "6.48% ~ 7.52%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.91% ~ 3.42%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "4.59% ~ 5.35%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "7.02% ~ 8.14%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "10.8% ~ 12.49%"
+        },
+        {
+          "label": "Might",
+          "value": "38 ~ 51"
+        },
+        {
+          "label": "Precision",
+          "value": "38 ~ 51"
+        },
+        {
+          "label": "Attack",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "18 ~ 28"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "24 ~ 35"
+        },
+        {
+          "label": "Back Attack",
+          "value": "24 ~ 35"
+        },
+        {
+          "label": "Front Attack",
+          "value": "24 ~ 35"
+        },
+        {
+          "label": "Accuracy",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Block",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "MP",
+          "value": "72 ~ 90"
+        },
+        {
+          "label": "HP",
+          "value": "144 ~ 173"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110450004-kr-tw",
+      "sourceId": "110450004",
+      "region": "KR_TW",
+      "class": "ranger",
+      "group": "Weapon",
+      "category": "Bow",
+      "name": "Ethereal Bow",
+      "grade": "Rare",
+      "itemLevel": "28",
+      "requiredLevel": "20",
+      "equipType": "MainHand",
+      "itemType": "Bow",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "112"
+        },
+        {
+          "label": "Max Attack",
+          "value": "141"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "5.4% ~ 6.28%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "5.85% ~ 6.8%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "9% ~ 10.42%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.43% ~ 2.86%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.82% ~ 4.46%"
+        },
+        {
+          "label": "Might",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "Precision",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "Attack",
+          "value": "12 ~ 21"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Back Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Front Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Accuracy",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Block",
+          "value": "22 ~ 32"
+        },
+        {
+          "label": "MP",
+          "value": "60 ~ 76"
+        },
+        {
+          "label": "HP",
+          "value": "120 ~ 145"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110540038-kr-tw",
+      "sourceId": "110540038",
+      "region": "KR_TW",
+      "class": "sorcerer",
+      "group": "Weapon",
+      "category": "Spellbook",
+      "name": "Order Spellbook",
+      "grade": "Epic",
+      "itemLevel": "49",
+      "requiredLevel": "35",
+      "equipType": "MainHand",
+      "itemType": "Spellbook",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "225"
+        },
+        {
+          "label": "Max Attack",
+          "value": "250"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "7.29% ~ 8.45%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "3.28% ~ 3.84%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "5.17% ~ 6.02%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "7.89% ~ 9.14%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "12.15% ~ 14.04%"
+        },
+        {
+          "label": "Might",
+          "value": "43 ~ 56"
+        },
+        {
+          "label": "Precision",
+          "value": "43 ~ 56"
+        },
+        {
+          "label": "Attack",
+          "value": "17 ~ 27"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Back Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Front Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Accuracy",
+          "value": "36 ~ 48"
+        },
+        {
+          "label": "Block",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "MP",
+          "value": "81 ~ 100"
+        },
+        {
+          "label": "HP",
+          "value": "162 ~ 193"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110640068-kr-tw",
+      "sourceId": "110640068",
+      "region": "KR_TW",
+      "class": "spiritmaster",
+      "group": "Weapon",
+      "category": "Orb",
+      "name": "Order Orb",
+      "grade": "Epic",
+      "itemLevel": "49",
+      "requiredLevel": "35",
+      "equipType": "MainHand",
+      "itemType": "Orb",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "150"
+        },
+        {
+          "label": "Max Attack",
+          "value": "300"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "7.29% ~ 8.45%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "3.28% ~ 3.84%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "5.17% ~ 6.02%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "7.89% ~ 9.14%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "12.15% ~ 14.04%"
+        },
+        {
+          "label": "Might",
+          "value": "43 ~ 56"
+        },
+        {
+          "label": "Precision",
+          "value": "43 ~ 56"
+        },
+        {
+          "label": "Attack",
+          "value": "17 ~ 27"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Back Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Front Attack",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Accuracy",
+          "value": "36 ~ 48"
+        },
+        {
+          "label": "Block",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "MP",
+          "value": "81 ~ 100"
+        },
+        {
+          "label": "HP",
+          "value": "162 ~ 193"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110760023-kr-tw",
+      "sourceId": "110760023",
+      "region": "KR_TW",
+      "class": "cleric",
+      "group": "Weapon",
+      "category": "Mace",
+      "name": "Orichalcum Mace",
+      "grade": "Common",
+      "itemLevel": "22",
+      "requiredLevel": "18",
+      "equipType": "MainHand",
+      "itemType": "Mace",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "81"
+        },
+        {
+          "label": "Max Attack",
+          "value": "104"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "4.14% ~ 4.83%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "1.86% ~ 2.21%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "2.93% ~ 3.44%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "4.48% ~ 5.22%"
+        },
+        {
+          "label": "Might",
+          "value": "24 ~ 35"
+        },
+        {
+          "label": "Precision",
+          "value": "24 ~ 35"
+        },
+        {
+          "label": "Attack",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Back Attack",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Front Attack",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Accuracy",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Block",
+          "value": "17 ~ 27"
+        },
+        {
+          "label": "MP",
+          "value": "46 ~ 60"
+        },
+        {
+          "label": "HP",
+          "value": "92 ~ 113"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "110850056-kr-tw",
+      "sourceId": "110850056",
+      "region": "KR_TW",
+      "class": "chanter",
+      "group": "Weapon",
+      "category": "Staff",
+      "name": "Luminous Staff",
+      "grade": "Rare",
+      "itemLevel": "33",
+      "requiredLevel": "25",
+      "equipType": "MainHand",
+      "itemType": "Staff",
+      "stats": [
+        {
+          "label": "Min Attack",
+          "value": "136"
+        },
+        {
+          "label": "Max Attack",
+          "value": "187"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "5.62% ~ 6.53%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "6.1% ~ 7.09%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "9.37% ~ 10.85%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.53% ~ 2.98%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.98% ~ 4.65%"
+        },
+        {
+          "label": "Might",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Precision",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Attack",
+          "value": "12 ~ 21"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Back Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Front Attack",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Accuracy",
+          "value": "28 ~ 39"
+        },
+        {
+          "label": "Block",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "MP",
+          "value": "62 ~ 78"
+        },
+        {
+          "label": "HP",
+          "value": "125 ~ 151"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
+        "official": false
+      }
+    },
+    {
+      "id": "115040038-kr-tw",
+      "sourceId": "115040038",
+      "region": "KR_TW",
+      "class": "templar",
+      "group": "Weapon",
+      "category": "Guard",
+      "name": "Order Guard",
+      "grade": "Epic",
+      "itemLevel": "49",
+      "requiredLevel": "35",
+      "equipType": "OffHand",
+      "itemType": "Guarder",
+      "stats": [
+        {
+          "label": "Attack",
+          "value": "63"
+        }
+      ],
+      "imprints": [
+        {
+          "label": "Combat Speed",
+          "value": "5.46% ~ 6.35%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.18% ~ 2.58%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.87% ~ 4.52%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "5.92% ~ 6.88%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "11.84% ~ 13.69%"
+        },
+        {
+          "label": "Might",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Precision",
+          "value": "32 ~ 44"
+        },
+        {
+          "label": "Attack",
+          "value": "13 ~ 22"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Back Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Front Attack",
+          "value": "20 ~ 30"
+        },
+        {
+          "label": "Accuracy",
+          "value": "27 ~ 38"
+        },
+        {
+          "label": "Block",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "MP",
+          "value": "60 ~ 76"
+        },
+        {
+          "label": "HP",
+          "value": "121 ~ 146"
+        }
+      ],
+      "details": [
+        {
+          "label": "Region",
+          "value": "Korea / Taiwan"
+        }
+      ],
+      "upgrades": "",
+      "source": {
+        "name": "AION2Hub community item reference",
+        "region": "Korea/Taiwan client v110",
+        "capturedAt": "2026-09-09",
         "official": false
       }
     }

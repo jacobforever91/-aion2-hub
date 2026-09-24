@@ -572,7 +572,7 @@
 .classWeaponsHeading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:14px}
 .classWeaponsHeading h2{margin:5px 0 0;color:#eaf5f9;font:400 clamp(25px,3vw,34px)/1.1 Georgia,"Times New Roman",serif}
 .classWeaponsHeading p{margin:0;color:#7894a2;font-size:10px;line-height:1.5;text-align:right}
-.classWeaponGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.classWeaponGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:10px}
 .classWeaponCard{min-width:0;min-height:108px;padding:12px 14px;border:1px solid #183c50;border-radius:7px;background:linear-gradient(120deg,#0b2030,#071522 78%)}
 .classWeaponCard.isAlternate{border-color:#554d36;background:linear-gradient(120deg,#1b1c22,#0c1924 78%)}
 .classWeaponSlot{display:block;color:#66dafa;font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
@@ -581,13 +581,13 @@
 .classWeaponIdentity>svg{width:58px;height:58px;flex:none;filter:drop-shadow(0 0 9px #49ceff24)}
 .classWeaponIdentity h3{margin:0;color:#e7f4f8;font:400 20px/1.15 Georgia,"Times New Roman",serif}
 .classWeaponIdentity span{display:block;margin-top:5px;color:#7e9baa;font-size:9px;line-height:1.45}
-.classWeaponEmpty{display:flex;flex-direction:column;justify-content:space-between}
-.classWeaponEmpty p{max-width:340px;margin:10px 0 2px;color:#839ba7;font-size:10px;line-height:1.55}
 .classWeaponNote{margin:11px 0 0;color:#627f8d;font-size:8px;letter-spacing:.25px}
 .classEquipment>.classWeapons{margin:8px 0 22px;padding:17px 18px 13px}
+.equipmentRegionBar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 20px;padding:10px 12px;border:1px solid #17384b;border-radius:7px;background:#061522}
+.equipmentRegionChoices{display:flex;gap:6px;flex:none}.equipmentRegionChoices button{min-height:32px;padding:6px 13px;border:1px solid #1b3c50;border-radius:5px;background:#071522;color:#9ab2bf;font:600 10px/1 inherit;letter-spacing:.7px;cursor:pointer;transition:all .16s ease}.equipmentRegionChoices button:hover{border-color:#327f99;color:#dbf8ff}.equipmentRegionChoices button.isSelected{border-color:#3aabc9;background:#0a2b3c;color:#83e8ff;box-shadow:inset 0 0 14px #1b95b527}.equipmentRegionBar>p{margin:0;color:#7894a2;font-size:10px;line-height:1.5;text-align:right}
 .classWeaponsHeading h3{margin:5px 0 0;color:#eaf5f9;font:400 clamp(22px,2.6vw,29px)/1.1 Georgia,"Times New Roman",serif}
 .classWeaponIdentity h4{margin:0;color:#e7f4f8;font:400 20px/1.15 Georgia,"Times New Roman",serif}
-@media(max-width:700px){.classWeapons{margin:22px 0 26px;padding:16px 14px 13px}.classEquipment>.classWeapons{margin:5px 0 18px;padding:15px 13px 12px}.classWeaponsHeading{align-items:flex-start;flex-direction:column;gap:6px}.classWeaponsHeading p{text-align:left}.classWeaponGrid{gap:7px}.classWeaponCard{min-height:100px;padding:10px}.classWeaponIdentity{gap:9px}.classWeaponIdentity>svg{width:48px;height:48px}.classWeaponIdentity h3,.classWeaponIdentity h4{font-size:17px}}
+@media(max-width:700px){.classWeapons{margin:22px 0 26px;padding:16px 14px 13px}.classEquipment>.classWeapons{margin:5px 0 18px;padding:15px 13px 12px}.classWeaponsHeading{align-items:flex-start;flex-direction:column;gap:6px}.classWeaponsHeading p{text-align:left}.classWeaponGrid{gap:7px}.classWeaponCard{min-height:100px;padding:10px}.classWeaponIdentity{gap:9px}.classWeaponIdentity>svg{width:48px;height:48px}.classWeaponIdentity h3,.classWeaponIdentity h4{font-size:17px}.equipmentRegionBar{align-items:flex-start;flex-direction:column;gap:8px}.equipmentRegionBar>p{text-align:left}}
 @media(max-width:460px){.classWeaponGrid{grid-template-columns:1fr}.classWeaponCard{min-height:88px}.classWeaponIdentity>svg{width:52px;height:52px}}
 
 /* Compact class hero: keep the crest beside the title instead of above it. */
@@ -597,3 +597,5 @@
 .classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin-top:5px;font-size:clamp(38px,4.2vw,60px)}
 .classMeta{margin-top:16px}
 @media(max-width:700px){.classDetailHero,.classInfoPanel .classDetailHero{grid-template-columns:58px minmax(0,1fr);gap:13px;padding:17px 15px}.classDetailCrest,.classInfoPanel .classDetailCrest{width:58px;height:58px;border-radius:10px}.classDetailCrest .classEmblemCrop,.classInfoPanel .classDetailCrest .classEmblemCrop{width:78%;height:86%}.classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin:4px 0 8px;font-size:clamp(32px,8vw,42px)}.classDetailIntro>p,.classInfoPanel .classDetailIntro>p{font-size:12px;line-height:1.55}.classMeta{gap:6px;margin-top:12px}.classMeta span{padding:7px 8px;font-size:9px}}
+.equipmentItemIcon svg{width:39px;height:39px}.equipmentModalTitleArt{width:62px;height:62px;flex:none;display:grid;place-items:center;overflow:hidden;border:1px solid #397990;border-radius:7px;background:#071725;box-shadow:0 0 18px #3dc7ef28}.equipmentModalTitleArt>svg{width:58px;height:58px}.equipmentModalTitleArt>img{width:100%;height:100%;object-fit:contain;border:0;border-radius:6px;background:transparent;box-shadow:none}
+@media(max-width:520px){.equipmentItemIcon svg{width:34px;height:34px}.equipmentModalTitleArt{width:52px;height:52px}.equipmentModalTitleArt>svg{width:49px;height:49px}}

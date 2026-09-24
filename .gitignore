@@ -1,0 +1,7 @@
+node_modules
+.next/
+.vercel/
+.env*.local
+npm-debug.log*
+.agent-state/
+data-agent/review/latest.json
