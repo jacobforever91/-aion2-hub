@@ -17,7 +17,7 @@
 .progressHeading .detailHeading h2{font:22px/1.2 Georgia,serif;margin:6px 0 0}
 .bonusCard[style*="--tier-color"] .bonusGrid>div{border-top:2px solid var(--tier-color)}
 
-.wingArtIcon{background-image:url('/aion2-icons/wings-sprite.webp');background-repeat:no-repeat;background-size:576px 504px;background-position:var(--icon-x) var(--icon-y)}
-.petArtIcon{background-image:url('/aion2-icons/pets-sprite.webp');background-repeat:no-repeat;background-size:1152px 936px;background-position:var(--icon-x) var(--icon-y)}
+.wingArtIcon{background-image:url('/aion2-icons/wings-sprite.webp');background-repeat:no-repeat}.itemIcon.wingArtIcon{background-size:304px 266px;background-position:var(--ix38) var(--iy38)}.detailIcon.wingArtIcon{background-size:464px 406px;background-position:var(--ix58) var(--iy58)}
+.petArtIcon{background-image:url('/aion2-icons/pets-sprite.webp');background-repeat:no-repeat}.itemIcon.petArtIcon{background-size:608px 494px;background-position:var(--ix38) var(--iy38)}.detailIcon.petArtIcon{background-size:928px 754px;background-position:var(--ix58) var(--iy58)}
 .tierLegend{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
 .bonusCard .tierLegend{margin:0 0 14px}
