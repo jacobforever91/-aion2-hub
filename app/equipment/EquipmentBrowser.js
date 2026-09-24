@@ -135,10 +135,6 @@ export default function EquipmentBrowser() {
   return <main className="classPage equipmentBrowsePage generalEquipmentPage">
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
-      <header className="equipmentGeneralHeading">
-        <h1>Equipment</h1>
-      </header>
-
       <div className="equipmentRegionBar" aria-label="Choose item data region">
         <div className="equipmentRegionChoices" role="group" aria-label="Item data region">
           <button type="button" className={region === "GLOBAL" ? "isSelected" : ""} aria-pressed={region === "GLOBAL"} onClick={() => changeFilter(() => setRegion("GLOBAL"))}>Global</button>
