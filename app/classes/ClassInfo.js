@@ -21,13 +21,13 @@ function formatSkillStats(levelData, fallbackStats = []) {
   };
   const damage = range(levelData.dmg_min, levelData.dmg_max);
   const healing = range(levelData.heal_min, levelData.heal_max);
-  if (damage) stats.push({label: "Daño", value: damage});
-  if (healing) stats.push({label: "Curación", value: healing});
-  if (Number(levelData.cooldown) > 0) stats.push({label: "Enfriamiento", value: `${levelData.cooldown} s`});
-  if (Number(levelData.cost_mp) > 0) stats.push({label: "Maná", value: String(levelData.cost_mp)});
-  if (Number(levelData.cost_hp) > 0) stats.push({label: "Vida", value: String(levelData.cost_hp)});
+  if (damage) stats.push({label: "Damage", value: damage});
+  if (healing) stats.push({label: "Healing", value: healing});
+  if (Number(levelData.cooldown) > 0) stats.push({label: "Cooldown", value: `${levelData.cooldown} sec`});
+  if (Number(levelData.cost_mp) > 0) stats.push({label: "MP", value: String(levelData.cost_mp)});
+  if (Number(levelData.cost_hp) > 0) stats.push({label: "HP", value: String(levelData.cost_hp)});
   if (Number(levelData.cost_dp) > 0) stats.push({label: "DP", value: String(levelData.cost_dp)});
-  if (Number(levelData.casting_time) > 0) stats.push({label: "Lanzamiento", value: `${levelData.casting_time} s`});
+  if (Number(levelData.casting_time) > 0) stats.push({label: "Cast Time", value: `${levelData.casting_time} sec`});
   return stats.length ? stats : fallbackStats;
 }
 
@@ -80,13 +80,13 @@ export default function ClassInfo({slug, onSelectClass}) {
   if (!selected || !detail) return null;
 
   const skills = detail[skillType];
-  const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Nivel máximo")?.value) || 1;
+  const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Max Level")?.value) || 1;
   const currentSkillLevel = skillInfo?.levels?.find(({level}) => level === skillLevel) || skillInfo?.levels?.[0];
   const currentDescription = formatSkillDescription(skillInfo?.descriptionTemplate, currentSkillLevel, skillInfo?.description);
   const currentStats = formatSkillStats(currentSkillLevel, skillInfo?.stats);
   return (
     <div className="classInfoPanel">
-      {!onSelectClass && <Link className="classBreadcrumb" href="/classes">CLASES <span>/</span> {selected.name.toUpperCase()}</Link>}
+      {!onSelectClass && <Link className="classBreadcrumb" href="/classes">CLASSES <span>/</span> {selected.name.toUpperCase()}</Link>}
 
       <header className="classDetailHero">
         <div className="classDetailCrest">
@@ -104,47 +104,47 @@ export default function ClassInfo({slug, onSelectClass}) {
         </div>
       </header>
 
-      <section className="classSkills" aria-label="Habilidades de clase Global">
+      <section className="classSkills" aria-label="Global class skills">
         <div className="classSkillsHeading" aria-hidden="true" />
-        <div className="classSkillTabs" role="tablist" aria-label="Tipo de habilidad">
-          <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Activas <span>{detail.active.length}</span></button>
-          <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Pasivas <span>{detail.passive.length}</span></button>
+        <div className="classSkillTabs" role="tablist" aria-label="Skill type">
+          <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Active <span>{detail.active.length}</span></button>
+          <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Passive <span>{detail.passive.length}</span></button>
         </div>
         <div className="classSkillGrid" role="tabpanel">
           {skills.map((skill, index) => {
             const skillId = skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)];
             return (
-            <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type: skillType})} aria-label={`Ver qué hace ${skill}`}>
+            <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type: skillType})} aria-label={`View ${skill} details`}>
               <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={`https://aion2hub.com/api/skill-icon/${skillId}`} alt="" aria-hidden="true" loading="lazy" />
               <span className="classSkillName">{skill}</span>
             </button>
           )})}
         </div>
-        <p className="classDataNote">Lista de habilidades Global · Launch Scale Test · 19 sep 2026</p>
+        <p className="classDataNote">Global skill list · Launch Scale Test · Sep 19, 2026</p>
       </section>
 
       {selectedSkill && <div className="skillModalBackdrop" onClick={(event) => { if (event.target === event.currentTarget) setSelectedSkill(null); }}>
         <style jsx global>{`.skillModal{width:min(760px,calc(100vw - 28px))!important;max-height:min(96svh,1100px)!important;scrollbar-width:none;-ms-overflow-style:none}.skillModal::-webkit-scrollbar{display:none}.skillModal.hasSkillChain{width:min(1040px,calc(100vw - 32px))!important;max-height:min(98svh,1300px)!important}.skillModalDetails{grid-template-columns:repeat(2,minmax(0,1fr))!important}.skillModalDetails>div{display:grid!important;grid-template-columns:minmax(90px,.8fr) minmax(0,1fr);align-items:baseline;gap:8px}.skillModalDetails dt{white-space:nowrap}.skillModalDetails dd{overflow-wrap:anywhere}.skillModalChain{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}.skillModalChainItem{display:flex;align-items:center;gap:9px;min-width:0;padding:7px 10px;border:1px solid #1d4055;border-radius:5px;background:#071521}.skillModalChainItem img{width:34px;height:34px;flex:none;object-fit:contain;border:1px solid #234d63;border-radius:5px;background:#06111d}.skillModalChainItem span{color:#ccdde4;font-size:12px;line-height:1.35}.skillModalSkillIdentity{display:flex;align-items:center;gap:12px;margin:0 0 16px;padding:10px 12px;border:1px solid #1c4055;border-radius:6px;background:#071521}.skillModalSkillIdentity img{width:48px;height:48px;flex:none;object-fit:cover;border:1px solid #327b96;border-radius:7px;background:#06111d}.skillModalSkillIdentity h2{margin:0!important;color:#eef8fc!important;font:400 24px/1.2 Georgia,"Times New Roman",serif!important}.skillModalSkillIdentity span{display:block;margin-top:4px;color:#79a2b5;font-size:9px;letter-spacing:1px;text-transform:uppercase}.skillLevelControl{margin:0 0 14px;padding:11px 12px;border:1px solid #1c4055;border-radius:5px;background:#071521}.skillLevelHeading{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;color:#9bb7c4;font-size:10px;letter-spacing:.5px}.skillLevelHeading output{color:#70ddff;font-weight:700;font-variant-numeric:tabular-nums}.skillLevelControl input{display:block;width:100%;height:4px;margin:0;accent-color:#54d9ff;cursor:pointer}.skillModalList li{opacity:.62;transition:opacity .18s ease,color .18s ease}.skillModalList li.isUnlocked{opacity:1}.skillModalList li.isUnlocked .skillModalLevel{border-color:#2582a0;background:#0a2b3d;color:#8de8ff}@media(max-width:520px){.skillModalDetails{grid-template-columns:1fr!important}.skillModal{width:calc(100vw - 20px)!important;max-height:92svh!important}.skillModal.hasSkillChain{width:calc(100vw - 16px)!important;max-height:96svh!important}.skillModalDetails>div{grid-template-columns:minmax(88px,.72fr) minmax(0,1fr)}}`}</style>
         <section className={`skillModal${skillInfo?.chain?.length > 1 ? " hasSkillChain" : ""}`} role="dialog" aria-modal="true" aria-labelledby="skillModalTitle" aria-describedby="skillModalDescription">
-          <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Cerrar descripción"><X aria-hidden="true" /></button>
-          <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "active" ? "HABILIDAD ACTIVA" : "HABILIDAD PASIVA"}</span>
+          <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Close skill details"><X aria-hidden="true" /></button>
+          <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "active" ? "ACTIVE SKILL" : "PASSIVE SKILL"}</span>
           <div className="skillModalSkillIdentity">
             <img src={`https://aion2hub.com/api/skill-icon/${selectedSkill.id}`} alt={`Icono de ${selectedSkill.name}`} />
-            <div><h2 id="skillModalTitle">{selectedSkill.name}</h2><span>{selectedSkill.type === "active" ? "Habilidad activa" : "Habilidad pasiva"}</span></div>
+            <div><h2 id="skillModalTitle">{selectedSkill.name}</h2><span>{selectedSkill.type === "active" ? "Active skill" : "Passive skill"}</span></div>
           </div>
           <div className="skillModalDivider" />
           <p id="skillModalDescription" className={`skillModalDescription is${descriptionState}`}>
-            {descriptionState === "loading" && "Cargando descripción…"}
+            {descriptionState === "loading" && "Loading skill details…"}
             {descriptionState === "ready" && currentDescription}
-            {descriptionState === "error" && "No se pudo cargar la descripción en este momento. Inténtalo de nuevo."}
+            {descriptionState === "error" && "Could not load skill details right now. Please try again."}
           </p>
           {descriptionState === "ready" && skillInfo && <div className="skillModalData">
             {(skillInfo.requiredLevel || skillInfo.mastery) && <div className="skillModalBadges">
-              {skillInfo.requiredLevel && <span>Nivel requerido {skillInfo.requiredLevel}</span>}
-              {skillInfo.mastery && <span>{skillInfo.mastery === "Mastery" ? "Maestría" : skillInfo.mastery}</span>}
+              {skillInfo.requiredLevel && <span>Required Level {skillInfo.requiredLevel}</span>}
+              {skillInfo.mastery && <span>{skillInfo.mastery}</span>}
             </div>}
             {maxSkillLevel > 1 && <div className="skillLevelControl">
-              <div className="skillLevelHeading"><label htmlFor="skill-level">Nivel de habilidad</label><output htmlFor="skill-level">{skillLevel} / {maxSkillLevel}</output></div>
+              <div className="skillLevelHeading"><label htmlFor="skill-level">Skill Level</label><output htmlFor="skill-level">{skillLevel} / {maxSkillLevel}</output></div>
               <input id="skill-level" type="range" min="1" max={maxSkillLevel} value={skillLevel} onChange={(event) => setSkillLevel(Number(event.target.value))} />
             </div>}
             {currentStats?.length > 0 && <div className="skillModalStats" aria-label={`Valores principales en nivel ${skillLevel}`}>
@@ -152,27 +152,27 @@ export default function ClassInfo({slug, onSelectClass}) {
             </div>}
             {skillInfo.properties && <p className="skillModalProperties">{skillInfo.properties}</p>}
             {skillInfo.specialties?.length > 0 && <section className="skillModalSection">
-              <h3>Especializaciones</h3>
+              <h3>Specialties</h3>
               <ul className="skillModalList">
-                {skillInfo.specialties.map((specialty, index) => <li className={skillLevel >= specialty.level ? "isUnlocked" : ""} key={`${specialty.level}-${index}`}><span className="skillModalLevel">Nv. {specialty.level}</span><span>{specialty.description}</span></li>)}
+                {skillInfo.specialties.map((specialty, index) => <li className={skillLevel >= specialty.level ? "isUnlocked" : ""} key={`${specialty.level}-${index}`}><span className="skillModalLevel">Lv. {specialty.level}</span><span>{specialty.description}</span></li>)}
               </ul>
             </section>}
             {skillInfo.chain?.length > 1 && <section className="skillModalSection">
-              <h3>Cadena de habilidades</h3>
+              <h3>Skill Chain</h3>
               <div className="skillModalChain" role="list">{skillInfo.chain.map((entry) => <div className="skillModalChainItem" role="listitem" key={`${entry.name}-${entry.id || entry.name}`}>{entry.icon && <img src={entry.icon} alt="" loading="lazy" />}<span>{entry.name}</span></div>)}</div>
             </section>}
             {skillInfo.details?.length > 0 && <section className="skillModalSection">
-              <h3>Detalles</h3>
+              <h3>Details</h3>
               <dl className="skillModalDetails">
-                {skillInfo.details.map(({label, value}) => <div key={`${label}-${value}`}><dt>{label}</dt><dd>{value === "Active" ? "Activa" : value === "Passive" ? "Pasiva" : value === "Physical" ? "Físico" : value === "Magical" ? "Mágico" : value}</dd></div>)}
+                {skillInfo.details.map(({label, value}) => <div key={`${label}-${value}`}><dt>{label}</dt><dd>{value}</dd></div>)}
               </dl>
             </section>}
-            <small className="skillModalSource">Datos Global de habilidades</small>
+            <small className="skillModalSource">Global skill data</small>
           </div>}
         </section>
       </div>}
 
-      {!onSelectClass && <nav className="classDetailNav" aria-label="Navegación entre clases">
+      {!onSelectClass && <nav className="classDetailNav" aria-label="Browse classes">
         {classList.map(({name, slug: classSlug}) => <Link key={classSlug} className={classSlug === slug ? "current" : ""} href={`/classes/${classSlug}`}>{name}</Link>)}
       </nav>}
     </div>
