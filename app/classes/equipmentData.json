@@ -3,6 +3,7 @@
     {
       "id": "110250008",
       "class": "templar",
+      "group": "Weapon",
       "category": "Longsword",
       "name": "Tempest Longsword",
       "grade": "Rare",
@@ -51,6 +52,163 @@
         "region": "Global Launch Scale Test snapshot",
         "capturedAt": "2026-09-19",
         "url": "https://aion2hub.com/database/items/110250008",
+        "official": false
+      }
+    },
+    {
+      "id": "210350085",
+      "class": "templar",
+      "group": "Armor",
+      "category": "Helmet",
+      "name": "Tempest Helm",
+      "grade": "Rare",
+      "itemLevel": "23",
+      "requiredLevel": "15",
+      "equipType": "Helmet",
+      "itemType": "Armor",
+      "stats": [
+        { "label": "Defense", "value": "74" },
+        { "label": "HP", "value": "42" }
+      ],
+      "imprints": [
+        { "label": "Incoming Heal", "value": "7.59% ~ 8.8%" },
+        { "label": "Status Effect Resist", "value": "2.16% ~ 2.55%" },
+        { "label": "Smite", "value": "0.46% ~ 0.6%" },
+        { "label": "Endurance", "value": "1.15% ~ 1.39%" },
+        { "label": "Attack increase", "value": "0.46% ~ 0.6%" },
+        { "label": "Perfect Resist", "value": "2.3% ~ 2.72%" },
+        { "label": "Dexterity", "value": "9 ~ 17" },
+        { "label": "Constitution", "value": "9 ~ 17" },
+        { "label": "Willpower", "value": "9 ~ 17" },
+        { "label": "Attack", "value": "5 ~ 13" },
+        { "label": "Critical Hit", "value": "6 ~ 14" },
+        { "label": "Accuracy", "value": "11 ~ 20" },
+        { "label": "Defense", "value": "38 ~ 51" },
+        { "label": "Evasion", "value": "9 ~ 17" },
+        { "label": "Critical Damage Defense", "value": "56 ~ 71" },
+        { "label": "Back Defense", "value": "56 ~ 71" },
+        { "label": "Critical Hit Resist", "value": "7 ~ 15" },
+        { "label": "Block", "value": "9 ~ 17" },
+        { "label": "MP", "value": "23 ~ 33" },
+        { "label": "HP", "value": "46 ~ 60" },
+        { "label": "Natural MP Regen", "value": "6 ~ 14" },
+        { "label": "Natural HP Regen", "value": "12 ~ 21" },
+        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+      ],
+      "details": [
+        { "label": "Manastone sockets", "value": "2" },
+        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
+        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+      ],
+      "upgrades": "Enchantable to +10. At +10: Defense +250, HP +200.",
+      "source": {
+        "name": "AION2 Hub (independent community reference)",
+        "region": "Global Launch Scale Test snapshot",
+        "capturedAt": "2026-09-19",
+        "url": "https://aion2hub.com/database/items/210350085",
+        "official": false
+      }
+    },
+    {
+      "id": "210250010",
+      "class": "templar",
+      "group": "Armor",
+      "category": "Pants",
+      "name": "Luminous Greaves",
+      "grade": "Rare",
+      "itemLevel": "25",
+      "requiredLevel": "25",
+      "equipType": "Pants",
+      "itemType": "Armor",
+      "stats": [
+        { "label": "Defense", "value": "173" },
+        { "label": "HP", "value": "75" }
+      ],
+      "imprints": [
+        { "label": "Damage Tolerance", "value": "4.32% ~ 5.04%" },
+        { "label": "Perfect Chance", "value": "1.98% ~ 2.35%" },
+        { "label": "Endurance", "value": "1.32% ~ 1.59%" },
+        { "label": "Attack increase", "value": "0.87% ~ 1.07%" },
+        { "label": "Double Resist", "value": "1.32% ~ 1.59%" },
+        { "label": "Status Effect Resist", "value": "2.83% ~ 3.32%" },
+        { "label": "Multi-hit Resist", "value": "1.98% ~ 2.35%" },
+        { "label": "Dexterity", "value": "4 ~ 12" },
+        { "label": "Constitution", "value": "6 ~ 14" },
+        { "label": "Willpower", "value": "5 ~ 13" },
+        { "label": "Attack", "value": "9 ~ 17" },
+        { "label": "Critical Hit", "value": "13 ~ 22" },
+        { "label": "Accuracy", "value": "19 ~ 29" },
+        { "label": "Defense", "value": "110 ~ 134" },
+        { "label": "Evasion", "value": "11 ~ 20" },
+        { "label": "Critical Damage Defense", "value": "112 ~ 136" },
+        { "label": "Back Defense", "value": "112 ~ 136" },
+        { "label": "Front Defense", "value": "112 ~ 136" },
+        { "label": "Critical Hit Resist", "value": "19 ~ 29" },
+        { "label": "Block", "value": "11 ~ 20" },
+        { "label": "MP", "value": "42 ~ 55" },
+        { "label": "HP", "value": "85 ~ 105" },
+        { "label": "Natural MP Regen", "value": "9 ~ 17" },
+        { "label": "Natural HP Regen", "value": "19 ~ 29" },
+        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+      ],
+      "details": [
+        { "label": "Manastone sockets", "value": "2" },
+        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
+        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+      ],
+      "upgrades": "Enchantable to +5. At +5: Defense +41, HP +15.",
+      "source": {
+        "name": "AION2 Hub (independent community reference)",
+        "region": "Global Launch Scale Test snapshot",
+        "capturedAt": "2026-09-19",
+        "url": "https://aion2hub.com/database/items/210250010",
+        "official": false
+      }
+    },
+    {
+      "id": "310330076",
+      "class": "templar",
+      "group": "Accessories",
+      "category": "Ring",
+      "name": "Kashapa Ring",
+      "grade": "Unique",
+      "itemLevel": "46",
+      "requiredLevel": "40",
+      "equipType": "Ring",
+      "itemType": "Accessory",
+      "stats": [
+        { "label": "Attack", "value": "54" },
+        { "label": "Defense", "value": "130" }
+      ],
+      "imprints": [
+        { "label": "Might", "value": "4 ~ 12" },
+        { "label": "Precision", "value": "4 ~ 12" },
+        { "label": "Intelligence", "value": "8 ~ 16" },
+        { "label": "Flight Power", "value": "16,200 ~ 18,637" },
+        { "label": "Attack", "value": "14 ~ 23" },
+        { "label": "Critical Hit", "value": "21 ~ 31" },
+        { "label": "Accuracy", "value": "29 ~ 40" },
+        { "label": "Defense", "value": "168 ~ 200" },
+        { "label": "Evasion", "value": "16 ~ 25" },
+        { "label": "Critical Hit Resist", "value": "30 ~ 42" },
+        { "label": "Block", "value": "17 ~ 27" },
+        { "label": "MP", "value": "64 ~ 81" },
+        { "label": "HP", "value": "130 ~ 157" },
+        { "label": "Natural MP Regen", "value": "15 ~ 24" },
+        { "label": "Natural HP Regen", "value": "30 ~ 42" },
+        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+      ],
+      "details": [
+        { "label": "Manastone sockets", "value": "4" },
+        { "label": "Soul imprint selection", "value": "Choose 4 sub-stats" },
+        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+      ],
+      "upgrades": "Enchantable to +15. At +15: Attack +28, Defense +112.",
+      "source": {
+        "name": "AION2 Hub (independent community reference)",
+        "region": "Global Launch Scale Test snapshot",
+        "capturedAt": "2026-09-19",
+        "url": "https://aion2hub.com/database/items/310330076",
         "official": false
       }
     }

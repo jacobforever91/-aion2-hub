@@ -172,7 +172,7 @@ export default function ClassEquipment({slug}) {
       </div>}
       {state === "ready" && visibleItems.length === 0 && <p className="equipmentLoading">No items match these filters.</p>}
       {state === "ready" && pageInfo.pages > 1 && <div className="equipmentPagination"><button type="button" disabled={pageInfo.page <= 1} onClick={() => setPageInfo((current) => ({...current, page: current.page - 1}))}><ChevronLeft aria-hidden="true" />Previous</button><span>Page {pageInfo.page} of {pageInfo.pages}</span><button type="button" disabled={pageInfo.page >= pageInfo.pages} onClick={() => setPageInfo((current) => ({...current, page: current.page + 1}))}>Next<ChevronRight aria-hidden="true" /></button></div>}
-      <p className="equipmentDataNote">Reference data can differ by region and update · records show their source and version.</p>
+      <p className="equipmentDataNote">Some entries use an unofficial Global test snapshot. Check each item’s source and version; values may change in the released game.</p>
     </>}
     {selectedItem && <ItemModal slug={slug} item={selectedItem} onClose={closeItem} />}
   </section>;

@@ -153,7 +153,7 @@ export async function GET(request) {
       code: name,
       name,
       count: String(localItems.filter((item) => item.category === name).length),
-      group: name === "Longsword" ? "Weapon" : "Armor",
+      group: localItems.find((item) => item.category === name)?.group || "Armor",
     }));
     if (!category) return Response.json({className, categories, source: "reviewed-local-snapshot"});
     const categoryItems = localItems.filter((item) => item.category === category);
