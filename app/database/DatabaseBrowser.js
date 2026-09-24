@@ -2,7 +2,7 @@
 
 import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, BookOpen, Search, Sparkles, X, ChevronRight, Gem} from "lucide-react";
+import {ArrowLeft, BookOpen, Search, Sparkles, X, ChevronRight, Gem, Feather, PawPrint} from "lucide-react";
 import {classData, classList, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import styles from "./encyclopedia.module.css";
@@ -12,11 +12,13 @@ const filters = [
   {id: "active", label: "Active"},
   {id: "passive", label: "Passive"},
   {id: "stigma", label: "Stigmas"},
+  {id: "wings", label: "Wings"},
+  {id: "pets", label: "Pets"},
 ];
 const PAGE_SIZE = 48;
 
 function makeEntries() {
-  return classList.flatMap(({name: className, slug}) => {
+  const classEntries = classList.flatMap(({name: className, slug}) => {
     const classSkills = classData[slug];
     const active = classSkills.active.map((skillName, index) => ({
       id: skillIconIds[slug][index], name: skillName, className, slug, type: "active",
@@ -31,6 +33,11 @@ function makeEntries() {
     }));
     return [...active, ...passive, ...stigmas];
   });
+  return [
+    ...classEntries,
+    {id:"wings-catalog",name:"Wings catalog",className:"90 entries · 45 per faction · enchant up to +10",type:"wings",region:"Community reference",href:"/wings"},
+    {id:"pets-catalog",name:"Pets catalog",className:"208 entries · levels · genus growth bonuses",type:"pets",region:"Community reference",href:"/pets"},
+  ];
 }
 
 function getDescription(info, levelData) {
@@ -172,13 +179,13 @@ export default function DatabaseBrowser() {
         <Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft aria-hidden="true" /></Link>
         <header className={styles.header}>
           <span className={styles.eyebrow}><BookOpen aria-hidden="true" /> DATABASE ENCYCLOPEDIA</span>
-          <h1>Skills <em>&amp; Stigmas</em></h1>
-          <p>Search class skills, compare details by level, and explore the Stigma catalog without leaving the hub.</p>
+          <h1>Game <em>Encyclopedia</em></h1>
+          <p>Search class skills, Stigmas, Wings, and Pets together. Open a system to explore its progression and reference data.</p>
         </header>
 
         <label className={styles.search}>
           <Search aria-hidden="true" />
-          <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search a skill, Stigma, or class…" aria-label="Search skills, Stigmas, and classes" />
+          <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search skills, Stigmas, Wings, Pets, or class…" aria-label="Search the game encyclopedia" />
           {query && <button type="button" onClick={() => setQuery("")} aria-label="Clear search"><X aria-hidden="true" /></button>}
           <kbd>⌕</kbd>
         </label>
@@ -191,7 +198,11 @@ export default function DatabaseBrowser() {
         </div>
 
         <section className={styles.results} aria-label="Encyclopedia entries" aria-live="polite">
-          {visibleEntries.map((entry) => <button type="button" className={styles.entry} key={`${entry.slug}-${entry.type}-${entry.id}`} onClick={() => setSelectedEntry(entry)}>
+          {visibleEntries.map((entry) => entry.href ? <Link className={styles.entry} href={entry.href} key={entry.id}>
+            <span className={styles.icon}>{entry.type === "wings" ? <Feather aria-hidden="true"/> : <PawPrint aria-hidden="true"/>}</span>
+            <span className={styles.entryCopy}><strong>{entry.name}</strong><span>{entry.className}</span></span>
+            <span className={`${styles.badge} ${styles[`badge_${entry.type}`]}`}>{entry.type}</span>
+          </Link> : <button type="button" className={styles.entry} key={`${entry.slug}-${entry.type}-${entry.id}`} onClick={() => setSelectedEntry(entry)}>
             <span className={styles.icon}><img src={`https://aion2hub.com/api/skill-icon/${entry.id}`} alt="" loading="lazy" /></span>
             <span className={styles.entryCopy}><strong>{entry.name}</strong><span>{entry.className}</span></span>
             <span className={`${styles.badge} ${styles[`badge_${entry.type}`]}`}>{entry.type === "stigma" && <Sparkles aria-hidden="true" />}{entry.type}</span>
@@ -211,10 +222,8 @@ export default function DatabaseBrowser() {
             <span><strong>Equipment</strong><small>Browse the connected class equipment catalog</small></span>
             <ChevronRight aria-hidden="true" />
           </Link>
-          <div className={styles.catalogFuture}>
-            <span>Wings · Pets · More</span>
-            <small>New catalogs will join this encyclopedia as their data is integrated.</small>
-          </div>
+          <Link className={styles.catalogCard} href="/wings"><span className={styles.catalogIcon}><Feather aria-hidden="true"/></span><span><strong>Wings</strong><small>90 reference entries · enchantment up to +10</small></span><ChevronRight aria-hidden="true"/></Link>
+          <Link className={styles.catalogCard} href="/pets"><span className={styles.catalogIcon}><PawPrint aria-hidden="true"/></span><span><strong>Pets</strong><small>208 reference entries · levels and genus growth</small></span><ChevronRight aria-hidden="true"/></Link>
         </section>
       </div>
       {selectedEntry && <EntryModal entry={selectedEntry} onClose={closeModal} />}
