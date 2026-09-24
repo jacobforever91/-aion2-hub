@@ -8,12 +8,14 @@ import catalogData from "./catalogData.json";
 
 const tierColors = {Common:"#e8eef3",Rare:"#50baff",Epic:"#c579ff",Unique:"#ffd45b",Special:"#ff665f",Heroic:"#ff665f"};
 const wingGrades = ["Common","Rare","Epic","Unique","Special"];
+const wingGradeOrder = Object.fromEntries(wingGrades.map((grade,index)=>[grade,index]));
+const wingFactionOrder = {Elyos:0,Asmodians:1};
 const wingGradeCounts = Object.fromEntries(wingGrades.map((grade) => [grade, catalogData.wings.filter((item) => item.grade === grade).length]));
 const genusColors = {Fera:"#91d679",Cogni:"#65d9f4",Natura:"#8fe0b4",Varian:"#bd9aff",Special:"#ffc76c"};
 const wingItems = catalogData.wings.map((item) => ({
   ...item,
   stats: catalogData.wingDetails[item.id]?.stats || [],
-}));
+})).sort((a,b)=>wingGradeOrder[a.grade]-wingGradeOrder[b.grade]||a.name.localeCompare(b.name)||(wingFactionOrder[a.faction]??99)-(wingFactionOrder[b.faction]??99));
 
 const feraChances = [
   [1,"90%","10%","—","—","—"],[2,"70%","30%","—","—","—"],[3,"55%","45%","—","—","—"],
@@ -43,7 +45,7 @@ function WingsCatalog() {
   const [query,setQuery]=useState("");
   const [selectedGrades,setSelectedGrades]=useState([]);
   const [faction,setFaction]=useState("All factions");
-  const [selected,setSelected]=useState(wingItems.find(item=>item.id==="30101000"));
+  const [selected,setSelected]=useState(wingItems[0]);
   const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(!selectedGrades.length||selectedGrades.includes(item.grade))&&(faction==="All factions"||item.faction===faction)),[query,selectedGrades,faction]);
   const selectedVisible=visible.find((item)=>item.id===selected.id)||visible[0]||selected;
   const toggleGrade=(grade)=>setSelectedGrades((current)=>current.includes(grade)?current.filter((value)=>value!==grade):[...current,grade]);
