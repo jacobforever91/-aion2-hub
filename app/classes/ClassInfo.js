@@ -102,7 +102,7 @@ export default function ClassInfo({slug, onSelectClass}) {
             {descriptionState === "ready" && skillDescription}
             {descriptionState === "error" && "No se pudo cargar la descripción en este momento. Inténtalo de nuevo."}
           </p>
-          {descriptionState === "ready" && <small className="skillModalSource">Datos de habilidades Global · <a href={`https://aion2.app/es/db/skills/${selectedSkill.id}`} target="_blank" rel="noreferrer">Ver ficha de origen</a></small>}
+          {descriptionState === "ready" && <small className="skillModalSource">Descripción de habilidad · Datos Global</small>}
         </section>
       </div>}
 
