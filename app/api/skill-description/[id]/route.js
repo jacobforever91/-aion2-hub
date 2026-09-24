@@ -1,6 +1,8 @@
 import {skillIconIds} from "../../../classes/classData.js";
+import {stigmaCatalog} from "../../../stigmas/stigmaData.js";
 
-const validSkillIds = new Set(Object.values(skillIconIds).flat());
+const stigmaSkillIds = Object.values(stigmaCatalog).flat().map(({id}) => id);
+const validSkillIds = new Set([...Object.values(skillIconIds).flat(), ...stigmaSkillIds, "12410000"]);
 
 function decodeHtml(value) {
   return value
