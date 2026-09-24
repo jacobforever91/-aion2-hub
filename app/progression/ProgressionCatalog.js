@@ -19,6 +19,8 @@ const wingItems = [
   {name:"Black Waves Wings", grade:"Special", faction:"Elyos", id:"30202400"},
   {name:"Woodland Bunny Bag Wings", grade:"Special", faction:"Elyos", id:"30700300"},
 ];
+const asmodianWingIds = ["40200601","40200503","40200700","40200100","40101000","40201400","40201900","40300300","40100500","40400200","40202400","40700300"];
+wingItems.push(...wingItems.map((item,index)=>({...item,faction:"Asmodians",id:asmodianWingIds[index],stats:undefined})));
 
 const petLevels = [
   {level:1, souls:"25", groundSpeed:"1", accuracy:"—", dex:"—"},
