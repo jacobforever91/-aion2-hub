@@ -629,3 +629,12 @@
 .classBrowsePage .classSkillTabs button,.classDetailPage .classSkillTabs button{color:#b2c8d4}
 .classBrowsePage .classDataNote,.classDetailPage .classDataNote{color:#aac0ce;text-shadow:0 1px 3px #030812}
 @media(max-width:700px){.classPage.classBrowsePage::before,.classDetailPage::before{background-position:70% bottom}}
+
+/* Compact three-column skill cards, with room for full names. */
+.classInfoPanel .classSkills{width:100%;max-width:1080px}
+.classInfoPanel .classSkillGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.classInfoPanel .classSkillItem{min-height:52px;grid-template-columns:36px minmax(0,1fr);gap:10px;padding:7px 10px}
+.classInfoPanel .classSkillIcon,.classInfoPanel .classSkillIcon.isSurvivalWillpower{width:36px;height:36px}
+.classInfoPanel .classSkillName{font-size:12px;line-height:1.4;letter-spacing:0;overflow-wrap:anywhere}
+@media(max-width:1050px){.classInfoPanel .classSkillGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.classInfoPanel .classSkillGrid{grid-template-columns:1fr;gap:7px}}
