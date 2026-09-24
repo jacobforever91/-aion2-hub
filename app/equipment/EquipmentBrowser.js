@@ -136,9 +136,7 @@ export default function EquipmentBrowser() {
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
       <header className="equipmentGeneralHeading">
-        <span className="classEyebrow">GAME · EQUIPMENT DATABASE</span>
         <h1>Equipment</h1>
-        <p>Browse every equipment slot individually. Filter by rarity or search by name, then open an item to see its recorded stats and details.</p>
       </header>
 
       <div className="equipmentRegionBar" aria-label="Choose item data region">
