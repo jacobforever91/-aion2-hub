@@ -9,8 +9,7 @@ export default function Classes() {
   const [selectedSlug, setSelectedSlug] = useState("templar");
 
   function goBack() {
-    if (window.history.length > 1) window.history.back();
-    else window.location.assign("/");
+    window.location.assign("/?menu=open");
   }
 
   return (
