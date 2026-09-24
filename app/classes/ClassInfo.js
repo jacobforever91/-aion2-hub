@@ -124,6 +124,7 @@ export default function ClassInfo({slug, onSelectClass}) {
       </section>
 
       {selectedSkill && <div className="skillModalBackdrop" onClick={(event) => { if (event.target === event.currentTarget) setSelectedSkill(null); }}>
+        <style jsx global>{`.skillLevelControl{margin:0 0 14px;padding:11px 12px;border:1px solid #1c4055;border-radius:5px;background:#071521}.skillLevelHeading{display:flex;justify-content:space-between;gap:12px;margin-bottom:8px;color:#9bb7c4;font-size:10px;letter-spacing:.5px}.skillLevelHeading output{color:#70ddff;font-weight:700;font-variant-numeric:tabular-nums}.skillLevelControl input{display:block;width:100%;height:4px;margin:0;accent-color:#54d9ff;cursor:pointer}.skillModalList li{opacity:.62;transition:opacity .18s ease,color .18s ease}.skillModalList li.isUnlocked{opacity:1}.skillModalList li.isUnlocked .skillModalLevel{border-color:#2582a0;background:#0a2b3d;color:#8de8ff}`}</style>
         <section className="skillModal" role="dialog" aria-modal="true" aria-labelledby="skillModalTitle" aria-describedby="skillModalDescription">
           <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Cerrar descripción"><X aria-hidden="true" /></button>
           <span className="skillModalEyebrow">{selected.name} · {selectedSkill.type === "active" ? "HABILIDAD ACTIVA" : "HABILIDAD PASIVA"}</span>
