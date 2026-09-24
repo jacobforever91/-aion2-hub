@@ -2,23 +2,24 @@
 
 import {useCallback, useEffect, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, ChevronLeft, ChevronRight, Gem, Search, Shield, Sword, X, Footprints, Hand, Crown, Shirt, Circle, Sparkles, Waves, CircleDot, Layers} from "lucide-react";
+import {ArrowLeft, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
+import EquipmentSlotIcon from "./EquipmentSlotIcon";
 
 const grades = ["All rarities", "Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"];
 const categories = [
-  {id: "weapons", name: "Weapons", family: "Weapons", icon: Sword},
-  {id: "helmet", name: "Helmet", family: "Armor", sourceSlot: "Helmet", icon: Crown},
-  {id: "chest", name: "Chest", family: "Armor", sourceSlot: "Torso", icon: Shirt},
-  {id: "shoulders", name: "Shoulders", family: "Armor", sourceSlot: "Shoulder", icon: Shield},
-  {id: "gloves", name: "Gloves", family: "Armor", sourceSlot: "Gloves", icon: Hand},
-  {id: "pants", name: "Pants", family: "Armor", sourceSlot: "Pants", icon: Layers},
-  {id: "boots", name: "Boots", family: "Armor", sourceSlot: "Boots", icon: Footprints},
-  {id: "cloak", name: "Cloak", family: "Armor", sourceSlot: "Cape", icon: Waves},
-  {id: "necklace", name: "Necklace", family: "Accessories", sourceSlot: "Necklace", icon: Gem},
-  {id: "earrings", name: "Earrings", family: "Accessories", sourceSlot: "Earring", slotCount: 2, icon: Circle},
-  {id: "rings", name: "Rings", family: "Accessories", sourceSlot: "Ring", slotCount: 2, icon: CircleDot},
-  {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: Sparkles},
-  {id: "brooch", name: "Brooch", family: "Accessories", sourceSlot: "Brooch", icon: Gem},
+  {id: "weapons", name: "Weapons", family: "Weapons", icon: "weapons"},
+  {id: "helmet", name: "Helmet", family: "Armor", sourceSlot: "Helmet", icon: "helmet"},
+  {id: "chest", name: "Chest", family: "Armor", sourceSlot: "Torso", icon: "chest"},
+  {id: "shoulders", name: "Shoulders", family: "Armor", sourceSlot: "Shoulder", icon: "shoulders"},
+  {id: "gloves", name: "Gloves", family: "Armor", sourceSlot: "Gloves", icon: "gloves"},
+  {id: "pants", name: "Pants", family: "Armor", sourceSlot: "Pants", icon: "pants"},
+  {id: "boots", name: "Boots", family: "Armor", sourceSlot: "Boots", icon: "boots"},
+  {id: "cloak", name: "Cloak", family: "Armor", sourceSlot: "Cape", icon: "cloak"},
+  {id: "necklace", name: "Necklace", family: "Accessories", sourceSlot: "Necklace", icon: "necklace"},
+  {id: "earrings", name: "Earrings", family: "Accessories", sourceSlot: "Earring", slotCount: 2, icon: "earrings"},
+  {id: "rings", name: "Rings", family: "Accessories", sourceSlot: "Ring", slotCount: 2, icon: "rings"},
+  {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: "bracelet"},
+  {id: "brooch", name: "Brooch", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
 ];
 const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
 
@@ -154,7 +155,7 @@ export default function EquipmentBrowser() {
       </div>
 
       <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
-        {categories.map(({id, name, icon: Icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><Icon aria-hidden="true" />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
+        {categories.map(({id, name, icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><EquipmentSlotIcon type={icon} />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
       </div>
 
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
