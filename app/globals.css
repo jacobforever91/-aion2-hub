@@ -466,3 +466,23 @@
 .classSkillIcon.isSurvivalWillpower{width:46px;height:46px;object-fit:contain;border-color:#55d9ff;background:#081824;box-shadow:0 0 17px #34c7f13b}
 @media(max-width:700px){.classSkillIcon.isSurvivalWillpower{width:42px;height:42px}}
 
+
+/* Skill description modal */
+.classSkillItem{width:100%;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.classSkillItem:focus-visible{outline:2px solid #82e8ff;outline-offset:2px}
+.skillModalBackdrop{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px;background:#0208128a;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);animation:skillBackdropIn .18s ease-out}
+.skillModal{position:relative;box-sizing:border-box;width:min(100%,540px);max-height:min(82svh,680px);overflow:auto;padding:34px clamp(22px,5vw,38px) 30px;border:1px solid #3d9bb9;border-radius:12px;background:radial-gradient(ellipse at 100% 0,#12415a55,transparent 44%),linear-gradient(145deg,#0b1d2b,#06111d 72%);box-shadow:0 24px 90px #000b,0 0 36px #29bce526;animation:skillModalIn .2s ease-out}
+.skillModalClose{position:absolute;top:14px;right:14px;width:36px;height:36px;display:grid;place-items:center;border:1px solid #2b5a70;border-radius:6px;background:#071725;color:#a7eaff;cursor:pointer}
+.skillModalClose:hover{border-color:#70ddff;background:#0b2639}
+.skillModalClose svg{width:18px;height:18px}
+.skillModalEyebrow{display:block;max-width:calc(100% - 42px);color:#65d9ff;font-size:9px;font-weight:800;letter-spacing:2px;line-height:1.6}
+.skillModal h2{margin:10px 38px 16px 0;color:#f1f8fd;font:400 clamp(27px,5vw,36px)/1.12 Georgia,"Times New Roman",serif}
+.skillModalDivider{width:58px;height:2px;margin:0 0 20px;background:linear-gradient(90deg,#64e0ff,transparent)}
+.skillModalDescription{min-height:54px;margin:0;color:#d3e1e8;font-size:15px;line-height:1.8;white-space:pre-line}
+.skillModalDescription.isloading,.skillModalDescription.iserror{color:#91aaba}
+.skillModalSource{display:block;margin-top:22px;color:#668797;font-size:9px;letter-spacing:.6px}
+.skillModalSource a{color:#71dfff;text-decoration:underline;text-underline-offset:3px}
+@keyframes skillBackdropIn{from{opacity:0}to{opacity:1}}
+@keyframes skillModalIn{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:520px){.skillModalBackdrop{padding:14px}.skillModal{max-height:82svh;padding:30px 22px 24px;border-radius:10px}.skillModalDescription{font-size:14px;line-height:1.7}}
+@media(prefers-reduced-motion:reduce){.skillModalBackdrop,.skillModal{animation:none}}
