@@ -35,7 +35,7 @@ function readPairs(html, rowPattern, labelMap) {
 const statLabels = {Damage: "Daño", Heal: "Curación", Cooldown: "Enfriamiento", MP: "Maná", HP: "Vida", DP: "DP", "Cast time": "Tiempo de lanzamiento"};
 const detailLabels = {Type: "Tipo", "Damage type": "Tipo de daño", Weapon: "Arma", Range: "Alcance", Max: "Nivel máximo", "Required level": "Nivel requerido", Duration: "Duración", Target: "Objetivo"};
 
-function parseSkillPage(html) {
+function parseSkillPage(html, skillId) {
   const descriptionMatch = html.match(/class="[^"]*whitespace-pre-line[^"]*"[^>]*>\s*<span>([\s\S]*?)<\/span>/);
   const propertiesMatch = html.match(/<p class="text-xs text-amber[^\"]*whitespace-pre-line[^\"]*">\s*<span>([\s\S]*?)<\/span>/);
   const statsHtml = html.match(/<div class="flex flex-wrap gap-1\.5 mt-3">([\s\S]*?)<\/section>/)?.[1] || "";
@@ -63,7 +63,15 @@ function parseSkillPage(html) {
     const effectMatch = row.match(/<span class="text-sm text-gray[^\"]*">([\s\S]*?)<\/span>/);
     return {level: Number(decodeHtml(levelText).match(/\d+/)?.[0] || 0), description: effectMatch ? decodeHtml(effectMatch[1]) : ""};
   }).filter((entry) => entry.description);
-  const chain = [...chainHtml.matchAll(/<span class="text-sm [^\"]*">([\s\S]*?)<\/span>\s*<span class="text-\[10px\][^\"]*">([\s\S]*?)<\/span>/g)].map(([, name, step]) => ({name: decodeHtml(name), step: decodeHtml(step)})).filter((entry) => entry.name);
+  const chainNames = [...chainHtml.matchAll(/<span class="text-sm [^\"]*">([\s\S]*?)<\/span>\s*<span class="text-\[10px\][^\"]*">([\s\S]*?)<\/span>/g)];
+  const chainIcons = [...chainHtml.matchAll(/<img src="([^\"]+)"[^>]*>/g)].map(([, src]) => src);
+  const chainIds = [...chainHtml.matchAll(/href="\/es\/db\/skills\/(\d{8})"/g)].map(([, skillId]) => skillId);
+  const chain = chainNames.map(([, name, step], index) => ({
+    name: decodeHtml(name),
+    step: decodeHtml(step),
+    id: index === 0 ? skillId : chainIds[index - 1] || "",
+    icon: chainIcons[index] ? new URL(chainIcons[index], "https://aion2.app").href : "",
+  })).filter((entry) => entry.name);
 
   return {
     description: descriptionMatch ? decodeHtml(descriptionMatch[1]) : "",
@@ -94,7 +102,7 @@ export async function GET(_request, {params}) {
     if (!response.ok) throw new Error(`Skill source returned ${response.status}`);
 
     const html = await response.text();
-    const skill = parseSkillPage(html);
+    const skill = parseSkillPage(html, id);
     if (!skill.description) throw new Error("Skill description was not found");
 
     return Response.json(skill);
