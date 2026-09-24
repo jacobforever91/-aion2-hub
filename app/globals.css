@@ -589,3 +589,11 @@
 .classWeaponIdentity h4{margin:0;color:#e7f4f8;font:400 20px/1.15 Georgia,"Times New Roman",serif}
 @media(max-width:700px){.classWeapons{margin:22px 0 26px;padding:16px 14px 13px}.classEquipment>.classWeapons{margin:5px 0 18px;padding:15px 13px 12px}.classWeaponsHeading{align-items:flex-start;flex-direction:column;gap:6px}.classWeaponsHeading p{text-align:left}.classWeaponGrid{gap:7px}.classWeaponCard{min-height:100px;padding:10px}.classWeaponIdentity{gap:9px}.classWeaponIdentity>svg{width:48px;height:48px}.classWeaponIdentity h3,.classWeaponIdentity h4{font-size:17px}}
 @media(max-width:460px){.classWeaponGrid{grid-template-columns:1fr}.classWeaponCard{min-height:88px}.classWeaponIdentity>svg{width:52px;height:52px}}
+
+/* Compact class hero: keep the crest beside the title instead of above it. */
+.classDetailHero,.classInfoPanel .classDetailHero{grid-template-columns:78px minmax(0,1fr);align-items:start;gap:20px;padding:24px 28px}
+.classDetailCrest,.classInfoPanel .classDetailCrest{width:76px;height:76px;border-radius:12px;background:linear-gradient(145deg,#0d2b3d,#061421);box-shadow:0 0 22px #29bde71a,inset 0 0 18px #3abdd414}
+.classDetailCrest .classEmblemCrop,.classInfoPanel .classDetailCrest .classEmblemCrop{width:78%;height:86%}
+.classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin-top:5px;font-size:clamp(38px,4.2vw,60px)}
+.classMeta{margin-top:16px}
+@media(max-width:700px){.classDetailHero,.classInfoPanel .classDetailHero{grid-template-columns:58px minmax(0,1fr);gap:13px;padding:17px 15px}.classDetailCrest,.classInfoPanel .classDetailCrest{width:58px;height:58px;border-radius:10px}.classDetailCrest .classEmblemCrop,.classInfoPanel .classDetailCrest .classEmblemCrop{width:78%;height:86%}.classDetailIntro h1,.classInfoPanel .classDetailIntro h1{margin:4px 0 8px;font-size:clamp(32px,8vw,42px)}.classDetailIntro>p,.classInfoPanel .classDetailIntro>p{font-size:12px;line-height:1.55}.classMeta{gap:6px;margin-top:12px}.classMeta span{padding:7px 8px;font-size:9px}}
