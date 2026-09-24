@@ -5,13 +5,26 @@ const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Spe
 const classNames = new Map(classList.map(({slug, name}) => [slug, name]));
 const sourceClassNames = new Map([["spiritmaster", "Elementalist"]]);
 
+export const maxDuration = 30;
+
 async function readSource(path) {
-  const response = await fetch(`${source}${path}`, {
-    headers: {"user-agent": "Mozilla/5.0 (compatible; AION2HubClassGuide/1.0)", accept: "text/html"},
-    next: {revalidate: 900},
-  });
-  if (!response.ok) throw new Error(`Item source returned ${response.status}`);
-  return response.text();
+  let lastError;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(`${source}${path}`, {
+        headers: {"user-agent": "Mozilla/5.0 (compatible; AION2HubClassGuide/1.0)", accept: "text/html"},
+        next: {revalidate: 900},
+        signal: AbortSignal.timeout(12_000),
+      });
+      if (response.ok) return response.text();
+      lastError = new Error(`Item source returned ${response.status}`);
+      if (response.status < 500) break;
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 350));
+  }
+  throw lastError || new Error("Item source request failed.");
 }
 
 function plain(value) {
