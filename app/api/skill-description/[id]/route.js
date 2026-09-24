@@ -60,8 +60,11 @@ function parseSkillPage(html, skillId) {
   }
   const specialties = [...specialtyHtml.matchAll(/<div class="flex items-start gap-2[^\"]*">([\s\S]*?)<\/div>/g)].map(([, row]) => {
     const levelText = row.match(/<span class="flex-shrink-0 px-1\.5[^\"]*">([\s\S]*?)<\/span>/)?.[1] || "";
-    const effectMatch = row.match(/<span class="text-sm text-gray[^\"]*">([\s\S]*?)<\/span>/);
-    return {level: Number(decodeHtml(levelText).match(/\d+/)?.[0] || 0), description: effectMatch ? decodeHtml(effectMatch[1]) : ""};
+    const effectStart = row.indexOf('class="text-sm text-gray');
+    const effectOpenEnd = effectStart >= 0 ? row.indexOf(">", effectStart) + 1 : -1;
+    const effectEnd = row.lastIndexOf("</span>");
+    const effectHtml = effectOpenEnd >= 0 && effectEnd >= effectOpenEnd ? row.slice(effectOpenEnd, effectEnd) : "";
+    return {level: Number(decodeHtml(levelText).match(/\d+/)?.[0] || 0), description: decodeHtml(effectHtml)};
   }).filter((entry) => entry.description);
   const chainNames = [...chainHtml.matchAll(/<span class="text-sm [^\"]*">([\s\S]*?)<\/span>\s*<span class="text-\[10px\][^\"]*">([\s\S]*?)<\/span>/g)];
   const chainIcons = [...chainHtml.matchAll(/<img src="([^\"]+)"[^>]*>/g)].map(([, src]) => src);
