@@ -42,7 +42,7 @@ export default function ClassInfo({slug, onSelectClass}) {
         <div className="classSkillGrid" role="tabpanel">
           {skills.map((skill, index) => (
             <article className="classSkillItem" key={skill}>
-              <img className="classSkillIcon" src={`https://aion2hub.com/api/skill-icon/${skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}`} alt="" aria-hidden="true" loading="lazy" />
+              <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={`https://aion2hub.com/api/skill-icon/${skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}`} alt="" aria-hidden="true" loading="lazy" />
               <span className="classSkillName">{skill}</span>
             </article>
           ))}
