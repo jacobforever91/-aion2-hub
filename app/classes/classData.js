@@ -43,6 +43,6 @@ export const classWeapons = {
   ranger: {main: {name: "Bow", icon: "bow"}},
   sorcerer: {main: {name: "Spellbook", icon: "spellbook"}},
   spiritmaster: {main: {name: "Orb", icon: "orb"}},
-  cleric: {main: {name: "Mace", icon: "mace"}},
+  cleric: {main: {name: "Mace", icon: "mace"}, secondary: {name: "Guard", icon: "shield", kind: "Off-hand"}},
   chanter: {main: {name: "Staff", icon: "staff"}},
 };

@@ -220,7 +220,7 @@ export default function DatabaseBrowser() {
         <section className={styles.catalogLinks} aria-label="Other connected catalogs">
           <Link className={styles.catalogCard} href="/equipment">
             <span className={styles.catalogIcon}><Gem aria-hidden="true" /></span>
-            <span><strong>Equipment</strong><small>Browse the connected class equipment catalog</small></span>
+            <span><strong>Equipment</strong><small>Search all weapons, armor and accessories by rarity</small></span>
             <ChevronRight aria-hidden="true" />
           </Link>
           <Link className={styles.catalogCard} href="/wings"><span className={styles.catalogIcon}><Feather aria-hidden="true"/></span><span><strong>Wings</strong><small>All 90 wings · faction, grade, enchant cap, and stats preview</small></span><ChevronRight aria-hidden="true"/></Link>
