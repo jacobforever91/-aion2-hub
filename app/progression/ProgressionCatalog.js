@@ -2,31 +2,21 @@
 
 import {useMemo, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, Search, Feather, PawPrint, ExternalLink, Sparkles} from "lucide-react";
+import {ArrowLeft, Search, Feather, PawPrint, Sparkles} from "lucide-react";
 import styles from "./progression.module.css";
+import catalogData from "./catalogData.json";
 
-const wingItems = [
-  {name:"Lesser Daeva Wings", grade:"Common", faction:"Elyos", id:"30200600", enchant:10},
-  {name:"Intermediate Daeva Wings", grade:"Rare", faction:"Elyos", id:"30200500", enchant:10},
-  {name:"Superior Daeva Wings", grade:"Epic", faction:"Elyos", id:"30200703", enchant:10},
-  {name:"Ultimate Daeva Wings", grade:"Unique", faction:"Elyos", id:"30200101", enchant:10},
-  {name:"Forest Spirit Wings", grade:"Unique", faction:"Elyos", id:"30101000", enchant:10, stats:[["Flight Power","200"],["Penetration","100"],["Damage Tolerance","3.5% + 100"],["Boss Attack","125 + 30"]]},
-  {name:"Kromede Wings", grade:"Unique", faction:"Elyos", id:"30201400", enchant:10},
-  {name:"Dark Veil Wings", grade:"Unique", faction:"Elyos", id:"30201900", enchant:10},
-  {name:"Conqueror Wings", grade:"Epic", faction:"Elyos", id:"30300300", enchant:10},
-  {name:"Nightmare Wings", grade:"Unique", faction:"Elyos", id:"30100500", enchant:10},
-  {name:"Spirit Wings", grade:"Epic", faction:"Elyos", id:"30400200", enchant:10},
-  {name:"Black Waves Wings", grade:"Special", faction:"Elyos", id:"30202400"},
-  {name:"Woodland Bunny Bag Wings", grade:"Special", faction:"Elyos", id:"30700300"},
-];
-const asmodianWingIds = ["40200601","40200503","40200700","40200100","40101000","40201400","40201900","40300300","40100500","40400200","40202400","40700300"];
-wingItems.push(...wingItems.map((item,index)=>({...item,faction:"Asmodians",id:asmodianWingIds[index],stats:undefined})));
+const wingItems = catalogData.wings.map((item) => ({
+  ...item,
+  stats: item.id === "30101000" ? [["Flight Power","200"],["Penetration","100"],["Damage Tolerance","3.5% + 100"],["Boss Attack","125 + 30"]] : null,
+}));
 
 const petLevels = [
   {level:1, souls:"25", groundSpeed:"1", accuracy:"—", dex:"—"},
   {level:2, souls:"75", groundSpeed:"2", accuracy:"1", dex:"—"},
   {level:3, souls:"—", groundSpeed:"3", accuracy:"2", dex:"1"},
 ];
+const petRecordExtras = {summonSouls:"5",runSpeed:"900",sprintSpeed:"1200",summonItem:"534660007",tameFrom:"Coastal Odyle Spider · Lv. 16"};
 
 const feraChances = [
   [1,"90%","10%","—","—","—"],[2,"70%","30%","—","—","—"],[3,"55%","45%","—","—","—"],
@@ -34,8 +24,22 @@ const feraChances = [
   [7,"35%","34%","30%","1%","—"],[8,"30%","30%","35%","5%","—"],[9,"25%","25%","39%","10%","1%"],[10,"20%","30%","30%","15%","5%"],
 ];
 
+const standardPools = {
+  Common:[["Defense","40–80","16.67%"],["Critical Hit Resist","2–4","16.67%"],["Evasion","5–10","16.67%"],["Block","7–14","16.67%"],["HP","10–20","16.66%"],["MP","5–10","16.66%"]],
+  Rare:[["Attack","5–10","11.12%"],["Defense","50–100","11.11%"],["Accuracy","7–14","11.11%"],["Evasion","7–14","11.11%"],["Critical Hit","5–10","11.11%"],["Critical Hit Resist","5–10","11.11%"],["Block","10–20","11.11%"],["HP","20–40","11.11%"],["MP","10–20","11.11%"]],
+  Epic:[["Front Attack","6–12","16.67%"],["Back Attack","6–12","16.67%"],["PvE Attack","6–12","16.67%"],["Boss Attack","6–12","16.67%"],["HP","30–60","16.66%"],["MP","15–30","16.66%"]],
+  Unique:[["Attack Bonus","6–12","10%"],["Max Attack","8–16","10%"],["Penetration","80–160","10%"],["Critical Attack","8–16","10%"],["Front Attack","8–16","10%"],["Back Attack","8–16","10%"],["PvE Attack","8–16","10%"],["Boss Attack","8–16","10%"],["HP","40–80","10%"],["MP","20–40","10%"]],
+  Heroic:[["Attack Bonus","8–16","10%"],["Max Attack","10–20","10%"],["Penetration","100–200","10%"],["Critical Attack","10–20","10%"],["Front Attack","10–20","10%"],["Back Attack","10–20","10%"],["PvE Attack","10–20","10%"],["Boss Attack","10–20","10%"],["HP","50–100","10%"],["MP","25–50","10%"]],
+};
+const specialPools = {
+  Common:[["Attack Bonus","2–4"],["Max Attack","3–6"],["Penetration","30–60"],["Critical Attack","4–8"],["Front Attack","4–8"],["Back Attack","4–8"],["PvE Attack","4–8"],["Boss Attack","4–8"],["HP","10–20"],["MP","5–10"]],
+  Rare:[["Attack Bonus","3–6"],["Max Attack","5–10"],["Penetration","50–100"],["Critical Attack","5–10"],["Front Attack","5–10"],["Back Attack","5–10"],["PvE Attack","5–10"],["Boss Attack","5–10"],["HP","20–40"],["MP","10–20"]],
+  Epic:[["Attack Bonus","4–8"],["Max Attack","6–12"],["Penetration","60–120"],["Critical Attack","6–12"],["Front Attack","6–12"],["Back Attack","6–12"],["PvE Attack","6–12"],["Boss Attack","6–12"],["HP","30–60"],["MP","15–30"]],
+};
+for (const grade of ["Unique","Heroic"]) specialPools[grade]=standardPools[grade].map(([name,range])=>[name,range]);
+
 function SourceNote({children}) {
-  return <aside className={styles.source}><Sparkles aria-hidden="true"/><p>{children} <a href="https://aion2.app" target="_blank" rel="noreferrer">AION2.app <ExternalLink aria-hidden="true"/></a>. This is a third-party community reference, not an official VISION or NCSOFT page; Global values may change.</p></aside>;
+  return <aside className={styles.source}><Sparkles aria-hidden="true"/><p>{children} Source: AION2.app community reference, game client snapshot 2026-09-18. Not an official VISION or NCSOFT page; Global values may change.</p></aside>;
 }
 
 function WingsCatalog() {
@@ -43,7 +47,7 @@ function WingsCatalog() {
   const [grade,setGrade]=useState("All grades");
   const [faction,setFaction]=useState("All factions");
   const [enchant,setEnchant]=useState(0);
-  const [selected,setSelected]=useState(wingItems[4]);
+  const [selected,setSelected]=useState(wingItems.find(item=>item.id==="30101000"));
   const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(grade==="All grades"||item.grade===grade)&&(faction==="All factions"||item.faction===faction)),[query,grade,faction]);
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
@@ -58,14 +62,12 @@ function WingsCatalog() {
       <div className={styles.layout}>
         <section className={styles.catalog}>
           <div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by grade" value={grade} onChange={event=>setGrade(event.target.value)}><option>All grades</option>{["Common","Rare","Special","Epic","Unique"].map(value=><option key={value}>{value}</option>)}</select><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
-          <div className={styles.count}>Showing a curated preview · 90 wings listed in the reference catalog</div>
-          <div className={styles.list}>{visible.map(item=><button key={item.id} className={`${styles.item} ${selected.id===item.id?styles.selected:""}`} onClick={()=>setSelected(item)}><span className={styles.itemIcon}><Feather/></span><span className={styles.itemCopy}><strong>{item.name}</strong><small>{item.grade} · {item.faction}</small></span>{item.enchant&&<span className={styles.levelPill}>+10</span>}</button>)}</div>
+          <div className={styles.count}>{visible.length} of {wingItems.length} wings · 45 Elyos · 45 Asmodians</div>
+          <div className={styles.list}>{visible.map(item=><button id={`wing-${item.id}`} key={item.id} className={`${styles.item} ${selected.id===item.id?styles.selected:""}`} onClick={()=>setSelected(item)}><span className={styles.itemIcon}><Feather/></span><span className={styles.itemCopy}><strong>{item.name}</strong><small>{item.grade} · {item.faction}</small></span>{item.enhancementCap&&<span className={styles.levelPill}>+{item.enhancementCap}</span>}</button>)}</div>
           {!visible.length&&<p className={styles.empty}>No wings match this search.</p>}
-          <a className={styles.externalCatalog} href="https://aion2.app/db/wings" target="_blank" rel="noreferrer">Browse all 90 wings at the source <ExternalLink/></a>
         </section>
-        <aside className={styles.detail}><span className={styles.kicker}>SELECTED WING</span><h2>{selected.name}</h2><p className={styles.meta}>{selected.grade} · {selected.faction}{selected.enchant?" · Enchantable to +10":" · Special grade"}</p>
-          {selected.stats?<><h3>Recorded stats</h3><div className={styles.stats}>{selected.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Forest Spirit Wings · source detail currently lists these values with the item’s +10 enchant cap. Intermediate enchant values are not inferred here.</small></>:<p className={styles.hint}>This wing’s name, faction, grade, and enchant cap are listed. Detailed stat values are not yet included in this preview.</p>}
-          <a className={styles.sourceButton} href={`https://aion2.app/db/wings/${selected.id}`} target="_blank" rel="noreferrer">Open source record <ExternalLink/></a>
+        <aside className={styles.detail}><span className={styles.kicker}>SELECTED WING</span><h2>{selected.name}</h2><p className={styles.meta}>{selected.grade} · {selected.faction}{selected.enhancementCap?` · Enchantable to +${selected.enhancementCap}`:" · Special grade"}</p>
+          {selected.stats?<><h3>Recorded stats</h3><div className={styles.stats}>{selected.stats.map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><small className={styles.caption}>Forest Spirit Wings · the source lists these stats alongside a +10 enchant cap. Values for each individual enchant step were not available.</small></>:<p className={styles.hint}>The catalog includes this wing’s name, faction, grade, and listed enchant cap. Detailed stats for this item are not in the local reference yet.</p>}
         </aside>
       </div>
       <SourceNote>Reference catalog lists 90 wings (45 Elyos and 45 Asmodians), with grade and enchantment fields.</SourceNote>
@@ -75,20 +77,26 @@ function WingsCatalog() {
 
 function PetsCatalog() {
   const [level,setLevel]=useState(1);
-  const current=petLevels[level-1];
+  const [query,setQuery]=useState("");
+  const [genus,setGenus]=useState("All groups");
+  const [grade,setGrade]=useState("Common");
+  const [selected,setSelected]=useState(catalogData.pets.find(pet=>pet.id==="1008"));
+  const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||`${pet.name} ${pet.genus}`.toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
+  const genusStats=["Attack","Defense","Accuracy","Evasion","Critical Hit","Critical Hit Resist","Block"];
+  const normalPool=(standardPools[grade]||[]).map(([name,range,chance])=>[genusStats.includes(name)?`${selected.genus} ${name}`:name,range,chance]);
+  const pool=selected.genus==="Special"?(specialPools[grade]||[]).map(([name,range])=>[name,range,"10%"]):normalPool;
+  const petStats=selected.id==="1008"?petLevels:null;
   return <main className={styles.page}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <header className={styles.header}><span className={styles.eyebrow}><PawPrint/> GAME · COMPANIONS</span><h1>Pets</h1><p>Explore pet level stats and genus growth bonuses. The examples below use the Fera genus record.</p></header>
-      <section className={styles.progressCard}><div className={styles.progressHeading}><div><span className={styles.kicker}>PET LEVEL</span><h2>Baby Odyle Spider <em>· Fera</em></h2></div><strong>Lv. {level}<small> / 3</small></strong></div><input aria-label="Pet level" type="range" min="1" max="3" value={level} onChange={event=>setLevel(Number(event.target.value))}/><div className={styles.scale}><span>Level 1</span><span>Level 2</span><span>Level 3</span></div>
-        <div className={styles.stats}>{[["Summoning souls",current.souls],["Ground speed",current.groundSpeed],["Accuracy",current.accuracy],["DEX",current.dex]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><p className={styles.hint}>Values above are the pet-specific growth table. “—” means the source table lists no value at that level.</p>
+      <header className={styles.header}><span className={styles.eyebrow}><PawPrint/> GAME · COMPANIONS</span><h1>Pets</h1><p>Search the complete pet index, inspect its group, and compare growth grades and possible stat bonuses here.</p></header>
+      <section className={styles.catalog}><div className={styles.toolbar}><label className={styles.search}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search 208 pets…"/></label><select aria-label="Filter by pet group" value={genus} onChange={event=>setGenus(event.target.value)}><option>All groups</option>{["Fera","Cogni","Natura","Varian","Special"].map(value=><option key={value}>{value}</option>)}</select></div><div className={styles.count}>{visible.length} of {catalogData.pets.length} pets</div><div className={styles.petList}>{visible.map(pet=><button key={pet.id} className={`${styles.item} ${selected.id===pet.id?styles.selected:""}`} onClick={()=>{setSelected(pet);setLevel(1)}}><span className={styles.itemIcon}><PawPrint/></span><span className={styles.itemCopy}><strong>{pet.name}</strong><small>{pet.genus}</small></span></button>)}</div>{!visible.length&&<p className={styles.empty}>No pets match this search.</p>}</section>
+      <section className={styles.progressCard}><div className={styles.progressHeading}><div><span className={styles.kicker}>GROWTH LEVEL · {selected.genus.toUpperCase()}</span><h2>{selected.name}</h2></div><strong>Lv. {level}<small> / 10</small></strong></div><input aria-label="Pet growth level" type="range" min="1" max="10" value={level} onChange={event=>setLevel(Number(event.target.value))}/><div className={styles.scale}><span>Level 1</span><span>Level 5</span><span>Level 10</span></div><div className={styles.chanceCallout}><span>Bonus grade chance at level {level}</span><strong>{feraChances[level-1][1]} Common · {feraChances[level-1][2]} Rare · {feraChances[level-1][3]} Epic · {feraChances[level-1][4]} Unique · {feraChances[level-1][5]} Heroic</strong></div>
+        {selected.id==="1008"&&<div className={styles.stats}>{[["Souls to summon",petRecordExtras.summonSouls],["Run speed",petRecordExtras.runSpeed],["Sprint speed",petRecordExtras.sprintSpeed],["Summon item",`#${petRecordExtras.summonItem}`],["Tamed from",petRecordExtras.tameFrom]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>}
+        {petStats?<><h3>Pet-specific base stats</h3><div className={styles.tableWrap}><table><thead><tr>{["Level","Summon souls","Ground speed","Accuracy","DEX"].map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{petStats.map(row=><tr className={Math.min(level,3)===row.level?styles.activeRow:""} key={row.level}><td>{row.level}</td><td>{row.souls}</td><td>{row.groundSpeed}</td><td>{row.accuracy}</td><td>{row.dex}</td></tr>)}</tbody></table></div></>:<p className={styles.hint}>This pet’s individual level table is not part of the imported snapshot yet. Its genus growth chances and stat pool are shown below.</p>}
       </section>
-      <section className={styles.chanceSection}><div className={styles.sectionHead}><div><span className={styles.kicker}>GENUS GROWTH · FERA</span><h2>Bonus grade chance</h2><p>Chance when a bonus slot unlocks at each creature level.</p></div><a href="https://aion2.app/db/pets/genus/Feral" target="_blank" rel="noreferrer">Full stat pools <ExternalLink/></a></div>
-        <div className={styles.tableWrap}><table><thead><tr>{["Level","Common","Rare","Epic","Unique","Heroic"].map(x=><th key={x}>{x}</th>)}</tr></thead><tbody>{feraChances.map((row,index)=><tr className={index===level-1?styles.activeRow:""} key={row[0]}>{row.map((cell,i)=><td key={i}>{cell}</td>)}</tr>)}</tbody></table></div>
-      </section>
-      <section className={styles.bonusCard}><span className={styles.kicker}>EXAMPLE · COMMON FERA BONUS POOL</span><h2>Possible stats for a slot</h2><p>Each option has a documented value range and roll chance. Higher grades have their own stat pools.</p><div className={styles.bonusGrid}>{[["Fera Defense","40–80"],["Fera Critical Hit Resist","2–4"],["Fera Evasion","5–10"],["Fera Block","7–14"],["HP","10–20"],["MP","5–10"]].map(([name,value])=><div key={name}><span>{name}</span><strong>{value}</strong><small>16.66% chance</small></div>)}</div></section>
-      <a className={styles.externalCatalog} href="https://aion2.app/db/pets" target="_blank" rel="noreferrer">Browse all 208 pets at the source <ExternalLink/></a>
-      <SourceNote>The reference catalog covers 208 pets and genus tables. Pet groups differ; this interactive preview documents one Fera example and its shared genus growth table.</SourceNote>
+      <section className={styles.bonusCard}><div className={styles.sectionHead}><div><span className={styles.kicker}>{selected.genus.toUpperCase()} · BONUS POOL</span><h2>Possible stat rolls</h2><p>Shared by pets in this genus. Each slot rolls from the selected grade’s pool.</p></div><select aria-label="Bonus grade" value={grade} onChange={event=>setGrade(event.target.value)}>{["Common","Rare","Epic","Unique","Heroic"].map(value=><option key={value}>{value}</option>)}</select></div><div className={styles.bonusGrid}>{pool.map(([name,value,chance])=><div key={name}><span>{name}</span><strong>{value}</strong><small>{chance} chance</small></div>)}</div></section>
+      <SourceNote>All {catalogData.pets.length} pet names and genus labels are indexed locally. Individual level tables are shown where the imported record includes them; genus growth pools remain available for every listed group.</SourceNote>
     </div>
   </main>;
 }

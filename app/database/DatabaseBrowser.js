@@ -5,6 +5,7 @@ import Link from "next/link";
 import {ArrowLeft, BookOpen, Search, Sparkles, X, ChevronRight, Gem, Feather, PawPrint} from "lucide-react";
 import {classData, classList, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
+import catalogData from "../progression/catalogData.json";
 import styles from "./encyclopedia.module.css";
 
 const filters = [
@@ -35,8 +36,8 @@ function makeEntries() {
   });
   return [
     ...classEntries,
-    {id:"wings-catalog",name:"Wings catalog",className:"90 entries · 45 per faction · enchant up to +10",type:"wings",region:"Community reference",href:"/wings"},
-    {id:"pets-catalog",name:"Pets catalog",className:"208 entries · levels · genus growth bonuses",type:"pets",region:"Community reference",href:"/pets"},
+    ...catalogData.wings.map((wing)=>({id:wing.id,name:wing.name,className:`${wing.grade} · ${wing.faction}${wing.enhancementCap?` · Enchant +${wing.enhancementCap}`:""}`,type:"wings",region:"Community reference",href:"/wings"})),
+    ...catalogData.pets.map((pet)=>({id:pet.id,name:pet.name,className:`Pet · ${pet.genus}`,type:"pets",region:"Community reference",href:"/pets"})),
   ];
 }
 
@@ -180,7 +181,7 @@ export default function DatabaseBrowser() {
         <header className={styles.header}>
           <span className={styles.eyebrow}><BookOpen aria-hidden="true" /> DATABASE ENCYCLOPEDIA</span>
           <h1>Game <em>Encyclopedia</em></h1>
-          <p>Search class skills, Stigmas, Wings, and Pets together. Open a system to explore its progression and reference data.</p>
+          <p>Search class skills, Stigmas, all 90 Wings, and all 208 Pets together, then open any entry inside the hub.</p>
         </header>
 
         <label className={styles.search}>
@@ -213,7 +214,7 @@ export default function DatabaseBrowser() {
 
         <aside className={styles.sourceNote}>
           <Sparkles aria-hidden="true" />
-          <p><strong>Stigma data is unofficial.</strong> The catalog uses provisional Asia / Taiwan community references and English translations. Global Stigma availability, names, and values have not been verified.</p>
+          <p><strong>Regional data is identified at the entry.</strong> Stigmas use provisional Asia / Taiwan community references. Wings and Pets use a third-party community catalog snapshot dated 2026-09-18; Global availability and values may change.</p>
         </aside>
 
         <section className={styles.catalogLinks} aria-label="Other connected catalogs">
@@ -222,8 +223,8 @@ export default function DatabaseBrowser() {
             <span><strong>Equipment</strong><small>Browse the connected class equipment catalog</small></span>
             <ChevronRight aria-hidden="true" />
           </Link>
-          <Link className={styles.catalogCard} href="/wings"><span className={styles.catalogIcon}><Feather aria-hidden="true"/></span><span><strong>Wings</strong><small>90 reference entries · enchantment up to +10</small></span><ChevronRight aria-hidden="true"/></Link>
-          <Link className={styles.catalogCard} href="/pets"><span className={styles.catalogIcon}><PawPrint aria-hidden="true"/></span><span><strong>Pets</strong><small>208 reference entries · levels and genus growth</small></span><ChevronRight aria-hidden="true"/></Link>
+          <Link className={styles.catalogCard} href="/wings"><span className={styles.catalogIcon}><Feather aria-hidden="true"/></span><span><strong>Wings</strong><small>All 90 wings · faction, grade, enchant cap, and stats preview</small></span><ChevronRight aria-hidden="true"/></Link>
+          <Link className={styles.catalogCard} href="/pets"><span className={styles.catalogIcon}><PawPrint aria-hidden="true"/></span><span><strong>Pets</strong><small>All 208 pets · search, group, growth chance, and stat pools</small></span><ChevronRight aria-hidden="true"/></Link>
         </section>
       </div>
       {selectedEntry && <EntryModal entry={selectedEntry} onClose={closeModal} />}
