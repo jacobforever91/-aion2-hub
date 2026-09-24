@@ -61,7 +61,8 @@ function ItemModal({slug, item, onClose}) {
         {details.details?.length > 0 && <section className="equipmentModalSection"><h3>Item details</h3><dl className="equipmentStatGrid">{details.details.map(({label, value}) => <div key={`${label}-${value}`}><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>}
         {details.upgrades && <section className="equipmentModalSection"><h3>Upgrades</h3><p className="equipmentUpgradeText">{details.upgrades}</p></section>}
         {details.obtain?.length > 0 && <section className="equipmentModalSection"><h3>How to obtain</h3><ul className="equipmentObtainList">{details.obtain.map((line, index) => <li key={`${index}-${line}`}>{line}</li>)}</ul></section>}
-        <a className="equipmentSource" href={details.sourceUrl} target="_blank" rel="noreferrer">Item data: AION2 Hub ↗</a>
+        <a className="equipmentSource" href={details.sourceUrl} target="_blank" rel="noreferrer">{details.source?.name || "Item data source"} ↗</a>
+        {details.source?.official === false && <p className="equipmentDataNote">Unofficial reference snapshot · {details.source.region} · {details.source.capturedAt}. Values may change in the released Global version.</p>}
       </>}
     </section>
   </div>;
@@ -134,7 +135,7 @@ export default function ClassEquipment({slug}) {
 
   return <section className="classEquipment" aria-label="Class items and equipment">
     <div className="classEquipmentHeading">
-      <div><span className="classEyebrow">GLOBAL · CLASS DATABASE</span><h2>Equipment</h2><p>Browse this class’s weapons, armor and accessories. Select an item to see all of its stats.</p></div>
+      <div><span className="classEyebrow">CLASS DATABASE · REFERENCE DATA</span><h2>Equipment</h2><p>Browse this class’s weapons, armor and accessories. Select an item to see its stats and source details.</p></div>
       <div className="classEquipmentCount"><Gem aria-hidden="true" />{selectedCategory ? selectedCategory.count : "…"}<span>items</span></div>
     </div>
 
@@ -160,7 +161,7 @@ export default function ClassEquipment({slug}) {
         </div>
       </div>
 
-      <div className="equipmentResultsHeader"><span>{selectedCategory?.name || "Items"} <b>{pageInfo.total.toLocaleString()}</b></span><span>GLOBAL ITEM DATA</span></div>
+      <div className="equipmentResultsHeader"><span>{selectedCategory?.name || "Items"} <b>{pageInfo.total.toLocaleString()}</b></span><span>ITEM DATA</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading items…</p>}
       {state === "error" && <p className="equipmentLoading isError">Could not load the item list. Please try again.</p>}
       {state === "ready" && visibleItems.length > 0 && <div className="equipmentItemGrid">
@@ -171,7 +172,7 @@ export default function ClassEquipment({slug}) {
       </div>}
       {state === "ready" && visibleItems.length === 0 && <p className="equipmentLoading">No items match these filters.</p>}
       {state === "ready" && pageInfo.pages > 1 && <div className="equipmentPagination"><button type="button" disabled={pageInfo.page <= 1} onClick={() => setPageInfo((current) => ({...current, page: current.page - 1}))}><ChevronLeft aria-hidden="true" />Previous</button><span>Page {pageInfo.page} of {pageInfo.pages}</span><button type="button" disabled={pageInfo.page >= pageInfo.pages} onClick={() => setPageInfo((current) => ({...current, page: current.page + 1}))}>Next<ChevronRight aria-hidden="true" /></button></div>}
-      <p className="equipmentDataNote">Global equipment database · <a href="https://aion2hub.com/database?view=class" target="_blank" rel="noreferrer">Source and data details</a></p>
+      <p className="equipmentDataNote">Reference data can differ by region and update · records show their source and version.</p>
     </>}
     {selectedItem && <ItemModal slug={slug} item={selectedItem} onClose={closeItem} />}
   </section>;

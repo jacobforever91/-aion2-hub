@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "id": "110250008",
+      "class": "templar",
+      "category": "Longsword",
+      "name": "Tempest Longsword",
+      "grade": "Rare",
+      "itemLevel": "15",
+      "requiredLevel": "15",
+      "equipType": "MainHand",
+      "itemType": "Sword",
+      "stats": [
+        { "label": "Min Attack", "value": "67" },
+        { "label": "Max Attack", "value": "84" },
+        { "label": "Accuracy", "value": "150" },
+        { "label": "Critical Hit", "value": "50" },
+        { "label": "Block", "value": "200" },
+        { "label": "Parry Damage Reduction Rate", "value": "19%" },
+        { "label": "Shield Block Damage Reduction Rate", "value": "30%" },
+        { "label": "Parry Damage Reduction Amount", "value": "100,000" },
+        { "label": "Shield Block Damage Reduction Amount", "value": "100,000" }
+      ],
+      "imprints": [
+        { "label": "Combat Speed", "value": "4.45% ~ 5.19%" },
+        { "label": "Damage Boost", "value": "2.49% ~ 2.93%" },
+        { "label": "Multi-hit Chance", "value": "3.3% ~ 3.87%" },
+        { "label": "Weapon Damage Boost", "value": "3.3% ~ 3.87%" },
+        { "label": "Status Effect Chance", "value": "8.8% ~ 10.19%" },
+        { "label": "Might", "value": "8 ~ 16" },
+        { "label": "Precision", "value": "8 ~ 16" },
+        { "label": "Attack", "value": "15 ~ 24" },
+        { "label": "Critical Hit", "value": "23 ~ 33" },
+        { "label": "Critical Attack", "value": "33 ~ 45" },
+        { "label": "Back Attack", "value": "33 ~ 45" },
+        { "label": "Front Attack", "value": "33 ~ 45" },
+        { "label": "Accuracy", "value": "31 ~ 43" },
+        { "label": "Block", "value": "18 ~ 28" },
+        { "label": "MP", "value": "70 ~ 88" },
+        { "label": "HP", "value": "141 ~ 169" },
+        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+      ],
+      "details": [
+        { "label": "Manastone sockets", "value": "2" },
+        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
+        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+      ],
+      "upgrades": "Enchantable to +5. At +5: Min Attack +6, Max Attack +6.",
+      "source": {
+        "name": "AION2 Hub (independent community reference)",
+        "region": "Global Launch Scale Test snapshot",
+        "capturedAt": "2026-09-19",
+        "url": "https://aion2hub.com/database/items/110250008",
+        "official": false
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import {classList} from "../../classes/classData.js";
+import equipmentData from "../../classes/equipmentData.json";
 
 const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special"]);
@@ -136,6 +137,41 @@ export async function GET(request) {
   const grade = params.get("grade");
   const search = (params.get("q") || "").trim().slice(0, 80);
   const itemId = params.get("item");
+
+  // A reviewed local snapshot keeps the first Templar weapon available even
+  // when the community reference is unreachable from serverless deployments.
+  const localItems = equipmentData.items.filter((item) => item.class === slug);
+  if (localItems.length) {
+    if (itemId) {
+      if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
+      const item = localItems.find((entry) => entry.id === itemId);
+      if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
+      return Response.json({...item, sourceUrl: item.source.url});
+    }
+
+    const categories = [...new Set(localItems.map(({category}) => category))].map((name) => ({
+      code: name,
+      name,
+      count: String(localItems.filter((item) => item.category === name).length),
+      group: name === "Longsword" ? "Weapon" : "Armor",
+    }));
+    if (!category) return Response.json({className, categories, source: "reviewed-local-snapshot"});
+    const categoryItems = localItems.filter((item) => item.category === category);
+    if (!categoryItems.length) return Response.json({className, category, items: [], total: 0, page: 1, pages: 1, source: "reviewed-local-snapshot"});
+    const filteredItems = categoryItems.filter((item) =>
+      (!grade || grade === "All grades" || item.grade === grade) &&
+      (!search || item.name.toLowerCase().includes(search.toLowerCase()))
+    );
+    return Response.json({
+      className,
+      category,
+      items: filteredItems.map(({id, name, grade}) => ({id, name, grade})),
+      total: filteredItems.length,
+      page: 1,
+      pages: 1,
+      source: "reviewed-local-snapshot",
+    });
+  }
 
   try {
     if (itemId) {
