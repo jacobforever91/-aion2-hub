@@ -32,8 +32,8 @@ function readPairs(html, rowPattern, labelMap) {
   return pairs;
 }
 
-const statLabels = {Damage: "Daño", Heal: "Curación", Cooldown: "Enfriamiento", MP: "Maná", HP: "Vida", DP: "DP", "Cast time": "Tiempo de lanzamiento"};
-const detailLabels = {Type: "Tipo", "Damage type": "Tipo de daño", Weapon: "Arma", Range: "Alcance", Max: "Nivel máximo", "Required level": "Nivel requerido", Duration: "Duración", Target: "Objetivo"};
+const statLabels = {Damage: "Damage", Heal: "Healing", Cooldown: "Cooldown", MP: "MP", HP: "HP", DP: "DP", "Cast time": "Cast Time"};
+const detailLabels = {Type: "Type", "Damage type": "Damage Type", Weapon: "Weapon", Range: "Range", Max: "Max Level", "Required level": "Required Level", Duration: "Duration", Target: "Target"};
 
 function parseSkillPage(html, skillId) {
   const descriptionMatch = html.match(/class="[^"]*whitespace-pre-line[^"]*"[^>]*>\s*<span>([\s\S]*?)<\/span>/);
@@ -65,7 +65,7 @@ function parseSkillPage(html, skillId) {
   }).filter((entry) => entry.description);
   const chainNames = [...chainHtml.matchAll(/<span class="text-sm [^\"]*">([\s\S]*?)<\/span>\s*<span class="text-\[10px\][^\"]*">([\s\S]*?)<\/span>/g)];
   const chainIcons = [...chainHtml.matchAll(/<img src="([^\"]+)"[^>]*>/g)].map(([, src]) => src);
-  const chainIds = [...chainHtml.matchAll(/href="\/es\/db\/skills\/(\d{8})"/g)].map(([, skillId]) => skillId);
+  const chainIds = [...chainHtml.matchAll(/href="\/(?:es\/)?db\/skills\/(\d{8})"/g)].map(([, skillId]) => skillId);
   const chain = chainNames.map(([, name, step], index) => ({
     name: decodeHtml(name),
     step: decodeHtml(step),
@@ -91,11 +91,11 @@ function parseSkillPage(html, skillId) {
 export async function GET(_request, {params}) {
   const {id} = await params;
   if (!/^\d{8}$/.test(id) || !validSkillIds.has(id)) {
-    return Response.json({error: "Habilidad no encontrada."}, {status: 404});
+    return Response.json({error: "Skill not found."}, {status: 404});
   }
 
   try {
-    const response = await fetch(`https://aion2.app/es/db/skills/${id}`, {
+    const response = await fetch(`https://aion2.app/db/skills/${id}`, {
       next: {revalidate: 3600},
       signal: AbortSignal.timeout(8000),
     });
@@ -107,6 +107,6 @@ export async function GET(_request, {params}) {
 
     return Response.json(skill);
   } catch {
-    return Response.json({error: "No se pudo cargar la descripción."}, {status: 502});
+    return Response.json({error: "Could not load skill details."}, {status: 502});
   }
 }
