@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useState} from "react";
-import {ArrowLeft, BookOpen, Crosshair, Shield, Sword} from "lucide-react";
+import {ArrowLeft, Crosshair, Shield, Sword} from "lucide-react";
 import {classData, classList, emblemBase, skillIconIds} from "../classData";
 
 export default function ClassDetails() {
@@ -39,11 +39,8 @@ export default function ClassDetails() {
           </div>
         </header>
 
-        <section className="classSkills" aria-labelledby="classSkillsTitle">
-          <div className="classSkillsHeading">
-            <div><span className="classEyebrow">GLOBAL · HABILIDADES DE CLASE</span><h2 id="classSkillsTitle">Habilidades</h2></div>
-            <div className="classSkillCount"><BookOpen aria-hidden="true" />{detail.active.length + detail.passive.length}<span>registradas</span></div>
-          </div>
+        <section className="classSkills" aria-label="Habilidades de clase Global">
+          <div className="classSkillsHeading" aria-hidden="true" />
           <div className="classSkillTabs" role="tablist" aria-label="Tipo de habilidad">
             <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Activas <span>{detail.active.length}</span></button>
             <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Pasivas <span>{detail.passive.length}</span></button>
