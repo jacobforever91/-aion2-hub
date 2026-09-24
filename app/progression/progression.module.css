@@ -23,5 +23,4 @@
 .tierFilter{min-height:40px;padding:0 14px;cursor:pointer;font-family:inherit;font-size:12px;transition:background .16s ease,box-shadow .16s ease,transform .16s ease}
 .tierFilter:hover{transform:translateY(-1px);background:color-mix(in srgb,var(--tier-color) 15%,#081727)}
 .tierFilterActive{outline:1px solid var(--tier-color);outline-offset:1px;background:color-mix(in srgb,var(--tier-color) 14%,#081727);box-shadow:0 0 12px color-mix(in srgb,var(--tier-color) 20%,transparent)}
-.filterCount{font-size:9px;font-variant-numeric:tabular-nums;opacity:.72}
 .bonusCard .tierLegend{margin:0 0 14px}
