@@ -1,0 +1,56 @@
+name: AION2 source agent
+
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aion2-source-agent
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Restore agent history
+        uses: actions/cache/restore@v4
+        with:
+          path: .agent-state/state.json
+          key: aion2-source-agent-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            aion2-source-agent-${{ runner.os }}-
+
+      - name: Run tests
+        run: node --test scripts/aion2-source-agent.test.mjs
+
+      - name: Check official sources
+        run: node scripts/aion2-source-agent.mjs
+
+      - name: Save agent history
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .agent-state/state.json
+          key: aion2-source-agent-${{ runner.os }}-${{ github.run_id }}
+
+      - name: Keep report for review
+        if: always() && hashFiles('data-agent/review/latest.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: aion2-source-agent-report
+          path: data-agent/review/latest.json
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "policy": "Only fetch first-party NC/PLAYNC pages. Community sites are references only until reuse permission or a documented open data license is verified.",
+  "sources": [
+    {
+      "id": "nc-global-news",
+      "name": "NC Global Newsroom",
+      "url": "https://about.ncsoft.com/en/news",
+      "region": "NC",
+      "kind": "official-announcements",
+      "allowedHost": "about.ncsoft.com",
+      "pageType": "newsroom"
+    },
+    {
+      "id": "aion2-global-notices",
+      "name": "AION2 Global Notices",
+      "url": "https://aion2.plaync.com/en-us/board/notice/list",
+      "region": "GLOBAL",
+      "kind": "official-announcements",
+      "allowedHost": "aion2.plaync.com",
+      "pageType": "board"
+    },
+    {
+      "id": "aion2-kr-notices",
+      "name": "AION2 Korea Notices",
+      "url": "https://aion2.plaync.com/ko-kr/board/notice/list",
+      "region": "KR",
+      "kind": "official-announcements",
+      "allowedHost": "aion2.plaync.com",
+      "pageType": "board"
+    },
+    {
+      "id": "aion2-tw-notices",
+      "name": "AION2 Taiwan Notices",
+      "url": "https://aion2.plaync.com/zh-tw/board/notice/list",
+      "region": "TW",
+      "kind": "official-announcements",
+      "allowedHost": "aion2.plaync.com",
+      "pageType": "board"
+    },
+    {
+      "id": "aion2-kr-probability",
+      "name": "NC Korea Probability Disclosures",
+      "url": "https://probability.plaync.com/aion2/board/notice/list",
+      "region": "KR",
+      "kind": "official-probability-disclosures",
+      "allowedHost": "probability.plaync.com",
+      "pageType": "board"
+    }
+  ],
+  "communityReferences": [
+    {
+      "name": "AION2Hub.com database",
+      "url": "https://aion2hub.com/database",
+      "mode": "manual-review-only",
+      "reason": "A reuse or automated-access permission was not verified."
+    },
+    {
+      "name": "Aion2.app database",
+      "url": "https://aion2.app/db",
+      "mode": "blocked-from-automation",
+      "reason": "Its published terms prohibit scraping, copying, or redistributing site content without permission."
+    },
+    {
+      "name": "Aion2t.com database",
+      "url": "https://aion2t.com/db",
+      "mode": "blocked-from-automation",
+      "reason": "Its published terms prohibit scraping, copying, or redistributing site content without permission."
+    }
+  ]
+}
