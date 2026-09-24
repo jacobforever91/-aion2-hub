@@ -126,8 +126,8 @@ export default function StigmaBrowser() {
 
           <footer className="stigmaSourceLinks">
             <span>{stigmaCatalogSource.label}. Region: {stigmaCatalogSource.region} · Updated {stigmaCatalogSource.updatedAt}.</span>
-            <span className="stigmaSourceAnchors">{stigmaCatalogSource.sources.map(({label, url}) => (
-              <a href={`${url}/${selectedSlug}`} target="_blank" rel="noreferrer" key={url}>{label} ↗</a>
+            <span className="stigmaSourceAnchors">{stigmaCatalogSource.sources.map((label) => (
+              <span key={label}>{label}</span>
             ))}</span>
           </footer>
         </div>

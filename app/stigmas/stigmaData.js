@@ -6,10 +6,7 @@ export const stigmaCatalogSource = {
   region: "Taiwan",
   language: "Community English translation",
   label: "Taiwan guidebook data cross-checked against community class catalogs",
-  sources: [
-    {label: "Taiwan guidebook mirror", url: "https://aion2guide.wiki/classes"},
-    {label: "Community class catalog", url: "https://aion2hub.me/en/classes"},
-  ],
+  sources: ["Taiwan guidebook mirror", "Community class catalog"],
   status: "provisional",
 };
 
