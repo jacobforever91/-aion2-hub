@@ -73,19 +73,20 @@ export default function ClassEquipment({slug}) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [state, setState] = useState("loading");
   const [catalogState, setCatalogState] = useState("loading");
+  const [catalogError, setCatalogError] = useState("");
 
   useEffect(() => {
     const controller = new AbortController();
     setCatalogState("loading");
     fetch(`/api/class-equipment?class=${slug}`, {signal: controller.signal})
-      .then((response) => { if (!response.ok) throw new Error("Could not load classes"); return response.json(); })
+      .then(async (response) => { const data = await response.json(); if (!response.ok) throw new Error(`${response.status}: ${data.diagnostic || data.error || "Could not load classes"}`); return data; })
       .then((data) => {
         const nextCategories = data.categories || [];
         setCategories(nextCategories);
         setSelectedCategory((current) => current && nextCategories.some((entry) => entry.code === current.code) ? current : nextCategories[0] || null);
         setCatalogState("ready");
       })
-      .catch((error) => { if (error.name !== "AbortError") setCatalogState("error"); });
+      .catch((error) => { if (error.name !== "AbortError") { setCatalogError(error.message); setCatalogState("error"); } });
     return () => controller.abort();
   }, [slug]);
 
@@ -133,7 +134,7 @@ export default function ClassEquipment({slug}) {
     </div>
 
     {catalogState === "loading" && <p className="equipmentLoading">Loading class equipment…</p>}
-    {catalogState === "error" && <p className="equipmentLoading isError">The equipment catalog is temporarily unavailable. Please try again later.</p>}
+    {catalogState === "error" && <p className="equipmentLoading isError">The equipment catalog is temporarily unavailable. Please try again later. <span>{catalogError}</span></p>}
     {catalogState === "ready" && <>
       {[["Weapon", weaponCategories, Sword], ["Armor", armorCategories, Shield], ["Accessories", accessoryCategories, Gem]].map(([group, entries, GroupIcon]) => entries.length > 0 && <div className="equipmentCategoryGroup" key={group}>
         <div className="equipmentCategoryTitle"><GroupIcon aria-hidden="true" /><span>{group}</span><i /></div>

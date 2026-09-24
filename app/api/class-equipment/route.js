@@ -164,6 +164,6 @@ export async function GET(request) {
     return Response.json({className, category, items, ...info, source});
   } catch (error) {
     console.error("Class equipment lookup failed:", error);
-    return Response.json({error: "The equipment database is temporarily unavailable."}, {status: 502});
+    return Response.json({error: "The equipment database is temporarily unavailable.", diagnostic: error instanceof Error ? error.message : String(error)}, {status: 502});
   }
 }
