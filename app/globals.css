@@ -651,3 +651,9 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .classInfoPanel .classSelectedName{display:flex;align-items:center;gap:11px;margin:0 0 10px;color:#edf8ff;font:400 20px/1.25 Georgia,"Times New Roman",serif;letter-spacing:1.8px;font-variant:small-caps;text-shadow:0 2px 7px #030812}
 .classInfoPanel .classSelectedName span{display:block;width:25px;height:2px;flex:none;background:#46e5ff;box-shadow:0 0 9px #46e5ff88}
 @media(max-width:540px){.classInfoPanel .classSelectedName{font-size:18px;margin-bottom:9px}}
+
+/* Bring the class emblems closer to the skills on desktop. */
+@media(min-width:761px){
+  .classBrowsePage .classGrid{left:clamp(16px,1.5vw,24px);gap:clamp(7px,.7vw,10px)}
+  .classBrowsePage .classInlineContent{margin-left:clamp(112px,8vw,142px);padding-left:clamp(18px,1.6vw,26px)}
+}
