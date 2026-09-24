@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {useParams} from "next/navigation";
 import {useState} from "react";
-import {ArrowLeft, BookOpen, Crosshair, Shield, Sparkles, Sword} from "lucide-react";
+import {ArrowLeft, BookOpen, Crosshair, Shield, Sword} from "lucide-react";
 import {classData, classList, emblemBase, skillIconIds} from "../classData";
 
 export default function ClassDetails() {
@@ -38,11 +38,6 @@ export default function ClassDetails() {
             </div>
           </div>
         </header>
-
-        <section className="classPlaystyle">
-          <div className="classSectionMark"><Sparkles aria-hidden="true" /><span>ESTILO DE JUEGO</span></div>
-          <p>{detail.playstyle}</p>
-        </section>
 
         <section className="classSkills" aria-labelledby="classSkillsTitle">
           <div className="classSkillsHeading">
