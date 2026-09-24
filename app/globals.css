@@ -437,3 +437,28 @@
 
 .classSkillsHeading{min-height:57px}
 @media(max-width:700px){.classSkillsHeading{min-height:53px}}
+/* Inline class browser: keep the emblems visible beside the selected class. */
+.classBrowsePage{display:flex;align-items:stretch}
+.classBrowsePage .classGrid{z-index:6}
+.classBrowsePage .classIcon{padding:0;font:inherit;appearance:none;-webkit-appearance:none;cursor:pointer}
+.classBrowsePage .classIcon.isSelected{border-color:#72e5ff;background:radial-gradient(circle at 50% 45%,#12445a,#071522 78%);box-shadow:0 0 0 2px #52d8ff24,0 0 22px #36cfff45}
+.classInlineContent{box-sizing:border-box;flex:1;min-width:0;min-height:100svh;margin-left:clamp(142px,10vw,190px);padding:38px clamp(22px,3vw,58px) 56px;display:flex;align-items:flex-start}
+.classInfoPanel{width:100%;max-width:1480px;margin:0 auto}
+.classInfoPanel .classDetailHero{grid-template-columns:clamp(118px,12vw,190px) minmax(0,1fr);gap:clamp(22px,3vw,48px);padding:clamp(25px,3vw,42px)}
+.classInfoPanel .classDetailCrest{width:clamp(112px,11vw,174px);height:clamp(112px,11vw,174px)}
+.classInfoPanel .classDetailIntro h1{font-size:clamp(40px,4vw,66px)}
+.classInfoPanel .classSkillGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.classInfoPanel .classDataNote{margin-bottom:0}
+@media(max-width:760px){
+  .classBrowsePage{display:block}
+  .classBrowsePage .classGrid{position:relative;top:auto;left:auto;transform:none;width:100%;max-height:none;height:auto;margin:0;padding:70px 15px 13px;display:flex;flex-direction:row;justify-content:flex-start;gap:10px;overflow-x:auto;overflow-y:hidden;border-bottom:1px solid #153348;background:linear-gradient(180deg,#071421,#030812);scrollbar-width:none}
+  .classBrowsePage .classGrid::-webkit-scrollbar{display:none}
+  .classBrowsePage .classIcon{flex:0 0 52px;width:52px;height:52px}
+  .classInlineContent{min-height:auto;margin:0;padding:24px 16px 48px;display:block}
+  .classInfoPanel{max-width:600px;margin:0 auto}
+  .classInfoPanel .classDetailHero{grid-template-columns:1fr;justify-items:start;gap:17px;padding:22px 20px}
+  .classInfoPanel .classDetailCrest{width:96px;height:96px}
+  .classInfoPanel .classDetailIntro h1{font-size:46px}
+  .classInfoPanel .classSkillGrid{grid-template-columns:1fr}
+}
+@media(max-width:420px){.classBrowsePage .classGrid{gap:7px;padding-right:10px;padding-left:68px}.classBrowsePage .classIcon{flex-basis:48px;width:48px;height:48px}.classInlineContent{padding-right:12px;padding-left:12px}}
