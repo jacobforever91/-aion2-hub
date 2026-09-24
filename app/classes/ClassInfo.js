@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import {useEffect, useState} from "react";
-import {ArrowLeft, Crosshair, Shield, Sword, X} from "lucide-react";
-import {classData, classList, emblemBase, skillIconIds} from "./classData";
+import {Search, X} from "lucide-react";
+import {classData, classList, skillIconIds} from "./classData";
 
 // The icon proxy does not serve Chanter's Survival Willpower image.
 function skillIconUrl(id) {
@@ -41,6 +41,8 @@ export default function ClassInfo({slug, onSelectClass}) {
   const detail = classData[slug];
   const selected = classList.find((entry) => entry.slug === slug);
   const [skillType, setSkillType] = useState("active");
+  const [query, setQuery] = useState("");
+  useEffect(() => { setQuery(""); setSelectedSkill(null); }, [slug]);
   const [selectedSkill, setSelectedSkill] = useState(null);
   const [skillInfo, setSkillInfo] = useState(null);
   const [descriptionState, setDescriptionState] = useState("idle");
@@ -85,7 +87,10 @@ export default function ClassInfo({slug, onSelectClass}) {
 
   if (!selected || !detail) return null;
 
-  const skills = detail[skillType];
+  const skills = detail[skillType]
+    .map((name, index) => ({name, id: skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)]}))
+    .filter(({name}) => name.toLowerCase().includes(query.trim().toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name, "en", {sensitivity: "base"}));
   const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Max Level")?.value) || 1;
   const currentSkillLevel = skillInfo?.levels?.find(({level}) => level === skillLevel) || skillInfo?.levels?.[0];
   const currentDescription = formatSkillDescription(skillInfo?.descriptionTemplate, currentSkillLevel, skillInfo?.description);
@@ -94,31 +99,16 @@ export default function ClassInfo({slug, onSelectClass}) {
     <div className="classInfoPanel">
       {!onSelectClass && <Link className="classBreadcrumb" href="/classes">CLASSES <span>/</span> {selected.name.toUpperCase()}</Link>}
 
-      <header className="classDetailHero">
-        <div className="classDetailCrest">
-          <span className="classEmblemCrop"><img src={`${emblemBase}/${selected.emblem}.webp`} alt={`${selected.name} emblem`} /></span>
-        </div>
-        <div className="classDetailIntro">
-          <span className="classEyebrow">AION 2 · GLOBAL CLASS FILE</span>
-          <h1>{selected.name}</h1>
-          <p>{detail.summary}</p>
-          <div className="classMeta">
-            <span><Shield aria-hidden="true" />{detail.role}</span>
-            <span><Sword aria-hidden="true" />{detail.weapon}</span>
-            <span><Crosshair aria-hidden="true" />Elyos &amp; Asmodians</span>
-          </div>
-        </div>
-      </header>
 
       <section className="classSkills" aria-label="Global class skills">
-        <div className="classSkillsHeading" aria-hidden="true" />
+        <style jsx global>{`.classSkillSearch{display:flex;align-items:center;gap:10px;margin:0 0 18px;padding:0 14px;border:1px solid #28536b;border-radius:8px;background:#071521;color:#70dfff}.classSkillSearch:focus-within{border-color:#70dfff}.classSkillSearch svg{width:18px;height:18px;flex:none}.classSkillSearch input{width:100%;min-width:0;height:44px;border:0;outline:none;background:transparent;color:#e8f4fb;font:inherit}.classSkillSearch input::placeholder{color:#8fa9b8}.classSkillEmpty{padding:24px;color:#9bb7c4;text-align:center}`}</style>
+        <label className="classSkillSearch"><Search aria-hidden="true"/><input type="search" aria-label="Search skills by name" placeholder="Search skills by name…" value={query} onChange={(event) => setQuery(event.target.value)}/></label>
         <div className="classSkillTabs" role="tablist" aria-label="Skill type">
           <button type="button" role="tab" aria-selected={skillType === "active"} className={skillType === "active" ? "isSelected" : ""} onClick={() => setSkillType("active")}>Active <span>{detail.active.length}</span></button>
           <button type="button" role="tab" aria-selected={skillType === "passive"} className={skillType === "passive" ? "isSelected" : ""} onClick={() => setSkillType("passive")}>Passive <span>{detail.passive.length}</span></button>
         </div>
         <div className="classSkillGrid" role="tabpanel">
-          {skills.map((skill, index) => {
-            const skillId = skillIconIds[slug][index + (skillType === "passive" ? detail.active.length : 0)];
+          {skills.map(({name: skill, id: skillId}) => {
             return (
             <button className="classSkillItem" type="button" key={skill} onClick={() => setSelectedSkill({name: skill, id: skillId, type: skillType})} aria-label={`View ${skill} details`}>
               <img className={`classSkillIcon${skill === "Survival Willpower" ? " isSurvivalWillpower" : ""}`} src={skillIconUrl(skillId)} alt="" aria-hidden="true" loading="lazy" />
@@ -126,6 +116,7 @@ export default function ClassInfo({slug, onSelectClass}) {
             </button>
           )})}
         </div>
+        {skills.length === 0 && <p className="classSkillEmpty" role="status">No skills match your search.</p>}
         <p className="classDataNote">Global skill list · Launch Scale Test · Sep 19, 2026</p>
       </section>
 
