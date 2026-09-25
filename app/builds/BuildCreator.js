@@ -364,7 +364,7 @@ export default function BuildCreator(){
                       </div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}
                     </div>}
                   </div>
-                })</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
+                })}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
             </>}
             <div className={styles.dataFootnote}>{build.region==="KR_TW"?"KR/TW Stigma names use a provisional community-translated catalog.":"Global skill names come from the current local class catalog."} Selected skills are saved with the build; damage simulation is not included in this prototype.</div>
           </section>}
