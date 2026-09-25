@@ -228,6 +228,7 @@ export default function BuildCreator(){
       }
     }catch(_error){}
     if(params.get("tab")==="progression")setTab("progression");
+    if(params.get("tab")==="daevanion")setTab("daevanion");
     if(params.get("tab")==="arcana"||params.get("section")==="arcana"){
       setTab("arcana");
       window.setTimeout(()=>document.getElementById("arcana-setup")?.scrollIntoView({behavior:"smooth",block:"start"}),150);
@@ -540,7 +541,7 @@ export default function BuildCreator(){
       <div className={styles.workspace}>
         <div className={styles.editor}>
           <div className={styles.tabs} role="tablist" aria-label="Build sections">
-            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
+            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["daevanion","Daevanion"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
           </div>
 
           {tab==="overview"&&<section className={styles.panel}>
@@ -639,59 +640,63 @@ export default function BuildCreator(){
               </details>}
             </article>}
 
-            {(()=>{
-              const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
-              const board=daevanionBoards[boardIndex]||daevanionBoards[0];
-              const boardPath=Array.isArray(daevanionPaths[boardIndex])?daevanionPaths[boardIndex]:[];
-              const selected=new Set([...boardPath,"7,7"]);
-              const routeEdges=[];
-              selected.forEach((id)=>{
-                const [row,column]=id.split(",").map(Number);
-                [[row+1,column],[row,column+1]].forEach(([nextRow,nextColumn])=>{
-                  const nextId=nextRow+","+nextColumn;
-                  if(selected.has(nextId))routeEdges.push({x1:column+.5,y1:row+.5,x2:nextColumn+.5,y2:nextRow+.5});
-                });
-              });
-              return <div className={styles.fieldBlock}>
-                <div className={styles.daevanionHeading}><div><h3>Daevanion boards</h3><p>Choose connected nodes to draw your route for this build.</p></div><span>{daevanionPlanCount}/8 boards</span></div>
-                <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
-                  {daevanionBoards.map((item,index)=>{
-                    const active=daevanionBoard===item.id;
-                    const planned=Array.isArray(daevanionPaths[index])&&daevanionPaths[index].length>0;
-                    return <button key={item.id} type="button" aria-pressed={active} className={active?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(item.id)}>
-                      <span><strong>{item.name}</strong><small>{item.type}</small></span>
-                      <em>Lv. {item.level}{planned&&<b aria-label="Path saved"> ✓</b>}</em>
-                    </button>;
-                  })}
-                </div>
-                <div className={styles.daevanionPlannerBar}><span><strong>{board.name}</strong><small>{boardPath.length} nodes · {daevanionTotalNodes} across all boards · unlock Lv. {board.level}</small></span><button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button><button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button></div>
-                <div className={styles.daevanionLegend} aria-label="Node selection legend">
-                  <span><i className={styles.daevanionLegendSelected}/>Selected</span>
-                  <span><i className={styles.daevanionLegendAvailable}/>Available</span>
-                  <span><i className={styles.daevanionLegendLocked}/>Not connected</span>
-                </div>
-                <div className={styles.daevanionGridShell}>
-                  <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
-                    <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
-                    {Array.from({length:225},(_,index)=>{
-                      const row=Math.floor(index/15),column=index%15;
-                      const nodeId=row+","+column;
-                      const hasNode=Math.abs(row-7)+Math.abs(column-7)<=5;
-                      if(!hasNode)return <span className={styles.daevanionGridBlank} key={nodeId}/>;
-                      const center=nodeId==="7,7";
-                      const active=selected.has(nodeId);
-                      const available=active||[[row-1,column],[row+1,column],[row,column-1],[row,column+1]].some(([r,col])=>selected.has(r+","+col));
-                      return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Selected node, tap to remove":"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node":available?"Available node":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":""}</button>;
-                    })}
-                  </div>
-                </div>
-                <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap a highlighted adjacent node to extend the route; removing a node also clears any disconnected branch. This 15 × 15 grid demonstrates the path interaction. Exact class/board layouts, node effects and point costs still need a verified dataset, so it does not add to stat totals.</span></div>
-              </div>;
-            })()}
 
-            <div className={styles.dataFootnote}>Pantheon, pet genus and rotation notes are saved with the build; full combat and DPS totals are not calculated in this prototype.</div>
           </section>}
 
+          {tab==="daevanion"&&<section id="daevanion-setup" className={styles.panel}>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Feather size={19}/></span><div><h2>Daevanion boards</h2><p>Plan connected paths across your character’s boards. Your selections are saved with this build.</p></div></div>
+              {(()=>{
+                const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
+                const board=daevanionBoards[boardIndex]||daevanionBoards[0];
+                const boardPath=Array.isArray(daevanionPaths[boardIndex])?daevanionPaths[boardIndex]:[];
+                const selected=new Set([...boardPath,"7,7"]);
+                const routeEdges=[];
+                selected.forEach((id)=>{
+                  const [row,column]=id.split(",").map(Number);
+                  [[row+1,column],[row,column+1]].forEach(([nextRow,nextColumn])=>{
+                    const nextId=nextRow+","+nextColumn;
+                    if(selected.has(nextId))routeEdges.push({x1:column+.5,y1:row+.5,x2:nextColumn+.5,y2:nextRow+.5});
+                  });
+                });
+                return <div className={styles.fieldBlock}>
+                  <div className={styles.daevanionHeading}><div><h3>Choose a board</h3><p>Select connected nodes to draw your route for this build.</p></div><span>{daevanionPlanCount}/8 boards</span></div>
+                  <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
+                    {daevanionBoards.map((item,index)=>{
+                      const active=daevanionBoard===item.id;
+                      const planned=Array.isArray(daevanionPaths[index])&&daevanionPaths[index].length>0;
+                      return <button key={item.id} type="button" aria-pressed={active} className={active?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(item.id)}>
+                        <span><strong>{item.name}</strong><small>{item.type}</small></span>
+                        <em>Lv. {item.level}{planned&&<b aria-label="Path saved"> ✓</b>}</em>
+                      </button>;
+                    })}
+                  </div>
+                  <div className={styles.daevanionPlannerBar}><span><strong>{board.name}</strong><small>{boardPath.length} nodes · {daevanionTotalNodes} across all boards · unlock Lv. {board.level}</small></span><button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button><button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button></div>
+                  <div className={styles.daevanionLegend} aria-label="Node selection legend">
+                    <span><i className={styles.daevanionLegendSelected}/>Selected</span>
+                    <span><i className={styles.daevanionLegendAvailable}/>Available</span>
+                    <span><i className={styles.daevanionLegendLocked}/>Not connected</span>
+                  </div>
+                  <div className={styles.daevanionGridShell}>
+                    <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
+                      <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
+                      {Array.from({length:225},(_,index)=>{
+                        const row=Math.floor(index/15),column=index%15;
+                        const nodeId=row+","+column;
+                        const hasNode=Math.abs(row-7)+Math.abs(column-7)<=5;
+                        if(!hasNode)return <span className={styles.daevanionGridBlank} key={nodeId}/>;
+                        const center=nodeId==="7,7";
+                        const active=selected.has(nodeId);
+                        const available=active||[[row-1,column],[row+1,column],[row,column-1],[row,column+1]].some(([r,col])=>selected.has(r+","+col));
+                        return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Selected node, tap to remove":"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node":available?"Available node":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":""}</button>;
+                      })}
+                    </div>
+                  </div>
+                  <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap a highlighted adjacent node to extend the route; removing a node also clears any disconnected branch. This 15 × 15 grid demonstrates the path interaction. Exact class/board layouts, node effects and point costs still need a verified dataset, so it does not add to stat totals.</span></div>
+                </div>;
+              })()}
+  
+            <div className={styles.dataFootnote}>Board paths stay saved with this build. Node effects and point totals are not included in the stat preview.</div>
+          </section>}
           {tab==="arcana"&&<section id="arcana-setup" className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to 10 cards for this build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>
             <div className={styles.fieldBlock}><h3>Selected cards · {arcanaCount}/10</h3><p>Choose a card for each slot. Selected Arcana and their listed stats appear in the build summary.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
