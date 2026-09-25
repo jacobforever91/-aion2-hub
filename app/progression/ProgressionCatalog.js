@@ -56,12 +56,15 @@ function WingsCatalog() {
 function PetsCatalog() {
   const [query,setQuery]=useState("");
   const [genus,setGenus]=useState("All groups");
-  const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||(`${pet.name} ${pet.genus}`).toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
-  return <main className={styles.page}>
+  const groups=["All groups","Fera","Cogni","Natura","Varian","Special"];
+  const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||(pet.name+" "+pet.genus).toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
+  return <main className={styles.page + " " + styles.petPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <section className={styles.catalog} style={{marginTop:20}} aria-label="Pets">
-        <div className={styles.toolbar}><label className={styles.search + " searchHalo"}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search 208 pets…" aria-label="Search pets"/></label><select aria-label="Filter by pet group" value={genus} onChange={event=>setGenus(event.target.value)}><option>All groups</option>{["Fera","Cogni","Natura","Varian","Special"].map(value=><option key={value}>{value}</option>)}</select></div>
+      <h1 className={styles.petTitle}>Pets</h1>
+      <section className={styles.catalog} aria-label="Pets">
+        <label className={styles.search + " searchHalo"}><Search aria-hidden="true"/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search pets by name…" aria-label="Search pets by name"/></label>
+        <div className={styles.petTabs} role="group" aria-label="Pet groups">{groups.map(value=><button key={value} type="button" className={styles.petTab + (genus===value?" "+styles.petTabActive:"")} aria-pressed={genus===value} onClick={()=>setGenus(value)}>{value}<span>{value==="All groups"?catalogData.pets.length:catalogData.pets.filter(pet=>pet.genus===value).length}</span></button>)}</div>
         <div className={styles.count}>{visible.length} of {catalogData.pets.length} pets</div>
         <div className={styles.petList}>{visible.map(pet=><article key={pet.id} className={styles.item + " " + styles.tierItem} style={{"--tier-color":genusColors[pet.genus]}}><span className={styles.itemIcon + " " + styles.artIcon} aria-hidden="true"><img src={petIcons[pet.id]} alt="" loading="lazy" decoding="async"/></span><span className={styles.itemCopy}><strong>{pet.name}</strong><small>{pet.genus}</small></span></article>)}</div>
         {!visible.length&&<p className={styles.empty}>No pets match this search.</p>}
