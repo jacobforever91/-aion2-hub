@@ -57,3 +57,7 @@
 @media(max-width:1180px){.wingsPage .wrap{width:calc(100% - 120px)}.wingsPage .layout{grid-template-columns:minmax(0,1fr) 290px}.wingsPage .list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.wingsPage .wrap{width:calc(100% - 96px);margin-left:80px}.wingsPage .layout{grid-template-columns:1fr}.wingsPage .detail{position:static}.wingsPage .list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.wingsPage .wrap{width:calc(100% - 28px);margin:auto;padding-top:66px}.wingsPage .back{top:12px;left:12px}.wingsPage .toolbar select{width:100%}.wingsPage .list{grid-template-columns:1fr}.wingsPage .item{min-height:55px}.wingsPage .detail{padding:14px}}
+
+/* Pet cards are browse-only after removing the growth and bonus panels. */
+.petList .item{cursor:default}
+.petList .item:hover{border-color:#183a50;border-left-color:var(--tier-color);box-shadow:none}
