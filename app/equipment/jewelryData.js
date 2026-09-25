@@ -1936,6 +1936,200 @@ const imprintPools = {
       "Natural HP Regen",
       "24 ~ 35"
     ]
+  ],
+  "neck:pact": [
+    [
+      "Combat Speed",
+      "2.28% ~ 2.69%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "18,900 ~ 21,742"
+    ],
+    [
+      "Attack",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit",
+      "25 ~ 36"
+    ],
+    [
+      "Accuracy",
+      "34 ~ 46"
+    ],
+    [
+      "Defense",
+      "196 ~ 232"
+    ],
+    [
+      "Evasion",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit Resist",
+      "35 ~ 47"
+    ],
+    [
+      "Block",
+      "19 ~ 29"
+    ],
+    [
+      "MP",
+      "75 ~ 93"
+    ],
+    [
+      "HP",
+      "152 ~ 182"
+    ],
+    [
+      "Natural MP Regen",
+      "17 ~ 27"
+    ],
+    [
+      "Natural HP Regen",
+      "35 ~ 47"
+    ]
+  ],
+  "earring:pact": [
+    [
+      "Move Speed",
+      "3.37% ~ 3.95%"
+    ],
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "16,200 ~ 18,637"
+    ],
+    [
+      "Attack",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit",
+      "21 ~ 31"
+    ],
+    [
+      "Accuracy",
+      "29 ~ 40"
+    ],
+    [
+      "Defense",
+      "168 ~ 200"
+    ],
+    [
+      "Evasion",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit Resist",
+      "30 ~ 42"
+    ],
+    [
+      "Block",
+      "17 ~ 27"
+    ],
+    [
+      "MP",
+      "64 ~ 81"
+    ],
+    [
+      "HP",
+      "130 ~ 157"
+    ],
+    [
+      "Natural MP Regen",
+      "15 ~ 24"
+    ],
+    [
+      "Natural HP Regen",
+      "30 ~ 42"
+    ]
+  ],
+  "ring:pact": [
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "13,500 ~ 15,532"
+    ],
+    [
+      "Attack",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit",
+      "18 ~ 28"
+    ],
+    [
+      "Accuracy",
+      "24 ~ 35"
+    ],
+    [
+      "Defense",
+      "140 ~ 168"
+    ],
+    [
+      "Evasion",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit Resist",
+      "25 ~ 36"
+    ],
+    [
+      "Block",
+      "14 ~ 23"
+    ],
+    [
+      "MP",
+      "54 ~ 69"
+    ],
+    [
+      "HP",
+      "108 ~ 131"
+    ],
+    [
+      "Natural MP Regen",
+      "12 ~ 21"
+    ],
+    [
+      "Natural HP Regen",
+      "25 ~ 36"
+    ]
   ]
 };
 const skillPools = {
@@ -3656,6 +3850,108 @@ const jewels = [
     "sell": "306 Gold",
     "enchant": "+10",
     "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310140068",
+    "name": "Pact-Bound Ruby Necklace (Bind on Equip)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "76",
+    "defense": "182",
+    "pool": "neck:pact",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "714 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310140083",
+    "name": "Pact-Bound Ruby Necklace (Bind on Pickup)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "attack": "76",
+    "defense": "182",
+    "pool": "neck:pact",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "714 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310240070",
+    "name": "Pact-Bound Diamond Earrings (Bind on Equip)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "63",
+    "defense": "151",
+    "pool": "earring:pact",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "572 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310240085",
+    "name": "Pact-Bound Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "attack": "63",
+    "defense": "151",
+    "pool": "earring:pact",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "572 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310340070",
+    "name": "Pact-Bound Sapphire Ring (Bind on Equip)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "50",
+    "defense": "121",
+    "pool": "ring:pact",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310340085",
+    "name": "Pact-Bound Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "attack": "50",
+    "defense": "121",
+    "pool": "ring:pact",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
