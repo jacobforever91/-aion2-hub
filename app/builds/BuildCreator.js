@@ -3,7 +3,7 @@
 import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
-import {classData, classList, classWeapons} from "../classes/classData";
+import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
 import styles from "./builds.module.css";
@@ -30,6 +30,10 @@ const slotDefs=[
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
+function skillIconUrl(id){
+  if(id==="18790000")return "https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp";
+  return id?`https://aion2hub.com/api/skill-icon/${id}`:"";
+}
 const weaponTypeAliases={
   Longsword:["longsword","sword"],
   Greatsword:["greatsword"],
@@ -90,10 +94,12 @@ function statSummary(gear){
 function classSkillGroups(slug,region){
   const data=classData[slug];
   if(!data)return [];
-  const stigma=region==="KR_TW"?(stigmaCatalog[slug]||[]):data.active.slice(13).map((name,index)=>({name,id:"global-stigma-"+index}));
+  const icons=skillIconIds[slug]||[];
+  const stigma=(region==="KR_TW"?(stigmaCatalog[slug]||[]):data.active.slice(13).map((name,index)=>({name,id:icons[13+index]})))
+    .map((item,index)=>({...item,id:item.id||icons[13+index]}));
   return [
-    {id:"active",label:"Active skills",items:data.active.slice(0,13).map((name)=>({name}))},
-    {id:"passive",label:"Passive skills",items:data.passive.map((name)=>({name}))},
+    {id:"active",label:"Active skills",items:data.active.slice(0,13).map((name,index)=>({name,id:icons[index]}))},
+    {id:"passive",label:"Passive skills",items:data.passive.map((name,index)=>({name,id:icons[data.active.length+index]}))},
     {id:"stigma",label:"Stigmas",items:stigma}
   ];
 }
@@ -105,6 +111,7 @@ export default function BuildCreator(){
   const [pickerItems,setPickerItems]=useState([]);
   const [pickerSearch,setPickerSearch]=useState("");
   const [pickerState,setPickerState]=useState("idle");
+  const [skillSearch,setSkillSearch]=useState("");
   const [notice,setNotice]=useState("");
   const [savedAt,setSavedAt]=useState("");
 
@@ -161,6 +168,7 @@ export default function BuildCreator(){
 
   const classInfo=classData[build.classSlug];
   const skills=useMemo(()=>classSkillGroups(build.classSlug,build.region),[build.classSlug,build.region]);
+  const visibleSkillGroups=useMemo(()=>skills.map((group)=>({...group,items:group.items.filter((item)=>item.name.toLowerCase().includes(skillSearch.trim().toLowerCase()))})).filter((group)=>group.items.length),[skills,skillSearch]);
   const selectedWing=catalogData.wings.find((item)=>item.id===build.wingId);
   const wingDetails=selectedWing?catalogData.wingDetails[selectedWing.id]:null;
   const selectedPet=catalogData.pets.find((item)=>item.id===build.petId);
@@ -272,7 +280,10 @@ export default function BuildCreator(){
 
           {tab==="skills"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Skills &amp; Stigmas</h2><p>Choose the abilities you plan to use for this setup.</p></div></div>
-            {!classInfo?<div className={styles.emptyState}>Skill data for this class has not been synced yet.</div>:<div className={styles.skillGroups}>{skills.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{group.items.filter((item)=>build.skills.includes(group.id+":"+item.name)).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=><button key={item.name} type="button" className={build.skills.includes(group.id+":"+item.name)?styles.skillSelected:styles.skill} onClick={()=>toggleSkill(group.id,item.name)} aria-pressed={build.skills.includes(group.id+":"+item.name)}><span className={styles.skillDot}>{build.skills.includes(group.id+":"+item.name)?"✓":"+"}</span>{item.name}</button>)}</div></section>)}</div>}
+            {!classInfo?<div className={styles.emptyState}>Skill data for this class has not been synced yet.</div>:<>
+              <label className={styles.skillSearch}><Search size={16}/><input type="search" value={skillSearch} onChange={(event)=>setSkillSearch(event.target.value)} placeholder="Search skills by name…"/></label>
+              {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{const selected=build.skills.includes(group.id+":"+item.name);return <button key={item.name} type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>toggleSkill(group.id,item.name)} aria-pressed={selected}><span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span><span className={styles.skillName}>{item.name}</span><span className={styles.skillDot}>{selected?"✓":"+"}</span></button>})}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
+            </>}
             <div className={styles.dataFootnote}>{build.region==="KR_TW"?"KR/TW Stigma names use a provisional community-translated catalog.":"Global skill names come from the current local class catalog."} Selected skills are saved with the build; damage simulation is not included in this prototype.</div>
           </section>}
 
