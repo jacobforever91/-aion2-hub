@@ -308,7 +308,7 @@ export default function BuildCreator(){
 
         <aside className={styles.summary}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
-          <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length+15}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
+          <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
           <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>
