@@ -246,6 +246,11 @@ export default function BuildCreator(){
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
   const gearCount=Object.values(build.gear).filter(Boolean).length;
   const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
+  const selectedGearItems=visibleGearSlots.map((slot)=>{
+    const config=weaponSlotConfig(build.classSlug,slot.id);
+    const label=slot.id==="offHand"&&config?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;
+    return {...slot,label,item:build.gear[slot.id]};
+  }).filter((slot)=>Boolean(slot.item));
   const skillTotals=useMemo(()=>({
     active:build.skills.filter((key)=>key.startsWith("active:")).length,
     passive:build.skills.filter((key)=>key.startsWith("passive:")).length,
@@ -477,7 +482,7 @@ export default function BuildCreator(){
 
           {tab==="equipment"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>Pick items by slot. Repeated accessories have separate slots.</p></div></div>
-            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}><span className={styles.slotGlyph}><Shield size={15}/></span><div className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id]?.name||"Empty slot"}</strong>{build.gear[slot.id]?.grade&&<em>{build.gear[slot.id].grade}</em>}</div><button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
+            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}><span className={styles.slotGlyph}>{build.gear[slot.id]?.icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><div className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id]?.name||"Empty slot"}</strong>{build.gear[slot.id]?.grade&&<em>{build.gear[slot.id].grade}</em>}</div><button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
 
@@ -508,6 +513,11 @@ export default function BuildCreator(){
         <aside className={styles.summary}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
           <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
+          <details className={styles.summaryGear}>
+            <summary><span>Equipped gear</span><b>{gearCount}/{visibleGearSlots.length}</b></summary>
+            {selectedGearItems.length?<div className={styles.summaryGearList}>{selectedGearItems.map(({id,label,item})=><div className={styles.summaryGearItem} key={id}><span className={styles.summaryGearIcon}><img src={item.icon||"/equipment-art/accessory.webp"} alt="" loading="lazy"/></span><span className={styles.summaryGearCopy}><small>{label}</small><strong>{item.name}</strong><em>{item.grade||item.category||"Equipment"}</em>{normalStats(item).slice(0,2).map((stat,index)=><small className={styles.summaryGearStat} key={stat.label+String(stat.value)+index}>{stat.label}: {stat.value}</small>)}</span></div>)}</div>:<p className={styles.summaryGearEmpty}>Choose equipment to see its pieces and stats here.</p>}
+            {totals.length>0&&<div className={styles.summaryGearTotals}><h4>Known totals</h4>{totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>)}</div>}
+          </details>
           <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           {Object.entries(build.skillSpecializations||{}).length>0&&<div className={styles.summarySection}><h3>Specializations</h3>{Object.entries(build.skillSpecializations||{}).map(([key,value])=>{const skillName=key.split(":")[1]||"Skill";const unlock=key.split("@").pop();return <div key={key}><span>{skillName} · Lv. {unlock}</span><b title={value}>✓</b></div>})}</div>}
