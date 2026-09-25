@@ -2,7 +2,7 @@
 
 import {useEffect, useMemo, useRef, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, Copy, Feather, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
+import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
 import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
@@ -177,6 +177,8 @@ export default function BuildCreator(){
   const [pickerItems,setPickerItems]=useState([]);
   const [pickerSearch,setPickerSearch]=useState("");
   const [pickerState,setPickerState]=useState("idle");
+  const [progressionPicker,setProgressionPicker]=useState("");
+  const [progressionSearch,setProgressionSearch]=useState("");
   const [skillSearch,setSkillSearch]=useState("");
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
@@ -261,6 +263,8 @@ export default function BuildCreator(){
   }),[build.skills]);
   const totals=useMemo(()=>statSummary(build.gear),[build.gear]);
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
+  const progressionOptions=progressionPicker==="wings"?catalogData.wings:catalogData.pets;
+  const visibleProgressionOptions=useMemo(()=>progressionOptions.filter((item)=>{const extra=progressionPicker==="wings"?item.grade+" "+item.faction:item.genus;return (item.name+" "+extra).toLowerCase().includes(progressionSearch.trim().toLowerCase())}),[progressionOptions,progressionPicker,progressionSearch]);
 
   const patch=(key,value)=>setBuild((current)=>({...current,[key]:value}));
   const changeClass=(slug)=>{
@@ -492,8 +496,8 @@ export default function BuildCreator(){
           {tab==="progression"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Feather size={19}/></span><div><h2>Progression &amp; advanced systems</h2><p>Add the pieces that complete a character build.</p></div></div>
             <div className={styles.formGrid}>
-              <label className={styles.field}><span>WINGS</span><select value={build.wingId} onChange={(event)=>patch("wingId",event.target.value)}><option value="">Choose wings</option>{catalogData.wings.map((wing)=><option key={wing.id} value={wing.id}>{wing.name} · {wing.grade} · {wing.faction}</option>)}</select></label>
-              <label className={styles.field}><span>PET</span><select value={build.petId} onChange={(event)=>patch("petId",event.target.value)}><option value="">Choose a pet</option>{catalogData.pets.map((pet)=><option key={pet.id} value={pet.id}>{pet.name} · {pet.genus}</option>)}</select></label>
+              <div className={styles.field}><span>WINGS</span><button type="button" className={styles.progressionPickerButton} onClick={()=>{setProgressionPicker("wings");setProgressionSearch("")}}><span className={styles.progressionPickerIcon+" "+styles.progressionWingPickerIcon} style={selectedWing?{"--wing-picker-position":(-selectedWing.iconPosition[0]*36)+"px "+(-selectedWing.iconPosition[1]*36)+"px"}:undefined}>{!selectedWing&&<Feather size={16}/>}</span><span className={styles.progressionPickerCopy}><small>{selectedWing?selectedWing.grade+" · "+selectedWing.faction:"Browse the wing catalog"}</small><strong>{selectedWing?.name||"Choose wings"}</strong></span><Search size={16}/></button></div>
+              <div className={styles.field}><span>PET</span><button type="button" className={styles.progressionPickerButton} onClick={()=>{setProgressionPicker("pets");setProgressionSearch("")}}><span className={styles.progressionPickerIcon+" "+styles.progressionPetPickerIcon}>{selectedPet&&petIcons[selectedPet.id]?<img src={petIcons[selectedPet.id]} alt="" loading="lazy" decoding="async"/>:<PawPrint size={16}/>}</span><span className={styles.progressionPickerCopy}><small>{selectedPet?.genus||"Browse the pet catalog"}</small><strong>{selectedPet?.name||"Choose a pet"}</strong></span><Search size={16}/></button></div>
               <label className={styles.field}><span>PET LEVEL</span><select disabled={!petDetails?.baseStats} value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>
             </div>
             {selectedWing&&<article className={styles.progressionCard}>
@@ -543,6 +547,14 @@ export default function BuildCreator(){
       <div className={styles.gearDetailHeading}><span className={styles.gearDetailIcon}>{gearDetail.item.icon&&<img src={gearDetail.item.icon} alt="" loading="lazy"/>}</span><div><h2 id="gearDetailTitle">{gearDetail.item.name}</h2><p>{[gearDetail.item.grade,gearDetail.item.category||gearDetail.item.family].filter(Boolean).join(" · ")||"Equipment"}</p></div></div>
       {normalStats(gearDetail.item).length?<div className={styles.gearDetailStats}><h3>Item stats</h3>{normalStats(gearDetail.item).map((stat,index)=><div key={stat.label+String(stat.value)+index}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}</div>:<p className={styles.emptyState}>No detailed stats are available for this item in the current catalog.</p>}
       {(gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription)&&<p className={styles.gearDetailDescription}>{gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription}</p>}
+    </section></div>}
+    {progressionPicker&&<div className={styles.modalBackdrop+(progressionPicker==="pets"?" "+styles.progressionSheetBackdrop:"")} onMouseDown={(event)=>{if(event.target===event.currentTarget)setProgressionPicker("")}}><section className={styles.itemModal+" "+styles.progressionPickerModal+(progressionPicker==="pets"?" "+styles.progressionSheetModal:"")} role="dialog" aria-modal="true" aria-labelledby="progressionPickerTitle">
+      <button className={styles.modalClose} type="button" onClick={()=>setProgressionPicker("")} aria-label="Close progression picker"><X/></button>
+      <span className={styles.eyebrow}>{progressionPicker==="wings"?"WINGS · SELECT A FACTION":"PETS · SELECT A COMPANION"}</span>
+      <h2 id="progressionPickerTitle">{progressionPicker==="wings"?"Choose wings":"Choose a pet"}</h2>
+      <label className={styles.search}><Search size={17}/><input type="search" value={progressionSearch} onChange={(event)=>setProgressionSearch(event.target.value)} placeholder={"Search "+(progressionPicker==="wings"?"wings":"pets")+" by name…"} aria-label={"Search "+(progressionPicker==="wings"?"wings":"pets")+" by name"}/></label>
+      <div className={styles.progressionPickerResults}>{visibleProgressionOptions.map((item)=>{const isWing=progressionPicker==="wings";const selectedId=isWing?build.wingId:build.petId;return <button type="button" key={item.id} className={selectedId===item.id?styles.progressionPickerOptionSelected:styles.progressionPickerOption} aria-pressed={selectedId===item.id} onClick={()=>{patch(isWing?"wingId":"petId",item.id);setProgressionPicker("");setProgressionSearch("")}}><span className={styles.progressionOptionIcon+(isWing?" "+styles.progressionWingOptionIcon:"") } style={isWing?{"--wing-option-position":(-item.iconPosition[0]*40)+"px "+(-item.iconPosition[1]*40)+"px"}:undefined}>{!isWing&&petIcons[item.id]&&<img src={petIcons[item.id]} alt="" loading="lazy" decoding="async"/>}</span><span className={styles.progressionOptionCopy}><strong>{item.name}</strong><small>{isWing?item.grade+" · "+item.faction:item.genus}</small></span><b>{selectedId===item.id?"✓":"+"}</b></button>})}</div>
+      {!visibleProgressionOptions.length&&<p className={styles.emptyState}>No {progressionPicker==="wings"?"wings":"pets"} match your search.</p>}
     </section></div>}
     {pickerSlot&&<div className={styles.modalBackdrop} onMouseDown={(event)=>{if(event.target===event.currentTarget)setPickerSlot(null)}}><section className={styles.itemModal} role="dialog" aria-modal="true" aria-labelledby="itemPickerTitle">
       <button className={styles.modalClose} type="button" onClick={()=>setPickerSlot(null)} aria-label="Close item picker"><X/></button>
