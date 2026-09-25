@@ -716,3 +716,13 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .a2MobileMenu.forgeMenu::after{content:"";position:fixed;z-index:0;inset:0;background:repeating-linear-gradient(135deg,transparent 0 70px,#c49b5d0c 71px 72px,transparent 73px 140px);pointer-events:none}
 .forgeMenuContent{position:relative;z-index:1}
 @media(max-width:520px){.a2MobileMenu.forgeMenu::before{right:0;top:-65px;width:300px;height:300px;box-shadow:inset 0 0 0 20px #97674410,0 0 0 25px #a6734318,0 0 0 48px #a673430b}}
+
+/* Two compact gateways per row, matching the approved menu layout. */
+.forgePrimary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.forgePrimary a{display:grid;grid-template-columns:39px minmax(0,1fr) 18px;grid-template-rows:auto auto;align-content:center;align-items:center;column-gap:12px;row-gap:2px;min-height:62px;padding:9px 13px}
+.forgePrimary a i{position:static;grid-column:1;grid-row:1 / 3}
+.forgePrimary a strong{grid-column:2;grid-row:1;font-size:18px}
+.forgePrimary a small{grid-column:2;grid-row:2;font-size:11px;letter-spacing:normal}
+.forgePrimary a::after{content:"↗";grid-column:3;grid-row:1 / 3;justify-self:end;color:#e8ae77;font:400 17px/1 system-ui,sans-serif}
+@media(max-width:520px){.forgePrimary{gap:7px;margin-bottom:16px}.forgePrimary a{grid-template-columns:30px minmax(0,1fr) 14px;column-gap:8px;min-height:64px;padding:8px}.forgePrimary a i{position:static;grid-column:1;grid-row:1 / 3}.forgePrimary a strong{font-size:16px}.forgePrimary a small{font-size:10px}.forgePrimary a::after{font-size:14px}}
+@media(max-width:430px){.forgePrimary{grid-template-columns:1fr}.forgePrimary a{min-height:58px}}
