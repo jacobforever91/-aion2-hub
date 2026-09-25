@@ -136,12 +136,16 @@ export default function EquipmentBrowser() {
   return <main className="classPage equipmentBrowsePage generalEquipmentPage">
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
-      <div className="equipmentRegionBar" aria-label="Choose item data region">
+      <div className="equipmentTopline">
+        <h1>Equipment</h1>
         <div className="equipmentRegionChoices" role="group" aria-label="Item data region">
           <button type="button" className={region === "GLOBAL" ? "isSelected" : ""} aria-pressed={region === "GLOBAL"} onClick={() => changeFilter(() => setRegion("GLOBAL"))}>Global</button>
           <button type="button" className={region === "KR_TW" ? "isSelected" : ""} aria-pressed={region === "KR_TW"} onClick={() => changeFilter(() => setRegion("KR_TW"))}>Asia / Taiwan</button>
         </div>
-        <p>{region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
+      </div>
+
+      <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
+        {categories.map(({id, name, icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><EquipmentSlotIcon type={icon} />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
       </div>
 
       <div className="equipmentToolbar generalEquipmentToolbar">
@@ -153,10 +157,7 @@ export default function EquipmentBrowser() {
           {grades.map((entry) => <button type="button" key={entry} aria-pressed={grade === entry} className={`${grade === entry ? "isSelected " : ""}${entry === "All rarities" ? "gradeAll" : gradeClass(entry)}`} onClick={() => changeFilter(() => setGrade(entry))}>{entry}</button>)}
         </div>
       </div>
-
-      <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
-        {categories.map(({id, name, icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><EquipmentSlotIcon type={icon} />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
-      </div>
+      <p className="equipmentRegionNote">{region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
 
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading equipment…</p>}
