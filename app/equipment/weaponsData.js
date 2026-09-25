@@ -263,4 +263,71 @@ weaponsData.push(...elderRows.map((row) => ({
   },
 })));
 
+
+const commonWeaponTypes = [
+  {
+    idPrefix: "110160", suffix: "Greatsword", category: "Greatsword", itemType: "Greatsword", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "6"], ["Accuracy", "100"], ["Critical Hit", "150"], ["Block", "150"], ["Parry Damage Reduction Rate", "21%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110260", suffix: "Longsword", category: "Longsword", itemType: "Sword", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "5"], ["Accuracy", "150"], ["Critical Hit", "50"], ["Block", "200"], ["Parry Damage Reduction Rate", "15%"], ["Shield Block Damage Reduction Rate", "25%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110360", suffix: "Dagger", category: "Dagger", itemType: "Dagger", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "5"], ["Accuracy", "50"], ["Critical Hit", "200"], ["Block", "50"], ["Parry Damage Reduction Rate", "12%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110460", suffix: "Bow", category: "Bow", itemType: "Bow", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "5"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "12%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110560", suffix: "Spellbook", category: "Spellbook", itemType: "Magicbook", equipType: "MainHand",
+    stats: [["Min Attack", "5"], ["Max Attack", "5"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "9%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110660", suffix: "Orb", category: "Orb", itemType: "Orb", equipType: "MainHand",
+    stats: [["Min Attack", "3"], ["Max Attack", "6"], ["Accuracy", "50"], ["Critical Hit", "150"], ["Block", "0"], ["Parry Damage Reduction Rate", "9%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110760", suffix: "Mace", category: "Mace", itemType: "Mace", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "5"], ["Accuracy", "100"], ["Critical Hit", "50"], ["Block", "50"], ["Parry Damage Reduction Rate", "15%"], ["Shield Block Damage Reduction Rate", "25%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "110860", suffix: "Staff", category: "Staff", itemType: "Staff", equipType: "MainHand",
+    stats: [["Min Attack", "4"], ["Max Attack", "6"], ["Accuracy", "75"], ["Critical Hit", "100"], ["Block", "125"], ["Parry Damage Reduction Rate", "18%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    idPrefix: "115060", suffix: "Guard", category: "Guard", itemType: "Guarder", equipType: "SubHand",
+    stats: [["Attack", "2"], ["Accuracy", "50"], ["Critical Hit", "50"]],
+  },
+];
+
+for (const variant of [{name: "Worn", idSuffix: "001"}, {name: "Training", idSuffix: "008"}]) {
+  weaponsData.push(...commonWeaponTypes.map((type) => {
+    const id = type.idPrefix + variant.idSuffix;
+    return {
+      id, name: variant.name + " " + type.suffix, category: type.category,
+      itemType: type.itemType, equipType: type.equipType, group: "Weapon",
+      grade: "Common", itemLevel: "1",
+      icon: "/equipment-icons/" + id + ".webp",
+      stats: toPairs(type.stats),
+      imprints: [],
+      details: [
+        {label: "Binding", value: "Bound"},
+        {label: "Manastone sockets", value: "1"},
+        {label: "Sell price", value: "31 Gold"},
+        {label: "Enchantable to", value: "+5"},
+        {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
+      ],
+      source: {
+        name: "AION2 Hub independent item database",
+        region: "Global Launch Scale Test snapshot",
+        capturedAt: "2026-09-19",
+        official: false,
+      },
+    };
+  }));
+}
+
 export default weaponsData;
