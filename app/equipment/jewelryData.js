@@ -1742,6 +1742,200 @@ const imprintPools = {
       "Natural HP Regen",
       "23 ~ 33"
     ]
+  ],
+  "neck:vowed": [
+    [
+      "Combat Speed",
+      "2.19% ~ 2.59%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "18,200 ~ 20,937"
+    ],
+    [
+      "Attack",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit",
+      "24 ~ 35"
+    ],
+    [
+      "Accuracy",
+      "32 ~ 44"
+    ],
+    [
+      "Defense",
+      "189 ~ 224"
+    ],
+    [
+      "Evasion",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit Resist",
+      "34 ~ 46"
+    ],
+    [
+      "Block",
+      "19 ~ 29"
+    ],
+    [
+      "MP",
+      "72 ~ 90"
+    ],
+    [
+      "HP",
+      "146 ~ 175"
+    ],
+    [
+      "Natural MP Regen",
+      "17 ~ 27"
+    ],
+    [
+      "Natural HP Regen",
+      "34 ~ 46"
+    ]
+  ],
+  "earring:vowed": [
+    [
+      "Move Speed",
+      "3.25% ~ 3.81%"
+    ],
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "7 ~ 15"
+    ],
+    [
+      "Flight Power",
+      "15,600 ~ 17,947"
+    ],
+    [
+      "Attack",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit",
+      "21 ~ 31"
+    ],
+    [
+      "Accuracy",
+      "28 ~ 39"
+    ],
+    [
+      "Defense",
+      "162 ~ 193"
+    ],
+    [
+      "Evasion",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit Resist",
+      "29 ~ 40"
+    ],
+    [
+      "Block",
+      "16 ~ 25"
+    ],
+    [
+      "MP",
+      "62 ~ 78"
+    ],
+    [
+      "HP",
+      "125 ~ 151"
+    ],
+    [
+      "Natural MP Regen",
+      "14 ~ 23"
+    ],
+    [
+      "Natural HP Regen",
+      "29 ~ 40"
+    ]
+  ],
+  "ring:vowed": [
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "13,000 ~ 14,957"
+    ],
+    [
+      "Attack",
+      "11 ~ 20"
+    ],
+    [
+      "Critical Hit",
+      "17 ~ 27"
+    ],
+    [
+      "Accuracy",
+      "23 ~ 33"
+    ],
+    [
+      "Defense",
+      "135 ~ 162"
+    ],
+    [
+      "Evasion",
+      "13 ~ 22"
+    ],
+    [
+      "Critical Hit Resist",
+      "24 ~ 35"
+    ],
+    [
+      "Block",
+      "13 ~ 22"
+    ],
+    [
+      "MP",
+      "52 ~ 67"
+    ],
+    [
+      "HP",
+      "104 ~ 127"
+    ],
+    [
+      "Natural MP Regen",
+      "12 ~ 21"
+    ],
+    [
+      "Natural HP Regen",
+      "24 ~ 35"
+    ]
   ]
 };
 const skillPools = {
@@ -3360,6 +3554,108 @@ const jewels = [
     "sell": "218 Gold",
     "enchant": "+10",
     "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310140040",
+    "name": "Vowed Ruby Necklace (Bind on Equip)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "67",
+    "defense": "160",
+    "pool": "neck:vowed",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "509 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310140082",
+    "name": "Vowed Ruby Necklace (Bind on Pickup)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Pickup",
+    "attack": "67",
+    "defense": "160",
+    "pool": "neck:vowed",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "509 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310240040",
+    "name": "Vowed Diamond Earrings (Bind on Equip)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "56",
+    "defense": "133",
+    "pool": "earring:vowed",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "408 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310240084",
+    "name": "Vowed Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Pickup",
+    "attack": "56",
+    "defense": "133",
+    "pool": "earring:vowed",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "408 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310340040",
+    "name": "Vowed Sapphire Ring (Bind on Equip)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "44",
+    "defense": "107",
+    "pool": "ring:vowed",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "306 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
+  },
+  {
+    "id": "310340084",
+    "name": "Vowed Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Pickup",
+    "attack": "44",
+    "defense": "107",
+    "pool": "ring:vowed",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "306 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
