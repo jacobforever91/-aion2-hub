@@ -28,7 +28,7 @@ const slotDefs=[
   {id:"brooch",label:"Brooch",family:"Accessories",slot:"Brooch"}
 ];
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
-const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
+const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
 function skillIconUrl(id){
   if(id==="18790000")return "https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp";
@@ -103,6 +103,11 @@ function classSkillGroups(slug,region){
     {id:"stigma",label:"Stigmas",items:stigma}
   ];
 }
+function groupSpecialtyTiers(entries=[]){
+  const tiers=new Map();
+  entries.forEach((entry)=>tiers.set(Number(entry.level),[...(tiers.get(Number(entry.level))||[]),entry.description]));
+  return [...tiers.entries()].sort((a,b)=>a[0]-b[0]);
+}
 
 export default function BuildCreator(){
   const [build,setBuild]=useState(emptyBuild);
@@ -114,6 +119,7 @@ export default function BuildCreator(){
   const [skillSearch,setSkillSearch]=useState("");
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
+  const [skillSpecialtyData,setSkillSpecialtyData]=useState({});
   const [editingSkillKey,setEditingSkillKey]=useState("");
   const skillLookupCache=useRef({});
   const [notice,setNotice]=useState("");
@@ -125,7 +131,7 @@ export default function BuildCreator(){
     if(shared){
       try{
         const restored=decodeShare(shared);
-        setBuild({...emptyBuild(),...restored,skillLevels:{...(restored.skillLevels||{})},advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
+        setBuild({...emptyBuild(),...restored,skillLevels:{...(restored.skillLevels||{})},skillSpecializations:{...(restored.skillSpecializations||{})},advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
         setNotice("Shared build loaded.");
         return;
       }catch(_error){setNotice("This share link could not be read.");}
@@ -193,7 +199,7 @@ export default function BuildCreator(){
     setSkillSearch("");
     const filteredGear=filterWeaponGear(build.gear,slug);
     const removedWeapon=Object.keys(build.gear).some((slotId)=>["mainHand","offHand"].includes(slotId)&&build.gear[slotId]&&!filteredGear[slotId]);
-    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},gear:filterWeaponGear(current.gear,slug)}));
+    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},skillSpecializations:{},gear:filterWeaponGear(current.gear,slug)}));
     if(removedWeapon)setNotice("Incompatible weapon slots were cleared for the selected class.");
   };
   const loadSkillLevelRange=async(key,id)=>{
@@ -210,11 +216,20 @@ export default function BuildCreator(){
       if(!max||max<1)throw new Error("The skill level maximum is unavailable.");
       skillLookupCache.current[key]="ready";
       setSkillMaxLevels((current)=>({...current,[key]:max}));
+      const specialties=Array.isArray(info.specialties)?info.specialties:[];
+      setSkillSpecialtyData((current)=>({...current,[key]:specialties}));
       setSkillLevelStatus((current)=>({...current,[key]:"ready"}));
       setBuild((current)=>{
         if(!current.skills.includes(selectionKey))return current;
         const level=Number(current.skillLevels?.[key])||1;
-        return {...current,skillLevels:{...(current.skillLevels||{}),[key]:Math.min(max,level)}};
+        const skillSpecializations={...(current.skillSpecializations||{})};
+        const tiers=new Map();
+        specialties.forEach((entry)=>tiers.set(entry.level,[...(tiers.get(entry.level)||[]),entry.description]));
+        tiers.forEach((options,unlock)=>{
+          const choiceKey=key+"@"+unlock;
+          if(unlock<=level&&options.length===1&&!skillSpecializations[choiceKey])skillSpecializations[choiceKey]=options[0];
+        });
+        return {...current,skillLevels:{...(current.skillLevels||{}),[key]:Math.min(max,level)},skillSpecializations};
       });
     }catch(_error){
       skillLookupCache.current[key]="error";
@@ -223,7 +238,16 @@ export default function BuildCreator(){
   };
   const setSkillLevel=(key,value,max)=>{
     const level=Math.max(1,Math.min(max||1,Number(value)||1));
-    setBuild((current)=>({...current,skillLevels:{...(current.skillLevels||{}),[key]:level}}));
+    const tiers=new Map();
+    (skillSpecialtyData[key]||[]).forEach((entry)=>tiers.set(entry.level,[...(tiers.get(entry.level)||[]),entry.description]));
+    setBuild((current)=>{
+      const skillSpecializations={...(current.skillSpecializations||{})};
+      tiers.forEach((options,unlock)=>{
+        const choiceKey=key+"@"+unlock;
+        if(unlock<=level&&options.length===1&&!skillSpecializations[choiceKey])skillSpecializations[choiceKey]=options[0];
+      });
+      return {...current,skillLevels:{...(current.skillLevels||{}),[key]:level},skillSpecializations};
+    });
   };
   const selectSkill=(type,name,id)=>{
     const key=type+":"+name;
@@ -242,8 +266,10 @@ export default function BuildCreator(){
     const levelKey=key+":"+id;
     setBuild((current)=>{
       const skillLevels={...(current.skillLevels||{})};
+      const skillSpecializations={...(current.skillSpecializations||{})};
       delete skillLevels[levelKey];
-      return {...current,skills:current.skills.filter((entry)=>entry!==key),skillLevels};
+      Object.keys(skillSpecializations).filter((entry)=>entry.startsWith(levelKey+"@")).forEach((entry)=>delete skillSpecializations[entry]);
+      return {...current,skills:current.skills.filter((entry)=>entry!==key),skillLevels,skillSpecializations};
     });
     setEditingSkillKey((current)=>current===levelKey?"":current);
   };
@@ -324,7 +350,7 @@ export default function BuildCreator(){
             <div className={styles.formGrid}>
               <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{changeClass(event.target.value);setEditingSkillKey("")}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
-              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);patch("skillLevels",{});setSkillSearch("");setEditingSkillKey("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
+              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);patch("skillLevels",{});patch("skillSpecializations",{});setSkillSearch("");setEditingSkillKey("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
               <label className={styles.field}><span>BUILD GOAL</span><select value={build.goal} onChange={(event)=>patch("goal",event.target.value)}>{goals.map((goal)=><option key={goal}>{goal}</option>)}</select></label>
             </div>
             <div className={styles.classBanner}><div className={styles.classMark}>{classInfo?.name?.slice(0,1)||"A"}</div><div><span>{classInfo?.role||"Choose a class"}</span><strong>{classInfo?.name||"Class data is not available"}</strong><small>{classInfo?.weapon?("Recommended weapon: "+classInfo.weapon):"The current local class catalog has no Brawler skills yet."}</small></div></div>
@@ -342,6 +368,7 @@ export default function BuildCreator(){
                   const max=skillMaxLevels[levelKey];
                   const level=Math.min(max||Number.MAX_SAFE_INTEGER,Number(build.skillLevels?.[levelKey])||1);
                   const isEditing=editingSkillKey===levelKey;
+                  const specialtyTiers=groupSpecialtyTiers(skillSpecialtyData[levelKey]);
                   return <div key={item.name} className={styles.skillCard}>
                     <div className={styles.skillCardHeader}>
                       <button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>selectSkill(group.id,item.name,item.id)} aria-pressed={selected}>
@@ -362,6 +389,16 @@ export default function BuildCreator(){
                         <input aria-label={item.name+" level"} type="range" min="1" max={max} value={level} disabled={max===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,max)}/>
                         <button type="button" onClick={()=>setSkillLevel(levelKey,max,max)}>Max</button>
                       </div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}
+                    </div>}
+                    {selected&&isEditing&&specialtyTiers.length>0&&<div className={styles.specialtyControls}>
+                      <div className={styles.specialtyHeading}><strong>Specializations</strong><small>{group.id==="stigma"?"Stigma effects activate automatically at each unlock.":"Choose one option in each unlocked slot."}</small></div>
+                      {specialtyTiers.map(([unlock,options])=>{
+                        const choiceKey=levelKey+"@"+unlock;
+                        const chosen=build.skillSpecializations?.[choiceKey]||"";
+                        const unlocked=level>=Number(unlock);
+                        if(group.id==="stigma")return <div key={unlock+"stigma"} className={styles.specialtyTier}><div className={styles.specialtyTierHeading}><span>Lv. {unlock}</span><b className={unlocked?styles.specialtyActive:styles.specialtyLocked}>{unlocked?"Active":"Locked"}</b></div><p>{options.join(" · ")}</p></div>;
+                        return <fieldset key={unlock} className={styles.specialtyTier} disabled={!unlocked}><legend>Slot · Lv. {unlock}{!unlocked?" · Locked":""}</legend>{options.length===1?<p>{options[0]} <span className={styles.specialtyAuto}>{unlocked?"Automatic":"Unlocks later"}</span></p>:<div className={styles.specialtyOptions}>{options.map((option,index)=><button key={index} type="button" className={chosen===option?styles.specialtyOptionActive:styles.specialtyOption} aria-pressed={chosen===option} onClick={()=>setBuild((current)=>({...current,skillSpecializations:{...(current.skillSpecializations||{}),[choiceKey]:option}}))}>{option}</button>)}</div>}</fieldset>;
+                      })}
                     </div>}
                   </div>
                 })}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
@@ -404,6 +441,7 @@ export default function BuildCreator(){
           <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
           <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
+          {Object.entries(build.skillSpecializations||{}).length>0&&<div className={styles.summarySection}><h3>Specializations</h3>{Object.entries(build.skillSpecializations||{}).map(([key,value])=>{const skillName=key.split(":")[1]||"Skill";const unlock=key.split("@").pop();return <div key={key}><span>{skillName} · Lv. {unlock}</span><b title={value}>✓</b></div>})}</div>}
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>
         </aside>
       </div>
