@@ -1,0 +1,17 @@
+.page{min-height:100vh;padding:34px 22px 70px;background:radial-gradient(ellipse at 50% 0,#103144 0,#06121d 48%,#030812 100%);color:#edf7fb}
+.content{width:min(960px,100%);margin:0 auto}
+.back{position:fixed;top:18px;left:18px;z-index:5;display:grid;place-items:center;width:40px;height:40px;border:1px solid #315b70;border-radius:50%;background:#071722e8;color:#a8e7f5}.back svg{width:19px;height:19px}
+.hero{padding:30px 0 25px;border-bottom:1px solid #234657}
+.eyebrow{display:flex;align-items:center;gap:8px;color:#7bdcf1;font:700 9px system-ui,sans-serif;letter-spacing:2.4px;text-transform:uppercase}.eyebrow svg{width:16px;height:16px}
+.hero h1{margin:13px 0 7px;color:#f0f8fc;font:400 clamp(44px,8vw,72px)/1 Georgia,"Times New Roman",serif}
+.hero p{max-width:570px;margin:0;color:#a1b8c2;font:14px/1.65 system-ui,sans-serif}
+.systemGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}
+.systemCard{display:flex;align-items:flex-start;gap:12px;min-height:110px;padding:16px;border:1px solid #294f62;border-radius:7px;background:linear-gradient(140deg,#0d2430,#081721)}
+.systemCard>span,.actionIcon{display:grid;place-items:center;flex:none;width:38px;height:38px;border:1px solid #347088;border-radius:5px;background:#0a202b;color:#73d9f0}.systemCard>span svg,.actionIcon svg{width:19px;height:19px}
+.systemCard h2{margin:1px 0 5px;color:#f0f8fb;font:400 18px Georgia,"Times New Roman",serif}.systemCard p{margin:0;color:#99b1bc;font:11px/1.55 system-ui,sans-serif}
+.actions{display:grid;gap:9px;margin-top:22px}
+.actionCard{display:flex;align-items:center;gap:13px;min-height:82px;padding:13px 15px;border:1px solid #2b5264;border-radius:6px;background:#091a24;color:#e4f2f7;transition:border-color .16s,background .16s}
+.actionCard:hover{border-color:#69d6ed;background:#0d2632}.actionCard:focus-visible{outline:2px solid #8ceaff;outline-offset:2px}
+.actionCopy{display:grid;gap:4px;min-width:0;flex:1}.actionCopy small{color:#75cfe5;font:700 8px system-ui,sans-serif;letter-spacing:1.25px}.actionCopy strong{color:#f0f8fb;font:400 17px Georgia,"Times New Roman",serif}.actionCopy em{color:#92aab5;font:10px/1.4 system-ui,sans-serif;font-style:normal}.actionArrow{width:17px;height:17px;flex:none;color:#7bdcf1}
+.sourceNote{margin-top:20px;padding:14px 15px;border-left:2px solid #b99758;background:#0a1820}.sourceNote strong{color:#e1c88e;font:700 10px system-ui,sans-serif;letter-spacing:.7px;text-transform:uppercase}.sourceNote p{margin:6px 0 10px;color:#91aab5;font:10px/1.55 system-ui,sans-serif}.sourceNote a{display:inline-flex;align-items:center;gap:6px;color:#8bdcf0;font:600 10px system-ui,sans-serif}.sourceNote a svg{width:12px;height:12px}
+@media(max-width:600px){.page{padding:58px 14px 42px}.back{top:12px;left:12px;width:34px;height:34px}.hero{padding:22px 0 18px}.eyebrow{font-size:8px;letter-spacing:1.7px}.hero p{font-size:12px}.systemGrid{gap:8px;margin:15px 0}.systemCard{min-height:128px;flex-direction:column;gap:8px;padding:11px}.systemCard h2{font-size:16px}.systemCard p{font-size:10px}.actionCard{min-height:74px;gap:9px;padding:10px}.actionIcon{width:33px;height:33px}.actionCopy small{font-size:7px;letter-spacing:.9px}.actionCopy strong{font-size:15px}.actionCopy em{font-size:9px}.sourceNote{margin-top:15px;padding:12px}}
