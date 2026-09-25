@@ -172,6 +172,7 @@ export default function BuildCreator(){
   const [build,setBuild]=useState(emptyBuild);
   const [tab,setTab]=useState("overview");
   const [pickerSlot,setPickerSlot]=useState(null);
+  const [gearDetail,setGearDetail]=useState(null);
   const [pickerItems,setPickerItems]=useState([]);
   const [pickerSearch,setPickerSearch]=useState("");
   const [pickerState,setPickerState]=useState("idle");
@@ -482,7 +483,7 @@ export default function BuildCreator(){
 
           {tab==="equipment"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>Pick items by slot. Repeated accessories have separate slots.</p></div></div>
-            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}><span className={styles.slotGlyph}>{build.gear[slot.id]?.icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><div className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id]?.name||"Empty slot"}</strong>{build.gear[slot.id]?.grade&&<em>{build.gear[slot.id].grade}</em>}</div><button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
+            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}>{build.gear[slot.id]?<button type="button" className={styles.gearItemInfoButton} onClick={()=>setGearDetail({item:build.gear[slot.id],label:slotLabel})} aria-label={"View stats for "+build.gear[slot.id].name}><span className={styles.slotGlyph}>{build.gear[slot.id].icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id].name}</strong>{build.gear[slot.id].grade&&<em>{build.gear[slot.id].grade}</em>}<small className={styles.gearStatsHint}>View stats</small></span></button>:<div className={styles.gearItemInfoButton+" "+styles.gearItemEmpty}><span className={styles.slotGlyph}><Shield size={15}/></span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>Empty slot</strong></span></div>}<button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
 
@@ -526,6 +527,13 @@ export default function BuildCreator(){
       </div>
     </div>
 
+    {gearDetail&&<div className={styles.modalBackdrop} onMouseDown={(event)=>{if(event.target===event.currentTarget)setGearDetail(null)}}><section className={styles.itemModal} role="dialog" aria-modal="true" aria-labelledby="gearDetailTitle">
+      <button className={styles.modalClose} type="button" onClick={()=>setGearDetail(null)} aria-label="Close item details"><X/></button>
+      <span className={styles.eyebrow}>EQUIPPED ITEM · {gearDetail.label.toUpperCase()}</span>
+      <div className={styles.gearDetailHeading}><span className={styles.gearDetailIcon}>{gearDetail.item.icon&&<img src={gearDetail.item.icon} alt="" loading="lazy"/>}</span><div><h2 id="gearDetailTitle">{gearDetail.item.name}</h2><p>{[gearDetail.item.grade,gearDetail.item.category||gearDetail.item.family].filter(Boolean).join(" · ")||"Equipment"}</p></div></div>
+      {normalStats(gearDetail.item).length?<div className={styles.gearDetailStats}><h3>Item stats</h3>{normalStats(gearDetail.item).map((stat,index)=><div key={stat.label+String(stat.value)+index}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}</div>:<p className={styles.emptyState}>No detailed stats are available for this item in the current catalog.</p>}
+      {(gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription)&&<p className={styles.gearDetailDescription}>{gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription}</p>}
+    </section></div>}
     {pickerSlot&&<div className={styles.modalBackdrop} onMouseDown={(event)=>{if(event.target===event.currentTarget)setPickerSlot(null)}}><section className={styles.itemModal} role="dialog" aria-modal="true" aria-labelledby="itemPickerTitle">
       <button className={styles.modalClose} type="button" onClick={()=>setPickerSlot(null)} aria-label="Close item picker"><X/></button>
       <span className={styles.eyebrow}>EQUIPMENT PICKER · {build.region==="KR_TW"?"KR / TW":"GLOBAL"}</span><h2 id="itemPickerTitle">Choose {pickerSlot.label}</h2>
