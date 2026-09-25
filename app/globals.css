@@ -711,8 +711,8 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 @media(prefers-reduced-motion:reduce){.forgePrimary a{transition:none}}
 
 /* Rune-carved stone backdrop selected for the Forge Amber menu. */
-.a2MobileMenu.forgeMenu{isolation:isolate;background:linear-gradient(90deg,#0d1419dd,#11181adb),repeating-linear-gradient(0deg,#344145 0 2px,#1c2629 2px 38px,#526063 39px 40px),repeating-linear-gradient(90deg,#485257 0 1px,#152025 1px 92px)!important}
-.a2MobileMenu.forgeMenu::before{content:"";position:fixed;z-index:0;right:-120px;top:-150px;width:min(56vw,620px);height:min(56vw,620px);border:2px solid #a6734359;border-radius:50%;box-shadow:inset 0 0 0 30px #97674410,0 0 0 36px #a673431c,0 0 0 74px #a673430b;pointer-events:none}
+.a2MobileMenu.forgeMenu{isolation:isolate;overflow-x:hidden!important;background:linear-gradient(90deg,#0d1419dd,#11181adb),repeating-linear-gradient(0deg,#344145 0 2px,#1c2629 2px 38px,#526063 39px 40px),repeating-linear-gradient(90deg,#485257 0 1px,#152025 1px 92px)!important}
+.a2MobileMenu.forgeMenu::before{content:"";position:fixed;z-index:0;right:0;top:-150px;width:min(56vw,620px);height:min(56vw,620px);border:2px solid #a6734359;border-radius:50%;box-shadow:inset 0 0 0 30px #97674410,0 0 0 36px #a673431c,0 0 0 74px #a673430b;pointer-events:none}
 .a2MobileMenu.forgeMenu::after{content:"";position:fixed;z-index:0;inset:0;background:repeating-linear-gradient(135deg,transparent 0 70px,#c49b5d0c 71px 72px,transparent 73px 140px);pointer-events:none}
 .forgeMenuContent{position:relative;z-index:1}
-@media(max-width:520px){.a2MobileMenu.forgeMenu::before{right:-105px;top:-65px;width:300px;height:300px;box-shadow:inset 0 0 0 20px #97674410,0 0 0 25px #a6734318,0 0 0 48px #a673430b}}
+@media(max-width:520px){.a2MobileMenu.forgeMenu::before{right:0;top:-65px;width:300px;height:300px;box-shadow:inset 0 0 0 20px #97674410,0 0 0 25px #a6734318,0 0 0 48px #a673430b}}
