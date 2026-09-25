@@ -726,3 +726,43 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .forgePrimary a::after{content:"↗";grid-column:3;grid-row:1 / 3;justify-self:end;color:#e8ae77;font:400 17px/1 system-ui,sans-serif}
 @media(max-width:520px){.forgePrimary{gap:7px;margin-bottom:16px}.forgePrimary a{grid-template-columns:30px minmax(0,1fr) 14px;column-gap:8px;min-height:64px;padding:8px}.forgePrimary a i{position:static;grid-column:1;grid-row:1 / 3}.forgePrimary a strong{font-size:16px}.forgePrimary a small{font-size:10px}.forgePrimary a::after{font-size:14px}}
 @media(max-width:430px){.forgePrimary{grid-template-columns:1fr}.forgePrimary a{min-height:58px}}
+
+
+/* Equipment inventory: compact slots, search, rarity, and item cards. */
+.generalEquipmentPage.classPage{position:relative;isolation:isolate;min-height:100vh;padding:32px clamp(22px,5vw,80px) 70px;background:#030812}
+.generalEquipmentPage.classPage::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#030812ba,#03081281),url('/backgrounds/skills-atreia-ruins.webp') center bottom/cover no-repeat}
+.generalEquipmentPage .equipmentGeneralContent{width:min(1510px,calc(100% - 42px));max-width:none;margin:0 auto}
+.generalEquipmentPage .classBack{position:fixed;top:18px;left:18px;z-index:5}
+.equipmentTopline{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 16px}
+.equipmentTopline h1{display:flex;align-items:center;gap:11px;margin:0;color:#edf8ff;font:400 22px/1.25 Georgia,"Times New Roman",serif;letter-spacing:1.8px;font-variant:small-caps;text-shadow:0 2px 7px #030812}
+.equipmentTopline h1::before{content:"";display:block;width:25px;height:2px;flex:none;background:#46e5ff;box-shadow:0 0 9px #46e5ff88}
+.equipmentTopline .equipmentRegionChoices{display:flex;gap:6px}
+.equipmentTopline .equipmentRegionChoices button{min-height:37px;padding:7px 14px;border:1px solid #31566a;border-radius:5px;background:#091b2ae8;color:#b9d2dd;font:400 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer}
+.equipmentTopline .equipmentRegionChoices button:hover,.equipmentTopline .equipmentRegionChoices button.isSelected{border-color:#46e5ff;background:#0b3042;color:#ebfbff;box-shadow:0 0 11px #32dfff3b}
+.equipmentTopline .equipmentRegionChoices button:focus-visible{outline:2px solid #95f4ff;outline-offset:2px}
+.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:0 0 12px}
+.generalEquipmentPage .equipmentSlotFilters button{min-height:44px;padding:9px 11px;border-color:#2a5265;border-radius:6px;background:#081a28eb;color:#c0d5df;font-size:11px}
+.generalEquipmentPage .equipmentSlotFilters button.isSelected{border-color:#46e5ff;background:#0c3344;color:#edfbff;box-shadow:0 0 12px #32dfff35}
+.generalEquipmentPage .equipmentSlotFilters button:focus-visible{outline:2px solid #95f4ff;outline-offset:2px}
+.generalEquipmentPage .generalEquipmentToolbar{display:grid;grid-template-columns:1fr;gap:10px;margin:0;padding:0;border:0;border-radius:0;background:none}
+.generalEquipmentPage .equipmentSearch{min-height:46px;padding:3px 10px;background:#071521}
+.generalEquipmentPage .equipmentSearch input{height:38px;font-size:13px}
+.generalEquipmentPage .equipmentSearch button{min-height:34px}
+.generalEquipmentPage .equipmentGradeFilters{justify-content:flex-start;gap:7px}
+.generalEquipmentPage .equipmentGradeFilters button{min-height:35px;padding:7px 12px;border:1px solid #315066;border-radius:5px;background:#081a28ea;font-size:10px}
+.generalEquipmentPage .equipmentGradeFilters button.isSelected{border-color:#46e5ff;background:#0b3042;box-shadow:0 0 10px #32dfff35}
+.equipmentRegionNote{margin:11px 1px 0;color:#adc2cc;font-size:11px;line-height:1.5;text-shadow:0 1px 3px #030812}
+.generalEquipmentPage .equipmentResultsHeader{margin:20px 1px 10px;color:#c3d7e0;font-size:12px}
+.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:repeat(3,minmax(0,360px));gap:8px}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemCard{min-height:62px;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto auto;gap:2px 10px;padding:8px 10px;border-color:#285167;border-radius:6px;background:#081a28ed}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemCard:hover{border-color:#46e5ff;background:#0b2635}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemIcon{width:42px;height:42px;grid-row:1 / 4}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemIcon img{width:38px;height:38px}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemName{font:400 13px/1.25 Georgia,"Times New Roman",serif}
+.generalEquipmentPage .generalEquipmentGrid .equipmentItemOpen{font-size:9px}
+.generalEquipmentPage .equipmentLoading{background:#081a28dc;border-color:#285167}
+.generalEquipmentPage .equipmentDataNote{color:#9fb6c3;text-shadow:0 1px 3px #030812}
+@media(max-width:1100px){.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(5,minmax(0,1fr))}.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,360px))}}
+@media(max-width:760px){.generalEquipmentPage.classPage{padding:68px 14px 48px}.generalEquipmentPage .equipmentGeneralContent{width:100%}.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(4,minmax(0,1fr))}.equipmentTopline{align-items:flex-start;flex-direction:column;gap:10px}.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.generalEquipmentPage .equipmentSlotFilters button{min-height:39px;padding:7px 8px;font-size:10px}.generalEquipmentPage .equipmentSlotFilters button small{display:none}.generalEquipmentPage .equipmentGradeFilters{gap:5px}.generalEquipmentPage .equipmentGradeFilters button{padding:6px 8px;font-size:9px}.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:1fr}.generalEquipmentPage .equipmentSearch input{font-size:12px}}
+@media(max-width:360px){.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(2,minmax(0,1fr))}}
