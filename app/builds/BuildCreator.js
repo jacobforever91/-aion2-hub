@@ -91,7 +91,7 @@ function statSummary(gear){
     const key=label+" "+unit;
     totals[key]=(totals[key]||0)+Number(match[1]);
   }));
-  return Object.entries(totals).slice(0,10).map(([label,value])=>[label.trim(),Number(value.toFixed(2))]);
+  return Object.entries(totals).map(([label,value])=>[label.trim(),Number(value.toFixed(2))]);
 }
 function classSkillGroups(slug,region){
   const data=classData[slug];
@@ -549,11 +549,37 @@ export default function BuildCreator(){
           <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div><div><strong>{arcanaCount}/10</strong><small>Arcana</small></div></div>
           <details className={styles.summaryGear}>
             <summary><span>Equipped gear</span><b>{gearCount}/{visibleGearSlots.length}</b></summary>
-            {selectedGearItems.length?<div className={styles.summaryGearList}>{selectedGearItems.map(({id,label,item})=><div className={styles.summaryGearItem} key={id}><span className={styles.summaryGearIcon}><img src={item.icon||"/equipment-art/accessory.webp"} alt="" loading="lazy"/></span><span className={styles.summaryGearCopy}><small>{label}</small><strong>{item.name}</strong><em>{item.grade||item.category||"Equipment"}</em>{normalStats(item).slice(0,2).map((stat,index)=><small className={styles.summaryGearStat} key={stat.label+String(stat.value)+index}>{stat.label}: {stat.value}</small>)}</span></div>)}</div>:<p className={styles.summaryGearEmpty}>Choose equipment to see its pieces and stats here.</p>}
-            {totals.length>0&&<div className={styles.summaryGearTotals}><h4>Known totals</h4>{totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>)}</div>}
+            {selectedGearItems.length?<div className={styles.summaryGearList}>{selectedGearItems.map(({id,label,item})=><div className={styles.summaryGearItem} key={id}><span className={styles.summaryGearIcon}><img src={item.icon||"/equipment-art/accessory.webp"} alt="" loading="lazy"/></span><span className={styles.summaryGearCopy}><small>{label}</small><strong>{item.name}</strong><em>{item.grade||item.category||"Equipment"}</em></span></div>)}</div>:<p className={styles.summaryGearEmpty}>Choose equipment to see its pieces and stats here.</p>}
+            
           </details>
-          <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
-          {arcanaCount>0&&<div className={styles.summarySection}><h3>Selected Arcana · {arcanaCount}/10</h3>{selectedArcana.map(({card,index})=><div className={styles.summaryArcanaRow} key={card.id+index}><img src={card.icon} alt="" loading="lazy"/><span><small>Card {index+1} · {card.rarity}</small><strong>{card.name}</strong><em>{card.stats?.[0]?.label}: {card.stats?.[0]?.value}</em></span></div>)}</div>}
+          <div className={styles.summarySection}>
+            <h3>Stat contributions</h3>
+            <p>Equipment totals and Arcana values are shown with their source.</p>
+            <div className={styles.statContributionGroup}>
+              <h4>Equipment totals</h4>
+              {totals.length?totals.map(([label,value])=><div className={styles.statContributionTotal} key={label}><span>{label}</span><b>{value}</b></div>):<p>{gearCount?"No exact numeric equipment stats are available in the current catalog.":"Choose equipment to see its exact numeric stats."}</p>}
+            </div>
+            {selectedGearItems.length>0&&<details className={styles.statContributionDetails}>
+              <summary><span>Equipment values by item</span><b>{selectedGearItems.length}</b></summary>
+              <div className={styles.statContributionSources}>
+                {selectedGearItems.map(({id,label,item})=><article className={styles.statContributionSource} key={id}>
+                  <span className={styles.statContributionIcon}>{item.icon&&<img src={item.icon} alt="" loading="lazy" decoding="async"/>}</span>
+                  <div className={styles.statContributionCopy}><small>{label} · {item.grade||item.category||"Equipment"}</small><strong>{item.name}</strong>
+                    {normalStats(item).length?<div className={styles.statContributionStats}>{normalStats(item).map((stat,index)=><div key={stat.label+String(stat.value)+index}><span>{stat.label}</span><b>{stat.value}</b></div>)}</div>:<em>No item stats are listed in this catalog entry.</em>}
+                  </div>
+                </article>)}
+              </div>
+            </details>}
+            <div className={styles.statContributionGroup}>
+              <h4>Arcana · listed values per card</h4>
+              {arcanaCount>0?selectedArcana.map(({card,index})=><article className={styles.summaryArcanaRow} key={card.id+index}>
+                <img src={card.icon} alt="" loading="lazy" decoding="async"/>
+                <span><small>Card {index+1} · {card.rarity}</small><strong>{card.name}</strong>
+                  <span className={styles.statContributionStats}>{normalStats(card).map((stat,statIndex)=><span key={stat.label+String(stat.value)+statIndex}><span>{stat.label}</span><b>{stat.value}</b></span>)}</span>
+                </span>
+              </article>):<p>Select Arcana to see each card’s listed stats here.</p>}
+            </div>
+          </div>
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           {Object.entries(build.skillSpecializations||{}).length>0&&<div className={styles.summarySection}><h3>Specializations</h3>{Object.entries(build.skillSpecializations||{}).map(([key,value])=>{const skillName=key.split(":")[1]||"Skill";const unlock=key.split("@").pop();return <div key={key}><span>{skillName} · Lv. {unlock}</span><b title={value}>✓</b></div>})}</div>}
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>

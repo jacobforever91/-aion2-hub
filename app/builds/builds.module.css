@@ -263,3 +263,28 @@
 .summaryArcanaRow strong{color:#e8f4f7;font:400 13px Georgia,serif}
 .summaryArcanaRow em{color:#9bb3bd;font:9px system-ui,sans-serif;font-style:normal}
 @media(max-width:700px){.arcanaBuildSlots{grid-template-columns:1fr}}
+
+.summarySection>.statContributionGroup{display:block;margin-top:9px;padding:9px;border:1px solid #244655;border-radius:5px;background:#081923}
+.summarySection .statContributionGroup>h4{margin:0 0 7px;color:#91ddec;font:700 9px system-ui,sans-serif;letter-spacing:.8px}
+.statContributionGroup>p{margin:0;color:#91aab5;font-size:9px;line-height:1.5}
+.statContributionTotal,.statContributionStats>div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid #203742;color:#9eb6c0;font-size:9px}
+.statContributionTotal:last-child,.statContributionStats>div:last-child{border-bottom:0}
+.statContributionTotal b,.statContributionStats b{color:#e3f5fa;font-size:9px}
+.statContributionDetails{margin-top:8px;border:1px solid #244655;border-radius:5px;background:#081923}
+.statContributionDetails>summary{display:flex;justify-content:space-between;align-items:center;min-height:38px;padding:8px;color:#c4dce4;font-size:9px;cursor:pointer;list-style:none}
+.statContributionDetails>summary::-webkit-details-marker{display:none}.statContributionDetails>summary:after{content:'+';color:#83d9ec;font-size:14px}.statContributionDetails[open]>summary:after{content:'−'}
+.statContributionDetails>summary b{color:#83d9ec}
+.statContributionSources{display:grid;gap:6px;padding:0 8px 8px}
+.statContributionSource{display:grid;grid-template-columns:36px minmax(0,1fr);gap:8px;padding:8px;border-top:1px solid #203742}
+.statContributionIcon{width:36px;height:36px;display:grid;place-items:center;overflow:hidden;border:1px solid #31586a;border-radius:4px;background:#07151e}
+.statContributionIcon img{width:100%;height:100%;object-fit:contain}
+.statContributionCopy{display:grid;gap:3px;min-width:0}
+.statContributionCopy>small{color:#82cfe0;font:700 8px/1.35 system-ui,sans-serif}
+.statContributionCopy>strong{overflow-wrap:anywhere;color:#e4f3f7;font:400 12px Georgia,serif}
+.statContributionCopy>em{color:#819aa5;font:italic 9px system-ui,sans-serif}
+.statContributionStats{display:grid;grid-template-columns:1fr;gap:0;margin-top:3px}
+.statContributionStats>span{display:flex;justify-content:space-between;gap:9px;padding:4px 0;border-top:1px solid #1d3440;color:#91aab5;font-size:8px}
+.statContributionStats>span b{color:#d9f3f9}
+.summarySection>.statContributionGroup>.summaryArcanaRow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #203742}
+.summaryArcanaRow>span{display:grid;gap:4px;min-width:0;flex:1}
+@media(max-width:520px){.statContributionGroup{padding:8px}.statContributionSource{grid-template-columns:32px minmax(0,1fr)}.statContributionIcon{width:32px;height:32px}}
