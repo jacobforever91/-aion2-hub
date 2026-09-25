@@ -188,6 +188,19 @@
 .petLevelStats .petStats>div{align-items:center;justify-content:space-between;min-width:calc(50% - 4px);min-height:38px;padding:7px 8px}
 .petLevelStats .petStats small{font-size:11px}
 .petLevelStats .petStats strong{font-size:12px}
+.petReferenceDetails{border-top:1px solid #244555;padding-top:9px}
+.petReferenceDetails summary{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#cbe8f0;font:600 11px/1.4 system-ui,sans-serif;cursor:pointer;list-style:none}
+.petReferenceDetails summary::-webkit-details-marker{display:none}
+.petReferenceDetails summary::after{content:"+";color:#80def1;font-size:16px}
+.petReferenceDetails[open] summary::after{content:"−"}
+.petReferenceDetails summary span{margin-left:auto;color:#829da8;font-size:9px;font-weight:400}
+.petReferenceFields{display:grid;gap:5px;margin-top:9px}
+.petReferenceFields>div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 9px;border:1px solid #203c49;border-radius:4px;background:#091923}
+.petReferenceFields span{color:#9bb3bf;font:11px/1.4 system-ui,sans-serif}
+.petReferenceFields b{color:#cbe8f0;font:600 11px/1.4 system-ui,sans-serif;text-align:right}
+.petReferenceSources{margin-top:10px}
+.petReferenceSources strong{color:#dfbd77;font:700 9px system-ui,sans-serif;letter-spacing:.7px;text-transform:uppercase}
+.petReferenceSources p{margin:4px 0 0;color:#92acb7;font:11px/1.5 system-ui,sans-serif}
 @media(max-width:600px){.progressionCard{gap:9px;padding:10px}.progressionCardHead{gap:9px}.progressionCardHead strong{font-size:14px}.progressionStatList>div{min-height:40px}.progressionStatList span{font-size:12px}.progressionStatList b{font-size:13px}}
 
 .progressionPickerButton{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;padding:6px 9px;border:1px solid #31596b;border-radius:4px;background:#091923;color:#dff1f6;text-align:left;cursor:pointer}
