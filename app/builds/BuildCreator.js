@@ -1,6 +1,6 @@
 "use client";
 
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
 import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
@@ -28,7 +28,7 @@ const slotDefs=[
   {id:"brooch",label:"Brooch",family:"Accessories",slot:"Brooch"}
 ];
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
-const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
+const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
 function skillIconUrl(id){
   if(id==="18790000")return "https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp";
@@ -112,6 +112,9 @@ export default function BuildCreator(){
   const [pickerSearch,setPickerSearch]=useState("");
   const [pickerState,setPickerState]=useState("idle");
   const [skillSearch,setSkillSearch]=useState("");
+  const [skillMaxLevels,setSkillMaxLevels]=useState({});
+  const [skillLevelStatus,setSkillLevelStatus]=useState({});
+  const skillLookupCache=useRef({});
   const [notice,setNotice]=useState("");
   const [savedAt,setSavedAt]=useState("");
 
@@ -121,7 +124,7 @@ export default function BuildCreator(){
     if(shared){
       try{
         const restored=decodeShare(shared);
-        setBuild({...emptyBuild(),...restored,advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
+        setBuild({...emptyBuild(),...restored,skillLevels:{...(restored.skillLevels||{})},advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
         setNotice("Shared build loaded.");
         return;
       }catch(_error){setNotice("This share link could not be read.");}
@@ -130,7 +133,7 @@ export default function BuildCreator(){
       const saved=window.localStorage.getItem("aion2-vision-build-v1");
       if(saved){
         const restored=JSON.parse(saved);
-        setBuild({...emptyBuild(),...restored,advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
+        setBuild({...emptyBuild(),...restored,skillLevels:{...(restored.skillLevels||{})},advanced:{...emptyAdvanced(),...(restored.advanced||{})}});
         setSavedAt("Saved draft loaded from this device.");
       }
     }catch(_error){}
@@ -191,9 +194,49 @@ export default function BuildCreator(){
     setBuild((current)=>({...current,classSlug:slug,skills:[],gear:filterWeaponGear(current.gear,slug)}));
     if(removedWeapon)setNotice("Incompatible weapon slots were cleared for the selected class.");
   };
-  const toggleSkill=(type,name)=>{
+  const loadSkillLevelRange=async(key,id)=>{
+    if(!id||skillLookupCache.current[key]==="loading"||skillLookupCache.current[key]==="ready")return;
+    skillLookupCache.current[key]="loading";
+    setSkillLevelStatus((current)=>({...current,[key]:"loading"}));
+    try{
+      const response=await fetch("/api/skill-description/"+id);
+      const info=await response.json();
+      if(!response.ok)throw new Error(info.error||"Could not load skill levels.");
+      const detailsMax=Number(info.details?.find((entry)=>entry.label==="Max Level")?.value?.match(/\d+/)?.[0]);
+      const max=Math.max(1,Number(info.levels?.length)||detailsMax||1);
+      skillLookupCache.current[key]="ready";
+      setSkillMaxLevels((current)=>({...current,[key]:max}));
+      setSkillLevelStatus((current)=>({...current,[key]:"ready"}));
+      setBuild((current)=>{
+        if(!current.skills.includes(key))return current;
+        const level=Number(current.skillLevels?.[key])||1;
+        return {...current,skillLevels:{...(current.skillLevels||{}),[key]:Math.min(max,level)}};
+      });
+    }catch(_error){
+      skillLookupCache.current[key]="error";
+      setSkillLevelStatus((current)=>({...current,[key]:"error"}));
+    }
+  };
+  const setSkillLevel=(key,value,max)=>{
+    const level=Math.max(1,Math.min(max||1,Number(value)||1));
+    setBuild((current)=>({...current,skillLevels:{...(current.skillLevels||{}),[key]:level}}));
+  };
+  const toggleSkill=(type,name,id)=>{
     const key=type+":"+name;
-    setBuild((current)=>({...current,skills:current.skills.includes(key)?current.skills.filter((entry)=>entry!==key):[...current.skills,key]}));
+    const isSelected=build.skills.includes(key);
+    setBuild((current)=>{
+      const skillLevels={...(current.skillLevels||{})};
+      if(current.skills.includes(key)){
+        delete skillLevels[key];
+        return {...current,skills:current.skills.filter((entry)=>entry!==key),skillLevels};
+      }
+      return {...current,skills:[...current.skills,key],skillLevels:{...skillLevels,[key]:Number(skillLevels[key])||1}};
+    });
+    if(isSelected){
+      setSkillLevelStatus((current)=>({...current,[key]:undefined}));
+    }else{
+      loadSkillLevelRange(key,id);
+    }
   };
   const selectItem=async(item)=>{
     if(!pickerSlot)return;
@@ -271,7 +314,7 @@ export default function BuildCreator(){
             <div className={styles.formGrid}>
               <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>changeClass(event.target.value)}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
-              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[])}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
+              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);setSkillSearch("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
               <label className={styles.field}><span>BUILD GOAL</span><select value={build.goal} onChange={(event)=>patch("goal",event.target.value)}>{goals.map((goal)=><option key={goal}>{goal}</option>)}</select></label>
             </div>
             <div className={styles.classBanner}><div className={styles.classMark}>{classInfo?.name?.slice(0,1)||"A"}</div><div><span>{classInfo?.role||"Choose a class"}</span><strong>{classInfo?.name||"Class data is not available"}</strong><small>{classInfo?.weapon?("Recommended weapon: "+classInfo.weapon):"The current local class catalog has no Brawler skills yet."}</small></div></div>
@@ -282,7 +325,7 @@ export default function BuildCreator(){
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Skills &amp; Stigmas</h2><p>Choose the abilities you plan to use for this setup.</p></div></div>
             {!classInfo?<div className={styles.emptyState}>Skill data for this class has not been synced yet.</div>:<>
               <label className={styles.skillSearch}><Search size={16}/><input type="search" value={skillSearch} onChange={(event)=>setSkillSearch(event.target.value)} placeholder="Search skills by name…"/></label>
-              {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{const selected=build.skills.includes(group.id+":"+item.name);return <button key={item.name} type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>toggleSkill(group.id,item.name)} aria-pressed={selected}><span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span><span className={styles.skillName}>{item.name}</span><span className={styles.skillDot}>{selected?"✓":"+"}</span></button>})}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
+              {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{const selected=build.skills.includes(group.id+":"+item.name);return <div key={item.name} className={styles.skillCard}><button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>toggleSkill(group.id,item.name,item.id)} aria-pressed={selected}><span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span><span className={styles.skillName}>{item.name}</span><span className={styles.skillDot}>{selected?"✓":"+"}</span></button>{selected&&<div className={styles.skillLevelControls}><div className={styles.skillLevelHeading}><span>Skill level</span>{skillMaxLevels[group.id+":"+item.name]?<b>Lv. {Math.min(skillMaxLevels[group.id+":"+item.name],Number(build.skillLevels?.[group.id+":"+item.name])||1)} / {skillMaxLevels[group.id+":"+item.name]}</b>:skillLevelStatus[group.id+":"+item.name]==="loading"?<b>Checking…</b>:<b>Min · Lv. {Number(build.skillLevels?.[group.id+":"+item.name])||1}</b>}</div>{skillMaxLevels[group.id+":"+item.name]?<div className={styles.skillLevelRow}><button type="button" onClick={()=>setSkillLevel(group.id+":"+item.name,1,skillMaxLevels[group.id+":"+item.name])}>Min</button><input aria-label={item.name+" level"} type="range" min="1" max={skillMaxLevels[group.id+":"+item.name]} value={Math.min(skillMaxLevels[group.id+":"+item.name],Number(build.skillLevels?.[group.id+":"+item.name])||1)} disabled={skillMaxLevels[group.id+":"+item.name]===1} onChange={(event)=>setSkillLevel(group.id+":"+item.name,event.target.value,skillMaxLevels[group.id+":"+item.name])}/><button type="button" onClick={()=>setSkillLevel(group.id+":"+item.name,skillMaxLevels[group.id+":"+item.name],skillMaxLevels[group.id+":"+item.name])}>Max</button></div>:skillLevelStatus[group.id+":"+item.name]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(group.id+":"+item.name,item.id)}>Retry level data</button>:skillLevelStatus[group.id+":"+item.name]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(group.id+":"+item.name,item.id)}>Check level range</button>}</div>}</div>})}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
             </>}
             <div className={styles.dataFootnote}>{build.region==="KR_TW"?"KR/TW Stigma names use a provisional community-translated catalog.":"Global skill names come from the current local class catalog."} Selected skills are saved with the build; damage simulation is not included in this prototype.</div>
           </section>}
