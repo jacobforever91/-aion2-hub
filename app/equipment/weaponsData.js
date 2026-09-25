@@ -94,4 +94,90 @@ const weaponsData = rows.map((row) => ({
   },
 }));
 
+
+const wisdomMainImprints = [
+  ["Combat Speed", "7.59% ~ 8.8%"], ["Damage Boost", "4.25% ~ 4.96%"],
+  ["Multi-hit Chance", "5.62% ~ 6.53%"], ["Weapon Damage Boost", "5.62% ~ 6.53%"],
+  ["Status Effect Chance", "15% ~ 17.32%"], ["Might", "15 ~ 24"],
+  ["Precision", "15 ~ 24"], ["Attack", "26 ~ 37"],
+  ["Critical Hit", "40 ~ 53"], ["Critical Attack", "56 ~ 71"],
+  ["Back Attack", "56 ~ 71"], ["Front Attack", "56 ~ 71"],
+  ["Accuracy", "53 ~ 68"], ["Block", "32 ~ 44"],
+  ["MP", "120 ~ 145"], ["HP", "241 ~ 284"],
+];
+
+const wisdomGuardImprints = [
+  ["Combat Speed", "5.9% ~ 6.86%"], ["Damage Boost", "3.4% ~ 3.98%"],
+  ["Multi-hit Chance", "4.5% ~ 5.25%"], ["Weapon Damage Boost", "4.5% ~ 5.25%"],
+  ["Status Effect Chance", "12% ~ 13.87%"], ["Might", "12 ~ 21"],
+  ["Precision", "12 ~ 21"], ["Attack", "21 ~ 31"],
+  ["Critical Hit", "32 ~ 44"], ["Critical Attack", "45 ~ 59"],
+  ["Back Attack", "45 ~ 59"], ["Front Attack", "45 ~ 59"],
+  ["Accuracy", "43 ~ 56"], ["Block", "26 ~ 37"],
+  ["MP", "96 ~ 117"], ["HP", "193 ~ 229"],
+];
+
+const wisdomRows = [
+  {
+    id: "110130002", name: "Wisdom Greatsword", category: "Greatsword", itemType: "Greatsword", equipType: "MainHand",
+    stats: [["Min Attack", "179"], ["Max Attack", "242"], ["Accuracy", "100"], ["Critical Hit", "150"], ["Block", "150"], ["Parry Damage Reduction Rate", "33%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110230002", name: "Wisdom Longsword", category: "Longsword", itemType: "Sword", equipType: "MainHand",
+    stats: [["Min Attack", "168"], ["Max Attack", "210"], ["Accuracy", "150"], ["Critical Hit", "50"], ["Block", "200"], ["Parry Damage Reduction Rate", "27%"], ["Shield Block Damage Reduction Rate", "40%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110330002", name: "Wisdom Knife", category: "Dagger", itemType: "Dagger", equipType: "MainHand",
+    stats: [["Min Attack", "147"], ["Max Attack", "189"], ["Accuracy", "50"], ["Critical Hit", "200"], ["Block", "50"], ["Parry Damage Reduction Rate", "24%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110430002", name: "Wisdom Bow", category: "Bow", itemType: "Bow", equipType: "MainHand",
+    stats: [["Min Attack", "163"], ["Max Attack", "205"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "24%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110530002", name: "Wisdom Spellbook", category: "Spellbook", itemType: "Magicbook", equipType: "MainHand",
+    stats: [["Min Attack", "189"], ["Max Attack", "210"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "21%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110630002", name: "Wisdom Orb", category: "Orb", itemType: "Orb", equipType: "MainHand",
+    stats: [["Min Attack", "126"], ["Max Attack", "252"], ["Accuracy", "50"], ["Critical Hit", "150"], ["Block", "0"], ["Parry Damage Reduction Rate", "21%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110730002", name: "Wisdom Mace", category: "Mace", itemType: "Mace", equipType: "MainHand",
+    stats: [["Min Attack", "147"], ["Max Attack", "189"], ["Accuracy", "100"], ["Critical Hit", "50"], ["Block", "50"], ["Parry Damage Reduction Rate", "27%"], ["Shield Block Damage Reduction Rate", "40%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110830002", name: "Wisdom Staff", category: "Staff", itemType: "Staff", equipType: "MainHand",
+    stats: [["Min Attack", "168"], ["Max Attack", "231"], ["Accuracy", "75"], ["Critical Hit", "100"], ["Block", "125"], ["Parry Damage Reduction Rate", "30%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "115030002", name: "Wisdom Guard", category: "Guard", itemType: "Guarder", equipType: "SubHand",
+    stats: [["Attack", "84"], ["Accuracy", "50"], ["Critical Hit", "50"]],
+  },
+];
+
+weaponsData.push(...wisdomRows.map((row) => ({
+  ...row,
+  group: "Weapon",
+  grade: "Unique",
+  itemLevel: "36",
+  requiredLevel: "30",
+  icon: "/equipment-icons/" + row.id + ".webp",
+  stats: toPairs(row.stats),
+  imprints: toPairs(row.equipType === "SubHand" ? wisdomGuardImprints : wisdomMainImprints),
+  details: [
+    {label: "Binding", value: "Bind on Equip"},
+    {label: "Manastone sockets", value: "4"},
+    {label: "Godstone sockets", value: "1"},
+    {label: "Enchantable to", value: "+15"},
+    {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
+  ],
+  source: {
+    name: "AION2 Hub independent item database",
+    region: "Global Launch Scale Test snapshot",
+    capturedAt: "2026-09-19",
+    official: false,
+  },
+})));
+
 export default weaponsData;
