@@ -146,11 +146,17 @@ function skillLevelEffect(info,level){
   const values=[];
   const isZero=(value)=>value!=null&&/^[-+]?0+(?:\.0+)?%?$/.test(String(value).replace(/,/g,"").trim());
   if(minKey||maxKey){
-    const now=[raw[minKey],raw[maxKey]].filter((value)=>value!=null).join("–");
-    const before=[prior[minKey],prior[maxKey]].filter((value)=>value!=null).join("–");
-    if(now&&!isZero(now.replace(/[–-]/g,""))||before&&!isZero(before.replace(/[–-]/g,""))){
-      const label=/^(dmg|damage)/i.test(minKey||maxKey||"")?"Damage":"Effect value";
-      values.push({label,current:now,previous:before!==now?before:""});
+    const average=(source)=>{
+      const range=[source[minKey],source[maxKey]].filter((value)=>value!=null).map((value)=>Number(String(value).replace(/,/g,"")));
+      if(!range.length||range.some((value)=>!Number.isFinite(value)))return "";
+      const value=range.reduce((sum,entry)=>sum+entry,0)/range.length;
+      return String(Number(value.toFixed(1)));
+    };
+    const now=average(raw);
+    const before=average(prior);
+    if(now&&!isZero(now)||before&&!isZero(before)){
+      const label=/^(dmg|damage)/i.test(minKey||maxKey||"")?"Damage per use":"Average effect value";
+      values.push({label,current:now||"0",previous:before!==now?before:""});
     }
   }
   Object.entries(raw).forEach(([key,value])=>{
@@ -442,7 +448,9 @@ export default function BuildCreator(){
                       </div>
                       {max?<div className={styles.skillLevelRow}>
                         <button type="button" onClick={()=>setSkillLevel(levelKey,1,max)}>Min</button>
-                        <input aria-label={item.name+" level"} type="range" min="1" max={max} value={level} disabled={max===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,max)}/>
+                        <button className={styles.skillLevelStep} type="button" aria-label={"Decrease "+item.name+" by one level"} disabled={level<=1} onClick={()=>setSkillLevel(levelKey,level-1,max)}>−</button>
+                        <input aria-label={item.name+" level"} type="range" min="1" max={max} step="1" value={level} disabled={max===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,max)}/>
+                        <button className={styles.skillLevelStep} type="button" aria-label={"Increase "+item.name+" by one level"} disabled={level>=max} onClick={()=>setSkillLevel(levelKey,level+1,max)}>+</button>
                         <button type="button" onClick={()=>setSkillLevel(levelKey,max,max)}>Max</button>
                       </div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}
                     </div>}
