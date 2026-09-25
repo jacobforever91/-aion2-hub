@@ -67,7 +67,7 @@ export default helmets.map((item) => ({
   ],
   upgrades: item.upgrade,
   source: {
-    name: "AION2 Hub independent item database",
+    name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
     official: false,

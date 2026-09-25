@@ -181,7 +181,7 @@ export default brooches.map((item) => ({
   ],
   upgrades: item.upgrade,
   source: {
-    name: "AION2 Hub independent item database",
+    name: "AION 2 VISION independent item database",
     region: "Korea/Taiwan client v110",
     capturedAt: "2026-09-09",
     official: false,

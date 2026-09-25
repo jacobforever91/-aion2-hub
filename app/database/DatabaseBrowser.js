@@ -172,7 +172,7 @@ export default function DatabaseBrowser() {
   return (
     <main className={styles.page}>
       <nav className={styles.nav} aria-label="Main navigation">
-        <Link className={styles.brand} href="/"><b>AION <i>2</i> HUB</b><small>DATABASE &amp; TOOLS</small></Link>
+        <Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>DATABASE &amp; TOOLS</small></Link>
         <div className={styles.navLinks}><Link aria-current="page" href="/database">Database</Link><Link href="/classes">Classes</Link><Link href="/#builds">Builds</Link><Link href="/#world">World</Link></div>
         <Link className={styles.region} href="/">GLOBAL</Link>
       </nav>
@@ -182,7 +182,7 @@ export default function DatabaseBrowser() {
         <header className={styles.header}>
           <span className={styles.eyebrow}><BookOpen aria-hidden="true" /> DATABASE ENCYCLOPEDIA</span>
           <h1>Game <em>Encyclopedia</em></h1>
-          <p>Search class skills, Stigmas, all 90 Wings, and all 208 Pets together, then open any entry inside the hub.</p>
+          <p>Search class skills, Stigmas, all 90 Wings, and all 208 Pets together, then open any entry inside VISION.</p>
         </header>
 
         <label className={`${styles.search} searchHalo`}>

@@ -87,7 +87,7 @@ const weaponsData = rows.map((row) => ({
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
   ],
   source: {
-    name: "AION2 Hub independent item database",
+    name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
     official: false,
@@ -173,7 +173,7 @@ weaponsData.push(...wisdomRows.map((row) => ({
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
   ],
   source: {
-    name: "AION2 Hub independent item database",
+    name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
     official: false,
@@ -256,7 +256,7 @@ weaponsData.push(...elderRows.map((row) => ({
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
   ],
   source: {
-    name: "AION2 Hub independent item database",
+    name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
     official: false,
@@ -321,7 +321,7 @@ for (const variant of [{name: "Worn", idSuffix: "001"}, {name: "Training", idSuf
         {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
       ],
       source: {
-        name: "AION2 Hub independent item database",
+        name: "AION 2 VISION independent item database",
         region: "Global Launch Scale Test snapshot",
         capturedAt: "2026-09-19",
         official: false,
@@ -417,7 +417,7 @@ for (const series of commonProgressionSeries) {
         {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
       ],
       source: {
-        name: "AION2 Hub independent item database",
+        name: "AION 2 VISION independent item database",
         region: "Global Launch Scale Test snapshot",
         capturedAt: "2026-09-19",
         official: false,

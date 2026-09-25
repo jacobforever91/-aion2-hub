@@ -1,4 +1,4 @@
-# AION 2 HUB
+# AION 2 VISION
 
 All-in-one community companion for AION 2.
 
