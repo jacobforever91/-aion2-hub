@@ -1,22 +1,16 @@
 "use client";
 import {useEffect, useState} from "react";
-import {Shield, Feather, BookOpen, PawPrint, MessageCircle} from "lucide-react";
+import {MessageCircle} from "lucide-react";
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Wings","/wings"],["Pets","/pets"],["Progression","/database"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Class Builds","/classes"],["PvE Builds","/classes"],["PvP Builds","/classes"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
 export default function Home(){const[open,setOpen]=useState(false);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);return <main className="homeV2 presentationHome">
 <header className="cinemaNav"><a className="cinemaBrand" href="/"><b>AION <i>2</i></b><span>VISION</span></a><div className="cinemaLinks">{Object.entries(menus).map(([name,items])=><div className="navGroup" key={name}><button>{name}<small>⌄</small></button><div className="dropMenu">{items.map(x=><a href={x[1]} key={x[0]}>{x[0]}<b>→</b></a>)}</div></div>)}</div><div className="cinemaActions"><button>GLOBAL⌄</button><button className="searchBtn">⌕</button></div></header>
 <div className="mobileFloatNav"><button onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><i/><i/><i/></button><a href="/" aria-label="Home"><span className="homeRoof">⌂</span></a></div>
 <div id="aion-menu" className={"a2MobileMenu forgeMenu "+(open?"isOpen":"")} aria-hidden={!open}>
   <div className="forgeMenuContent">
-    <div className="forgeMenuHeader"><span>AION 2 HUB</span><small>MAIN GATEWAYS</small></div>
-    <div className="forgePrimary">
-      <a href="/classes"><i><Shield/></i><strong>Skills</strong><small>Classes, Stigma and passives</small></a>
-      <a href="/wings"><i><Feather/></i><strong>Wings</strong><small>Rarities, factions and stats</small></a>
-      <a href="/pets"><i><PawPrint/></i><strong>Pets</strong><small>Companions and bonuses</small></a>
-      <a href="/database"><i><BookOpen/></i><strong>Items</strong><small>Explore the database</small></a>
-    </div>
+    <div className="forgeMenuHeader"><span>AION 2 HUB</span><small>GAME &amp; DATABASE</small></div>
     <div className="forgeSecondary">
-      <section><h3>GAME</h3><a href="/equipment"><span>Equipment</span><b>↗</b></a></section>
-      <section><h3>DATABASE</h3><a href="/database"><span>Skill details</span><b>↗</b></a><a href="/database"><span>NPCs</span><b>↗</b></a><a href="/database"><span>Crafting</span><b>↗</b></a></section>
+      <section><h3>GAME</h3><a href="/equipment"><span>Equipment</span><b>↗</b></a><a href="/classes"><span>Skills</span><b>↗</b></a><a href="/wings"><span>Wings</span><b>↗</b></a><a href="/pets"><span>Pets</span><b>↗</b></a><a href="/database"><span>Items Database</span><b>↗</b></a></section>
+      <section><h3>DATABASE</h3><a href="/database"><span>NPCs</span><b>↗</b></a><a href="/database"><span>Crafting</span><b>↗</b></a></section>
       <section><h3>BUILDS</h3><a href="/classes"><span>Class Builds</span><b>↗</b></a><a href="/classes"><span>PvE Builds</span><b>↗</b></a><a href="/classes"><span>PvP Builds</span><b>↗</b></a></section>
       <section><h3>WORLD</h3><a href="/database"><span>Map</span><b>↗</b></a><a href="/database"><span>Dungeons &amp; Bosses</span><b>↗</b></a><a href="/database"><span>Lore</span><b>↗</b></a></section>
       <section><h3>GUIDES</h3><a href="/database"><span>Beginner Guide</span><b>↗</b></a><a href="/database"><span>Progression Guide</span><b>↗</b></a><a href="/database"><span>Tips &amp; Tools</span><b>↗</b></a></section>

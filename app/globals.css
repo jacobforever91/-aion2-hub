@@ -696,7 +696,7 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .forgeSecondary section{min-width:0;padding:0;background:none}
 .forgeSecondary h3{display:flex;align-items:center;gap:9px;margin:0 0 4px;color:#edb577;font:700 10px/1.3 Georgia,"Times New Roman",serif;letter-spacing:3px}
 .forgeSecondary h3:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#ae784f,transparent)}
-.forgeSecondary a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:38px;padding:7px 2px;border-bottom:1px solid #b67c4d46;color:#f2e1ce;font:400 14px/1.3 Georgia,"Times New Roman",serif;text-decoration:none}
+.forgeSecondary a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:9px 3px;border-bottom:1px solid #b67c4d46;color:#f2e1ce;font:400 15px/1.3 Georgia,"Times New Roman",serif;text-decoration:none}
 .forgeSecondary a:hover{color:#ffd398;border-bottom-color:#d19d6b}
 .forgeSecondary a b{color:#e6a76d;font:400 15px/1 system-ui,sans-serif}
 .forgeDiscord{display:flex;align-items:center;gap:12px;width:min(790px,100%);min-height:60px;margin:23px auto 0;padding:10px 15px;border:1px solid #b47b54;background:#3b2a28;color:#f8e9d5}
@@ -707,7 +707,7 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .forgeDiscord>b{margin-left:auto;color:#e7ad79;font:400 20px/1 system-ui,sans-serif}
 .a2Close.forgeClose{border-color:#d19a70!important;background:#352725!important;color:#ffe5bf!important;box-shadow:0 0 14px #c47c3d44!important}
 @media(max-width:800px){.a2MobileMenu.forgeMenu{padding:20px 16px calc(26px + env(safe-area-inset-bottom))!important}.forgePrimary{grid-template-columns:repeat(2,minmax(0,1fr))}.forgeSecondary{grid-template-columns:repeat(2,minmax(0,1fr))}.forgePrimary a{min-height:116px}.forgeMenuHeader span{font-size:22px}}
-@media(max-width:520px){.forgeMenuHeader{display:block;margin-bottom:12px}.forgeMenuHeader small{display:block;margin-top:7px;font-size:8px}.forgePrimary{gap:7px;margin-bottom:18px}.forgePrimary a{min-height:106px;padding:11px}.forgePrimary a i{top:11px;left:11px;width:30px;height:30px}.forgePrimary a i svg{width:18px;height:18px}.forgePrimary a strong{font-size:17px}.forgePrimary a small{font-size:10px}.forgeSecondary{grid-template-columns:1fr;gap:11px}.forgeSecondary section{padding:0}.forgeSecondary a{min-height:34px;font-size:13px}.forgeDiscord{margin-top:18px}}
+@media(max-width:520px){.forgeMenuHeader{display:block;margin-bottom:12px}.forgeMenuHeader small{display:block;margin-top:7px;font-size:8px}.forgePrimary{gap:7px;margin-bottom:18px}.forgePrimary a{min-height:106px;padding:11px}.forgePrimary a i{top:11px;left:11px;width:30px;height:30px}.forgePrimary a i svg{width:18px;height:18px}.forgePrimary a strong{font-size:17px}.forgePrimary a small{font-size:10px}.forgeSecondary{grid-template-columns:1fr;gap:11px}.forgeSecondary section{padding:0}.forgeSecondary a{min-height:42px;font-size:15px}.forgeDiscord{margin-top:18px}}
 @media(prefers-reduced-motion:reduce){.forgePrimary a{transition:none}}
 
 /* Rune-carved stone backdrop selected for the Forge Amber menu. */
