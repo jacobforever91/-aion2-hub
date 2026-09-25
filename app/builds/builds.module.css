@@ -166,3 +166,26 @@
 .gearDetailStats strong{color:#e3f5fa;font-size:14px}
 .gearDetailDescription{margin:14px 0 0;color:#b8ced6;font:13px/1.6 system-ui,sans-serif}
 @media(max-width:560px){.gearItemInfoButton{gap:7px}.gearDetailHeading{align-items:flex-start}.gearDetailIcon{width:54px;height:54px}}
+
+.progressionCard{display:grid;gap:11px;margin-top:12px;padding:12px;border:1px solid #2d5264;border-radius:5px;background:linear-gradient(135deg,#0b202b,#091922)}
+.progressionCardHead{display:flex;align-items:center;gap:11px;min-width:0}
+.progressionCardHead>span:last-child{display:grid;gap:4px;min-width:0}
+.progressionCardHead small{color:#81d8eb;font:700 9px system-ui,sans-serif;letter-spacing:1.1px;text-transform:uppercase}
+.progressionCardHead strong{overflow-wrap:anywhere;color:#e3f4fa;font:400 15px/1.25 Georgia,serif}
+.progressionCardHead em{color:#9bb3bf;font:10px/1.4 system-ui,sans-serif;font-style:normal}
+.progressionWingIcon,.progressionPetIcon{display:grid;place-items:center;width:52px;height:52px;flex:none;overflow:hidden;border:1px solid #31596b;border-radius:5px;background-color:#06131c}
+.progressionWingIcon{background-image:url('/aion2-icons/wings-sprite.webp');background-repeat:no-repeat;background-size:416px 364px;background-position:var(--wing-position)}
+.progressionPetIcon img{width:100%;height:100%;object-fit:contain}
+.progressionStatList{display:grid;gap:6px}
+.progressionStatList>div{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:39px;padding:8px 10px;border:1px solid #244555;border-radius:4px;background:#081720}
+.progressionStatList span{color:#a9c0c9;font:12px/1.35 system-ui,sans-serif}
+.progressionStatList b{color:#e3f4fa;font:600 13px/1.2 system-ui,sans-serif;text-align:right}
+.progressionEmpty,.progressionDataLine{margin:0;color:#92acb7;font:11px/1.5 system-ui,sans-serif}
+.progressionDataLine strong{display:block;margin-bottom:4px;color:#dfbd77;font-size:9px;letter-spacing:.7px;text-transform:uppercase}
+.petLevelStats{display:grid;gap:7px;padding-top:10px;border-top:1px solid #244555}
+.petLevelStats h3{margin:0;color:#dfbd77;font:700 10px system-ui,sans-serif;letter-spacing:.8px;text-transform:uppercase}
+.petLevelStats .petStats{margin-top:0}
+.petLevelStats .petStats>div{align-items:center;justify-content:space-between;min-width:calc(50% - 4px);min-height:38px;padding:7px 8px}
+.petLevelStats .petStats small{font-size:11px}
+.petLevelStats .petStats strong{font-size:12px}
+@media(max-width:600px){.progressionCard{gap:9px;padding:10px}.progressionCardHead{gap:9px}.progressionCardHead strong{font-size:14px}.progressionStatList>div{min-height:40px}.progressionStatList span{font-size:12px}.progressionStatList b{font-size:13px}}
