@@ -341,3 +341,22 @@
 .daevanionDataNote strong{color:#d9b874;font-size:9px;letter-spacing:1px;text-transform:uppercase}
 .daevanionDataNote span{color:#8ea5ad;font-size:9px;line-height:1.5}
 @media(max-width:600px){.daevanionHeading{align-items:flex-start}.daevanionHeading>span{font-size:9px}.daevanionBoardList{gap:6px}.daevanionBoard,.daevanionBoardActive{min-height:47px;padding:7px 8px}.daevanionBoard strong,.daevanionBoardActive strong{font-size:13px}.daevanionRoute>span{align-items:flex-start;flex-direction:column}.daevanionRoute>span small{text-align:left}}
+
+.daevanionPlannerBar{display:flex;align-items:center;gap:6px;margin:11px 0 8px;padding:9px 10px;border:1px solid #294855;border-radius:4px;background:#091720}
+.daevanionPlannerBar>span{display:grid;gap:3px;flex:1;min-width:110px}
+.daevanionPlannerBar>span strong{color:#e5f5fa;font:400 15px Georgia,serif}
+.daevanionPlannerBar>span small{color:#8ea5ad;font-size:9px}
+.daevanionPlannerBar button{min-height:31px;padding:5px 8px;border:1px solid #315461;border-radius:4px;background:#10232d;color:#a9c5cf;font:700 9px system-ui,sans-serif;cursor:pointer}
+.daevanionPlannerBar button:disabled{opacity:.4;cursor:default}
+.daevanionGridShell{max-width:440px;margin:0 auto;padding:12px;border:1px solid #294855;border-radius:5px;background:radial-gradient(circle at center,#102632,#091720 72%);overflow:hidden}
+.daevanionGrid{position:relative;display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:2px;width:100%;aspect-ratio:1;touch-action:manipulation}
+.daevanionGridLines{position:absolute;inset:0;z-index:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.daevanionGridLines line{stroke:#55c9df;stroke-width:.16;stroke-linecap:round;opacity:.9}
+.daevanionGridBlank{aspect-ratio:1}
+.daevanionGridNode,.daevanionGridReachable,.daevanionGridSelected,.daevanionGridStart{position:relative;z-index:1;display:grid;place-items:center;min-width:0;min-height:0;width:100%;aspect-ratio:1;padding:0;border:1px solid #365b69;border-radius:50%;background:#122833;color:#a3bac2;font:700 clamp(6px,1.8vw,9px)/1 system-ui,sans-serif;cursor:pointer;transition:background .12s,border-color .12s,transform .12s}
+.daevanionGridReachable{border-color:#72c9d8;background:#173845;color:#d8f5fa}
+.daevanionGridNode:disabled{border-color:#203b47;background:#0b1921;color:transparent;cursor:not-allowed}
+.daevanionGridSelected{border-color:#7feaff;background:linear-gradient(145deg,#45bfd6,#167c96);box-shadow:0 0 8px #56cde977;color:#041219}
+.daevanionGridStart{border:1px solid #edce89;background:radial-gradient(circle,#f3d99e,#957040);box-shadow:0 0 10px #e4bc6b66;color:#1b1710;font-size:clamp(8px,2.2vw,12px);cursor:default}
+.daevanionGridNode:not(:disabled):active,.daevanionGridReachable:active{transform:scale(.88)}
+@media(max-width:600px){.daevanionPlannerBar{flex-wrap:wrap;padding:8px}.daevanionPlannerBar>span{flex-basis:100%}.daevanionPlannerBar button{flex:1}.daevanionGridShell{max-width:380px;padding:8px}.daevanionGrid{gap:2px}}

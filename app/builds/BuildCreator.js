@@ -39,7 +39,11 @@ const daevanionBoards=[
   {id:"marchutan",name:"Marchutan",level:45,type:"Season 2"},
   {id:"yustiel",name:"Yustiel",level:45,type:"Season 3"}
 ];
-const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
+const daevanionGridNodes=Array.from({length:225},(_,index)=>{
+  const row=Math.floor(index/15),column=index%15;
+  return {id:row+","+column,row,column};
+}).filter(({row,column})=>Math.abs(row-7)+Math.abs(column-7)<=5);
+const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""});
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
 function skillIconUrl(id){
@@ -285,7 +289,9 @@ export default function BuildCreator(){
   const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const selectedArcana=useMemo(()=>build.advanced.arcana.map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana]);
   const arcanaCount=selectedArcana.length;
-  const daevanionPlanCount=(build.advanced.daevanion||[]).filter((value)=>String(value||"").trim()).length;
+  const daevanionPaths=build.advanced.daevanionPaths||Array.from({length:8},()=>[]);
+  const daevanionPlanCount=daevanionPaths.filter((path)=>Array.isArray(path)&&path.length>0).length;
+  const daevanionTotalNodes=daevanionPaths.reduce((total,path)=>total+(Array.isArray(path)?path.length:0),0);
   const gearCount=Object.values(build.gear).filter(Boolean).length;
   const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
   const selectedGearItems=visibleGearSlots.map((slot)=>{
@@ -468,6 +474,39 @@ export default function BuildCreator(){
     setNotice("New build started.");
   };
   const updateAdvanced=(key,value)=>setBuild((current)=>({...current,advanced:{...current.advanced,[key]:value}}));
+  const updateDaevanionNode=(boardIndex,nodeId)=>{
+    const [row,column]=nodeId.split(",").map(Number);
+    setBuild((current)=>{
+      const paths=Array.from({length:8},(_,index)=>Array.isArray(current.advanced.daevanionPaths?.[index])?[...current.advanced.daevanionPaths[index]]:[]);
+      const selected=new Set(paths[boardIndex]);
+      if(selected.has(nodeId))selected.delete(nodeId);
+      else{
+        const adjacent=[...selected,"7,7"].some((id)=>{
+          const [r,col]=id.split(",").map(Number);
+          return Math.abs(r-row)+Math.abs(col-column)===1;
+        });
+        if(!adjacent)return current;
+        selected.add(nodeId);
+      }
+      const reachable=new Set(["7,7"]);
+      const stack=["7,7"];
+      while(stack.length){
+        const [r,col]=stack.pop().split(",").map(Number);
+        for(const next of [[r-1,col],[r+1,col],[r,col-1],[r,col+1]]){
+          const id=next[0]+","+next[1];
+          if(selected.has(id)&&!reachable.has(id)){reachable.add(id);stack.push(id);}
+        }
+      }
+      paths[boardIndex]=[...selected].filter((id)=>reachable.has(id));
+      return {...current,advanced:{...current.advanced,daevanionPaths:paths}};
+    });
+  };
+  const clearDaevanionBoard=(boardIndex)=>setBuild((current)=>{
+    const paths=Array.from({length:8},(_,index)=>Array.isArray(current.advanced.daevanionPaths?.[index])?[...current.advanced.daevanionPaths[index]]:[]);
+    paths[boardIndex]=[];
+    return {...current,advanced:{...current.advanced,daevanionPaths:paths}};
+  });
+  const clearAllDaevanionPaths=()=>setBuild((current)=>({...current,advanced:{...current.advanced,daevanionPaths:Array.from({length:8},()=>[])}}));
   const updateAdvancedSlot=(key,index,value)=>setBuild((current)=>{
     const next=[...current.advanced[key]];
     next[index]=value;
@@ -600,29 +639,51 @@ export default function BuildCreator(){
               </details>}
             </article>}
 
-            <div className={styles.fieldBlock}>
-              <div className={styles.daevanionHeading}><div><h3>Daevanion boards</h3><p>Select a board and jot down the nodes or route for this build.</p></div><span>{daevanionPlanCount}/8 planned</span></div>
-              <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
-                {daevanionBoards.map((board,index)=>{
-                  const selected=daevanionBoard===board.id;
-                  const planned=Boolean(String(build.advanced.daevanion?.[index]||"").trim());
-                  return <button key={board.id} type="button" aria-pressed={selected} className={selected?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(board.id)}>
-                    <span><strong>{board.name}</strong><small>{board.type}</small></span>
-                    <em>Lv. {board.level}{planned&&<b aria-label="Plan saved"> ✓</b>}</em>
-                  </button>;
-                })}
-              </div>
-              {(()=>{
-                const index=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
-                const board=daevanionBoards[index]||daevanionBoards[0];
-                const available=build.level>=board.level;
-                return <label className={styles.daevanionRoute}>
-                  <span><strong>{board.name}</strong><small>{available?"Available at this character level":"Unlocks at level "+board.level}</small></span>
-                  <textarea rows="3" value={build.advanced.daevanion?.[index]||""} onChange={(event)=>updateAdvancedSlot("daevanion",index,event.target.value)} placeholder="Record the nodes or route you want to use…"/>
-                </label>;
-              })()}
-              <div className={styles.daevanionDataNote}><strong>Reference data</strong><span>Board names and unlock levels follow community references. Node effects and costs can vary by region, so these planning notes are not included in stat totals.</span></div>
-            </div>
+            {(()=>{
+              const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
+              const board=daevanionBoards[boardIndex]||daevanionBoards[0];
+              const boardPath=Array.isArray(daevanionPaths[boardIndex])?daevanionPaths[boardIndex]:[];
+              const selected=new Set([...boardPath,"7,7"]);
+              const routeEdges=[];
+              selected.forEach((id)=>{
+                const [row,column]=id.split(",").map(Number);
+                [[row+1,column],[row,column+1]].forEach(([nextRow,nextColumn])=>{
+                  const nextId=nextRow+","+nextColumn;
+                  if(selected.has(nextId))routeEdges.push({x1:column+.5,y1:row+.5,x2:nextColumn+.5,y2:nextRow+.5});
+                });
+              });
+              return <div className={styles.fieldBlock}>
+                <div className={styles.daevanionHeading}><div><h3>Daevanion boards</h3><p>Choose connected nodes to draw your route for this build.</p></div><span>{daevanionPlanCount}/8 boards</span></div>
+                <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
+                  {daevanionBoards.map((item,index)=>{
+                    const active=daevanionBoard===item.id;
+                    const planned=Array.isArray(daevanionPaths[index])&&daevanionPaths[index].length>0;
+                    return <button key={item.id} type="button" aria-pressed={active} className={active?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(item.id)}>
+                      <span><strong>{item.name}</strong><small>{item.type}</small></span>
+                      <em>Lv. {item.level}{planned&&<b aria-label="Path saved"> ✓</b>}</em>
+                    </button>;
+                  })}
+                </div>
+                <div className={styles.daevanionPlannerBar}><span><strong>{board.name}</strong><small>{boardPath.length} nodes · {daevanionTotalNodes} across all boards · unlock Lv. {board.level}</small></span><button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button><button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button></div>
+                <div className={styles.daevanionGridShell}>
+                  <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
+                    <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
+                    {Array.from({length:225},(_,index)=>{
+                      const row=Math.floor(index/15),column=index%15;
+                      const nodeId=row+","+column;
+                      const hasNode=Math.abs(row-7)+Math.abs(column-7)<=5;
+                      if(!hasNode)return <span className={styles.daevanionGridBlank} key={nodeId}/>;
+                      const center=nodeId==="7,7";
+                      const active=selected.has(nodeId);
+                      const available=active||[[row-1,column],[row+1,column],[row,column-1],[row,column+1]].some(([r,col])=>selected.has(r+","+col));
+                      const pathNumber=boardPath.indexOf(nodeId)+1;
+                      return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Remove selected node "+pathNumber:"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node "+pathNumber:available?"Add to route":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":active?pathNumber:""}</button>;
+                    })}
+                  </div>
+                </div>
+                <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap a highlighted adjacent node to extend the route; removing a node also clears any disconnected branch. This 15 × 15 grid demonstrates the path interaction. Exact class/board layouts, node effects and point costs still need a verified dataset, so it does not add to stat totals.</span></div>
+              </div>;
+            })()}
 
             <div className={styles.dataFootnote}>Pantheon, pet genus and rotation notes are saved with the build; full combat and DPS totals are not calculated in this prototype.</div>
           </section>}
