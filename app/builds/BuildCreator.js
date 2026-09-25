@@ -45,10 +45,30 @@ const weaponTypeAliases={
   Polearm:["polearm"]
 };
 function normalizeWeaponType(value){return String(value||"").trim().toLowerCase()}
-function compatibleWeaponTypes(classSlug,slotId){
+function weaponSlotConfig(classSlug,slotId){
   const weapons=classWeapons[classSlug];
-  const weapon=slotId==="mainHand"?weapons?.main:slotId==="offHand"&&weapons?.secondary?.kind==="Off-hand"?weapons.secondary:null;
-  return weapon?(weaponTypeAliases[weapon.name]||[normalizeWeaponType(weapon.name)]):null;
+  if(slotId==="mainHand"&&weapons?.main)return {weapon:weapons.main,role:"MainHand"};
+  if(slotId==="offHand"&&weapons?.secondary?.kind==="Off-hand")return {weapon:weapons.secondary,role:"SubHand"};
+  if(slotId==="offHand"&&weapons?.secondary?.kind==="Alternate main weapon")return {weapon:weapons.secondary,role:"MainHand"};
+  return null;
+}
+function compatibleWeaponTypes(classSlug,slotId){
+  const config=weaponSlotConfig(classSlug,slotId);
+  return config?(weaponTypeAliases[config.weapon.name]||[normalizeWeaponType(config.weapon.name)]):null;
+}
+function activeGearSlots(classSlug){
+  return slotDefs.filter((slot)=>slot.id!=="offHand"||Boolean(weaponSlotConfig(classSlug,slot.id)));
+}
+function filterWeaponGear(gear,classSlug){
+  const next={...gear};
+  for(const slotId of ["mainHand","offHand"]){
+    const item=next[slotId];
+    if(!item)continue;
+    const allowedTypes=compatibleWeaponTypes(classSlug,slotId);
+    const itemTypes=[item.category,item.itemType].map(normalizeWeaponType);
+    if(!allowedTypes||!itemTypes.some((type)=>allowedTypes.includes(type)))delete next[slotId];
+  }
+  return next;
 }
 function decodeShare(value){return JSON.parse(decodeURIComponent(escape(window.atob(value))))}
 function encodeShare(value){return window.btoa(unescape(encodeURIComponent(JSON.stringify(value))))}
@@ -128,7 +148,8 @@ export default function BuildCreator(){
       })
       .then((data)=>{
         let items=data.items||[];
-        if(pickerSlot.role)items=items.filter((item)=>item.equipType===pickerSlot.role);
+        const slotConfig=weaponSlotConfig(build.classSlug,pickerSlot.id);
+        if(slotConfig?.role)items=items.filter((item)=>item.equipType===slotConfig.role);
         const allowedTypes=compatibleWeaponTypes(build.classSlug,pickerSlot.id);
         if(allowedTypes)items=items.filter((item)=>allowedTypes.includes(normalizeWeaponType(item.category))||allowedTypes.includes(normalizeWeaponType(item.itemType)));
         setPickerItems(items);
@@ -136,7 +157,7 @@ export default function BuildCreator(){
       })
       .catch((error)=>{if(error.name!=="AbortError")setPickerState("error")});
     return()=>controller.abort();
-  },[pickerSlot,build.region]);
+  },[pickerSlot,build.region,build.classSlug]);
 
   const classInfo=classData[build.classSlug];
   const skills=useMemo(()=>classSkillGroups(build.classSlug,build.region),[build.classSlug,build.region]);
@@ -146,6 +167,7 @@ export default function BuildCreator(){
   const petDetails=selectedPet?catalogData.petDetails[selectedPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
   const gearCount=Object.values(build.gear).filter(Boolean).length;
+  const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
   const skillTotals=useMemo(()=>({
     active:build.skills.filter((key)=>key.startsWith("active:")).length,
     passive:build.skills.filter((key)=>key.startsWith("passive:")).length,
@@ -155,6 +177,12 @@ export default function BuildCreator(){
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
 
   const patch=(key,value)=>setBuild((current)=>({...current,[key]:value}));
+  const changeClass=(slug)=>{
+    const filteredGear=filterWeaponGear(build.gear,slug);
+    const removedWeapon=Object.keys(build.gear).some((slotId)=>["mainHand","offHand"].includes(slotId)&&build.gear[slotId]&&!filteredGear[slotId]);
+    setBuild((current)=>({...current,classSlug:slug,skills:[],gear:filterWeaponGear(current.gear,slug)}));
+    if(removedWeapon)setNotice("Incompatible weapon slots were cleared for the selected class.");
+  };
   const toggleSkill=(type,name)=>{
     const key=type+":"+name;
     setBuild((current)=>({...current,skills:current.skills.includes(key)?current.skills.filter((entry)=>entry!==key):[...current.skills,key]}));
@@ -233,7 +261,7 @@ export default function BuildCreator(){
           {tab==="overview"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Shield size={19}/></span><div><h2>Character setup</h2><p>Choose the class, region and kind of content this build is for.</p></div></div>
             <div className={styles.formGrid}>
-              <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{patch("classSlug",event.target.value);patch("skills",[])}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
+              <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>changeClass(event.target.value)}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
               <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[])}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
               <label className={styles.field}><span>BUILD GOAL</span><select value={build.goal} onChange={(event)=>patch("goal",event.target.value)}>{goals.map((goal)=><option key={goal}>{goal}</option>)}</select></label>
@@ -250,7 +278,7 @@ export default function BuildCreator(){
 
           {tab==="equipment"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>Pick items by slot. Repeated accessories have separate slots.</p></div></div>
-            <div className={styles.gearGrid}>{slotDefs.map((slot)=><div key={slot.id} className={styles.gearSlot}><span className={styles.slotGlyph}><Shield size={15}/></span><div className={styles.slotCopy}><small>{slot.label.toUpperCase()}</small><strong>{build.gear[slot.id]?.name||"Empty slot"}</strong>{build.gear[slot.id]?.grade&&<em>{build.gear[slot.id].grade}</em>}</div><button type="button" className={styles.pickButton} onClick={()=>setPickerSlot(slot)}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slot.label}>×</button>}</div>)}</div>
+            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}><span className={styles.slotGlyph}><Shield size={15}/></span><div className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id]?.name||"Empty slot"}</strong>{build.gear[slot.id]?.grade&&<em>{build.gear[slot.id].grade}</em>}</div><button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
 
@@ -280,7 +308,7 @@ export default function BuildCreator(){
 
         <aside className={styles.summary}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
-          <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/16</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
+          <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length+15}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
           <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>
