@@ -180,4 +180,87 @@ weaponsData.push(...wisdomRows.map((row) => ({
   },
 })));
 
+
+const elderMainImprints = [
+  ["Combat Speed", "5.82% ~ 6.76%"], ["Damage Boost", "3.25% ~ 3.81%"],
+  ["Multi-hit Chance", "4.31% ~ 5.03%"], ["Weapon Damage Boost", "4.31% ~ 5.03%"],
+  ["Status Effect Chance", "11.5% ~ 13.3%"], ["Might", "11 ~ 20"],
+  ["Precision", "11 ~ 20"], ["Attack", "20 ~ 30"],
+  ["Critical Hit", "31 ~ 43"], ["Critical Attack", "43 ~ 56"],
+  ["Back Attack", "43 ~ 56"], ["Front Attack", "43 ~ 56"],
+  ["Accuracy", "41 ~ 54"], ["Block", "24 ~ 35"],
+  ["MP", "92 ~ 113"], ["HP", "185 ~ 220"],
+];
+
+const elderGuardImprints = [
+  ["Combat Speed", "4.53% ~ 5.28%"], ["Damage Boost", "2.6% ~ 3.06%"],
+  ["Multi-hit Chance", "3.45% ~ 4.04%"], ["Weapon Damage Boost", "3.45% ~ 4.04%"],
+  ["Status Effect Chance", "9.2% ~ 10.65%"], ["Might", "9 ~ 17"],
+  ["Precision", "9 ~ 17"], ["Attack", "16 ~ 25"],
+  ["Critical Hit", "24 ~ 35"], ["Critical Attack", "34 ~ 46"],
+  ["Back Attack", "34 ~ 46"], ["Front Attack", "34 ~ 46"],
+  ["Accuracy", "33 ~ 45"], ["Block", "19 ~ 29"],
+  ["MP", "73 ~ 91"], ["HP", "148 ~ 177"],
+];
+
+const elderRows = [
+  {
+    id: "110140002", name: "Elder Greatsword", category: "Greatsword", itemType: "Greatsword", equipType: "MainHand",
+    stats: [["Min Attack", "112"], ["Max Attack", "152"], ["Accuracy", "100"], ["Critical Hit", "150"], ["Block", "150"], ["Parry Damage Reduction Rate", "29%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110240002", name: "Elder Longsword", category: "Longsword", itemType: "Sword", equipType: "MainHand",
+    stats: [["Min Attack", "106"], ["Max Attack", "132"], ["Accuracy", "150"], ["Critical Hit", "50"], ["Block", "200"], ["Parry Damage Reduction Rate", "23%"], ["Shield Block Damage Reduction Rate", "35%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110340002", name: "Elder Dagger", category: "Dagger", itemType: "Dagger", equipType: "MainHand",
+    stats: [["Min Attack", "92"], ["Max Attack", "119"], ["Accuracy", "50"], ["Critical Hit", "200"], ["Block", "50"], ["Parry Damage Reduction Rate", "20%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110440002", name: "Elder Bow", category: "Bow", itemType: "Bow", equipType: "MainHand",
+    stats: [["Min Attack", "102"], ["Max Attack", "129"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "20%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110540002", name: "Elder Spellbook", category: "Spellbook", itemType: "Magicbook", equipType: "MainHand",
+    stats: [["Min Attack", "119"], ["Max Attack", "132"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"], ["Parry Damage Reduction Rate", "17%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110640002", name: "Elder Orb", category: "Orb", itemType: "Orb", equipType: "MainHand",
+    stats: [["Min Attack", "79"], ["Max Attack", "158"], ["Accuracy", "50"], ["Critical Hit", "150"], ["Block", "0"], ["Parry Damage Reduction Rate", "17%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110740002", name: "Elder Mace", category: "Mace", itemType: "Mace", equipType: "MainHand",
+    stats: [["Min Attack", "92"], ["Max Attack", "119"], ["Accuracy", "100"], ["Critical Hit", "50"], ["Block", "50"], ["Parry Damage Reduction Rate", "23%"], ["Shield Block Damage Reduction Rate", "35%"], ["Parry Damage Reduction Amount", "100,000"], ["Shield Block Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "110840002", name: "Elder Staff", category: "Staff", itemType: "Staff", equipType: "MainHand",
+    stats: [["Min Attack", "106"], ["Max Attack", "145"], ["Accuracy", "75"], ["Critical Hit", "100"], ["Block", "125"], ["Parry Damage Reduction Rate", "26%"], ["Parry Damage Reduction Amount", "100,000"]],
+  },
+  {
+    id: "115040002", name: "Elder Guard", category: "Guard", itemType: "Guarder", equipType: "SubHand",
+    stats: [["Attack", "53"], ["Accuracy", "50"], ["Critical Hit", "50"]],
+  },
+];
+
+weaponsData.push(...elderRows.map((row) => ({
+  ...row,
+  group: "Weapon",
+  grade: "Epic",
+  itemLevel: "23",
+  requiredLevel: "20",
+  icon: "/equipment-icons/" + row.id + ".webp",
+  stats: toPairs(row.stats),
+  imprints: toPairs(row.equipType === "SubHand" ? elderGuardImprints : elderMainImprints),
+  details: [
+    {label: "Binding", value: "Bind on Equip"},
+    {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
+  ],
+  source: {
+    name: "AION2 Hub independent item database",
+    region: "Global Launch Scale Test snapshot",
+    capturedAt: "2026-09-19",
+    official: false,
+  },
+})));
+
 export default weaponsData;
