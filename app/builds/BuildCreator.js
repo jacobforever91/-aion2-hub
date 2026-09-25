@@ -114,6 +114,7 @@ export default function BuildCreator(){
   const [skillSearch,setSkillSearch]=useState("");
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
+  const [editingSkillKey,setEditingSkillKey]=useState("");
   const skillLookupCache=useRef({});
   const [notice,setNotice]=useState("");
   const [savedAt,setSavedAt]=useState("");
@@ -224,23 +225,27 @@ export default function BuildCreator(){
     const level=Math.max(1,Math.min(max||1,Number(value)||1));
     setBuild((current)=>({...current,skillLevels:{...(current.skillLevels||{}),[key]:level}}));
   };
-  const toggleSkill=(type,name,id)=>{
+  const selectSkill=(type,name,id)=>{
     const key=type+":"+name;
     const levelKey=key+":"+id;
-    const isSelected=build.skills.includes(key);
+    if(build.skills.includes(key)){
+      setEditingSkillKey((current)=>current===levelKey?"":levelKey);
+      loadSkillLevelRange(levelKey,id);
+      return;
+    }
+    setBuild((current)=>({...current,skills:[...current.skills,key],skillLevels:{...(current.skillLevels||{}),[levelKey]:Number(current.skillLevels?.[levelKey])||1}}));
+    setEditingSkillKey(levelKey);
+    loadSkillLevelRange(levelKey,id);
+  };
+  const removeSkill=(type,name,id)=>{
+    const key=type+":"+name;
+    const levelKey=key+":"+id;
     setBuild((current)=>{
       const skillLevels={...(current.skillLevels||{})};
-      if(current.skills.includes(key)){
-        delete skillLevels[levelKey];
-        return {...current,skills:current.skills.filter((entry)=>entry!==key),skillLevels};
-      }
-      return {...current,skills:[...current.skills,key],skillLevels:{...skillLevels,[levelKey]:Number(skillLevels[levelKey])||1}};
+      delete skillLevels[levelKey];
+      return {...current,skills:current.skills.filter((entry)=>entry!==key),skillLevels};
     });
-    if(isSelected){
-      setSkillLevelStatus((current)=>({...current,[levelKey]:undefined}));
-    }else{
-      loadSkillLevelRange(levelKey,id);
-    }
+    setEditingSkillKey((current)=>current===levelKey?"":current);
   };
   const selectItem=async(item)=>{
     if(!pickerSlot)return;
@@ -276,6 +281,7 @@ export default function BuildCreator(){
   const resetBuild=()=>{
     const fresh=emptyBuild();
     setBuild(fresh);
+    setEditingSkillKey("");
     setSavedAt("");
     window.localStorage.removeItem("aion2-vision-build-v1");
     window.history.replaceState(null,"",window.location.pathname);
@@ -316,9 +322,9 @@ export default function BuildCreator(){
           {tab==="overview"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Shield size={19}/></span><div><h2>Character setup</h2><p>Choose the class, region and kind of content this build is for.</p></div></div>
             <div className={styles.formGrid}>
-              <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>changeClass(event.target.value)}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
+              <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{changeClass(event.target.value);setEditingSkillKey("")}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
-              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);patch("skillLevels",{});setSkillSearch("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
+              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);patch("skillLevels",{});setSkillSearch("");setEditingSkillKey("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
               <label className={styles.field}><span>BUILD GOAL</span><select value={build.goal} onChange={(event)=>patch("goal",event.target.value)}>{goals.map((goal)=><option key={goal}>{goal}</option>)}</select></label>
             </div>
             <div className={styles.classBanner}><div className={styles.classMark}>{classInfo?.name?.slice(0,1)||"A"}</div><div><span>{classInfo?.role||"Choose a class"}</span><strong>{classInfo?.name||"Class data is not available"}</strong><small>{classInfo?.weapon?("Recommended weapon: "+classInfo.weapon):"The current local class catalog has no Brawler skills yet."}</small></div></div>
@@ -326,10 +332,39 @@ export default function BuildCreator(){
           </section>}
 
           {tab==="skills"&&<section className={styles.panel}>
-            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Skills &amp; Stigmas</h2><p>Choose the abilities you plan to use for this setup.</p></div></div>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Skills &amp; Stigmas</h2><p>Select a skill to set its level. Only one level control stays open at a time.</p></div></div>
             {!classInfo?<div className={styles.emptyState}>Skill data for this class has not been synced yet.</div>:<>
               <label className={styles.skillSearch}><Search size={16}/><input type="search" value={skillSearch} onChange={(event)=>setSkillSearch(event.target.value)} placeholder="Search skills by name…"/></label>
-              {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{const selected=build.skills.includes(group.id+":"+item.name);const levelKey=group.id+":"+item.name+":"+item.id;return <div key={item.name} className={styles.skillCard}><button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>toggleSkill(group.id,item.name,item.id)} aria-pressed={selected}><span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span><span className={styles.skillName}>{item.name}</span><span className={styles.skillDot}>{selected?"✓":"+"}</span></button>{selected&&<div className={styles.skillLevelControls}><div className={styles.skillLevelHeading}><span>Skill level</span>{skillMaxLevels[levelKey]?<b>Lv. {Math.min(skillMaxLevels[levelKey],Number(build.skillLevels?.[levelKey])||1)} / {skillMaxLevels[levelKey]}</b>:skillLevelStatus[levelKey]==="loading"?<b>Checking…</b>:skillLevelStatus[levelKey]==="error"?<b>Unavailable</b>:<b>Min · Lv. {Number(build.skillLevels?.[levelKey])||1}</b>}</div>{skillMaxLevels[levelKey]?<div className={styles.skillLevelRow}><button type="button" onClick={()=>setSkillLevel(levelKey,1,skillMaxLevels[levelKey])}>Min</button><input aria-label={item.name+" level"} type="range" min="1" max={skillMaxLevels[levelKey]} value={Math.min(skillMaxLevels[levelKey],Number(build.skillLevels?.[levelKey])||1)} disabled={skillMaxLevels[levelKey]===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,skillMaxLevels[levelKey])}/><button type="button" onClick={()=>setSkillLevel(levelKey,skillMaxLevels[levelKey],skillMaxLevels[levelKey])}>Max</button></div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}</div>}</div>})}</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
+              {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{
+                  const key=group.id+":"+item.name;
+                  const levelKey=key+":"+item.id;
+                  const selected=build.skills.includes(key);
+                  const max=skillMaxLevels[levelKey];
+                  const level=Math.min(max||Number.MAX_SAFE_INTEGER,Number(build.skillLevels?.[levelKey])||1);
+                  const isEditing=editingSkillKey===levelKey;
+                  return <div key={item.name} className={styles.skillCard}>
+                    <div className={styles.skillCardHeader}>
+                      <button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>selectSkill(group.id,item.name,item.id)} aria-pressed={selected}>
+                        <span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span>
+                        <span className={styles.skillName}>{item.name}</span>
+                        {selected&&<span className={styles.skillLevelBadge}>{max?"Lv. "+level+" / "+max:"Lv. "+level}</span>}
+                        <span className={styles.skillDot}>{selected?"✓":"+"}</span>
+                      </button>
+                      {selected&&<button type="button" className={styles.skillRemove} onClick={()=>removeSkill(group.id,item.name,item.id)} aria-label={"Remove "+item.name+" from build"}><X size={14}/></button>}
+                    </div>
+                    {selected&&isEditing&&<div className={styles.skillLevelControls}>
+                      <div className={styles.skillLevelHeading}>
+                        <span>Skill level</span>
+                        {max?<b>Lv. {level} / {max}</b>:skillLevelStatus[levelKey]==="loading"?<b>Checking…</b>:skillLevelStatus[levelKey]==="error"?<b>Unavailable</b>:<b>Min · Lv. {level}</b>}
+                      </div>
+                      {max?<div className={styles.skillLevelRow}>
+                        <button type="button" onClick={()=>setSkillLevel(levelKey,1,max)}>Min</button>
+                        <input aria-label={item.name+" level"} type="range" min="1" max={max} value={level} disabled={max===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,max)}/>
+                        <button type="button" onClick={()=>setSkillLevel(levelKey,max,max)}>Max</button>
+                      </div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}
+                    </div>}
+                  </div>
+                })</div></section>)}</div>:<div className={styles.emptyState}>No skills match your search.</div>}
             </>}
             <div className={styles.dataFootnote}>{build.region==="KR_TW"?"KR/TW Stigma names use a provisional community-translated catalog.":"Global skill names come from the current local class catalog."} Selected skills are saved with the build; damage simulation is not included in this prototype.</div>
           </section>}
