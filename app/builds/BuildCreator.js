@@ -644,7 +644,6 @@ export default function BuildCreator(){
           </section>}
 
           {tab==="daevanion"&&<section id="daevanion-setup" className={styles.panel}>
-            <div className={styles.panelHeading}><span className={styles.panelIcon}><Feather size={19}/></span><div><h2>Daevanion boards</h2><p>Plan connected paths across your character’s boards. Your selections are saved with this build.</p></div></div>
               {(()=>{
                 const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
                 const board=daevanionBoards[boardIndex]||daevanionBoards[0];
@@ -660,6 +659,7 @@ export default function BuildCreator(){
                 });
                 return <div className={styles.fieldBlock}>
                   <div className={styles.daevanionToolbar}>
+                  <div className={styles.daevanionToolbarTitle}><span><Feather size={16}/></span><h2>Daevanion boards</h2></div>
                   <select className={styles.daevanionBoardSelect} aria-label="Choose a Daevanion board" value={board.id} onChange={(event)=>setDaevanionBoard(event.target.value)}>
                     {daevanionBoards.map((item)=><option key={item.id} value={item.id}>{item.name} · Lv. {item.level}</option>)}
                   </select>

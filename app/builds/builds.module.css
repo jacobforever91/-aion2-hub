@@ -394,3 +394,27 @@
   .daevanionToolbar .daevanionLegend i{width:9px;height:9px}
   .daevanionActions button{font-size:8px}
 }
+
+.daevanionToolbar{grid-template-columns:minmax(125px,auto) minmax(140px,.8fr) auto minmax(0,1.45fr) auto}
+.daevanionToolbarTitle{display:flex;align-items:center;gap:7px;min-width:0;white-space:nowrap}
+.daevanionToolbarTitle>span{display:grid;place-items:center;width:28px;height:28px;flex:none;border:1px solid #315b6d;border-radius:4px;background:#0c2532;color:#83def5}
+.daevanionToolbarTitle h2{margin:0;color:#effaff;font:400 13px Georgia,serif}
+.daevanionGridShell{background:radial-gradient(circle at center,#0d1d26 0%,#08131a 76%)}
+@media(max-width:760px){
+  .daevanionToolbar{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+  .daevanionToolbarTitle{grid-column:1;grid-row:1}
+  .daevanionBoardSelect{grid-column:2;grid-row:1;min-width:130px}
+  .daevanionBoardStatus{grid-column:1;grid-row:2;white-space:normal}
+  .daevanionActions{grid-column:2;grid-row:2;justify-self:end}
+  .daevanionToolbar .daevanionLegend{grid-column:1/-1;grid-row:3}
+}
+@media(max-width:380px){
+  .daevanionToolbar{gap:6px}
+  .daevanionToolbarTitle{gap:5px}
+  .daevanionToolbarTitle>span{width:25px;height:25px}
+  .daevanionToolbarTitle h2{font-size:11px}
+  .daevanionBoardSelect{min-width:110px;font-size:9px}
+  .daevanionBoardStatus{font-size:8px}
+  .daevanionActions{gap:4px}
+  .daevanionActions button{padding:4px 6px;font-size:8px}
+}
