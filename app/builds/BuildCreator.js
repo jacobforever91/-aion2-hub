@@ -180,6 +180,7 @@ export default function BuildCreator(){
   const [progressionPicker,setProgressionPicker]=useState("");
   const [progressionSearch,setProgressionSearch]=useState("");
   const [skillSearch,setSkillSearch]=useState("");
+  const [arcanaSetupOpen,setArcanaSetupOpen]=useState(false);
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
   const [skillSpecialtyData,setSkillSpecialtyData]=useState({});
@@ -208,6 +209,13 @@ export default function BuildCreator(){
         setSavedAt("Saved draft loaded from this device.");
       }
     }catch(_error){}
+    if(params.get("tab")==="progression"){
+      setTab("progression");
+      if(params.get("section")==="arcana"){
+        setArcanaSetupOpen(true);
+        window.setTimeout(()=>document.getElementById("arcana-setup")?.scrollIntoView({behavior:"smooth",block:"start"}),150);
+      }
+    }
     const mode=params.get("mode");
     if(mode==="pve")setBuild((current)=>({...current,goal:"PvE · Group"}));
     if(mode==="pvp")setBuild((current)=>({...current,goal:"PvP · Abyss"}));
@@ -516,7 +524,7 @@ export default function BuildCreator(){
                 {petDetails?.tameFrom?.length>0&&<div className={styles.petReferenceSources}><strong>Found from</strong><p>{petDetails.tameFrom.join(" · ")}</p></div>}
               </details>}
             </article>}
-            <details className={styles.advanced}>
+            <details id="arcana-setup" className={styles.advanced} open={arcanaSetupOpen} onToggle={(event)=>setArcanaSetupOpen(event.currentTarget.open)}>
               <summary><span><Sparkles size={16}/> Advanced setup</span><small>Reference fields · saved and shared, not included in stat totals</small></summary>
               <div className={styles.advancedBody}>
                 <div className={styles.fieldBlock}><h3>Arcana · 10 cards</h3><p>Record the card or set in each slot.</p><div className={styles.advancedGrid}>{build.advanced.arcana.map((value,index)=><label key={index}><small>CARD {index+1}</small><input value={value} onChange={(event)=>updateAdvancedSlot("arcana",index,event.target.value)} placeholder={"Arcana "+(index+1)}/></label>)}</div></div>
