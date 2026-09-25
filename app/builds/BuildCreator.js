@@ -659,24 +659,22 @@ export default function BuildCreator(){
                   });
                 });
                 return <div className={styles.fieldBlock}>
-                  <div className={styles.daevanionHeading}><div><h3>Choose a board</h3><p>Select connected nodes to draw your route for this build.</p></div><span>{daevanionPlanCount}/8 boards</span></div>
-                  <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
-                    {daevanionBoards.map((item,index)=>{
-                      const active=daevanionBoard===item.id;
-                      const planned=Array.isArray(daevanionPaths[index])&&daevanionPaths[index].length>0;
-                      return <button key={item.id} type="button" aria-pressed={active} className={active?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(item.id)}>
-                        <span><strong>{item.name}</strong><small>{item.type}</small></span>
-                        <em>Lv. {item.level}{planned&&<b aria-label="Path saved"> ✓</b>}</em>
-                      </button>;
-                    })}
-                  </div>
-                  <div className={styles.daevanionPlannerBar}><span><strong>{board.name}</strong><small>{boardPath.length} nodes · {daevanionTotalNodes} across all boards · unlock Lv. {board.level}</small></span><button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button><button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button></div>
+                  <div className={styles.daevanionToolbar}>
+                  <select className={styles.daevanionBoardSelect} aria-label="Choose a Daevanion board" value={board.id} onChange={(event)=>setDaevanionBoard(event.target.value)}>
+                    {daevanionBoards.map((item)=><option key={item.id} value={item.id}>{item.name} · Lv. {item.level}</option>)}
+                  </select>
+                  <span className={styles.daevanionBoardStatus}><strong>{boardPath.length}</strong> nodes <i>·</i> unlock Lv. {board.level} <i>·</i> {daevanionPlanCount}/8 boards</span>
                   <div className={styles.daevanionLegend} aria-label="Node selection legend">
                     <span><i className={styles.daevanionLegendSelected}/>Selected</span>
                     <span><i className={styles.daevanionLegendAvailable}/>Available</span>
                     <span><i className={styles.daevanionLegendLocked}/>Not connected</span>
                   </div>
-                  <div className={styles.daevanionGridShell}>
+                  <div className={styles.daevanionActions}>
+                    <button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button>
+                    <button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button>
+                  </div>
+                </div>
+                <div className={styles.daevanionGridShell}>
                     <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
                       <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
                       {Array.from({length:225},(_,index)=>{
@@ -691,11 +689,10 @@ export default function BuildCreator(){
                       })}
                     </div>
                   </div>
-                  <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap a highlighted adjacent node to extend the route; removing a node also clears any disconnected branch. This 15 × 15 grid demonstrates the path interaction. Exact class/board layouts, node effects and point costs still need a verified dataset, so it does not add to stat totals.</span></div>
+                  <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap an outlined node to extend your route. Removing a node clears any disconnected branch. Node effects and point costs are not included in stat totals.</span></div>
                 </div>;
               })()}
   
-            <div className={styles.dataFootnote}>Board paths stay saved with this build. Node effects and point totals are not included in the stat preview.</div>
           </section>}
           {tab==="arcana"&&<section id="arcana-setup" className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to 10 cards for this build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>

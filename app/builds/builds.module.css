@@ -366,3 +366,31 @@
 .daevanionLegendSelected{border:1px solid #7feaff;background:#35b7d2;box-shadow:0 0 7px #56cde977}
 .daevanionLegendAvailable{border:1px solid #72c9d8;background:#173845}
 .daevanionLegendLocked{border:1px solid #203b47;background:#0b1921}
+
+.daevanionToolbar{display:grid;grid-template-columns:minmax(155px,.9fr) auto minmax(0,1.55fr) auto;align-items:center;gap:9px;margin:0 0 10px;padding:8px 9px;border:1px solid #294855;border-radius:5px;background:#091720}
+.daevanionBoardSelect{width:100%;min-width:0;min-height:36px;padding:6px 28px 6px 9px;border:1px solid #315664;border-radius:4px;outline:none;background:#0d202b;color:#e4f5fa;font:600 11px system-ui,sans-serif}
+.daevanionBoardSelect:focus{border-color:#65d4f2;box-shadow:0 0 0 2px #42cae31a}
+.daevanionBoardSelect option{background:#0b1b25;color:#e4f5fa}
+.daevanionBoardStatus{color:#9ab2bc;font-size:9px;white-space:nowrap}
+.daevanionBoardStatus strong{color:#d8f7ff;font-size:11px}
+.daevanionBoardStatus i{color:#527383;font-style:normal}
+.daevanionToolbar .daevanionLegend{justify-content:center;gap:10px;max-width:none;margin:0;color:#90a8b2;font-size:9px}
+.daevanionActions{display:flex;gap:5px}
+.daevanionActions button{min-height:32px;padding:5px 8px;border:1px solid #315461;border-radius:4px;background:#10232d;color:#a9c5cf;font:700 9px system-ui,sans-serif;white-space:nowrap;cursor:pointer}
+.daevanionActions button:disabled{opacity:.4;cursor:default}
+.daevanionGridShell{width:min(100%,720px,76vh);max-width:none;padding:8px}
+.daevanionGrid{gap:3px}
+@media(max-width:760px){
+  .daevanionToolbar{grid-template-columns:minmax(0,1fr) auto;gap:7px}
+  .daevanionBoardStatus{justify-self:start}
+  .daevanionToolbar .daevanionLegend{grid-column:1/-1;justify-content:space-between}
+  .daevanionActions button{min-height:34px;padding:5px 7px}
+}
+@media(max-width:380px){
+  .daevanionToolbar{padding:7px}
+  .daevanionBoardSelect{min-height:34px;font-size:10px}
+  .daevanionBoardStatus{font-size:8px}
+  .daevanionToolbar .daevanionLegend{gap:5px;font-size:8px}
+  .daevanionToolbar .daevanionLegend i{width:9px;height:9px}
+  .daevanionActions button{font-size:8px}
+}
