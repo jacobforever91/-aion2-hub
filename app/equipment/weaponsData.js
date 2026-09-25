@@ -79,7 +79,7 @@ const weaponsData = rows.map((row) => ({
   grade: "Rare",
   itemLevel: "15",
   requiredLevel: "15",
-  icon: `https://aion2hub.com/api/icon/items/${row.id}`,
+  icon: `/equipment-icons/${row.id}.webp`,
   stats: toPairs(row.stats),
   imprints: toPairs(row.equipType === "SubHand" ? guardImprints : mainImprints),
   details: [
@@ -88,7 +88,6 @@ const weaponsData = rows.map((row) => ({
   ],
   source: {
     name: "AION2 Hub independent item database",
-    url: `https://aion2hub.com/database/items/${row.id}`,
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
     official: false,
