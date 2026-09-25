@@ -670,6 +670,48 @@ const imprintPools = {
       "Space [Israphel]",
       "9 ~ 17"
     ]
+  ],
+  "bracelet:ascension": [
+    [
+      "Critical Hit",
+      "9 ~ 9"
+    ],
+    [
+      "Evasion",
+      "12 ~ 12"
+    ],
+    [
+      "MP",
+      "26 ~ 26"
+    ],
+    [
+      "Natural MP Regen",
+      "9 ~ 9"
+    ]
+  ],
+  "bracelet:pilgrim": [
+    [
+      "Critical Hit",
+      "8 ~ 8"
+    ],
+    [
+      "MP",
+      "22 ~ 22"
+    ],
+    [
+      "Natural MP Regen",
+      "8 ~ 8"
+    ]
+  ],
+  "bracelet:wind": [
+    [
+      "Critical Hit",
+      "7 ~ 7"
+    ],
+    [
+      "MP",
+      "17 ~ 17"
+    ]
   ]
 };
 const jewels = [
@@ -928,6 +970,134 @@ const jewels = [
     "sell": "55,000 Gold",
     "enchant": "+15",
     "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Tolerance 2.5%, HP increase 2.5%"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310430046",
+    "name": "Ascension Bracelet",
+    "grade": "Unique",
+    "level": "51",
+    "required": "",
+    "binding": "Bound",
+    "attack": "75",
+    "defense": "180",
+    "pool": "bracelet:ascension",
+    "sockets": "4",
+    "sell": "902 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 31, Defense 125"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310440016",
+    "name": "Avenger Bracelet",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "48",
+    "defense": "115",
+    "pool": "bracelet:epic",
+    "sockets": "3",
+    "sell": "164 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310440017",
+    "name": "Pilgrim Bracelet",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "63",
+    "defense": "151",
+    "pool": "bracelet:pilgrim",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310440018",
+    "name": "Liberator Bracelet",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "63",
+    "defense": "151",
+    "pool": "bracelet:pilgrim",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310450012",
+    "name": "Outsider Bracelet",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "27",
+    "defense": "65",
+    "pool": "bracelet:rare",
+    "sockets": "2",
+    "sell": "39 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310450017",
+    "name": "Wind Breeze Bracelet",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "36",
+    "defense": "87",
+    "pool": "bracelet:wind",
+    "sockets": "2",
+    "sell": "58 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310450018",
+    "name": "Chaser Bracelet",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "36",
+    "defense": "87",
+    "pool": "bracelet:wind",
+    "sockets": "2",
+    "sell": "58 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "category": "Bracelet",
+    "id": "310460006",
+    "name": "Old Mercenary Commander Bracelet",
+    "grade": "Common",
+    "level": "14",
+    "required": "",
+    "binding": "Bound",
+    "attack": "20",
+    "defense": "47",
+    "pool": "bracelet:common",
+    "sockets": "1",
+    "sell": "18 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 11"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
