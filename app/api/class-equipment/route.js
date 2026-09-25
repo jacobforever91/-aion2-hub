@@ -4,6 +4,7 @@ import weaponsData from "../../equipment/weaponsData.js";
 import armorData from "../../equipment/armorData.js";
 import chestData from "../../equipment/chestData.js";
 import armorMoreData from "../../equipment/armorMoreData.js";
+import jewelryData from "../../equipment/jewelryData.js";
 
 const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
@@ -141,7 +142,7 @@ const slotAliases = {
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
-const generalEquipmentItems = [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData];
+const generalEquipmentItems = [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData];
 
 function localGeneralItems(category, slot) {
   return generalEquipmentItems.filter((item) => {
