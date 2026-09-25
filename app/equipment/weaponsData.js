@@ -388,6 +388,11 @@ const commonProgressionSeries = [
   },
 ];
 
+commonProgressionSeries.push(
+  {...commonProgressionSeries[0], name: "Shade", idSuffix: "021"},
+  {...commonProgressionSeries[1], name: "Phantasm", idSuffix: "022"},
+);
+
 for (const series of commonProgressionSeries) {
   weaponsData.push(...commonWeaponTypes.map((type, index) => {
     const id = type.idPrefix + series.idSuffix;
