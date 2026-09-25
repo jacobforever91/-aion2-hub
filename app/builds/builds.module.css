@@ -189,3 +189,27 @@
 .petLevelStats .petStats small{font-size:11px}
 .petLevelStats .petStats strong{font-size:12px}
 @media(max-width:600px){.progressionCard{gap:9px;padding:10px}.progressionCardHead{gap:9px}.progressionCardHead strong{font-size:14px}.progressionStatList>div{min-height:40px}.progressionStatList span{font-size:12px}.progressionStatList b{font-size:13px}}
+
+.progressionPickerButton{display:flex;align-items:center;gap:9px;width:100%;min-height:50px;padding:6px 9px;border:1px solid #31596b;border-radius:4px;background:#091923;color:#dff1f6;text-align:left;cursor:pointer}
+.progressionPickerButton:focus-visible{outline:2px solid #80def1;outline-offset:2px}
+.progressionPickerButton>svg{flex:none;color:#7ed9eb}
+.progressionPickerIcon{display:grid;place-items:center;width:36px;height:36px;flex:none;overflow:hidden;border:1px solid #31596b;border-radius:4px;background-color:#06131c;color:#82def1}
+.progressionWingPickerIcon{background-image:url('/aion2-icons/wings-sprite.webp');background-repeat:no-repeat;background-size:288px 252px;background-position:var(--wing-picker-position)}
+.progressionPetPickerIcon img{width:100%;height:100%;object-fit:contain}
+.progressionPickerCopy{display:grid;gap:3px;min-width:0;flex:1}
+.progressionPickerCopy small{overflow:hidden;color:#8eabb7;font:10px/1.25 system-ui,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.progressionPickerCopy strong{overflow:hidden;color:#e3f4fa;font:400 13px/1.25 Georgia,serif;text-overflow:ellipsis;white-space:nowrap}
+.progressionPickerModal{display:grid;gap:11px}
+.progressionPickerModal h2{margin:0 42px 0 0!important}
+.progressionPickerResults{display:grid;gap:6px;max-height:min(60svh,560px);overflow:auto;overscroll-behavior:contain}
+.progressionPickerOption,.progressionPickerOptionSelected{display:flex;align-items:center;gap:10px;min-height:58px;padding:8px;border:1px solid #294a5c;border-radius:4px;background:#091a24;color:#dff1f6;text-align:left;cursor:pointer}
+.progressionPickerOption:hover,.progressionPickerOptionSelected{border-color:#69d2e8;background:#103140}
+.progressionOptionIcon{display:grid;place-items:center;width:40px;height:40px;flex:none;overflow:hidden;border:1px solid #31576a;border-radius:4px;background:#071721}
+.progressionOptionIcon img{width:100%;height:100%;object-fit:contain}
+.progressionWingOptionIcon{background-image:url('/aion2-icons/wings-sprite.webp');background-repeat:no-repeat;background-size:320px 280px;background-position:var(--wing-option-position)}
+.progressionOptionCopy{display:grid;gap:4px;min-width:0;flex:1}
+.progressionOptionCopy strong{overflow:hidden;color:#e4f1f6;font:400 14px/1.25 Georgia,serif;text-overflow:ellipsis;white-space:nowrap}
+.progressionOptionCopy small{color:#9bb3bf;font:10px system-ui,sans-serif}
+.progressionPickerOption>b,.progressionPickerOptionSelected>b{color:#79d9ec;font:700 13px system-ui,sans-serif}
+.progressionPickerModal .emptyState{margin:0;padding:14px 8px}
+@media(max-width:600px){.progressionPickerButton{min-height:48px;padding:5px 7px}.progressionPickerCopy strong{font-size:12px}.progressionPickerModal{gap:10px}.progressionPickerResults{max-height:calc(82svh - 190px)}.progressionSheetBackdrop{align-items:end;justify-items:center;padding:0}.progressionSheetModal{width:min(650px,100%);max-height:86svh;margin:0;padding:23px 14px calc(14px + env(safe-area-inset-bottom));border-radius:12px 12px 0 0}.progressionSheetModal .progressionPickerResults{max-height:56svh}}
