@@ -1354,6 +1354,200 @@ const imprintPools = {
       "Natural HP Regen",
       "18 ~ 28"
     ]
+  ],
+  "neck:starlight": [
+    [
+      "Combat Speed",
+      "2.02% ~ 2.39%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "16,800 ~ 19,327"
+    ],
+    [
+      "Attack",
+      "15 ~ 24"
+    ],
+    [
+      "Critical Hit",
+      "22 ~ 32"
+    ],
+    [
+      "Accuracy",
+      "30 ~ 42"
+    ],
+    [
+      "Defense",
+      "174 ~ 207"
+    ],
+    [
+      "Evasion",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit Resist",
+      "31 ~ 43"
+    ],
+    [
+      "Block",
+      "17 ~ 27"
+    ],
+    [
+      "MP",
+      "67 ~ 84"
+    ],
+    [
+      "HP",
+      "135 ~ 162"
+    ],
+    [
+      "Natural MP Regen",
+      "15 ~ 24"
+    ],
+    [
+      "Natural HP Regen",
+      "31 ~ 43"
+    ]
+  ],
+  "earring:starlight": [
+    [
+      "Move Speed",
+      "3% ~ 3.52%"
+    ],
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "7 ~ 15"
+    ],
+    [
+      "Flight Power",
+      "14,400 ~ 16,567"
+    ],
+    [
+      "Attack",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit",
+      "19 ~ 29"
+    ],
+    [
+      "Accuracy",
+      "25 ~ 36"
+    ],
+    [
+      "Defense",
+      "149 ~ 178"
+    ],
+    [
+      "Evasion",
+      "15 ~ 24"
+    ],
+    [
+      "Critical Hit Resist",
+      "27 ~ 38"
+    ],
+    [
+      "Block",
+      "15 ~ 24"
+    ],
+    [
+      "MP",
+      "57 ~ 73"
+    ],
+    [
+      "HP",
+      "115 ~ 139"
+    ],
+    [
+      "Natural MP Regen",
+      "13 ~ 22"
+    ],
+    [
+      "Natural HP Regen",
+      "27 ~ 38"
+    ]
+  ],
+  "ring:starlight": [
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "12,000 ~ 13,807"
+    ],
+    [
+      "Attack",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit",
+      "16 ~ 25"
+    ],
+    [
+      "Accuracy",
+      "21 ~ 31"
+    ],
+    [
+      "Defense",
+      "124 ~ 150"
+    ],
+    [
+      "Evasion",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit Resist",
+      "22 ~ 32"
+    ],
+    [
+      "Block",
+      "12 ~ 21"
+    ],
+    [
+      "MP",
+      "48 ~ 62"
+    ],
+    [
+      "HP",
+      "96 ~ 117"
+    ],
+    [
+      "Natural MP Regen",
+      "11 ~ 20"
+    ],
+    [
+      "Natural HP Regen",
+      "22 ~ 32"
+    ]
   ]
 };
 const skillPools = {
@@ -2768,6 +2962,108 @@ const jewels = [
     "sell": "109 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 6, Defense 25"
+  },
+  {
+    "id": "310140010",
+    "name": "Starlight Ruby Necklace (Bind on Equip)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "49",
+    "defense": "117",
+    "pool": "neck:starlight",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "259 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310140078",
+    "name": "Starlight Ruby Necklace (Bind on Pickup)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Pickup",
+    "attack": "49",
+    "defense": "117",
+    "pool": "neck:starlight",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "259 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310240010",
+    "name": "Starlight Diamond Earrings (Bind on Equip)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "41",
+    "defense": "97",
+    "pool": "earring:starlight",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "207 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310240080",
+    "name": "Starlight Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Pickup",
+    "attack": "41",
+    "defense": "97",
+    "pool": "earring:starlight",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "207 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310340010",
+    "name": "Starlight Sapphire Ring (Bind on Equip)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "32",
+    "defense": "78",
+    "pool": "ring:starlight",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "156 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310340080",
+    "name": "Starlight Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "28",
+    "required": "25",
+    "binding": "Bind on Pickup",
+    "attack": "32",
+    "defense": "78",
+    "pool": "ring:starlight",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "156 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 11, Defense 45"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
