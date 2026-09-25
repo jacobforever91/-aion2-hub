@@ -6,6 +6,7 @@ import {ArrowLeft, BookOpen, Search, Sparkles, X, ChevronRight, Gem, Feather, Pa
 import {classData, classList, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
+import petIcons from "../progression/petIcons.json";
 import styles from "./encyclopedia.module.css";
 
 const filters = [
@@ -36,8 +37,8 @@ function makeEntries() {
   });
   return [
     ...classEntries,
-    ...catalogData.wings.map((wing)=>({id:wing.id,name:wing.name,className:`${wing.grade} · ${wing.faction}${wing.enhancementCap?` · Enchant +${wing.enhancementCap}`:""}`,type:"wings",region:"Community reference",href:"/wings"})),
-    ...catalogData.pets.map((pet)=>({id:pet.id,name:pet.name,className:`Pet · ${pet.genus}`,type:"pets",region:"Community reference",href:"/pets"})),
+    ...catalogData.wings.map((wing)=>({id:wing.id,name:wing.name,className:`${wing.grade} · ${wing.faction}${wing.enhancementCap?` · Enchant +${wing.enhancementCap}`:""}`,type:"wings",region:"Community reference",href:"/wings",iconPosition:wing.iconPosition})),
+    ...catalogData.pets.map((pet)=>({id:pet.id,name:pet.name,className:`Pet · ${pet.genus}`,type:"pets",region:"Community reference",href:"/pets",iconUrl:petIcons[pet.id]})),
   ];
 }
 
@@ -200,7 +201,7 @@ export default function DatabaseBrowser() {
 
         <section className={styles.results} aria-label="Encyclopedia entries" aria-live="polite">
           {visibleEntries.map((entry) => entry.href ? <Link className={styles.entry} href={entry.href} key={entry.id}>
-            <span className={styles.icon}>{entry.type === "wings" ? <Feather aria-hidden="true"/> : <PawPrint aria-hidden="true"/>}</span>
+            <span className={`${styles.icon} ${entry.type === "wings" ? styles.wingIcon : ""}`} style={entry.type === "wings" ? {"--ix46": `${-entry.iconPosition[0] * 46}px`, "--iy46": `${-entry.iconPosition[1] * 46}px`, "--ix42": `${-entry.iconPosition[0] * 42}px`, "--iy42": `${-entry.iconPosition[1] * 42}px`} : undefined} aria-hidden="true">{entry.type === "pets" && <img src={entry.iconUrl} alt="" loading="lazy" decoding="async" />}</span>
             <span className={styles.entryCopy}><strong>{entry.name}</strong><span>{entry.className}</span></span>
             <span className={`${styles.badge} ${styles[`badge_${entry.type}`]}`}>{entry.type}</span>
           </Link> : <button type="button" className={styles.entry} key={`${entry.slug}-${entry.type}-${entry.id}`} onClick={() => setSelectedEntry(entry)}>
