@@ -109,6 +109,53 @@ function groupSpecialtyTiers(entries=[]){
   return [...tiers.entries()].sort((a,b)=>a[0]-b[0]);
 }
 
+function skillLevelEffect(info,level){
+  const levels=Array.isArray(info?.levels)?info.levels:[];
+  const current=levels.find((entry)=>Number(entry.level)===Number(level))||levels[Number(level)-1];
+  if(!current)return {description:"",values:[]};
+  const previous=levels.find((entry)=>Number(entry.level)===Number(level)-1)||null;
+  const flatten=(value,prefix="",target={})=>{
+    if(value==null)return target;
+    if(Array.isArray(value)){
+      value.forEach((item,index)=>flatten(item,prefix?prefix+" "+(index+1):String(index+1),target));
+      return target;
+    }
+    if(typeof value==="object"){
+      if(value.label&&value.value!=null){target[String(value.label)]=value.value;return target;}
+      Object.entries(value).forEach(([key,item])=>{
+        if(["id","skillId","skill_id","level","name","icon","description","effect","effectDescription","text"].includes(key.toLowerCase()))return;
+        flatten(item,prefix?prefix+" "+key:key,target);
+      });
+      return target;
+    }
+    if(prefix&&typeof value!=="boolean")target[prefix]=value;
+    return target;
+  };
+  const raw=flatten(current);
+  const prior=previous?flatten(previous):{};
+  const minKey=Object.keys(raw).find((key)=>/^(minvalue|min value)$/i.test(key));
+  const maxKey=Object.keys(raw).find((key)=>/^(maxvalue|max value)$/i.test(key));
+  const skip=new Set([minKey,maxKey].filter(Boolean));
+  const labels={damage:"Damage",heal:"Healing",healing:"Healing",cooldown:"Cooldown",cooldownseconds:"Cooldown",cooldowntime:"Cooldown",recasttime:"Cooldown",reusetime:"Cooldown",duration:"Duration",range:"Range",casttime:"Cast time",mp:"MP cost",hp:"HP",dp:"DP",chance:"Chance",probability:"Chance",targetcount:"Targets",hitcount:"Hits",stackcount:"Stacks",shield:"Shield",staggergauge:"Stagger gauge"};
+  const labelFor=(key)=>{
+    const compact=key.replace(/[^a-z0-9]/gi,"").toLowerCase();
+    if(labels[compact])return labels[compact];
+    return key.replace(/([a-z])([A-Z])/g,"$1 $2").replace(/[_.-]+/g," ").replace(/\b\w/g,(letter)=>letter.toUpperCase());
+  };
+  const values=[];
+  if(minKey||maxKey){
+    const now=[raw[minKey],raw[maxKey]].filter((value)=>value!=null).join("–");
+    const before=[prior[minKey],prior[maxKey]].filter((value)=>value!=null).join("–");
+    values.push({label:"Effect value",current:now,previous:before});
+  }
+  Object.entries(raw).forEach(([key,value])=>{
+    if(skip.has(key))return;
+    values.push({label:labelFor(key),current:String(value),previous:prior[key]==null?"":String(prior[key])});
+  });
+  const description=current.description||current.effect||current.effectDescription||current.text||"";
+  return {description,values};
+}
+
 export default function BuildCreator(){
   const [build,setBuild]=useState(emptyBuild);
   const [tab,setTab]=useState("overview");
@@ -120,6 +167,7 @@ export default function BuildCreator(){
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
   const [skillSpecialtyData,setSkillSpecialtyData]=useState({});
+  const [skillDetailsData,setSkillDetailsData]=useState({});
   const [editingSkillKey,setEditingSkillKey]=useState("");
   const skillLookupCache=useRef({});
   const [notice,setNotice]=useState("");
@@ -218,6 +266,7 @@ export default function BuildCreator(){
       setSkillMaxLevels((current)=>({...current,[key]:max}));
       const specialties=Array.isArray(info.specialties)?info.specialties:[];
       setSkillSpecialtyData((current)=>({...current,[key]:specialties}));
+      setSkillDetailsData((current)=>({...current,[key]:info}));
       setSkillLevelStatus((current)=>({...current,[key]:"ready"}));
       setBuild((current)=>{
         if(!current.skills.includes(selectionKey))return current;
@@ -369,6 +418,7 @@ export default function BuildCreator(){
                   const level=Math.min(max||Number.MAX_SAFE_INTEGER,Number(build.skillLevels?.[levelKey])||1);
                   const isEditing=editingSkillKey===levelKey;
                   const specialtyTiers=groupSpecialtyTiers(skillSpecialtyData[levelKey]);
+                  const levelEffect=skillLevelEffect(skillDetailsData[levelKey],level);
                   return <div key={item.name} className={styles.skillCard}>
                     <div className={styles.skillCardHeader}>
                       <button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>selectSkill(group.id,item.name,item.id)} aria-pressed={selected}>
@@ -389,6 +439,11 @@ export default function BuildCreator(){
                         <input aria-label={item.name+" level"} type="range" min="1" max={max} value={level} disabled={max===1} onChange={(event)=>setSkillLevel(levelKey,event.target.value,max)}/>
                         <button type="button" onClick={()=>setSkillLevel(levelKey,max,max)}>Max</button>
                       </div>:skillLevelStatus[levelKey]==="error"?<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Retry level data</button>:skillLevelStatus[levelKey]!=="loading"&&<button className={styles.levelRetry} type="button" onClick={()=>loadSkillLevelRange(levelKey,item.id)}>Check level range</button>}
+                    </div>}
+                    {selected&&isEditing&&skillLevelStatus[levelKey]==="ready"&&<div className={styles.levelEffect}>
+                      <div className={styles.levelEffectHeading}><strong>What changes at this level</strong><span>Lv. {level}</span></div>
+                      {levelEffect.description&&<p className={styles.levelEffectDescription}>{levelEffect.description}</p>}
+                      {levelEffect.values.length>0?<div className={styles.levelEffectRows}>{levelEffect.values.map((row,index)=><div className={styles.levelEffectRow} key={row.label+index}><span>{row.label}</span><b>{row.current}</b>{row.previous&&row.previous!==row.current&&<small>Previous level: {row.previous}</small>}</div>)}</div>:<p className={styles.levelEffectEmpty}>The source has no per-level effect values for this skill yet.</p>}
                     </div>}
                     {selected&&isEditing&&specialtyTiers.length>0&&<div className={styles.specialtyControls}>
                       <div className={styles.specialtyHeading}><strong>Specializations</strong><small>{group.id==="stigma"?"Stigma effects activate automatically at each unlock.":"Choose one option in each unlocked slot."}</small></div>
