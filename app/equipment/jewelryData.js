@@ -712,6 +712,200 @@ const imprintPools = {
       "MP",
       "17 ~ 17"
     ]
+  ],
+  "neck:common18": [
+    [
+      "Combat Speed",
+      "1.16% ~ 1.4%"
+    ],
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "4 ~ 12"
+    ],
+    [
+      "Flight Power",
+      "9,660 ~ 11,116"
+    ],
+    [
+      "Attack",
+      "8 ~ 16"
+    ],
+    [
+      "Critical Hit",
+      "12 ~ 21"
+    ],
+    [
+      "Accuracy",
+      "16 ~ 25"
+    ],
+    [
+      "Defense",
+      "100 ~ 122"
+    ],
+    [
+      "Evasion",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit Resist",
+      "18 ~ 28"
+    ],
+    [
+      "Block",
+      "10 ~ 19"
+    ],
+    [
+      "MP",
+      "38 ~ 51"
+    ],
+    [
+      "HP",
+      "77 ~ 96"
+    ],
+    [
+      "Natural MP Regen",
+      "8 ~ 16"
+    ],
+    [
+      "Natural HP Regen",
+      "18 ~ 28"
+    ]
+  ],
+  "earring:common18": [
+    [
+      "Move Speed",
+      "1.72% ~ 2.05%"
+    ],
+    [
+      "Might",
+      "2 ~ 9"
+    ],
+    [
+      "Precision",
+      "2 ~ 9"
+    ],
+    [
+      "Intelligence",
+      "4 ~ 12"
+    ],
+    [
+      "Flight Power",
+      "8,280 ~ 9,529"
+    ],
+    [
+      "Attack",
+      "7 ~ 15"
+    ],
+    [
+      "Critical Hit",
+      "11 ~ 20"
+    ],
+    [
+      "Accuracy",
+      "14 ~ 23"
+    ],
+    [
+      "Defense",
+      "86 ~ 106"
+    ],
+    [
+      "Evasion",
+      "8 ~ 16"
+    ],
+    [
+      "Critical Hit Resist",
+      "15 ~ 24"
+    ],
+    [
+      "Block",
+      "8 ~ 16"
+    ],
+    [
+      "MP",
+      "33 ~ 45"
+    ],
+    [
+      "HP",
+      "66 ~ 83"
+    ],
+    [
+      "Natural MP Regen",
+      "7 ~ 15"
+    ],
+    [
+      "Natural HP Regen",
+      "15 ~ 24"
+    ]
+  ],
+  "ring:common18": [
+    [
+      "Might",
+      "2 ~ 9"
+    ],
+    [
+      "Precision",
+      "2 ~ 9"
+    ],
+    [
+      "Intelligence",
+      "3 ~ 10"
+    ],
+    [
+      "Flight Power",
+      "6,900 ~ 7,942"
+    ],
+    [
+      "Attack",
+      "6 ~ 14"
+    ],
+    [
+      "Critical Hit",
+      "9 ~ 17"
+    ],
+    [
+      "Accuracy",
+      "12 ~ 21"
+    ],
+    [
+      "Defense",
+      "71 ~ 89"
+    ],
+    [
+      "Evasion",
+      "7 ~ 15"
+    ],
+    [
+      "Critical Hit Resist",
+      "13 ~ 22"
+    ],
+    [
+      "Block",
+      "7 ~ 15"
+    ],
+    [
+      "MP",
+      "27 ~ 38"
+    ],
+    [
+      "HP",
+      "55 ~ 70"
+    ],
+    [
+      "Natural MP Regen",
+      "6 ~ 14"
+    ],
+    [
+      "Natural HP Regen",
+      "13 ~ 22"
+    ]
   ]
 };
 const jewels = [
@@ -1098,6 +1292,252 @@ const jewels = [
     "sell": "18 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 5, Defense 11"
+  },
+  {
+    "id": "310160008",
+    "name": "Old Mercenary Commander Necklace",
+    "category": "Necklace",
+    "grade": "Common",
+    "level": "14",
+    "required": "",
+    "binding": "Bound",
+    "attack": "23",
+    "defense": "56",
+    "pool": "neck:common",
+    "sockets": "1",
+    "sell": "31 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 11"
+  },
+  {
+    "id": "310160017",
+    "name": "Ruby Necklace (Elyos)",
+    "category": "Necklace",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "41",
+    "defense": "99",
+    "pool": "neck:common18",
+    "sockets": "1",
+    "sell": "53 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Elyos"
+  },
+  {
+    "id": "310160018",
+    "name": "Ruby Necklace (Asmodians)",
+    "category": "Necklace",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "41",
+    "defense": "99",
+    "pool": "neck:common18",
+    "sockets": "1",
+    "sell": "53 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Asmodians"
+  },
+  {
+    "id": "310160019",
+    "name": "Sacrificial Ruby Necklace (Bind on Equip)",
+    "category": "Necklace",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Equip",
+    "attack": "34",
+    "defense": "82",
+    "pool": "neck:common18",
+    "sockets": "1",
+    "sell": "46 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310160024",
+    "name": "Sacrificial Ruby Necklace (Bind on Pickup)",
+    "category": "Necklace",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "34",
+    "defense": "82",
+    "pool": "neck:common18",
+    "sockets": "1",
+    "sell": "46 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310260008",
+    "name": "Old Mercenary Commander Earrings",
+    "category": "Earring",
+    "grade": "Common",
+    "level": "14",
+    "required": "",
+    "binding": "Bound",
+    "attack": "20",
+    "defense": "47",
+    "pool": "earring:common",
+    "sockets": "1",
+    "sell": "25 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 11"
+  },
+  {
+    "id": "310260017",
+    "name": "Diamond Earrings (Elyos)",
+    "category": "Earring",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "35",
+    "defense": "83",
+    "pool": "earring:common18",
+    "sockets": "1",
+    "sell": "42 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Elyos"
+  },
+  {
+    "id": "310260018",
+    "name": "Diamond Earrings (Asmodians)",
+    "category": "Earring",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "35",
+    "defense": "83",
+    "pool": "earring:common18",
+    "sockets": "1",
+    "sell": "42 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Asmodians"
+  },
+  {
+    "id": "310260019",
+    "name": "Sacrificial Diamond Earrings (Bind on Equip)",
+    "category": "Earring",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Equip",
+    "attack": "29",
+    "defense": "69",
+    "pool": "earring:common18",
+    "sockets": "1",
+    "sell": "37 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310260026",
+    "name": "Sacrificial Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "29",
+    "defense": "69",
+    "pool": "earring:common18",
+    "sockets": "1",
+    "sell": "37 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310360008",
+    "name": "Old Mercenary Commander Ring",
+    "category": "Ring",
+    "grade": "Common",
+    "level": "14",
+    "required": "",
+    "binding": "Bound",
+    "attack": "16",
+    "defense": "37",
+    "pool": "ring:common",
+    "sockets": "1",
+    "sell": "18 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 11"
+  },
+  {
+    "id": "310360017",
+    "name": "Sapphire Ring (Elyos)",
+    "category": "Ring",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "28",
+    "defense": "66",
+    "pool": "ring:common18",
+    "sockets": "1",
+    "sell": "32 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Elyos"
+  },
+  {
+    "id": "310360018",
+    "name": "Sapphire Ring (Asmodians)",
+    "category": "Ring",
+    "grade": "Common",
+    "level": "18",
+    "required": "16",
+    "binding": "Bind on Equip",
+    "attack": "28",
+    "defense": "66",
+    "pool": "ring:common18",
+    "sockets": "1",
+    "sell": "32 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15",
+    "faction": "Asmodians"
+  },
+  {
+    "id": "310360019",
+    "name": "Sacrificial Sapphire Ring (Bind on Equip)",
+    "category": "Ring",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Equip",
+    "attack": "23",
+    "defense": "55",
+    "pool": "ring:common18",
+    "sockets": "1",
+    "sell": "28 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310360026",
+    "name": "Sacrificial Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Common",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "23",
+    "defense": "55",
+    "pool": "ring:common18",
+    "sockets": "1",
+    "sell": "28 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
@@ -1117,6 +1557,7 @@ export default jewels.map((item) => ({
   imprints: pairs(imprintPools[item.pool]),
   details: [
     {label: "Binding", value: item.binding},
+    ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
     {label: "Manastone sockets", value: item.sockets},
     ...item.binding === "Bind on Equip" || item.binding === "Bind on Pickup" ? [{label: "Soul imprint selection", value: "Choose " + item.sockets + " sub-stats"}] : [],
     {label: "Sell price", value: item.sell},
