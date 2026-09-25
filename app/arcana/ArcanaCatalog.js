@@ -114,7 +114,7 @@ export default function ArcanaCatalog(){
         <p>Community reference · Global{snapshot?` · checked ${new Date(`${snapshot}T00:00:00Z`).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"})}`:""}. The current catalog contains Common, Rare, Epic, and Unique Arcana. Values may change with game updates.</p>
       </aside>
 
-      <Link className={styles.buildLink} href="/builds?tab=progression&section=arcana#arcana-setup">
+      <Link className={styles.buildLink} href="/builds?tab=arcana#arcana-setup">
         <span><small>BUILD CREATOR</small><strong>Record Arcana in a build</strong></span><ArrowRight/>
       </Link>
     </div>

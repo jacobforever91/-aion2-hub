@@ -181,7 +181,6 @@ export default function BuildCreator(){
   const [progressionPicker,setProgressionPicker]=useState("");
   const [progressionSearch,setProgressionSearch]=useState("");
   const [skillSearch,setSkillSearch]=useState("");
-  const [arcanaSetupOpen,setArcanaSetupOpen]=useState(false);
   const [arcanaSlotIndex,setArcanaSlotIndex]=useState(null);
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
@@ -211,12 +210,10 @@ export default function BuildCreator(){
         setSavedAt("Saved draft loaded from this device.");
       }
     }catch(_error){}
-    if(params.get("tab")==="progression"){
-      setTab("progression");
-      if(params.get("section")==="arcana"){
-        setArcanaSetupOpen(true);
-        window.setTimeout(()=>document.getElementById("arcana-setup")?.scrollIntoView({behavior:"smooth",block:"start"}),150);
-      }
+    if(params.get("tab")==="progression")setTab("progression");
+    if(params.get("tab")==="arcana"||params.get("section")==="arcana"){
+      setTab("arcana");
+      window.setTimeout(()=>document.getElementById("arcana-setup")?.scrollIntoView({behavior:"smooth",block:"start"}),150);
     }
     const mode=params.get("mode");
     if(mode==="pve")setBuild((current)=>({...current,goal:"PvE · Group"}));
@@ -435,7 +432,7 @@ export default function BuildCreator(){
       <div className={styles.workspace}>
         <div className={styles.editor}>
           <div className={styles.tabs} role="tablist" aria-label="Build sections">
-            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
+            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["arcana","Arcana"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
           </div>
 
           {tab==="overview"&&<section className={styles.panel}>
@@ -533,17 +530,14 @@ export default function BuildCreator(){
                 {petDetails?.tameFrom?.length>0&&<div className={styles.petReferenceSources}><strong>Found from</strong><p>{petDetails.tameFrom.join(" · ")}</p></div>}
               </details>}
             </article>}
-            <details id="arcana-setup" className={styles.advanced} open={arcanaSetupOpen} onToggle={(event)=>setArcanaSetupOpen(event.currentTarget.open)}>
-              <summary><span><Sparkles size={16}/> Advanced setup</span><small>Selections saved with the build · Arcana stats shown in summary</small></summary>
-              <div className={styles.advancedBody}>
-                <div className={styles.fieldBlock}><h3>Arcana · {arcanaCount}/10 cards</h3><p>Choose cards to add their stats to this build.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
-                <div className={styles.fieldBlock}><h3>Daevanion boards</h3><p>Note selected nodes or the path you want to follow.</p><div className={styles.advancedGrid}>{build.advanced.daevanion.map((value,index)=><label key={index}><small>BOARD {index+1}</small><input value={value} onChange={(event)=>updateAdvancedSlot("daevanion",index,event.target.value)} placeholder={"Board "+(index+1)}/></label>)}</div></div>
-                <label className={styles.field}><span>PANTHEON SETUP</span><textarea rows="3" value={build.advanced.pantheon} onChange={(event)=>updateAdvanced("pantheon",event.target.value)} placeholder="Decorations and effects shown in game…"/></label>
-                <label className={styles.field}><span>PET GENUS INSIGHT</span><textarea rows="3" value={build.advanced.genusInsight} onChange={(event)=>updateAdvanced("genusInsight",event.target.value)} placeholder="Record chosen genus options…"/></label>
-                <label className={styles.field}><span>ROTATION / MACRO NOTES</span><textarea rows="4" value={build.advanced.rotation} onChange={(event)=>updateAdvanced("rotation",event.target.value)} placeholder="Opening, skill order, and anything you keep manual…"/></label>
-              </div>
-            </details>
-            <div className={styles.dataFootnote}>Arcana card stats are saved with the build and shown per card; full combat and DPS totals are not calculated in this prototype.</div>
+
+            <div className={styles.dataFootnote}>Daevanion, Pantheon, pet genus and rotation notes are saved with the build; full combat and DPS totals are not calculated in this prototype.</div>
+          </section>}
+
+          {tab==="arcana"&&<section id="arcana-setup" className={styles.panel}>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to 10 cards for this build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>
+            <div className={styles.fieldBlock}><h3>Selected cards · {arcanaCount}/10</h3><p>Choose a card for each slot. Selected Arcana and their listed stats appear in the build summary.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
+            <div className={styles.dataFootnote}>Community reference · Global · Snapshot {arcanaCatalog.snapshot}. Arcana stats are shown by card; this prototype does not calculate combat or DPS totals.</div>
           </section>}
         </div>
 
@@ -552,7 +546,7 @@ export default function BuildCreator(){
             <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET · ${arcanaCount}/10 Arcana`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
             <div className={styles.summaryContent}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
-          <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
+          <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div><div><strong>{arcanaCount}/10</strong><small>Arcana</small></div></div>
           <details className={styles.summaryGear}>
             <summary><span>Equipped gear</span><b>{gearCount}/{visibleGearSlots.length}</b></summary>
             {selectedGearItems.length?<div className={styles.summaryGearList}>{selectedGearItems.map(({id,label,item})=><div className={styles.summaryGearItem} key={id}><span className={styles.summaryGearIcon}><img src={item.icon||"/equipment-art/accessory.webp"} alt="" loading="lazy"/></span><span className={styles.summaryGearCopy}><small>{label}</small><strong>{item.name}</strong><em>{item.grade||item.category||"Equipment"}</em>{normalStats(item).slice(0,2).map((stat,index)=><small className={styles.summaryGearStat} key={stat.label+String(stat.value)+index}>{stat.label}: {stat.value}</small>)}</span></div>)}</div>:<p className={styles.summaryGearEmpty}>Choose equipment to see its pieces and stats here.</p>}

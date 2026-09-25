@@ -116,7 +116,7 @@
 .summaryHead strong{color:#f2faff;font:400 18px/1.25 Georgia,serif}
 .summaryHead small{color:#9ab2bd;font-size:9px}
 .summaryHead em{align-self:flex-start;padding:5px 7px;border:1px solid #3c665a;border-radius:3px;background:#102820;color:#9ee3c5;font:700 7px system-ui,sans-serif;letter-spacing:1px}
-.summaryCounts{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:12px 0;border-bottom:1px solid #2b4755}
+.summaryCounts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:12px 0;border-bottom:1px solid #2b4755}
 .summaryCounts>div{display:flex;flex-direction:column;gap:3px;text-align:center}
 .summaryCounts strong{color:#e6f8ff;font-size:16px}
 .summaryCounts small{color:#92a9b5;font-size:8px}
