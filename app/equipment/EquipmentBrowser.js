@@ -100,7 +100,7 @@ export default function EquipmentBrowser() {
   const [pageInfo, setPageInfo] = useState({total: 0, page: 1, pages: 1});
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [openWeaponGroups, setOpenWeaponGroups] = useState({Greatsword: true, Longsword: true});
+  const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
 
@@ -133,7 +133,7 @@ export default function EquipmentBrowser() {
   useEffect(() => {
     setOpenWeaponGroups(
       grade === "All rarities" && !submittedSearch
-        ? {Greatsword: true, Longsword: true}
+        ? {}
         : Object.fromEntries(weaponTypeOrder.map((type) => [type, true]))
     );
   }, [categoryId, grade, region, submittedSearch]);
