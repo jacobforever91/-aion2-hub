@@ -1548,6 +1548,200 @@ const imprintPools = {
       "Natural HP Regen",
       "22 ~ 32"
     ]
+  ],
+  "neck:oath": [
+    [
+      "Combat Speed",
+      "2.11% ~ 2.5%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "17,500 ~ 20,132"
+    ],
+    [
+      "Attack",
+      "15 ~ 24"
+    ],
+    [
+      "Critical Hit",
+      "23 ~ 33"
+    ],
+    [
+      "Accuracy",
+      "31 ~ 43"
+    ],
+    [
+      "Defense",
+      "182 ~ 216"
+    ],
+    [
+      "Evasion",
+      "18 ~ 28"
+    ],
+    [
+      "Critical Hit Resist",
+      "33 ~ 45"
+    ],
+    [
+      "Block",
+      "18 ~ 28"
+    ],
+    [
+      "MP",
+      "70 ~ 88"
+    ],
+    [
+      "HP",
+      "140 ~ 168"
+    ],
+    [
+      "Natural MP Regen",
+      "16 ~ 25"
+    ],
+    [
+      "Natural HP Regen",
+      "33 ~ 45"
+    ]
+  ],
+  "earring:oath": [
+    [
+      "Move Speed",
+      "3.12% ~ 3.66%"
+    ],
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "7 ~ 15"
+    ],
+    [
+      "Flight Power",
+      "15,000 ~ 17,257"
+    ],
+    [
+      "Attack",
+      "13 ~ 22"
+    ],
+    [
+      "Critical Hit",
+      "20 ~ 30"
+    ],
+    [
+      "Accuracy",
+      "27 ~ 38"
+    ],
+    [
+      "Defense",
+      "156 ~ 186"
+    ],
+    [
+      "Evasion",
+      "15 ~ 24"
+    ],
+    [
+      "Critical Hit Resist",
+      "28 ~ 39"
+    ],
+    [
+      "Block",
+      "15 ~ 24"
+    ],
+    [
+      "MP",
+      "60 ~ 76"
+    ],
+    [
+      "HP",
+      "120 ~ 145"
+    ],
+    [
+      "Natural MP Regen",
+      "14 ~ 23"
+    ],
+    [
+      "Natural HP Regen",
+      "28 ~ 39"
+    ]
+  ],
+  "ring:oath": [
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "12,500 ~ 14,382"
+    ],
+    [
+      "Attack",
+      "11 ~ 20"
+    ],
+    [
+      "Critical Hit",
+      "16 ~ 25"
+    ],
+    [
+      "Accuracy",
+      "22 ~ 32"
+    ],
+    [
+      "Defense",
+      "130 ~ 157"
+    ],
+    [
+      "Evasion",
+      "13 ~ 22"
+    ],
+    [
+      "Critical Hit Resist",
+      "23 ~ 33"
+    ],
+    [
+      "Block",
+      "13 ~ 22"
+    ],
+    [
+      "MP",
+      "50 ~ 65"
+    ],
+    [
+      "HP",
+      "100 ~ 122"
+    ],
+    [
+      "Natural MP Regen",
+      "11 ~ 20"
+    ],
+    [
+      "Natural HP Regen",
+      "23 ~ 33"
+    ]
   ]
 };
 const skillPools = {
@@ -3064,6 +3258,108 @@ const jewels = [
     "sell": "156 Gold",
     "enchant": "+10",
     "upgrade": "At +10: Attack 11, Defense 45"
+  },
+  {
+    "id": "310140011",
+    "name": "Oath-Sworn Ruby Necklace (Bind on Equip)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "58",
+    "defense": "138",
+    "pool": "neck:oath",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "363 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310140079",
+    "name": "Oath-Sworn Ruby Necklace (Bind on Pickup)",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "58",
+    "defense": "138",
+    "pool": "neck:oath",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "363 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310240011",
+    "name": "Oath-Sworn Diamond Earrings (Bind on Equip)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "48",
+    "defense": "115",
+    "pool": "earring:oath",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "291 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310240081",
+    "name": "Oath-Sworn Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "48",
+    "defense": "115",
+    "pool": "earring:oath",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "291 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310340011",
+    "name": "Oath-Sworn Sapphire Ring (Bind on Equip)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "38",
+    "defense": "92",
+    "pool": "ring:oath",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "218 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
+  },
+  {
+    "id": "310340081",
+    "name": "Oath-Sworn Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "38",
+    "defense": "92",
+    "pool": "ring:oath",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "218 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
