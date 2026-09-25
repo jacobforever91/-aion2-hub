@@ -5,6 +5,7 @@ import armorData from "../../equipment/armorData.js";
 import chestData from "../../equipment/chestData.js";
 import armorMoreData from "../../equipment/armorMoreData.js";
 import jewelryData from "../../equipment/jewelryData.js";
+import broochData from "../../equipment/broochData.js";
 
 const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
@@ -142,7 +143,7 @@ const slotAliases = {
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
-const generalEquipmentItems = [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData];
+const generalEquipmentItems = [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData, ...broochData];
 
 function localGeneralItems(category, slot) {
   return generalEquipmentItems.filter((item) => {
@@ -166,12 +167,13 @@ async function getGeneralEquipment(request) {
   if (grade && !gradeOptions.has(grade)) return Response.json({error: "Unknown rarity."}, {status: 400});
   if (itemId) {
     if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
-    const item = region === "GLOBAL" ? generalEquipmentItems.find((entry) => entry.id === itemId) : null;
+    const item = generalEquipmentItems.find((entry) => entry.id === itemId && (entry.region || "GLOBAL") === region);
     if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
     return Response.json({...item, icon: item.icon || (item.group === "Weapon" ? `/equipment-icons/${item.id}.webp` : equipmentArt[category]), rarity: item.grade, region, official: false});
   }
 
-  const filtered = (region === "GLOBAL" ? localGeneralItems(category, slot) : []).filter((item) =>
+  const filtered = localGeneralItems(category, slot).filter((item) =>
+    (item.region || "GLOBAL") === region &&
     (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
   ).sort((a, b) => a.name.localeCompare(b.name));
   return Response.json({
