@@ -29,6 +29,16 @@ const slotDefs=[
   {id:"bracelet",label:"Bracelet",family:"Accessories",slot:"Bracelet"},
   {id:"brooch",label:"Brooch",family:"Accessories",slot:"Brooch"}
 ];
+const daevanionBoards=[
+  {id:"nezekan",name:"Nezekan",level:12,type:"Daevanion Stone"},
+  {id:"zikel",name:"Zikel",level:20,type:"Daevanion Stone"},
+  {id:"vaizel",name:"Vaizel",level:30,type:"Daevanion Stone"},
+  {id:"triniel",name:"Triniel",level:40,type:"Daevanion Stone"},
+  {id:"ariel",name:"Ariel",level:45,type:"Conquest"},
+  {id:"azphel",name:"Azphel",level:45,type:"Battle"},
+  {id:"marchutan",name:"Marchutan",level:45,type:"Season 2"},
+  {id:"yustiel",name:"Yustiel",level:45,type:"Season 3"}
+];
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
@@ -180,6 +190,7 @@ export default function BuildCreator(){
   const [pickerState,setPickerState]=useState("idle");
   const [progressionPicker,setProgressionPicker]=useState("");
   const [progressionSearch,setProgressionSearch]=useState("");
+  const [daevanionBoard,setDaevanionBoard]=useState("nezekan");
   const [skillSearch,setSkillSearch]=useState("");
   const [arcanaSlotIndex,setArcanaSlotIndex]=useState(null);
   const [comparisonSlots,setComparisonSlots]=useState({A:null,B:null});
@@ -274,6 +285,7 @@ export default function BuildCreator(){
   const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const selectedArcana=useMemo(()=>build.advanced.arcana.map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana]);
   const arcanaCount=selectedArcana.length;
+  const daevanionPlanCount=(build.advanced.daevanion||[]).filter((value)=>String(value||"").trim()).length;
   const gearCount=Object.values(build.gear).filter(Boolean).length;
   const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
   const selectedGearItems=visibleGearSlots.map((slot)=>{
@@ -319,7 +331,7 @@ export default function BuildCreator(){
   },[comparisonSlots]);
 
   const buildSummarySkillCount=skillTotals.active+skillTotals.passive+skillTotals.stigma;
-  const hasBuildContent=buildSummarySkillCount>0||gearCount>0||arcanaCount>0||Boolean(selectedWing||selectedPet);
+  const hasBuildContent=buildSummarySkillCount>0||gearCount>0||arcanaCount>0||daevanionPlanCount>0||Boolean(selectedWing||selectedPet);
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
   const progressionOptions=progressionPicker==="wings"?catalogData.wings:progressionPicker==="pets"?catalogData.pets:arcanaCatalog.items;
   const visibleProgressionOptions=useMemo(()=>progressionOptions.filter((item)=>{const extra=progressionPicker==="wings"?item.grade+" "+item.faction:progressionPicker==="pets"?item.genus:[item.rarity,...(item.stats||[]).map((stat)=>stat.label+" "+stat.value)].join(" ");return (item.name+" "+extra).toLowerCase().includes(progressionSearch.trim().toLowerCase())}),[progressionOptions,progressionPicker,progressionSearch]);
@@ -588,7 +600,31 @@ export default function BuildCreator(){
               </details>}
             </article>}
 
-            <div className={styles.dataFootnote}>Daevanion, Pantheon, pet genus and rotation notes are saved with the build; full combat and DPS totals are not calculated in this prototype.</div>
+            <div className={styles.fieldBlock}>
+              <div className={styles.daevanionHeading}><div><h3>Daevanion boards</h3><p>Select a board and jot down the nodes or route for this build.</p></div><span>{daevanionPlanCount}/8 planned</span></div>
+              <div className={styles.daevanionBoardList} role="group" aria-label="Daevanion boards">
+                {daevanionBoards.map((board,index)=>{
+                  const selected=daevanionBoard===board.id;
+                  const planned=Boolean(String(build.advanced.daevanion?.[index]||"").trim());
+                  return <button key={board.id} type="button" aria-pressed={selected} className={selected?styles.daevanionBoardActive:styles.daevanionBoard} onClick={()=>setDaevanionBoard(board.id)}>
+                    <span><strong>{board.name}</strong><small>{board.type}</small></span>
+                    <em>Lv. {board.level}{planned&&<b aria-label="Plan saved"> ✓</b>}</em>
+                  </button>;
+                })}
+              </div>
+              {(()=>{
+                const index=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
+                const board=daevanionBoards[index]||daevanionBoards[0];
+                const available=build.level>=board.level;
+                return <label className={styles.daevanionRoute}>
+                  <span><strong>{board.name}</strong><small>{available?"Available at this character level":"Unlocks at level "+board.level}</small></span>
+                  <textarea rows="3" value={build.advanced.daevanion?.[index]||""} onChange={(event)=>updateAdvancedSlot("daevanion",index,event.target.value)} placeholder="Record the nodes or route you want to use…"/>
+                </label>;
+              })()}
+              <div className={styles.daevanionDataNote}><strong>Reference data</strong><span>Board names and unlock levels follow community references. Node effects and costs can vary by region, so these planning notes are not included in stat totals.</span></div>
+            </div>
+
+            <div className={styles.dataFootnote}>Pantheon, pet genus and rotation notes are saved with the build; full combat and DPS totals are not calculated in this prototype.</div>
           </section>}
 
           {tab==="arcana"&&<section id="arcana-setup" className={styles.panel}>
@@ -634,7 +670,7 @@ export default function BuildCreator(){
 
         <aside className={styles.summary}>
           <details className={styles.summaryDetails}>
-            <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET · ${arcanaCount}/10 Arcana`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
+            <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET · ${arcanaCount}/10 Arcana${daevanionPlanCount?` · ${daevanionPlanCount}/8 Daevanion`:""}`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
             <div className={styles.summaryContent}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
           <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div><div><strong>{arcanaCount}/10</strong><small>Arcana</small></div></div>
