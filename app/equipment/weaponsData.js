@@ -330,4 +330,95 @@ for (const variant of [{name: "Worn", idSuffix: "001"}, {name: "Training", idSuf
   }));
 }
 
+
+const forgottenMainImprints = [
+  ["Combat Speed", "3.34% ~ 3.91%"], ["Damage Boost", "1.87% ~ 2.22%"],
+  ["Multi-hit Chance", "2.47% ~ 2.91%"], ["Weapon Damage Boost", "2.47% ~ 2.91%"],
+  ["Status Effect Chance", "6.6% ~ 7.66%"], ["Might", "6 ~ 14"],
+  ["Precision", "6 ~ 14"], ["Attack", "12 ~ 21"],
+  ["Critical Hit", "17 ~ 27"], ["Critical Attack", "25 ~ 36"],
+  ["Back Attack", "25 ~ 36"], ["Front Attack", "25 ~ 36"],
+  ["Accuracy", "23 ~ 33"], ["Block", "14 ~ 23"],
+  ["MP", "52 ~ 67"], ["HP", "105 ~ 128"],
+];
+
+const forgottenGuardImprints = [
+  ["Combat Speed", "2.6% ~ 3.06%"], ["Damage Boost", "1.49% ~ 1.78%"],
+  ["Multi-hit Chance", "1.98% ~ 2.35%"], ["Weapon Damage Boost", "1.98% ~ 2.35%"],
+  ["Status Effect Chance", "5.28% ~ 6.14%"], ["Might", "5 ~ 13"],
+  ["Precision", "5 ~ 13"], ["Attack", "9 ~ 17"],
+  ["Critical Hit", "14 ~ 23"], ["Critical Attack", "20 ~ 30"],
+  ["Back Attack", "20 ~ 30"], ["Front Attack", "20 ~ 30"],
+  ["Accuracy", "18 ~ 28"], ["Block", "11 ~ 20"],
+  ["MP", "42 ~ 55"], ["HP", "84 ~ 104"],
+];
+
+const riversideMainImprints = [
+  ["Combat Speed", "3.49% ~ 4.08%"], ["Damage Boost", "1.95% ~ 2.31%"],
+  ["Multi-hit Chance", "2.58% ~ 3.04%"], ["Weapon Damage Boost", "2.58% ~ 3.04%"],
+  ["Status Effect Chance", "6.9% ~ 8.01%"], ["Might", "6 ~ 14"],
+  ["Precision", "6 ~ 14"], ["Attack", "12 ~ 21"],
+  ["Critical Hit", "18 ~ 28"], ["Critical Attack", "26 ~ 37"],
+  ["Back Attack", "26 ~ 37"], ["Front Attack", "26 ~ 37"],
+  ["Accuracy", "24 ~ 35"], ["Block", "14 ~ 23"],
+  ["MP", "55 ~ 70"], ["HP", "110 ~ 134"],
+];
+
+const riversideGuardImprints = [
+  ["Combat Speed", "2.72% ~ 3.2%"], ["Damage Boost", "1.56% ~ 1.86%"],
+  ["Multi-hit Chance", "2.07% ~ 2.45%"], ["Weapon Damage Boost", "2.07% ~ 2.45%"],
+  ["Status Effect Chance", "5.52% ~ 6.42%"], ["Might", "5 ~ 13"],
+  ["Precision", "5 ~ 13"], ["Attack", "10 ~ 19"],
+  ["Critical Hit", "14 ~ 23"], ["Critical Attack", "21 ~ 31"],
+  ["Back Attack", "21 ~ 31"], ["Front Attack", "21 ~ 31"],
+  ["Accuracy", "19 ~ 29"], ["Block", "11 ~ 20"],
+  ["MP", "44 ~ 58"], ["HP", "88 ~ 108"],
+];
+
+const commonProgressionSeries = [
+  {
+    name: "Forgotten", idSuffix: "017", level: "13", sellPrice: "69 Gold",
+    mainImprints: forgottenMainImprints, guardImprints: forgottenGuardImprints,
+    attacks: [["61", "83"], ["58", "72"], ["50", "65"], ["56", "70"], ["65", "72"], ["43", "86"], ["50", "65"], ["58", "79"], ["29"]],
+  },
+  {
+    name: "Riverside", idSuffix: "018", level: "18", sellPrice: "97 Gold",
+    mainImprints: riversideMainImprints, guardImprints: riversideGuardImprints,
+    attacks: [["87", "117"], ["82", "102"], ["71", "92"], ["79", "99"], ["92", "102"], ["61", "122"], ["71", "92"], ["82", "112"], ["41"]],
+  },
+];
+
+for (const series of commonProgressionSeries) {
+  weaponsData.push(...commonWeaponTypes.map((type, index) => {
+    const id = type.idPrefix + series.idSuffix;
+    const attacks = series.attacks[index];
+    const stats = type.stats.map(([label, value]) => [
+      label,
+      label === "Min Attack" || (type.equipType === "SubHand" && label === "Attack") ? attacks[0]
+        : label === "Max Attack" ? attacks[1] : value,
+    ]);
+    return {
+      id, name: series.name + " " + type.suffix, category: type.category,
+      itemType: type.itemType, equipType: type.equipType, group: "Weapon",
+      grade: "Common", itemLevel: series.level, requiredLevel: series.level,
+      icon: "/equipment-icons/" + id + ".webp",
+      stats: toPairs(stats),
+      imprints: toPairs(type.equipType === "SubHand" ? series.guardImprints : series.mainImprints),
+      details: [
+        {label: "Binding", value: "Bind on Equip"},
+        {label: "Manastone sockets", value: "1"},
+        {label: "Sell price", value: series.sellPrice},
+        {label: "Enchantable to", value: "+5"},
+        {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
+      ],
+      source: {
+        name: "AION2 Hub independent item database",
+        region: "Global Launch Scale Test snapshot",
+        capturedAt: "2026-09-19",
+        official: false,
+      },
+    };
+  }));
+}
+
 export default weaponsData;
