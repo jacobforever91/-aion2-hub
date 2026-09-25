@@ -360,3 +360,9 @@
 .daevanionGridStart{border:1px solid #edce89;background:radial-gradient(circle,#f3d99e,#957040);box-shadow:0 0 10px #e4bc6b66;color:#1b1710;font-size:clamp(8px,2.2vw,12px);cursor:default}
 .daevanionGridNode:not(:disabled):active,.daevanionGridReachable:active{transform:scale(.88)}
 @media(max-width:600px){.daevanionPlannerBar{flex-wrap:wrap;padding:8px}.daevanionPlannerBar>span{flex-basis:100%}.daevanionPlannerBar button{flex:1}.daevanionGridShell{max-width:380px;padding:8px}.daevanionGrid{gap:2px}}
+.daevanionLegend{display:flex;flex-wrap:wrap;align-items:center;gap:11px;margin:0 auto 8px;max-width:440px;color:#90a8b2;font-size:9px}
+.daevanionLegend>span{display:inline-flex;align-items:center;gap:5px}
+.daevanionLegend i{display:inline-block;width:10px;height:10px;border-radius:50%}
+.daevanionLegendSelected{border:1px solid #7feaff;background:#35b7d2;box-shadow:0 0 7px #56cde977}
+.daevanionLegendAvailable{border:1px solid #72c9d8;background:#173845}
+.daevanionLegendLocked{border:1px solid #203b47;background:#0b1921}

@@ -665,6 +665,11 @@ export default function BuildCreator(){
                   })}
                 </div>
                 <div className={styles.daevanionPlannerBar}><span><strong>{board.name}</strong><small>{boardPath.length} nodes · {daevanionTotalNodes} across all boards · unlock Lv. {board.level}</small></span><button type="button" onClick={()=>clearDaevanionBoard(boardIndex)} disabled={!boardPath.length}>Clear board</button><button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button></div>
+                <div className={styles.daevanionLegend} aria-label="Node selection legend">
+                  <span><i className={styles.daevanionLegendSelected}/>Selected</span>
+                  <span><i className={styles.daevanionLegendAvailable}/>Available</span>
+                  <span><i className={styles.daevanionLegendLocked}/>Not connected</span>
+                </div>
                 <div className={styles.daevanionGridShell}>
                   <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
                     <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
@@ -676,8 +681,7 @@ export default function BuildCreator(){
                       const center=nodeId==="7,7";
                       const active=selected.has(nodeId);
                       const available=active||[[row-1,column],[row+1,column],[row,column-1],[row,column+1]].some(([r,col])=>selected.has(r+","+col));
-                      const pathNumber=boardPath.indexOf(nodeId)+1;
-                      return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Remove selected node "+pathNumber:"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node "+pathNumber:available?"Add to route":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":active?pathNumber:""}</button>;
+                      return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Selected node, tap to remove":"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node":available?"Available node":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":""}</button>;
                     })}
                   </div>
                 </div>
