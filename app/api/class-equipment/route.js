@@ -164,7 +164,7 @@ async function getGeneralEquipment(request) {
     if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
     const item = region === "GLOBAL" ? generalEquipmentItems.find((entry) => entry.id === itemId) : null;
     if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
-    return Response.json({...item, icon: item.icon || (item.group === "Weapon" ? `${source}/api/icon/items/${item.id}` : equipmentArt[category]), rarity: item.grade, region, official: false});
+    return Response.json({...item, icon: item.icon || (item.group === "Weapon" ? `/equipment-icons/${item.id}.webp` : equipmentArt[category]), rarity: item.grade, region, official: false});
   }
 
   const filtered = (region === "GLOBAL" ? localGeneralItems(category, slot) : []).filter((item) =>
@@ -172,7 +172,7 @@ async function getGeneralEquipment(request) {
   ).sort((a, b) => a.name.localeCompare(b.name));
   return Response.json({
     region, category, slot,
-    items: filtered.map(({id, name, grade, icon, group}) => ({id, name, grade, category, family: category, icon: icon || (group === "Weapon" ? `${source}/api/icon/items/${id}` : equipmentArt[category])})),
+    items: filtered.map(({id, name, grade, icon, group}) => ({id, name, grade, category, family: category, icon: icon || (group === "Weapon" ? `/equipment-icons/${id}.webp` : equipmentArt[category])})),
     total: filtered.length, page: 1, pages: 1, source: "reviewed-local-snapshot",
   });
 }
