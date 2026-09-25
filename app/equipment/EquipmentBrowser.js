@@ -2,10 +2,11 @@
 
 import {useCallback, useEffect, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
+import {ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
 import EquipmentSlotIcon from "./EquipmentSlotIcon";
 
 const grades = ["All rarities", "Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"];
+const weaponTypeOrder = ["Greatsword", "Longsword", "Dagger", "Bow", "Spellbook", "Orb", "Mace", "Staff", "Guard"];
 const categories = [
   {id: "weapons", name: "Weapons", family: "Weapons", icon: "weapons"},
   {id: "helmet", name: "Helmet", family: "Armor", sourceSlot: "Helmet", icon: "helmet"},
@@ -98,6 +99,7 @@ export default function EquipmentBrowser() {
   const [pageInfo, setPageInfo] = useState({total: 0, page: 1, pages: 1});
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [openWeaponGroups, setOpenWeaponGroups] = useState({Greatsword: true, Longsword: true});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
 
@@ -126,6 +128,30 @@ export default function EquipmentBrowser() {
       });
     return () => controller.abort();
   }, [region, categoryId, grade, page, submittedSearch]);
+
+  useEffect(() => {
+    setOpenWeaponGroups(
+      grade === "All rarities" && !submittedSearch
+        ? {Greatsword: true, Longsword: true}
+        : Object.fromEntries(weaponTypeOrder.map((type) => [type, true]))
+    );
+  }, [categoryId, grade, region, submittedSearch]);
+
+  const weaponGroups = categoryId === "weapons"
+    ? Object.entries(items.reduce((groups, item) => {
+        const type = item.category || "Other weapons";
+        (groups[type] ||= []).push(item);
+        return groups;
+      }, {})).sort(([a], [b]) => {
+        const aIndex = weaponTypeOrder.indexOf(a);
+        const bIndex = weaponTypeOrder.indexOf(b);
+        return (aIndex < 0 ? weaponTypeOrder.length : aIndex) - (bIndex < 0 ? weaponTypeOrder.length : bIndex) || a.localeCompare(b);
+      })
+    : [];
+  const renderItemCard = (item) => <button className="equipmentItemCard" type="button" key={`${region}-${item.id}`} onClick={() => setSelectedItem(item)}>
+    <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
+    <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
+  </button>;
 
   const closeItem = useCallback(() => setSelectedItem(null), []);
   function changeFilter(change) {
@@ -162,12 +188,21 @@ export default function EquipmentBrowser() {
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading equipment…</p>}
       {state === "error" && <p className="equipmentLoading isError">{error || "Could not load equipment. Please try again."}</p>}
-      {state === "ready" && items.length > 0 && <div className="equipmentItemGrid generalEquipmentGrid">
-        {items.map((item) => <button className="equipmentItemCard" type="button" key={`${region}-${item.id}`} onClick={() => setSelectedItem(item)}>
-          <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
-          <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
-        </button>)}
-      </div>}
+      {state === "ready" && items.length > 0 && (categoryId === "weapons"
+        ? <div className="equipmentWeaponSections">
+            {weaponGroups.map(([type, groupItems]) => {
+              const isOpen = Boolean(openWeaponGroups[type]);
+              const panelId = `equipment-weapon-${type.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+              return <section className="equipmentWeaponSection" key={type}>
+                <h2><button className="equipmentWeaponSectionToggle" type="button" aria-expanded={isOpen} aria-controls={panelId} onClick={() => setOpenWeaponGroups((current) => ({...current, [type]: !current[type]}))}>
+                  <ChevronDown aria-hidden="true" className={isOpen ? "isOpen" : ""} />
+                  <span>{type}</span><small>{groupItems.length} {groupItems.length === 1 ? "weapon" : "weapons"}</small>
+                </button></h2>
+                {isOpen && <div id={panelId} className="equipmentItemGrid generalEquipmentGrid">{groupItems.map(renderItemCard)}</div>}
+              </section>;
+            })}
+          </div>
+        : <div className="equipmentItemGrid generalEquipmentGrid">{items.map(renderItemCard)}</div>)}
       {state === "ready" && items.length === 0 && <p className="equipmentLoading">{submittedSearch || grade !== "All rarities" ? "No reviewed items match these filters." : "No reviewed entries are available for this slot and region yet."}</p>}
       {state === "ready" && pageInfo.pages > 1 && <div className="equipmentPagination"><button type="button" disabled={pageInfo.page <= 1} onClick={() => setPage((current) => current - 1)}><ChevronLeft aria-hidden="true" />Previous</button><span>Page {pageInfo.page} of {pageInfo.pages}</span><button type="button" disabled={pageInfo.page >= pageInfo.pages} onClick={() => setPage((current) => current + 1)}>Next<ChevronRight aria-hidden="true" /></button></div>}
       <p className="equipmentDataNote">Choose a rarity to narrow the catalog. Select an item to open its information panel. Entries appear as their data is reviewed.</p>

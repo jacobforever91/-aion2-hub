@@ -766,3 +766,16 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 @media(max-width:760px){.generalEquipmentPage.classPage{padding:68px 14px 48px}.generalEquipmentPage .equipmentGeneralContent{width:100%}.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(4,minmax(0,1fr))}.equipmentTopline{align-items:flex-start;flex-direction:column;gap:10px}.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.generalEquipmentPage .equipmentSlotFilters button{min-height:39px;padding:7px 8px;font-size:10px}.generalEquipmentPage .equipmentSlotFilters button small{display:none}.generalEquipmentPage .equipmentGradeFilters{gap:5px}.generalEquipmentPage .equipmentGradeFilters button{padding:6px 8px;font-size:9px}.generalEquipmentPage .generalEquipmentGrid{grid-template-columns:1fr}.generalEquipmentPage .equipmentSearch input{font-size:12px}}
 @media(max-width:360px){.generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Group the weapon catalog by weapon type. */
+.generalEquipmentPage .equipmentWeaponSections{display:grid;gap:7px;margin-top:10px}
+.generalEquipmentPage .equipmentWeaponSection{min-width:0}
+.generalEquipmentPage .equipmentWeaponSection h2{margin:0}
+.generalEquipmentPage .equipmentWeaponSectionToggle{display:flex;align-items:center;gap:10px;width:100%;min-height:45px;padding:10px 12px;border:0;border-bottom:1px solid #37647a;background:#081a28e8;color:#d9f2fb;text-align:left;font:600 12px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer}
+.generalEquipmentPage .equipmentWeaponSectionToggle:hover{background:#0c2b3bea;color:#f0fbff}
+.generalEquipmentPage .equipmentWeaponSectionToggle:focus-visible{outline:2px solid #95f4ff;outline-offset:2px}
+.generalEquipmentPage .equipmentWeaponSectionToggle svg{width:15px;height:15px;flex:none;color:#69dbf6;transform:rotate(-90deg);transition:transform .18s ease}
+.generalEquipmentPage .equipmentWeaponSectionToggle svg.isOpen{transform:rotate(0)}
+.generalEquipmentPage .equipmentWeaponSectionToggle small{margin-left:auto;color:#7fd9ef;font:400 10px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap}
+.generalEquipmentPage .equipmentWeaponSection .generalEquipmentGrid{margin:9px 0 15px 25px}
+@media(max-width:520px){.generalEquipmentPage .equipmentWeaponSectionToggle{min-height:44px;padding:9px 8px;font-size:11px}.generalEquipmentPage .equipmentWeaponSection .generalEquipmentGrid{margin-left:13px}}
