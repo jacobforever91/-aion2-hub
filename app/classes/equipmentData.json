@@ -12,39 +12,126 @@
       "equipType": "MainHand",
       "itemType": "Sword",
       "stats": [
-        { "label": "Min Attack", "value": "67" },
-        { "label": "Max Attack", "value": "84" },
-        { "label": "Accuracy", "value": "150" },
-        { "label": "Critical Hit", "value": "50" },
-        { "label": "Block", "value": "200" },
-        { "label": "Parry Damage Reduction Rate", "value": "19%" },
-        { "label": "Shield Block Damage Reduction Rate", "value": "30%" },
-        { "label": "Parry Damage Reduction Amount", "value": "100,000" },
-        { "label": "Shield Block Damage Reduction Amount", "value": "100,000" }
+        {
+          "label": "Min Attack",
+          "value": "67"
+        },
+        {
+          "label": "Max Attack",
+          "value": "84"
+        },
+        {
+          "label": "Accuracy",
+          "value": "150"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "50"
+        },
+        {
+          "label": "Block",
+          "value": "200"
+        },
+        {
+          "label": "Parry Damage Reduction Rate",
+          "value": "19%"
+        },
+        {
+          "label": "Shield Block Damage Reduction Rate",
+          "value": "30%"
+        },
+        {
+          "label": "Parry Damage Reduction Amount",
+          "value": "100,000"
+        },
+        {
+          "label": "Shield Block Damage Reduction Amount",
+          "value": "100,000"
+        }
       ],
       "imprints": [
-        { "label": "Combat Speed", "value": "4.45% ~ 5.19%" },
-        { "label": "Damage Boost", "value": "2.49% ~ 2.93%" },
-        { "label": "Multi-hit Chance", "value": "3.3% ~ 3.87%" },
-        { "label": "Weapon Damage Boost", "value": "3.3% ~ 3.87%" },
-        { "label": "Status Effect Chance", "value": "8.8% ~ 10.19%" },
-        { "label": "Might", "value": "8 ~ 16" },
-        { "label": "Precision", "value": "8 ~ 16" },
-        { "label": "Attack", "value": "15 ~ 24" },
-        { "label": "Critical Hit", "value": "23 ~ 33" },
-        { "label": "Critical Attack", "value": "33 ~ 45" },
-        { "label": "Back Attack", "value": "33 ~ 45" },
-        { "label": "Front Attack", "value": "33 ~ 45" },
-        { "label": "Accuracy", "value": "31 ~ 43" },
-        { "label": "Block", "value": "18 ~ 28" },
-        { "label": "MP", "value": "70 ~ 88" },
-        { "label": "HP", "value": "141 ~ 169" },
-        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+        {
+          "label": "Combat Speed",
+          "value": "4.45% ~ 5.19%"
+        },
+        {
+          "label": "Damage Boost",
+          "value": "2.49% ~ 2.93%"
+        },
+        {
+          "label": "Multi-hit Chance",
+          "value": "3.3% ~ 3.87%"
+        },
+        {
+          "label": "Weapon Damage Boost",
+          "value": "3.3% ~ 3.87%"
+        },
+        {
+          "label": "Status Effect Chance",
+          "value": "8.8% ~ 10.19%"
+        },
+        {
+          "label": "Might",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Precision",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Attack",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "23 ~ 33"
+        },
+        {
+          "label": "Critical Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Back Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Front Attack",
+          "value": "33 ~ 45"
+        },
+        {
+          "label": "Accuracy",
+          "value": "31 ~ 43"
+        },
+        {
+          "label": "Block",
+          "value": "18 ~ 28"
+        },
+        {
+          "label": "MP",
+          "value": "70 ~ 88"
+        },
+        {
+          "label": "HP",
+          "value": "141 ~ 169"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +5. At +5: Min Attack +6, Max Attack +6.",
       "source": {
@@ -61,51 +148,156 @@
       "category": "Helmet",
       "name": "Tempest Helm",
       "grade": "Rare",
-      "itemLevel": "23",
+      "itemLevel": "15",
       "requiredLevel": "15",
       "equipType": "Helmet",
       "itemType": "Armor",
       "stats": [
-        { "label": "Defense", "value": "74" },
-        { "label": "HP", "value": "42" }
+        {
+          "label": "Defense",
+          "value": "91"
+        },
+        {
+          "label": "HP",
+          "value": "38"
+        }
       ],
       "imprints": [
-        { "label": "Incoming Heal", "value": "7.59% ~ 8.8%" },
-        { "label": "Status Effect Resist", "value": "2.16% ~ 2.55%" },
-        { "label": "Smite", "value": "0.46% ~ 0.6%" },
-        { "label": "Endurance", "value": "1.15% ~ 1.39%" },
-        { "label": "Attack increase", "value": "0.46% ~ 0.6%" },
-        { "label": "Perfect Resist", "value": "2.3% ~ 2.72%" },
-        { "label": "Dexterity", "value": "9 ~ 17" },
-        { "label": "Constitution", "value": "9 ~ 17" },
-        { "label": "Willpower", "value": "9 ~ 17" },
-        { "label": "Attack", "value": "5 ~ 13" },
-        { "label": "Critical Hit", "value": "6 ~ 14" },
-        { "label": "Accuracy", "value": "11 ~ 20" },
-        { "label": "Defense", "value": "38 ~ 51" },
-        { "label": "Evasion", "value": "9 ~ 17" },
-        { "label": "Critical Damage Defense", "value": "56 ~ 71" },
-        { "label": "Back Defense", "value": "56 ~ 71" },
-        { "label": "Critical Hit Resist", "value": "7 ~ 15" },
-        { "label": "Block", "value": "9 ~ 17" },
-        { "label": "MP", "value": "23 ~ 33" },
-        { "label": "HP", "value": "46 ~ 60" },
-        { "label": "Natural MP Regen", "value": "6 ~ 14" },
-        { "label": "Natural HP Regen", "value": "12 ~ 21" },
-        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+        {
+          "label": "Incoming Heal",
+          "value": "6.6% ~ 7.66%"
+        },
+        {
+          "label": "Double Chance",
+          "value": "0.73% ~ 0.91%"
+        },
+        {
+          "label": "Endurance",
+          "value": "1.1% ~ 1.34%"
+        },
+        {
+          "label": "Attack increase",
+          "value": "0.73% ~ 0.91%"
+        },
+        {
+          "label": "Perfect Resist",
+          "value": "1.37% ~ 1.65%"
+        },
+        {
+          "label": "Status Effect Resist",
+          "value": "2.35% ~ 2.77%"
+        },
+        {
+          "label": "Weapon Damage Tolerance",
+          "value": "2.64% ~ 3.11%"
+        },
+        {
+          "label": "Dexterity",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Constitution",
+          "value": "7 ~ 15"
+        },
+        {
+          "label": "Willpower",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Attack",
+          "value": "7 ~ 15"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Accuracy",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Defense",
+          "value": "91 ~ 112"
+        },
+        {
+          "label": "Evasion",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Critical Damage Defense",
+          "value": "94 ~ 115"
+        },
+        {
+          "label": "Back Defense",
+          "value": "94 ~ 115"
+        },
+        {
+          "label": "Front Defense",
+          "value": "94 ~ 115"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Block",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "MP",
+          "value": "35 ~ 47"
+        },
+        {
+          "label": "HP",
+          "value": "70 ~ 88"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Binding",
+          "value": "Bind on Pickup"
+        },
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Sell price",
+          "value": "66 Gold"
+        },
+        {
+          "label": "Enchantable to",
+          "value": "+5"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
-      "upgrades": "Enchantable to +10. At +10: Defense +250, HP +200.",
+      "upgrades": "At +5: Defense 24, HP 9.",
       "source": {
         "name": "AION2 Hub (independent community reference)",
         "region": "Global Launch Scale Test snapshot",
         "capturedAt": "2026-09-19",
         "official": false
-      }
+      },
+      "icon": "/equipment-icons/210350085.webp"
     },
     {
       "id": "210250010",
@@ -119,40 +311,130 @@
       "equipType": "Pants",
       "itemType": "Armor",
       "stats": [
-        { "label": "Defense", "value": "173" },
-        { "label": "HP", "value": "75" }
+        {
+          "label": "Defense",
+          "value": "173"
+        },
+        {
+          "label": "HP",
+          "value": "75"
+        }
       ],
       "imprints": [
-        { "label": "Damage Tolerance", "value": "4.32% ~ 5.04%" },
-        { "label": "Perfect Chance", "value": "1.98% ~ 2.35%" },
-        { "label": "Endurance", "value": "1.32% ~ 1.59%" },
-        { "label": "Attack increase", "value": "0.87% ~ 1.07%" },
-        { "label": "Double Resist", "value": "1.32% ~ 1.59%" },
-        { "label": "Status Effect Resist", "value": "2.83% ~ 3.32%" },
-        { "label": "Multi-hit Resist", "value": "1.98% ~ 2.35%" },
-        { "label": "Dexterity", "value": "4 ~ 12" },
-        { "label": "Constitution", "value": "6 ~ 14" },
-        { "label": "Willpower", "value": "5 ~ 13" },
-        { "label": "Attack", "value": "9 ~ 17" },
-        { "label": "Critical Hit", "value": "13 ~ 22" },
-        { "label": "Accuracy", "value": "19 ~ 29" },
-        { "label": "Defense", "value": "110 ~ 134" },
-        { "label": "Evasion", "value": "11 ~ 20" },
-        { "label": "Critical Damage Defense", "value": "112 ~ 136" },
-        { "label": "Back Defense", "value": "112 ~ 136" },
-        { "label": "Front Defense", "value": "112 ~ 136" },
-        { "label": "Critical Hit Resist", "value": "19 ~ 29" },
-        { "label": "Block", "value": "11 ~ 20" },
-        { "label": "MP", "value": "42 ~ 55" },
-        { "label": "HP", "value": "85 ~ 105" },
-        { "label": "Natural MP Regen", "value": "9 ~ 17" },
-        { "label": "Natural HP Regen", "value": "19 ~ 29" },
-        { "label": "Templar skill", "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)" }
+        {
+          "label": "Damage Tolerance",
+          "value": "4.32% ~ 5.04%"
+        },
+        {
+          "label": "Perfect Chance",
+          "value": "1.98% ~ 2.35%"
+        },
+        {
+          "label": "Endurance",
+          "value": "1.32% ~ 1.59%"
+        },
+        {
+          "label": "Attack increase",
+          "value": "0.87% ~ 1.07%"
+        },
+        {
+          "label": "Double Resist",
+          "value": "1.32% ~ 1.59%"
+        },
+        {
+          "label": "Status Effect Resist",
+          "value": "2.83% ~ 3.32%"
+        },
+        {
+          "label": "Multi-hit Resist",
+          "value": "1.98% ~ 2.35%"
+        },
+        {
+          "label": "Dexterity",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Constitution",
+          "value": "6 ~ 14"
+        },
+        {
+          "label": "Willpower",
+          "value": "5 ~ 13"
+        },
+        {
+          "label": "Attack",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "13 ~ 22"
+        },
+        {
+          "label": "Accuracy",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Defense",
+          "value": "110 ~ 134"
+        },
+        {
+          "label": "Evasion",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "Critical Damage Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Back Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Front Defense",
+          "value": "112 ~ 136"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Block",
+          "value": "11 ~ 20"
+        },
+        {
+          "label": "MP",
+          "value": "42 ~ 55"
+        },
+        {
+          "label": "HP",
+          "value": "85 ~ 105"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "9 ~ 17"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "19 ~ 29"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, or Block Pain (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "2" },
-        { "label": "Soul imprint selection", "value": "Choose 2 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "2"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 2 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +5. At +5: Defense +41, HP +15.",
       "source": {
@@ -174,31 +456,94 @@
       "equipType": "Ring",
       "itemType": "Accessory",
       "stats": [
-        { "label": "Attack", "value": "54" },
-        { "label": "Defense", "value": "130" }
+        {
+          "label": "Attack",
+          "value": "54"
+        },
+        {
+          "label": "Defense",
+          "value": "130"
+        }
       ],
       "imprints": [
-        { "label": "Might", "value": "4 ~ 12" },
-        { "label": "Precision", "value": "4 ~ 12" },
-        { "label": "Intelligence", "value": "8 ~ 16" },
-        { "label": "Flight Power", "value": "16,200 ~ 18,637" },
-        { "label": "Attack", "value": "14 ~ 23" },
-        { "label": "Critical Hit", "value": "21 ~ 31" },
-        { "label": "Accuracy", "value": "29 ~ 40" },
-        { "label": "Defense", "value": "168 ~ 200" },
-        { "label": "Evasion", "value": "16 ~ 25" },
-        { "label": "Critical Hit Resist", "value": "30 ~ 42" },
-        { "label": "Block", "value": "17 ~ 27" },
-        { "label": "MP", "value": "64 ~ 81" },
-        { "label": "HP", "value": "130 ~ 157" },
-        { "label": "Natural MP Regen", "value": "15 ~ 24" },
-        { "label": "Natural HP Regen", "value": "30 ~ 42" },
-        { "label": "Templar skill", "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)" }
+        {
+          "label": "Might",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Precision",
+          "value": "4 ~ 12"
+        },
+        {
+          "label": "Intelligence",
+          "value": "8 ~ 16"
+        },
+        {
+          "label": "Flight Power",
+          "value": "16,200 ~ 18,637"
+        },
+        {
+          "label": "Attack",
+          "value": "14 ~ 23"
+        },
+        {
+          "label": "Critical Hit",
+          "value": "21 ~ 31"
+        },
+        {
+          "label": "Accuracy",
+          "value": "29 ~ 40"
+        },
+        {
+          "label": "Defense",
+          "value": "168 ~ 200"
+        },
+        {
+          "label": "Evasion",
+          "value": "16 ~ 25"
+        },
+        {
+          "label": "Critical Hit Resist",
+          "value": "30 ~ 42"
+        },
+        {
+          "label": "Block",
+          "value": "17 ~ 27"
+        },
+        {
+          "label": "MP",
+          "value": "64 ~ 81"
+        },
+        {
+          "label": "HP",
+          "value": "130 ~ 157"
+        },
+        {
+          "label": "Natural MP Regen",
+          "value": "15 ~ 24"
+        },
+        {
+          "label": "Natural HP Regen",
+          "value": "30 ~ 42"
+        },
+        {
+          "label": "Templar skill",
+          "value": "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, or Defiance (Lv. 1)"
+        }
       ],
       "details": [
-        { "label": "Manastone sockets", "value": "4" },
-        { "label": "Soul imprint selection", "value": "Choose 4 sub-stats" },
-        { "label": "Region/version", "value": "Global Launch Scale Test client · 2026-09-19" }
+        {
+          "label": "Manastone sockets",
+          "value": "4"
+        },
+        {
+          "label": "Soul imprint selection",
+          "value": "Choose 4 sub-stats"
+        },
+        {
+          "label": "Region/version",
+          "value": "Global Launch Scale Test client · 2026-09-19"
+        }
       ],
       "upgrades": "Enchantable to +15. At +15: Attack +28, Defense +112.",
       "source": {
