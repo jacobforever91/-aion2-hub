@@ -966,6 +966,472 @@ const imprintPools = {
       "MP",
       "16 ~ 16"
     ]
+  ],
+  "neck:alluring": [
+    [
+      "Combat Speed",
+      "1.62% ~ 1.93%"
+    ],
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "13,440 ~ 15,463"
+    ],
+    [
+      "Attack",
+      "11 ~ 20"
+    ],
+    [
+      "Critical Hit",
+      "17 ~ 27"
+    ],
+    [
+      "Accuracy",
+      "24 ~ 35"
+    ],
+    [
+      "Defense",
+      "140 ~ 168"
+    ],
+    [
+      "Evasion",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit Resist",
+      "25 ~ 36"
+    ],
+    [
+      "Block",
+      "14 ~ 23"
+    ],
+    [
+      "MP",
+      "53 ~ 68"
+    ],
+    [
+      "HP",
+      "108 ~ 131"
+    ],
+    [
+      "Natural MP Regen",
+      "12 ~ 21"
+    ],
+    [
+      "Natural HP Regen",
+      "25 ~ 36"
+    ]
+  ],
+  "neck:dusk": [
+    [
+      "Combat Speed",
+      "1.68% ~ 2%"
+    ],
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "7 ~ 15"
+    ],
+    [
+      "Flight Power",
+      "14,000 ~ 16,107"
+    ],
+    [
+      "Attack",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit",
+      "18 ~ 28"
+    ],
+    [
+      "Accuracy",
+      "25 ~ 36"
+    ],
+    [
+      "Defense",
+      "146 ~ 175"
+    ],
+    [
+      "Evasion",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit Resist",
+      "26 ~ 37"
+    ],
+    [
+      "Block",
+      "14 ~ 23"
+    ],
+    [
+      "MP",
+      "56 ~ 71"
+    ],
+    [
+      "HP",
+      "112 ~ 136"
+    ],
+    [
+      "Natural MP Regen",
+      "13 ~ 22"
+    ],
+    [
+      "Natural HP Regen",
+      "26 ~ 37"
+    ]
+  ],
+  "earring:alluring": [
+    [
+      "Move Speed",
+      "2.4% ~ 2.83%"
+    ],
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "5 ~ 13"
+    ],
+    [
+      "Flight Power",
+      "11,520 ~ 13,255"
+    ],
+    [
+      "Attack",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit",
+      "15 ~ 24"
+    ],
+    [
+      "Accuracy",
+      "20 ~ 30"
+    ],
+    [
+      "Defense",
+      "120 ~ 145"
+    ],
+    [
+      "Evasion",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit Resist",
+      "21 ~ 31"
+    ],
+    [
+      "Block",
+      "12 ~ 21"
+    ],
+    [
+      "MP",
+      "46 ~ 60"
+    ],
+    [
+      "HP",
+      "92 ~ 113"
+    ],
+    [
+      "Natural MP Regen",
+      "10 ~ 19"
+    ],
+    [
+      "Natural HP Regen",
+      "21 ~ 31"
+    ]
+  ],
+  "earring:dusk": [
+    [
+      "Move Speed",
+      "2.5% ~ 2.95%"
+    ],
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "6 ~ 14"
+    ],
+    [
+      "Flight Power",
+      "12,000 ~ 13,807"
+    ],
+    [
+      "Attack",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit",
+      "15 ~ 24"
+    ],
+    [
+      "Accuracy",
+      "21 ~ 31"
+    ],
+    [
+      "Defense",
+      "125 ~ 151"
+    ],
+    [
+      "Evasion",
+      "12 ~ 21"
+    ],
+    [
+      "Critical Hit Resist",
+      "22 ~ 32"
+    ],
+    [
+      "Block",
+      "12 ~ 21"
+    ],
+    [
+      "MP",
+      "48 ~ 62"
+    ],
+    [
+      "HP",
+      "96 ~ 117"
+    ],
+    [
+      "Natural MP Regen",
+      "11 ~ 20"
+    ],
+    [
+      "Natural HP Regen",
+      "22 ~ 32"
+    ]
+  ],
+  "ring:alluring": [
+    [
+      "Might",
+      "2 ~ 9"
+    ],
+    [
+      "Precision",
+      "2 ~ 9"
+    ],
+    [
+      "Intelligence",
+      "4 ~ 12"
+    ],
+    [
+      "Flight Power",
+      "9,600 ~ 11,047"
+    ],
+    [
+      "Attack",
+      "8 ~ 16"
+    ],
+    [
+      "Critical Hit",
+      "12 ~ 21"
+    ],
+    [
+      "Accuracy",
+      "17 ~ 27"
+    ],
+    [
+      "Defense",
+      "100 ~ 122"
+    ],
+    [
+      "Evasion",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit Resist",
+      "18 ~ 28"
+    ],
+    [
+      "Block",
+      "10 ~ 19"
+    ],
+    [
+      "MP",
+      "38 ~ 51"
+    ],
+    [
+      "HP",
+      "77 ~ 96"
+    ],
+    [
+      "Natural MP Regen",
+      "9 ~ 17"
+    ],
+    [
+      "Natural HP Regen",
+      "18 ~ 28"
+    ]
+  ],
+  "ring:dusk": [
+    [
+      "Might",
+      "3 ~ 10"
+    ],
+    [
+      "Precision",
+      "3 ~ 10"
+    ],
+    [
+      "Intelligence",
+      "5 ~ 13"
+    ],
+    [
+      "Flight Power",
+      "10,000 ~ 11,507"
+    ],
+    [
+      "Attack",
+      "8 ~ 16"
+    ],
+    [
+      "Critical Hit",
+      "13 ~ 22"
+    ],
+    [
+      "Accuracy",
+      "18 ~ 28"
+    ],
+    [
+      "Defense",
+      "104 ~ 127"
+    ],
+    [
+      "Evasion",
+      "10 ~ 19"
+    ],
+    [
+      "Critical Hit Resist",
+      "18 ~ 28"
+    ],
+    [
+      "Block",
+      "10 ~ 19"
+    ],
+    [
+      "MP",
+      "40 ~ 53"
+    ],
+    [
+      "HP",
+      "80 ~ 99"
+    ],
+    [
+      "Natural MP Regen",
+      "9 ~ 17"
+    ],
+    [
+      "Natural HP Regen",
+      "18 ~ 28"
+    ]
+  ]
+};
+const skillPools = {
+  "defensive": [
+    [
+      "Gladiator skill",
+      "Survival Stance, Blood Absorption, Attack Preparation, Destructive Impulse, Survival Willpower, Protection Armor, Identify Weakness, Impact Hit, Experienced Counterstrike, Murderous Burst"
+    ],
+    [
+      "Cleric skill",
+      "Warm Benediction, Empyrean Lord's Grace, Immortal Veil, Prayer of Concentration, Survival Willpower, Empyrean Lords' Benediction, Healing Enhancement, Heal Block, Radiant Benediction, Earth's Grace"
+    ],
+    [
+      "Sorcerer skill",
+      "Fire Mark, Cold Snap, Robe of Cold, Grace of Resistance, Revitalization Contract, Robe of Earth, Robe of Flame, Absorb Essence, Grace of Enhancement, Vitality Evaporation"
+    ],
+    [
+      "Templar skill",
+      "Enhance Health, Punishing Benediction, Guarding Seal, Insulting Roar, Fury, Warding Shield, Ironclad Defense, Impact Hit, Survival Willpower, Block Pain"
+    ],
+    [
+      "Assassin skill",
+      "Heightened Sixth Sense, Apply Poison, Assault Stance, Ambush Stance, Revitalization Contract, Exploit Weakness, Rear Smite, Impact Hit, Defense Break, Determination"
+    ],
+    [
+      "Ranger skill",
+      "Vigilant Eye, Wind Vigor, Hunter's Resolve, Rooting Eye, Revitalization Contract, Concentrated Fire, Focused Eye, Unyielding Resolve, Melee Fire, Hunter's Soul"
+    ],
+    [
+      "Spiritmaster skill",
+      "Spirit Strike, Spirit's Descent, Spirit Revitalization, Spirit Communion, Element Unification, Spirit Protection, Corrode, Mental Focus, Consecutive Countercurrent, Revitalization Contract"
+    ],
+    [
+      "Chanter skill",
+      "Blessing of Life, Protection Circle, Attack Preparation, Raging Spell, Survival Willpower, Crossguard, Inspiring Spell, Impact Hit, Earth's Promise, Wind's Promise"
+    ],
+    [
+      "Fighter skill",
+      "Mental Conversion*, Shatter Frontline*, Rampage Boost*, Impact Blow*, Revitalization Contract, Hold the Line*, Dominance*, Impact Hit, Massive Rage*, Lightweight*"
+    ]
+  ],
+  "offensive": [
+    [
+      "Gladiator skill",
+      "Keen Strike, Leaping Slam, Overhead Slam, Ankle Slice, Aerial Snare, Ruinous Blow, Rending Blow, Mocking Blade, Rush Strike, Crushing Wave, Sword Aura Rampage, Defiance"
+    ],
+    [
+      "Cleric skill",
+      "Earth's Retribution, Debilitating Mark, Chain of Torment, Condemnation, Radiant Recovery, Bolt, Judgment Thunder, Divine Aura, Light of Regeneration, Healing Light, Lightning Strike Scattershot, Defiance"
+    ],
+    [
+      "Sorcerer skill",
+      "Flame Arrow, Firestorm, Blaze, Frost Burst, Wish of Concentration, Hellfire, Ice Chain, Bittercold Wind, Frost, Winter's Shackles, Flame Scattershot, Defiance"
+    ],
+    [
+      "Templar skill",
+      "Vicious Strike, Poach, Annihilate, Judgment, Debilitating Smash, Punishment, Pummel, Shield Smite, Shield Rush, Warding Strike, Flash Rampage, Defiance"
+    ],
+    [
+      "Assassin skill",
+      "Quick Slice, Shadowstrike, Heart Gore, Whirlwind Slice, Shadow Fall, Insignia Explosion, Ambush, Savage Roar, Infiltrate, Flash Slice, Storm Rampage, Defiance"
+    ],
+    [
+      "Ranger skill",
+      "Snipe, Snare Shot, Drill Dart, Burst Arrow, Explosion Trap, Tempest Shot, Deadshot, Marking Shot, Suppressing Arrow, Gale Arrow, Arrow Scattershot, Defiance"
+    ],
+    [
+      "Spiritmaster skill",
+      "Cold Shock, Summon: Fire Spirit, Jointstrike: Curse, Summon: Earth Spirit, Dimensional Control, Elemental Fusion, Combustion, Summon: Water Spirit, Soul's Cry, Summon: Wind Spirit, Rapid Scattershot, Defiance"
+    ],
+    [
+      "Chanter skill",
+      "Onslaught, Rushing Smash, Wave Blow, Heat Wave Blow, Dark Crush, Spinning Strike, Incandescent Blow, Impactful Crush, Tremor Crush, Recuperation, Gust Rampage, Defiance"
+    ],
+    [
+      "Fighter skill",
+      "Flurry*, Rampage, Chain Fist*, Sweeping Kick*, Exploding Fist*, Ascending Blow*, Roundhouse*, Whirlwind*, Typhoon Flurry*, Smite Ground, Shoulder Tackle*, Defiance"
+    ]
   ]
 };
 const jewels = [
@@ -1790,6 +2256,108 @@ const jewels = [
     "sell": "58 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310150008",
+    "name": "Alluring Ruby Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "25",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "43",
+    "defense": "104",
+    "pool": "neck:alluring",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "130 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310150009",
+    "name": "Dusk Ruby Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "30",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "52",
+    "defense": "125",
+    "pool": "neck:dusk",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "182 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 6, Defense 25"
+  },
+  {
+    "id": "310250008",
+    "name": "Alluring Diamond Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "36",
+    "defense": "87",
+    "pool": "earring:alluring",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "104 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310250009",
+    "name": "Dusk Diamond Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "30",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "44",
+    "defense": "105",
+    "pool": "earring:dusk",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "146 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 6, Defense 25"
+  },
+  {
+    "id": "310350008",
+    "name": "Alluring Sapphire Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "25",
+    "binding": "Bind on Equip",
+    "attack": "29",
+    "defense": "69",
+    "pool": "ring:alluring",
+    "skills": "offensive",
+    "sockets": "2",
+    "sell": "78 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310350009",
+    "name": "Dusk Sapphire Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "30",
+    "required": "30",
+    "binding": "Bind on Equip",
+    "attack": "35",
+    "defense": "84",
+    "pool": "ring:dusk",
+    "skills": "offensive",
+    "sockets": "2",
+    "sell": "109 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 6, Defense 25"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
@@ -1807,6 +2375,7 @@ export default jewels.map((item) => ({
   icon: "/equipment-icons/" + item.id + ".webp",
   stats: pairs([["Attack", item.attack], ["Defense", item.defense]]),
   imprints: pairs(imprintPools[item.pool]),
+  skillImprints: item.skills ? pairs(skillPools[item.skills]) : [],
   details: [
     {label: "Binding", value: item.binding},
     ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
