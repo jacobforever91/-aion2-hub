@@ -2,10 +2,11 @@
 
 import {useEffect, useMemo, useRef, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
+import {ArrowLeft, Copy, Feather, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
 import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
+import petIcons from "../progression/petIcons.json";
 import styles from "./builds.module.css";
 
 const goals=["Solo progression","PvE · Group","PvP · Abyss","Support / Healer"];
@@ -242,6 +243,7 @@ export default function BuildCreator(){
   const visibleSkillGroups=useMemo(()=>skills.map((group)=>({...group,items:group.items.filter((item)=>item.name.toLowerCase().includes(skillSearch.trim().toLowerCase()))})).filter((group)=>group.items.length),[skills,skillSearch]);
   const selectedWing=catalogData.wings.find((item)=>item.id===build.wingId);
   const wingDetails=selectedWing?catalogData.wingDetails[selectedWing.id]:null;
+  const wingStats=(Array.isArray(wingDetails?.stats)?wingDetails.stats:[]).filter(([label,value])=>label&&value&&/\d/.test(String(value)));
   const selectedPet=catalogData.pets.find((item)=>item.id===build.petId);
   const petDetails=selectedPet?catalogData.petDetails[selectedPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
@@ -492,11 +494,19 @@ export default function BuildCreator(){
             <div className={styles.formGrid}>
               <label className={styles.field}><span>WINGS</span><select value={build.wingId} onChange={(event)=>patch("wingId",event.target.value)}><option value="">Choose wings</option>{catalogData.wings.map((wing)=><option key={wing.id} value={wing.id}>{wing.name} · {wing.grade} · {wing.faction}</option>)}</select></label>
               <label className={styles.field}><span>PET</span><select value={build.petId} onChange={(event)=>patch("petId",event.target.value)}><option value="">Choose a pet</option>{catalogData.pets.map((pet)=><option key={pet.id} value={pet.id}>{pet.name} · {pet.genus}</option>)}</select></label>
-              <label className={styles.field}><span>PET LEVEL</span><select value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>
+              <label className={styles.field}><span>PET LEVEL</span><select disabled={!petDetails?.baseStats} value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>
             </div>
-            {selectedWing&&<div className={styles.selectedInfo}><Feather size={16}/><span><strong>{selectedWing.name}</strong><small>{selectedWing.grade} · {selectedWing.faction} · {selectedWing.enhancementCap?("Enhancement cap +"+selectedWing.enhancementCap):"Cosmetic/reference record"}</small></span></div>}
-            {selectedPet&&<div className={styles.selectedInfo}><PawPrint size={16}/><span><strong>{selectedPet.name}</strong><small>{selectedPet.genus} · Level {build.petLevel} pet reference</small></span></div>}
-            {petLevelRow&&<div className={styles.petStats}>{petDetails.baseStats.columns.slice(1).map((column,index)=><div key={column}><small>{column}</small><strong>{petLevelRow[index+1]}</strong></div>)}</div>}
+            {selectedWing&&<article className={styles.progressionCard}>
+              <div className={styles.progressionCardHead}><span className={styles.progressionWingIcon} style={{"--wing-position":(-selectedWing.iconPosition[0]*52)+"px "+(-selectedWing.iconPosition[1]*52)+"px"}} aria-hidden="true"/><span><small>WINGS · {selectedWing.faction}</small><strong>{selectedWing.name}</strong><em>{selectedWing.grade}{selectedWing.enhancementCap?" · Enhancement cap +"+selectedWing.enhancementCap:wingDetails?.cosmetic?" · Cosmetic":" · Reference record"}</em></span></div>
+              {wingStats.length>0?<div className={styles.progressionStatList}>{wingStats.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>:<p className={styles.progressionEmpty}>No verified stat breakdown is available for this wing yet.</p>}
+            </article>}
+            {selectedPet&&<article className={styles.progressionCard}>
+              <div className={styles.progressionCardHead}><span className={styles.progressionPetIcon}>{petIcons[selectedPet.id]&&<img src={petIcons[selectedPet.id]} alt="" loading="lazy" decoding="async"/>}</span><span><small>PET · {selectedPet.genus}</small><strong>{selectedPet.name}</strong><em>{petDetails?.fields?.find(([label])=>label==="Souls to summon")?.[1]?petDetails.fields.find(([label])=>label==="Souls to summon")[1]+" souls to summon":"Pet reference"}</em></span></div>
+              {petDetails?.fields?.length>0&&<div className={styles.progressionStatList}>{petDetails.fields.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>}
+              {petDetails?.tameFrom?.length>0&&<p className={styles.progressionDataLine}><strong>Found from</strong>{petDetails.tameFrom.join(" · ")}</p>}
+              {petLevelRow&&<div className={styles.petLevelStats}><h3>Level {build.petLevel} stats</h3><div className={styles.petStats}>{petDetails.baseStats.columns.slice(1).map((column,index)=><div key={column}><small>{column}</small><strong>{petLevelRow[index+1]}</strong></div>)}</div></div>}
+              {!petDetails?.baseStats&&<p className={styles.progressionEmpty}>Level-based stats are not available for this pet in the current reference.</p>}
+            </article>}
             <details className={styles.advanced}>
               <summary><span><Sparkles size={16}/> Advanced setup</span><small>Reference fields · saved and shared, not included in stat totals</small></summary>
               <div className={styles.advancedBody}>
