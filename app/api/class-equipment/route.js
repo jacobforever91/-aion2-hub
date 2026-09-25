@@ -1,5 +1,6 @@
 import {classList} from "../../classes/classData.js";
 import equipmentData from "../../classes/equipmentData.json";
+import weaponsData from "../../equipment/weaponsData.js";
 
 const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
@@ -137,9 +138,10 @@ const slotAliases = {
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
+const generalEquipmentItems = [...equipmentData.items, ...weaponsData];
 
 function localGeneralItems(category, slot) {
-  return equipmentData.items.filter((item) => {
+  return generalEquipmentItems.filter((item) => {
     if (!slot) return category === "Weapons" && item.group === "Weapon";
     const aliases = slotAliases[slot] || [];
     return aliases.includes(String(item.category || "").toLowerCase()) || aliases.includes(String(item.equipType || "").toLowerCase());
@@ -160,17 +162,17 @@ async function getGeneralEquipment(request) {
   if (grade && !gradeOptions.has(grade)) return Response.json({error: "Unknown rarity."}, {status: 400});
   if (itemId) {
     if (!/^\d{8,12}$/.test(itemId)) return Response.json({error: "Invalid item."}, {status: 400});
-    const item = region === "GLOBAL" ? equipmentData.items.find((entry) => entry.id === itemId) : null;
+    const item = region === "GLOBAL" ? generalEquipmentItems.find((entry) => entry.id === itemId) : null;
     if (!item) return Response.json({error: "This item is not in the reviewed local catalog yet."}, {status: 404});
-    return Response.json({...item, rarity: item.grade, region, official: false});
+    return Response.json({...item, icon: item.icon || (item.group === "Weapon" ? `${source}/api/icon/items/${item.id}` : equipmentArt[category]), rarity: item.grade, region, official: false});
   }
 
   const filtered = (region === "GLOBAL" ? localGeneralItems(category, slot) : []).filter((item) =>
     (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
-  );
+  ).sort((a, b) => a.name.localeCompare(b.name));
   return Response.json({
     region, category, slot,
-    items: filtered.map(({id, name, grade}) => ({id, name, grade, category, family: category, icon: equipmentArt[category]})),
+    items: filtered.map(({id, name, grade, icon, group}) => ({id, name, grade, category, family: category, icon: icon || (group === "Weapon" ? `${source}/api/icon/items/${id}` : equipmentArt[category])})),
     total: filtered.length, page: 1, pages: 1, source: "reviewed-local-snapshot",
   });
 }
