@@ -1,22 +1,31 @@
 "use client";
 import {useEffect, useState} from "react";
-import {Shield, Swords, BookOpen, Users, Hammer, Badge, Crown, Map, Skull, ScrollText, Compass, ChartNoAxesCombined, Wrench, Globe2, Flag, MessageCircle, Sparkles, Feather, PawPrint} from "lucide-react";
-const menus={GAME:[["Skills","/classes"],["Stigmas","/stigmas"],["Equipment","/equipment"],["Wings","/wings"],["Pets","/pets"],["Progression","/database"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Class Builds","/classes"],["PvE Builds","/classes"],["PvP Builds","/classes"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
+import {Shield, Swords, BookOpen, PawPrint, MessageCircle} from "lucide-react";
+const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Wings","/wings"],["Pets","/pets"],["Progression","/database"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Class Builds","/classes"],["PvE Builds","/classes"],["PvP Builds","/classes"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
 export default function Home(){const[open,setOpen]=useState(false);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);return <main className="homeV2 presentationHome">
 <header className="cinemaNav"><a className="cinemaBrand" href="/"><b>AION <i>2</i></b><span>VISION</span></a><div className="cinemaLinks">{Object.entries(menus).map(([name,items])=><div className="navGroup" key={name}><button>{name}<small>⌄</small></button><div className="dropMenu">{items.map(x=><a href={x[1]} key={x[0]}>{x[0]}<b>→</b></a>)}</div></div>)}</div><div className="cinemaActions"><button>GLOBAL⌄</button><button className="searchBtn">⌕</button></div></header>
 <div className="mobileFloatNav"><button onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><i/><i/><i/></button><a href="/" aria-label="Home"><span className="homeRoof">⌂</span></a></div>
-<div id="aion-menu" className={"a2MobileMenu "+(open?"isOpen":"")} aria-hidden={!open}>
-  <div className="a2Groups">
-    <section id="a2-group-game" className="visionGame"><h3>GAME</h3><a className="visionClasses" href="/classes"><i><Shield/></i><span>Skills<small>Browse skills for every class</small></span><b>›</b></a><a className="visionStigmas" href="/stigmas"><i><Sparkles/></i><span>Stigmas<small>Browse Stigma skills by class</small></span><b>›</b></a><a className="visionEquipment" href="/equipment"><i><Swords/></i><span>Equipment<small>Browse every slot by rarity</small></span><b>›</b></a><a href="/wings"><i><Feather/></i><span>Wings<small>Compare enchant progression and stats</small></span><b>›</b></a><a href="/pets"><i><PawPrint/></i><span>Pets<small>Explore levels, growth grades and bonuses</small></span><b>›</b></a></section>
-    <section id="a2-group-database" className="visionDatabase"><h3>DATABASE</h3><a className="visionItems" href="/database"><i><Swords/></i><span>Items<small>Weapons, gear, accessories and more</small></span><b>›</b></a><a className="visionBook" href="/database"><i><BookOpen/></i><span>Skills<small>Skill details, combos and enhancements</small></span><b>›</b></a><a className="visionNpc" href="/database"><i><Users/></i><span>NPCs<small>Characters, vendors and quests</small></span><b>›</b></a><a className="visionCraft" href="/database"><i><Hammer/></i><span>Crafting<small>Materials, recipes and crafting guides</small></span><b>›</b></a></section>
-    <section id="a2-group-builds" className="visionBuilds"><h3>BUILDS</h3><a className="visionClassBuild" href="/classes"><i><Badge/></i><span>Class Builds<small>Best builds for every playstyle</small></span><b>›</b></a><a className="visionPve" href="/classes"><i><Crown/></i><span>PvE Builds<small>Leveling, farming and endgame</small></span><b>›</b></a><a href="/classes"><i><Swords/></i><span>PvP Builds<small>Arena, open world and ranked</small></span><b>›</b></a></section>
-    <section><h3>WORLD</h3><a href="/database"><i><Map/></i><span>Map<small>Interactive map and locations</small></span><b>›</b></a><a href="/database"><i><Skull/></i><span>Dungeons &amp; Bosses<small>Boss guides, drops and strategies</small></span><b>›</b></a><a href="/database"><i><ScrollText/></i><span>Lore<small>Story, factions and world history</small></span><b>›</b></a></section>
-    <section id="a2-group-guides"><h3>GUIDES</h3><a href="/database"><i><Compass/></i><span>Beginner Guide<small>Get started in AION 2</small></span><b>›</b></a><a href="/database"><i><ChartNoAxesCombined/></i><span>Progression Guide<small>Leveling, gear and milestones</small></span><b>›</b></a><a href="/database"><i><Wrench/></i><span>Tips &amp; Tools<small>Useful tips, calculators and tools</small></span><b>›</b></a></section>
-    <section id="a2-group-region"><h3>REGION</h3><a href="/"><i><Globe2/></i><span>Global<small>Global servers and information</small></span><b>›</b></a><a href="/"><i><Flag/></i><span>KR / TW<small>Korea &amp; Taiwan server info</small></span><b>›</b></a></section>
+<div id="aion-menu" className={"a2MobileMenu forgeMenu "+(open?"isOpen":"")} aria-hidden={!open}>
+  <div className="forgeMenuContent">
+    <div className="forgeMenuHeader"><span>AION 2 HUB</span><small>MAIN GATEWAYS</small></div>
+    <div className="forgePrimary">
+      <a href="/classes"><i><Shield/></i><strong>Skills</strong><small>Classes, Stigma and passives</small></a>
+      <a href="/equipment"><i><Swords/></i><strong>Equipment</strong><small>Weapons and armor</small></a>
+      <a href="/pets"><i><PawPrint/></i><strong>Pets</strong><small>Companions and bonuses</small></a>
+      <a href="/database"><i><BookOpen/></i><strong>Items</strong><small>Explore the database</small></a>
+    </div>
+    <div className="forgeSecondary">
+      <section><h3>GAME</h3><a href="/wings"><span>Wings</span><b>↗</b></a></section>
+      <section><h3>DATABASE</h3><a href="/database"><span>Skill details</span><b>↗</b></a><a href="/database"><span>NPCs</span><b>↗</b></a><a href="/database"><span>Crafting</span><b>↗</b></a></section>
+      <section><h3>BUILDS</h3><a href="/classes"><span>Class Builds</span><b>↗</b></a><a href="/classes"><span>PvE Builds</span><b>↗</b></a><a href="/classes"><span>PvP Builds</span><b>↗</b></a></section>
+      <section><h3>WORLD</h3><a href="/database"><span>Map</span><b>↗</b></a><a href="/database"><span>Dungeons &amp; Bosses</span><b>↗</b></a><a href="/database"><span>Lore</span><b>↗</b></a></section>
+      <section><h3>GUIDES</h3><a href="/database"><span>Beginner Guide</span><b>↗</b></a><a href="/database"><span>Progression Guide</span><b>↗</b></a><a href="/database"><span>Tips &amp; Tools</span><b>↗</b></a></section>
+      <section><h3>REGION</h3><a href="/"><span>Global</span><b>↗</b></a><a href="/"><span>KR / TW</span><b>↗</b></a></section>
+    </div>
+    <div className="forgeDiscord"><i><MessageCircle/></i><span>Join Our Discord<small>Community, guides and updates</small></span><b>↗</b></div>
   </div>
-  <div className="a2Discord" id="a2-menu-more"><i><MessageCircle/></i><span>Join Our Discord<small>Community, guides, updates and more</small></span><b>›</b></div>
-  </div>
-<button className={"a2Close "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
+</div>
+<button className={"a2Close forgeClose "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
 
 <section className="gamePanel introPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>A NEW AGE OF ATREIA</span><h1>AION <strong>2</strong></h1><p>Your saga takes flight. Two factions. One world.</p><a href="#factions">DISCOVER THE WORLD ↓</a></div></section>
 <section id="factions" className="gamePanel factionPanel elyosPanel"><div className="panelShade"/><div className="panelCopy leftCopy"><span>THE CELESTIAL REALM</span><h2>ELYOS</h2><p>Discover one of AION 2's two factions and enter Atreia from the Elyos side.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ELYOS →</a></div><div className="panelIndex">01</div></section>
