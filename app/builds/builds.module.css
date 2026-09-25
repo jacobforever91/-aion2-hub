@@ -26,8 +26,10 @@
 .actionCopy small{color:#80ddbd;font-size:10px}
 .actions{display:flex;gap:7px}
 .primaryButton,.secondaryButton{display:flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:0 12px;border:1px solid #3d6679;border-radius:4px;background:#102431;color:#dceff6;font:600 10px system-ui,sans-serif;cursor:pointer}
-.primaryButton{border-color:#64cce9;background:linear-gradient(110deg,#17516a,#123444);color:#e9fbff}
+.primaryButton{border-color:#3d6679;background:#102431;color:#c9e7ef}
 .primaryButton:hover,.secondaryButton:hover{border-color:#9eeeff;background:#14394a}
+.primaryButton:active,.secondaryButton:active{border-color:#64cce9;background:#17516a;color:#e9fbff;transform:translateY(1px)}
+.primaryButton:focus-visible,.secondaryButton:focus-visible{outline:2px solid #8ceaff;outline-offset:2px}
 .workspace{display:grid;grid-template-columns:minmax(0,1fr) 300px;align-items:start;gap:16px}
 .editor{min-width:0}
 .tabs{display:flex;gap:5px;overflow-x:auto;padding:0 0 10px;scrollbar-width:thin}
