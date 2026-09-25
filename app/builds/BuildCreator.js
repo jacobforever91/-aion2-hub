@@ -3,7 +3,7 @@
 import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
-import {classData, classList} from "../classes/classData";
+import {classData, classList, classWeapons} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
 import styles from "./builds.module.css";
@@ -30,6 +30,26 @@ const slotDefs=[
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),pantheon:"",genusInsight:"",rotation:""});
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
+const weaponTypeAliases={
+  Longsword:["longsword","sword"],
+  Greatsword:["greatsword"],
+  Daggers:["dagger"],
+  Dagger:["dagger"],
+  Bow:["bow"],
+  Spellbook:["spellbook"],
+  Orb:["orb"],
+  Mace:["mace"],
+  Staff:["staff"],
+  Shield:["guard","guarder","shield"],
+  Guard:["guard","guarder","shield"],
+  Polearm:["polearm"]
+};
+function normalizeWeaponType(value){return String(value||"").trim().toLowerCase()}
+function compatibleWeaponTypes(classSlug,slotId){
+  const weapons=classWeapons[classSlug];
+  const weapon=slotId==="mainHand"?weapons?.main:slotId==="offHand"&&weapons?.secondary?.kind==="Off-hand"?weapons.secondary:null;
+  return weapon?(weaponTypeAliases[weapon.name]||[normalizeWeaponType(weapon.name)]):null;
+}
 function decodeShare(value){return JSON.parse(decodeURIComponent(escape(window.atob(value))))}
 function encodeShare(value){return window.btoa(unescape(encodeURIComponent(JSON.stringify(value))))}
 function normalStats(item){
@@ -109,6 +129,8 @@ export default function BuildCreator(){
       .then((data)=>{
         let items=data.items||[];
         if(pickerSlot.role)items=items.filter((item)=>item.equipType===pickerSlot.role);
+        const allowedTypes=compatibleWeaponTypes(build.classSlug,pickerSlot.id);
+        if(allowedTypes)items=items.filter((item)=>allowedTypes.includes(normalizeWeaponType(item.category))||allowedTypes.includes(normalizeWeaponType(item.itemType)));
         setPickerItems(items);
         setPickerState(items.length?"ready":"empty");
       })
