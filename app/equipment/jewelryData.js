@@ -906,6 +906,66 @@ const imprintPools = {
       "Natural HP Regen",
       "13 ~ 22"
     ]
+  ],
+  "neck:facade": [
+    [
+      "Accuracy",
+      "11 ~ 11"
+    ],
+    [
+      "HP",
+      "39 ~ 39"
+    ]
+  ],
+  "neck:wind": [
+    [
+      "Defense",
+      "36 ~ 36"
+    ],
+    [
+      "MP",
+      "23 ~ 23"
+    ]
+  ],
+  "earring:facade": [
+    [
+      "Defense",
+      "28 ~ 28"
+    ],
+    [
+      "HP",
+      "33 ~ 33"
+    ]
+  ],
+  "earring:wind": [
+    [
+      "Accuracy",
+      "10 ~ 10"
+    ],
+    [
+      "MP",
+      "19 ~ 19"
+    ]
+  ],
+  "ring:facade": [
+    [
+      "Accuracy",
+      "8 ~ 8"
+    ],
+    [
+      "HP",
+      "26 ~ 26"
+    ]
+  ],
+  "ring:wind": [
+    [
+      "Defense",
+      "24 ~ 24"
+    ],
+    [
+      "MP",
+      "16 ~ 16"
+    ]
   ]
 };
 const jewels = [
@@ -1538,6 +1598,198 @@ const jewels = [
     "sell": "28 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 5, Defense 16"
+  },
+  {
+    "id": "310150028",
+    "name": "Facade Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "32",
+    "defense": "78",
+    "pool": "neck:facade",
+    "sockets": "2",
+    "sell": "65 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310150030",
+    "name": "Wind Breeze Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "43",
+    "defense": "104",
+    "pool": "neck:wind",
+    "sockets": "2",
+    "sell": "97 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310150035",
+    "name": "Outsider Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "32",
+    "defense": "78",
+    "pool": "neck:facade",
+    "sockets": "2",
+    "sell": "65 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310150037",
+    "name": "Chaser Necklace",
+    "category": "Necklace",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "43",
+    "defense": "104",
+    "pool": "neck:wind",
+    "sockets": "2",
+    "sell": "97 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310250028",
+    "name": "Facade Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "27",
+    "defense": "65",
+    "pool": "earring:facade",
+    "sockets": "2",
+    "sell": "52 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310250030",
+    "name": "Wind Breeze Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "36",
+    "defense": "87",
+    "pool": "earring:wind",
+    "sockets": "2",
+    "sell": "78 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310250035",
+    "name": "Outsider Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "27",
+    "defense": "65",
+    "pool": "earring:facade",
+    "sockets": "2",
+    "sell": "52 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310250037",
+    "name": "Chaser Earrings",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "36",
+    "defense": "87",
+    "pool": "earring:wind",
+    "sockets": "2",
+    "sell": "78 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310350028",
+    "name": "Facade Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "22",
+    "defense": "52",
+    "pool": "ring:facade",
+    "sockets": "2",
+    "sell": "39 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310350030",
+    "name": "Wind Breeze Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "29",
+    "defense": "69",
+    "pool": "ring:wind",
+    "sockets": "2",
+    "sell": "58 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310350035",
+    "name": "Outsider Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "19",
+    "required": "",
+    "binding": "Bound",
+    "attack": "22",
+    "defense": "52",
+    "pool": "ring:facade",
+    "sockets": "2",
+    "sell": "39 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 15"
+  },
+  {
+    "id": "310350037",
+    "name": "Chaser Ring",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "",
+    "binding": "Bound",
+    "attack": "29",
+    "defense": "69",
+    "pool": "ring:wind",
+    "sockets": "2",
+    "sell": "58 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
@@ -1559,7 +1811,7 @@ export default jewels.map((item) => ({
     {label: "Binding", value: item.binding},
     ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
     {label: "Manastone sockets", value: item.sockets},
-    ...item.binding === "Bind on Equip" || item.binding === "Bind on Pickup" ? [{label: "Soul imprint selection", value: "Choose " + item.sockets + " sub-stats"}] : [],
+    ...item.binding === "Bind on Equip" || item.binding === "Bind on Pickup" ? [{label: "Soul imprint selection", value: "Choose " + item.sockets + (item.sockets === "1" ? " sub-stat" : " sub-stats")}] : [],
     {label: "Sell price", value: item.sell},
     {label: "Enchantable to", value: item.enchant},
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
