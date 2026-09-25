@@ -6,6 +6,7 @@ import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Swor
 import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
+import arcanaCatalog from "../arcana/arcana-data.json";
 import petIcons from "../progression/petIcons.json";
 import styles from "./builds.module.css";
 
@@ -181,6 +182,7 @@ export default function BuildCreator(){
   const [progressionSearch,setProgressionSearch]=useState("");
   const [skillSearch,setSkillSearch]=useState("");
   const [arcanaSetupOpen,setArcanaSetupOpen]=useState(false);
+  const [arcanaSlotIndex,setArcanaSlotIndex]=useState(null);
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
   const [skillSpecialtyData,setSkillSpecialtyData]=useState({});
@@ -258,6 +260,8 @@ export default function BuildCreator(){
   const petDetails=selectedPet?catalogData.petDetails[selectedPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
   const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
+  const selectedArcana=useMemo(()=>build.advanced.arcana.map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana]);
+  const arcanaCount=selectedArcana.length;
   const gearCount=Object.values(build.gear).filter(Boolean).length;
   const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
   const selectedGearItems=visibleGearSlots.map((slot)=>{
@@ -272,10 +276,10 @@ export default function BuildCreator(){
   }),[build.skills]);
   const totals=useMemo(()=>statSummary(build.gear),[build.gear]);
   const buildSummarySkillCount=skillTotals.active+skillTotals.passive+skillTotals.stigma;
-  const hasBuildContent=buildSummarySkillCount>0||gearCount>0||Boolean(selectedWing||selectedPet);
+  const hasBuildContent=buildSummarySkillCount>0||gearCount>0||arcanaCount>0||Boolean(selectedWing||selectedPet);
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
-  const progressionOptions=progressionPicker==="wings"?catalogData.wings:catalogData.pets;
-  const visibleProgressionOptions=useMemo(()=>progressionOptions.filter((item)=>{const extra=progressionPicker==="wings"?item.grade+" "+item.faction:item.genus;return (item.name+" "+extra).toLowerCase().includes(progressionSearch.trim().toLowerCase())}),[progressionOptions,progressionPicker,progressionSearch]);
+  const progressionOptions=progressionPicker==="wings"?catalogData.wings:progressionPicker==="pets"?catalogData.pets:arcanaCatalog.items;
+  const visibleProgressionOptions=useMemo(()=>progressionOptions.filter((item)=>{const extra=progressionPicker==="wings"?item.grade+" "+item.faction:progressionPicker==="pets"?item.genus:[item.rarity,...(item.stats||[]).map((stat)=>stat.label+" "+stat.value)].join(" ");return (item.name+" "+extra).toLowerCase().includes(progressionSearch.trim().toLowerCase())}),[progressionOptions,progressionPicker,progressionSearch]);
 
   const patch=(key,value)=>setBuild((current)=>({...current,[key]:value}));
   const changeClass=(slug)=>{
@@ -403,6 +407,11 @@ export default function BuildCreator(){
     next[index]=value;
     return {...current,advanced:{...current.advanced,[key]:next}};
   });
+  const openArcanaPicker=(index)=>{
+    setArcanaSlotIndex(index);
+    setProgressionPicker("arcana");
+    setProgressionSearch("");
+  };
 
   return <main className={styles.page}>
     <nav className={styles.nav}>
@@ -525,22 +534,22 @@ export default function BuildCreator(){
               </details>}
             </article>}
             <details id="arcana-setup" className={styles.advanced} open={arcanaSetupOpen} onToggle={(event)=>setArcanaSetupOpen(event.currentTarget.open)}>
-              <summary><span><Sparkles size={16}/> Advanced setup</span><small>Reference fields · saved and shared, not included in stat totals</small></summary>
+              <summary><span><Sparkles size={16}/> Advanced setup</span><small>Selections saved with the build · Arcana stats shown in summary</small></summary>
               <div className={styles.advancedBody}>
-                <div className={styles.fieldBlock}><h3>Arcana · 10 cards</h3><p>Record the card or set in each slot.</p><div className={styles.advancedGrid}>{build.advanced.arcana.map((value,index)=><label key={index}><small>CARD {index+1}</small><input value={value} onChange={(event)=>updateAdvancedSlot("arcana",index,event.target.value)} placeholder={"Arcana "+(index+1)}/></label>)}</div></div>
+                <div className={styles.fieldBlock}><h3>Arcana · {arcanaCount}/10 cards</h3><p>Choose cards to add their stats to this build.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
                 <div className={styles.fieldBlock}><h3>Daevanion boards</h3><p>Note selected nodes or the path you want to follow.</p><div className={styles.advancedGrid}>{build.advanced.daevanion.map((value,index)=><label key={index}><small>BOARD {index+1}</small><input value={value} onChange={(event)=>updateAdvancedSlot("daevanion",index,event.target.value)} placeholder={"Board "+(index+1)}/></label>)}</div></div>
                 <label className={styles.field}><span>PANTHEON SETUP</span><textarea rows="3" value={build.advanced.pantheon} onChange={(event)=>updateAdvanced("pantheon",event.target.value)} placeholder="Decorations and effects shown in game…"/></label>
                 <label className={styles.field}><span>PET GENUS INSIGHT</span><textarea rows="3" value={build.advanced.genusInsight} onChange={(event)=>updateAdvanced("genusInsight",event.target.value)} placeholder="Record chosen genus options…"/></label>
                 <label className={styles.field}><span>ROTATION / MACRO NOTES</span><textarea rows="4" value={build.advanced.rotation} onChange={(event)=>updateAdvanced("rotation",event.target.value)} placeholder="Opening, skill order, and anything you keep manual…"/></label>
               </div>
             </details>
-            <div className={styles.dataFootnote}>Wings and pet entries come from local community-reference snapshots. Pet Genus Insight rolls, Arcana effects and Daevanion/Pantheon totals still need a validated structured dataset.</div>
+            <div className={styles.dataFootnote}>Arcana card stats are saved with the build and shown per card; full combat and DPS totals are not calculated in this prototype.</div>
           </section>}
         </div>
 
         <aside className={styles.summary}>
           <details className={styles.summaryDetails}>
-            <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
+            <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET · ${arcanaCount}/10 Arcana`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
             <div className={styles.summaryContent}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
           <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
@@ -550,6 +559,7 @@ export default function BuildCreator(){
             {totals.length>0&&<div className={styles.summaryGearTotals}><h4>Known totals</h4>{totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>)}</div>}
           </details>
           <div className={styles.summarySection}><h3>Known base stats</h3>{totals.length?totals.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>):<p>Select items with exact base stats to see a limited preview.</p>}</div>
+          {arcanaCount>0&&<div className={styles.summarySection}><h3>Selected Arcana · {arcanaCount}/10</h3>{selectedArcana.map(({card,index})=><div className={styles.summaryArcanaRow} key={card.id+index}><img src={card.icon} alt="" loading="lazy"/><span><small>Card {index+1} · {card.rarity}</small><strong>{card.name}</strong><em>{card.stats?.[0]?.label}: {card.stats?.[0]?.value}</em></span></div>)}</div>}
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           {Object.entries(build.skillSpecializations||{}).length>0&&<div className={styles.summarySection}><h3>Specializations</h3>{Object.entries(build.skillSpecializations||{}).map(([key,value])=>{const skillName=key.split(":")[1]||"Skill";const unlock=key.split("@").pop();return <div key={key}><span>{skillName} · Lv. {unlock}</span><b title={value}>✓</b></div>})}</div>}
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>
@@ -566,13 +576,13 @@ export default function BuildCreator(){
       {normalStats(gearDetail.item).length?<div className={styles.gearDetailStats}><h3>Item stats</h3>{normalStats(gearDetail.item).map((stat,index)=><div key={stat.label+String(stat.value)+index}><span>{stat.label}</span><strong>{stat.value}</strong></div>)}</div>:<p className={styles.emptyState}>No detailed stats are available for this item in the current catalog.</p>}
       {(gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription)&&<p className={styles.gearDetailDescription}>{gearDetail.item.description||gearDetail.item.effect||gearDetail.item.effectDescription}</p>}
     </section></div>}
-    {progressionPicker&&<div className={styles.modalBackdrop+(progressionPicker==="pets"?" "+styles.progressionSheetBackdrop:"")} onMouseDown={(event)=>{if(event.target===event.currentTarget)setProgressionPicker("")}}><section className={styles.itemModal+" "+styles.progressionPickerModal+(progressionPicker==="pets"?" "+styles.progressionSheetModal:"")} role="dialog" aria-modal="true" aria-labelledby="progressionPickerTitle">
-      <button className={styles.modalClose} type="button" onClick={()=>setProgressionPicker("")} aria-label="Close progression picker"><X/></button>
-      <span className={styles.eyebrow}>{progressionPicker==="wings"?"WINGS · SELECT A FACTION":"PETS · SELECT A COMPANION"}</span>
-      <h2 id="progressionPickerTitle">{progressionPicker==="wings"?"Choose wings":"Choose a pet"}</h2>
-      <label className={styles.search}><Search size={17}/><input type="search" value={progressionSearch} onChange={(event)=>setProgressionSearch(event.target.value)} placeholder={"Search "+(progressionPicker==="wings"?"wings":"pets")+" by name…"} aria-label={"Search "+(progressionPicker==="wings"?"wings":"pets")+" by name"}/></label>
-      <div className={styles.progressionPickerResults}>{visibleProgressionOptions.map((item)=>{const isWing=progressionPicker==="wings";const selectedId=isWing?build.wingId:build.petId;return <button type="button" key={item.id} className={selectedId===item.id?styles.progressionPickerOptionSelected:styles.progressionPickerOption} aria-pressed={selectedId===item.id} onClick={()=>{patch(isWing?"wingId":"petId",item.id);setProgressionPicker("");setProgressionSearch("")}}><span className={styles.progressionOptionIcon+(isWing?" "+styles.progressionWingOptionIcon:"") } style={isWing?{"--wing-option-position":(-item.iconPosition[0]*40)+"px "+(-item.iconPosition[1]*40)+"px"}:undefined}>{!isWing&&petIcons[item.id]&&<img src={petIcons[item.id]} alt="" loading="lazy" decoding="async"/>}</span><span className={styles.progressionOptionCopy}><strong>{item.name}</strong><small>{isWing?item.grade+" · "+item.faction:item.genus}</small></span><b>{selectedId===item.id?"✓":"+"}</b></button>})}</div>
-      {!visibleProgressionOptions.length&&<p className={styles.emptyState}>No {progressionPicker==="wings"?"wings":"pets"} match your search.</p>}
+    {progressionPicker&&<div className={styles.modalBackdrop+((progressionPicker==="pets"||progressionPicker==="arcana")?" "+styles.progressionSheetBackdrop:"")} onMouseDown={(event)=>{if(event.target===event.currentTarget){setProgressionPicker("");setArcanaSlotIndex(null)}}}><section className={styles.itemModal+" "+styles.progressionPickerModal+((progressionPicker==="pets"||progressionPicker==="arcana")?" "+styles.progressionSheetModal:"")} role="dialog" aria-modal="true" aria-labelledby="progressionPickerTitle">
+      <button className={styles.modalClose} type="button" onClick={()=>{setProgressionPicker("");setArcanaSlotIndex(null)}} aria-label="Close progression picker"><X/></button>
+      <span className={styles.eyebrow}>{progressionPicker==="wings"?"WINGS · SELECT A FACTION":progressionPicker==="pets"?"PETS · SELECT A COMPANION":"ARCANA · SELECT A CARD"}</span>
+      <h2 id="progressionPickerTitle">{progressionPicker==="wings"?"Choose wings":progressionPicker==="pets"?"Choose a pet":"Choose an Arcana card"}</h2>
+      <label className={styles.search}><Search size={17}/><input type="search" value={progressionSearch} onChange={(event)=>setProgressionSearch(event.target.value)} placeholder={"Search "+(progressionPicker==="wings"?"wings":progressionPicker==="pets"?"pets":"Arcana cards")+" by name, rarity, or stat…"} aria-label={"Search "+(progressionPicker==="wings"?"wings":progressionPicker==="pets"?"pets":"Arcana cards")+" by name, rarity, or stat"}/></label>
+      <div className={styles.progressionPickerResults}>{visibleProgressionOptions.map((item)=>{const isWing=progressionPicker==="wings";const isArcana=progressionPicker==="arcana";const selectedId=isWing?build.wingId:isArcana?build.advanced.arcana[arcanaSlotIndex]:build.petId;const detail=isWing?item.grade+" · "+item.faction:isArcana?[item.rarity,...(item.stats||[]).slice(0,1).map((stat)=>stat.label+": "+stat.value)].join(" · "):item.genus;return <button type="button" key={item.id} className={selectedId===item.id?styles.progressionPickerOptionSelected:styles.progressionPickerOption} aria-pressed={selectedId===item.id} onClick={()=>{if(isWing)patch("wingId",item.id);else if(isArcana){updateAdvancedSlot("arcana",arcanaSlotIndex,item.id);setArcanaSlotIndex(null);setNotice(item.name+" added to card slot "+(arcanaSlotIndex+1)+".")}else patch("petId",item.id);setProgressionPicker("");setProgressionSearch("")}}><span className={styles.progressionOptionIcon+(isWing?" "+styles.progressionWingOptionIcon:"")+(isArcana?" "+styles.arcanaPickerIcon:"")} style={isWing?{"--wing-option-position":(-item.iconPosition[0]*40)+"px "+(-item.iconPosition[1]*40)+"px"}:undefined}>{isArcana?<img src={item.icon} alt="" loading="lazy" decoding="async"/>:!isWing&&petIcons[item.id]&&<img src={petIcons[item.id]} alt="" loading="lazy" decoding="async"/>}</span><span className={styles.progressionOptionCopy}><strong>{item.name}</strong><small className={isArcana?styles.arcanaOptionStats:undefined}>{detail}</small></span><b>{selectedId===item.id?"✓":"+"}</b></button>})}</div>
+      {!visibleProgressionOptions.length&&<p className={styles.emptyState}>No {progressionPicker==="wings"?"wings":progressionPicker==="pets"?"pets":"Arcana cards"} match your search.</p>}
     </section></div>}
     {pickerSlot&&<div className={styles.modalBackdrop} onMouseDown={(event)=>{if(event.target===event.currentTarget)setPickerSlot(null)}}><section className={styles.itemModal} role="dialog" aria-modal="true" aria-labelledby="itemPickerTitle">
       <button className={styles.modalClose} type="button" onClick={()=>setPickerSlot(null)} aria-label="Close item picker"><X/></button>
