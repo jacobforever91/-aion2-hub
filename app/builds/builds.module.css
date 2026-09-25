@@ -420,3 +420,11 @@
 }
 
 .daevanionGridShell{border:0;border-radius:0;padding:0}
+
+.daevanionUnavailable{display:grid;gap:4px;min-height:180px;place-content:center;text-align:center;padding:18px;border:1px dashed #31515d;border-radius:5px;background:radial-gradient(circle at center,#0d1d26 0%,#08131a 76%)}
+.daevanionUnavailable strong{color:#d9b874;font:400 16px Georgia,serif}
+.daevanionUnavailable span,.daevanionSourceNote{color:#8ea5ad;font-size:9px;line-height:1.55}
+.daevanionSourceNote{margin-top:8px;padding-top:8px;border-top:1px solid #203742}
+.daevanionGridNode.daevanionRarityRare,.daevanionGridReachable.daevanionRarityRare{border-color:#8b78bb}
+.daevanionGridNode.daevanionRarityUnique,.daevanionGridReachable.daevanionRarityUnique{border-color:#db9872}
+.daevanionGridNode.daevanionRarityLegend,.daevanionGridReachable.daevanionRarityLegend{border-color:#d5b468}

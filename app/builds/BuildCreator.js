@@ -8,6 +8,7 @@ import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
 import arcanaCatalog from "../arcana/arcana-data.json";
 import petIcons from "../progression/petIcons.json";
+import daevanionBoardData from "./daevanion-boards.json";
 import styles from "./builds.module.css";
 
 const goals=["Solo progression","PvE · Group","PvP · Abyss","Support / Healer"];
@@ -39,10 +40,7 @@ const daevanionBoards=[
   {id:"marchutan",name:"Marchutan",level:45,type:"Season 2"},
   {id:"yustiel",name:"Yustiel",level:45,type:"Season 3"}
 ];
-const daevanionGridNodes=Array.from({length:225},(_,index)=>{
-  const row=Math.floor(index/15),column=index%15;
-  return {id:row+","+column,row,column};
-}).filter(({row,column})=>Math.abs(row-7)+Math.abs(column-7)<=5);
+const daevanionClassNames={templar:"Templar",gladiator:"Gladiator",assassin:"Assassin",ranger:"Ranger",sorcerer:"Sorcerer",spiritmaster:"Elementalist",cleric:"Cleric",chanter:"Chanter"};
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""});
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
 const currentClasses=classList;
@@ -475,22 +473,24 @@ export default function BuildCreator(){
     setNotice("New build started.");
   };
   const updateAdvanced=(key,value)=>setBuild((current)=>({...current,advanced:{...current.advanced,[key]:value}}));
-  const updateDaevanionNode=(boardIndex,nodeId)=>{
+  const updateDaevanionNode=(boardIndex,nodeId,startNodeId,validNodeIds)=>{
     const [row,column]=nodeId.split(",").map(Number);
+    const validNodes=new Set(validNodeIds);
     setBuild((current)=>{
       const paths=Array.from({length:8},(_,index)=>Array.isArray(current.advanced.daevanionPaths?.[index])?[...current.advanced.daevanionPaths[index]]:[]);
+      paths[boardIndex]=paths[boardIndex].filter((id)=>validNodes.has(id));
       const selected=new Set(paths[boardIndex]);
       if(selected.has(nodeId))selected.delete(nodeId);
       else{
-        const adjacent=[...selected,"7,7"].some((id)=>{
+        const adjacent=[...selected,startNodeId].some((id)=>{
           const [r,col]=id.split(",").map(Number);
           return Math.abs(r-row)+Math.abs(col-column)===1;
         });
         if(!adjacent)return current;
         selected.add(nodeId);
       }
-      const reachable=new Set(["7,7"]);
-      const stack=["7,7"];
+      const reachable=new Set([startNodeId]);
+      const stack=[startNodeId];
       while(stack.length){
         const [r,col]=stack.pop().split(",").map(Number);
         for(const next of [[r-1,col],[r+1,col],[r,col-1],[r,col+1]]){
@@ -647,8 +647,16 @@ export default function BuildCreator(){
               {(()=>{
                 const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
                 const board=daevanionBoards[boardIndex]||daevanionBoards[0];
-                const boardPath=Array.isArray(daevanionPaths[boardIndex])?daevanionPaths[boardIndex]:[];
-                const selected=new Set([...boardPath,"7,7"]);
+                const className=daevanionClassNames[build.classSlug];
+                const boardData=className?daevanionBoardData[className]?.[board.name]:null;
+                const boardNodes=(Array.isArray(boardData)?boardData:boardData?.nodes||[]).map(([row,column,name,rarity,cost,isStart])=>({id:(row-1)+","+(column-1),row:row-1,column:column-1,name,rarity,cost,isStart:Boolean(isStart)}));
+                const nodeById=new Map(boardNodes.map((node)=>[node.id,node]));
+                const validNodeIds=boardNodes.map((node)=>node.id);
+                const startNode=boardNodes.find((node)=>node.isStart);
+                const startNodeId=startNode?.id||"";
+                const boardPath=(Array.isArray(daevanionPaths[boardIndex])?daevanionPaths[boardIndex]:[]).filter((id)=>nodeById.has(id)&&id!==startNodeId);
+                const selected=new Set([...boardPath,startNodeId].filter(Boolean));
+                const boardPoints=boardPath.reduce((total,id)=>total+(nodeById.get(id)?.cost||0),0);
                 const routeEdges=[];
                 selected.forEach((id)=>{
                   const [row,column]=id.split(",").map(Number);
@@ -663,7 +671,7 @@ export default function BuildCreator(){
                   <select className={styles.daevanionBoardSelect} aria-label="Choose a Daevanion board" value={board.id} onChange={(event)=>setDaevanionBoard(event.target.value)}>
                     {daevanionBoards.map((item)=><option key={item.id} value={item.id}>{item.name} · Lv. {item.level}</option>)}
                   </select>
-                  <span className={styles.daevanionBoardStatus}><strong>{boardPath.length}</strong> nodes <i>·</i> unlock Lv. {board.level} <i>·</i> {daevanionPlanCount}/8 boards</span>
+                  <span className={styles.daevanionBoardStatus}><strong>{boardPath.length}</strong> nodes <i>·</i> {boardPoints} points <i>·</i> unlock Lv. {board.level} <i>·</i> {daevanionPlanCount}/8 boards</span>
                   <div className={styles.daevanionLegend} aria-label="Node selection legend">
                     <span><i className={styles.daevanionLegendSelected}/>Selected</span>
                     <span><i className={styles.daevanionLegendAvailable}/>Available</span>
@@ -674,22 +682,28 @@ export default function BuildCreator(){
                     <button type="button" onClick={clearAllDaevanionPaths} disabled={!daevanionTotalNodes}>Clear all</button>
                   </div>
                 </div>
-                <div className={styles.daevanionGridShell}>
-                    <div className={styles.daevanionGrid} role="group" aria-label={board.name+" Daevanion path preview"}>
+                {boardData&&startNode?<><div className={styles.daevanionGridShell}>
+                    <div className={styles.daevanionGrid} role="group" aria-label={className+" "+board.name+" Daevanion path preview"}>
                       <svg className={styles.daevanionGridLines} viewBox="0 0 15 15" aria-hidden="true">{routeEdges.map((edge,index)=><line key={index} x1={edge.x1} y1={edge.y1} x2={edge.x2} y2={edge.y2}/>)}</svg>
                       {Array.from({length:225},(_,index)=>{
                         const row=Math.floor(index/15),column=index%15;
                         const nodeId=row+","+column;
-                        const hasNode=Math.abs(row-7)+Math.abs(column-7)<=5;
-                        if(!hasNode)return <span className={styles.daevanionGridBlank} key={nodeId}/>;
-                        const center=nodeId==="7,7";
+                        const node=nodeById.get(nodeId);
+                        if(!node)return <span className={styles.daevanionGridBlank} key={nodeId}/>;
+                        const center=nodeId===startNodeId;
                         const active=selected.has(nodeId);
                         const available=active||[[row-1,column],[row+1,column],[row,column-1],[row,column+1]].some(([r,col])=>selected.has(r+","+col));
-                        return <button key={nodeId} type="button" className={center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode} disabled={center||!available} aria-label={center?"Start node":active?"Selected node, tap to remove":"Add connected node at row "+(row+1)+", column "+(column+1)} title={center?"Start":active?"Selected node":available?"Available node":"Connect from an adjacent node first"} onClick={()=>updateDaevanionNode(boardIndex,nodeId)}>{center?"✦":""}</button>;
+                        const displayName=node.name==="Node"?node.rarity+" node":node.name;
+                        const detail=displayName+" · "+node.rarity+" · "+node.cost+" points";
+                        const label=(center?"Start node: ":active?"Selected: ":"")+detail+" · row "+(row+1)+", column "+(column+1);
+                        const stateClass=center?styles.daevanionGridStart:active?styles.daevanionGridSelected:available?styles.daevanionGridReachable:styles.daevanionGridNode;
+                        const rarityClass=center||active?"":({Rare:styles.daevanionRarityRare,Unique:styles.daevanionRarityUnique,Legend:styles.daevanionRarityLegend}[node.rarity]||"");
+                        return <button key={nodeId} type="button" className={stateClass+" "+rarityClass} disabled={center||!available} aria-label={label} title={label} onClick={()=>updateDaevanionNode(boardIndex,nodeId,startNodeId,validNodeIds)}>{center?"✦":""}</button>;
                       })}
                     </div>
                   </div>
-                  <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap an outlined node to extend your route. Removing a node clears any disconnected branch. Node effects and point costs are not included in stat totals.</span></div>
+                  <div className={styles.daevanionDataNote}><strong>Path preview</strong><span>Tap an outlined node to extend your route. Removing a node clears any disconnected branch. Listed point costs are shown above; combat totals are not calculated.</span></div></>:<div className={styles.daevanionUnavailable}><strong>Board layout unavailable</strong><span>No verified node layout for {board.name} is included in the current client-data snapshot.</span></div>}
+                  <div className={styles.daevanionSourceNote}>{["Ariel","Marchutan","Yustiel"].includes(board.name)?"Community planner reference · Node positions and rarity are transcribed from GEGEBASE; individual effects have not been verified against the client.":"Community client-data snapshot · build 25344886. Node positions, labels, rarity and costs come from this client snapshot."} Path connections are a visual preview.</div>
                 </div>;
               })()}
   
@@ -807,3 +821,4 @@ export default function BuildCreator(){
     </section></div>}
   </main>;
 }
+
