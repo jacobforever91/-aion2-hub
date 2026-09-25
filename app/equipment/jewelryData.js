@@ -1517,7 +1517,7 @@ const jewels = [
   },
   {
     "id": "310250007",
-    "name": "Conviction Diamond Earrings",
+    "name": "Conviction Diamond Earrings (Bind on Equip)",
     "category": "Earring",
     "grade": "Rare",
     "level": "20",
@@ -1529,7 +1529,8 @@ const jewels = [
     "sockets": "2",
     "sell": "74 Gold",
     "enchant": "+5",
-    "upgrade": "At +5: Attack 5, Defense 16"
+    "upgrade": "At +5: Attack 5, Defense 16",
+    "skills": "defensive"
   },
   {
     "id": "310240009",
@@ -1581,7 +1582,7 @@ const jewels = [
   },
   {
     "id": "310350007",
-    "name": "Conviction Sapphire Ring",
+    "name": "Conviction Sapphire Ring (Bind on Equip)",
     "category": "Ring",
     "grade": "Rare",
     "level": "20",
@@ -1593,7 +1594,8 @@ const jewels = [
     "sockets": "2",
     "sell": "55 Gold",
     "enchant": "+5",
-    "upgrade": "At +5: Attack 5, Defense 16"
+    "upgrade": "At +5: Attack 5, Defense 16",
+    "skills": "offensive"
   },
   {
     "id": "310340009",
@@ -2293,7 +2295,7 @@ const jewels = [
   },
   {
     "id": "310250008",
-    "name": "Alluring Diamond Earrings",
+    "name": "Alluring Diamond Earrings (Bind on Equip)",
     "category": "Earring",
     "grade": "Rare",
     "level": "25",
@@ -2310,7 +2312,7 @@ const jewels = [
   },
   {
     "id": "310250009",
-    "name": "Dusk Diamond Earrings",
+    "name": "Dusk Diamond Earrings (Bind on Equip)",
     "category": "Earring",
     "grade": "Rare",
     "level": "30",
@@ -2327,7 +2329,7 @@ const jewels = [
   },
   {
     "id": "310350008",
-    "name": "Alluring Sapphire Ring",
+    "name": "Alluring Sapphire Ring (Bind on Equip)",
     "category": "Ring",
     "grade": "Rare",
     "level": "25",
@@ -2344,7 +2346,7 @@ const jewels = [
   },
   {
     "id": "310350009",
-    "name": "Dusk Sapphire Ring",
+    "name": "Dusk Sapphire Ring (Bind on Equip)",
     "category": "Ring",
     "grade": "Rare",
     "level": "30",
@@ -2664,6 +2666,108 @@ const jewels = [
       "Fine Odyle ×1",
       "25% chance to craft an upgraded Combo version"
     ]
+  },
+  {
+    "id": "310250062",
+    "name": "Conviction Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "29",
+    "defense": "69",
+    "pool": "earring:rare",
+    "sockets": "2",
+    "sell": "74 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16",
+    "skills": "defensive"
+  },
+  {
+    "id": "310250063",
+    "name": "Alluring Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "25",
+    "binding": "Bind on Pickup",
+    "attack": "36",
+    "defense": "87",
+    "pool": "earring:alluring",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "104 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310250064",
+    "name": "Dusk Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Rare",
+    "level": "30",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "44",
+    "defense": "105",
+    "pool": "earring:dusk",
+    "skills": "defensive",
+    "sockets": "2",
+    "sell": "146 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 6, Defense 25"
+  },
+  {
+    "id": "310350062",
+    "name": "Conviction Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "20",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "23",
+    "defense": "55",
+    "pool": "ring:rare",
+    "sockets": "2",
+    "sell": "55 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 16",
+    "skills": "offensive"
+  },
+  {
+    "id": "310350063",
+    "name": "Alluring Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "25",
+    "required": "25",
+    "binding": "Bind on Pickup",
+    "attack": "29",
+    "defense": "69",
+    "pool": "ring:alluring",
+    "skills": "offensive",
+    "sockets": "2",
+    "sell": "78 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 5, Defense 20"
+  },
+  {
+    "id": "310350064",
+    "name": "Dusk Sapphire Ring (Bind on Pickup)",
+    "category": "Ring",
+    "grade": "Rare",
+    "level": "30",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "35",
+    "defense": "84",
+    "pool": "ring:dusk",
+    "skills": "offensive",
+    "sockets": "2",
+    "sell": "109 Gold",
+    "enchant": "+5",
+    "upgrade": "At +5: Attack 6, Defense 25"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
