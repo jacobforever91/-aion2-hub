@@ -263,6 +263,8 @@ export default function BuildCreator(){
     stigma:build.skills.filter((key)=>key.startsWith("stigma:")).length
   }),[build.skills]);
   const totals=useMemo(()=>statSummary(build.gear),[build.gear]);
+  const buildSummarySkillCount=skillTotals.active+skillTotals.passive+skillTotals.stigma;
+  const hasBuildContent=buildSummarySkillCount>0||gearCount>0||Boolean(selectedWing||selectedPet);
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
   const progressionOptions=progressionPicker==="wings"?catalogData.wings:catalogData.pets;
   const visibleProgressionOptions=useMemo(()=>progressionOptions.filter((item)=>{const extra=progressionPicker==="wings"?item.grade+" "+item.faction:item.genus;return (item.name+" "+extra).toLowerCase().includes(progressionSearch.trim().toLowerCase())}),[progressionOptions,progressionPicker,progressionSearch]);
@@ -529,8 +531,11 @@ export default function BuildCreator(){
         </div>
 
         <aside className={styles.summary}>
+          <details className={styles.summaryDetails}>
+            <summary className={styles.summaryToggle}><span className={styles.summaryCompactCopy}><strong>{build.title||"Build summary"}</strong><small>{hasBuildContent?`${buildSummarySkillCount} skills · ${gearCount}/${visibleGearSlots.length} gear · ${selectedWing?1:0} wings · ${selectedPet?1:0} PET`:`${classInfo?.name||"Class"} · ${build.goal} · Lv. ${build.level}`}</small></span><span className={styles.summaryToggleAction}>Details <b>+</b></span></summary>
+            <div className={styles.summaryContent}>
           <div className={styles.summaryHead}><span>BUILD SUMMARY</span><strong>{build.title||"Untitled build"}</strong><small>{classInfo?.name||"Class"} · {build.goal} · Lv. {build.level}</small><em>{build.region==="KR_TW"?"KOREA / TAIWAN DATA":"GLOBAL DATA"}</em></div>
-          <div className={styles.summaryCounts}><div><strong>{skillTotals.active+skillTotals.passive+skillTotals.stigma}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
+          <div className={styles.summaryCounts}><div><strong>{buildSummarySkillCount}</strong><small>skills</small></div><div><strong>{gearCount}/{visibleGearSlots.length}</strong><small>gear slots</small></div><div><strong>{selectedWing?1:0}</strong><small>wings</small></div><div><strong>{selectedPet?1:0}</strong><small>pet</small></div></div>
           <details className={styles.summaryGear}>
             <summary><span>Equipped gear</span><b>{gearCount}/{visibleGearSlots.length}</b></summary>
             {selectedGearItems.length?<div className={styles.summaryGearList}>{selectedGearItems.map(({id,label,item})=><div className={styles.summaryGearItem} key={id}><span className={styles.summaryGearIcon}><img src={item.icon||"/equipment-art/accessory.webp"} alt="" loading="lazy"/></span><span className={styles.summaryGearCopy}><small>{label}</small><strong>{item.name}</strong><em>{item.grade||item.category||"Equipment"}</em>{normalStats(item).slice(0,2).map((stat,index)=><small className={styles.summaryGearStat} key={stat.label+String(stat.value)+index}>{stat.label}: {stat.value}</small>)}</span></div>)}</div>:<p className={styles.summaryGearEmpty}>Choose equipment to see its pieces and stats here.</p>}
@@ -540,6 +545,8 @@ export default function BuildCreator(){
           <div className={styles.summarySection}><h3>Selected skills</h3><p>{skillTotals.active} active · {skillTotals.passive} passive · {skillTotals.stigma} Stigma</p></div>
           {Object.entries(build.skillSpecializations||{}).length>0&&<div className={styles.summarySection}><h3>Specializations</h3>{Object.entries(build.skillSpecializations||{}).map(([key,value])=>{const skillName=key.split(":")[1]||"Skill";const unlock=key.split("@").pop();return <div key={key}><span>{skillName} · Lv. {unlock}</span><b title={value}>✓</b></div>})}</div>}
           <div className={styles.summaryFoot}>Prototype preview. No DPS ranking or full combat formula is applied.</div>
+            </div>
+          </details>
         </aside>
       </div>
     </div>
