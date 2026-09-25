@@ -182,6 +182,8 @@ export default function BuildCreator(){
   const [progressionSearch,setProgressionSearch]=useState("");
   const [skillSearch,setSkillSearch]=useState("");
   const [arcanaSlotIndex,setArcanaSlotIndex]=useState(null);
+  const [comparisonSlots,setComparisonSlots]=useState({A:null,B:null});
+  const [comparisonReady,setComparisonReady]=useState(false);
   const [skillMaxLevels,setSkillMaxLevels]=useState({});
   const [skillLevelStatus,setSkillLevelStatus]=useState({});
   const [skillSpecialtyData,setSkillSpecialtyData]=useState({});
@@ -219,6 +221,19 @@ export default function BuildCreator(){
     if(mode==="pve")setBuild((current)=>({...current,goal:"PvE · Group"}));
     if(mode==="pvp")setBuild((current)=>({...current,goal:"PvP · Abyss"}));
   },[]);
+
+  useEffect(()=>{
+    try{
+      const saved=window.localStorage.getItem("aion2-vision-build-comparison-v1");
+      if(saved){const parsed=JSON.parse(saved);setComparisonSlots({A:parsed.A||null,B:parsed.B||null});}
+    }catch(_error){}
+    setComparisonReady(true);
+  },[]);
+
+  useEffect(()=>{
+    if(!comparisonReady)return;
+    try{window.localStorage.setItem("aion2-vision-build-comparison-v1",JSON.stringify(comparisonSlots));}catch(_error){}
+  },[comparisonSlots,comparisonReady]);
 
   useEffect(()=>{
     if(!pickerSlot)return;
@@ -272,6 +287,37 @@ export default function BuildCreator(){
     stigma:build.skills.filter((key)=>key.startsWith("stigma:")).length
   }),[build.skills]);
   const totals=useMemo(()=>statSummary(build.gear),[build.gear]);
+  const comparisonStatRows=useMemo(()=>{
+    const first=comparisonSlots.A?new Map(statSummary(comparisonSlots.A.gear||{})) : new Map();
+    const second=comparisonSlots.B?new Map(statSummary(comparisonSlots.B.gear||{})) : new Map();
+    return [...new Set([...first.keys(),...second.keys()])].sort().map((label)=>{
+      const a=first.get(label)||0;
+      const b=second.get(label)||0;
+      return {label,a,b,delta:Number((b-a).toFixed(2))};
+    }).filter((row)=>row.delta!==0);
+  },[comparisonSlots]);
+  const comparisonGearRows=useMemo(()=>{
+    if(!comparisonSlots.A||!comparisonSlots.B)return [];
+    const entries=(snapshot)=>activeGearSlots(snapshot.classSlug).map((slot)=>{
+      const config=weaponSlotConfig(snapshot.classSlug,slot.id);
+      const label=slot.id==="offHand"&&config?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;
+      return {id:slot.id,label,item:snapshot.gear?.[slot.id]||null};
+    });
+    const first=new Map(entries(comparisonSlots.A).map((entry)=>[entry.id,entry]));
+    const second=new Map(entries(comparisonSlots.B).map((entry)=>[entry.id,entry]));
+    return [...new Set([...first.keys(),...second.keys()])].map((id)=>({a:first.get(id),b:second.get(id)}))
+      .filter(({a,b})=>(a?.item?.id||a?.item?.name||"")!==(b?.item?.id||b?.item?.name||""));
+  },[comparisonSlots]);
+  const comparisonArcanaRows=useMemo(()=>{
+    if(!comparisonSlots.A||!comparisonSlots.B)return [];
+    return Array.from({length:10},(_,index)=>{
+      const findCard=(snapshot)=>arcanaCatalog.items.find((item)=>item.id===String(snapshot.advanced?.arcana?.[index]||""));
+      const a=findCard(comparisonSlots.A);
+      const b=findCard(comparisonSlots.B);
+      return {index,a,b};
+    }).filter(({a,b})=>(a?.id||"")!==(b?.id||""));
+  },[comparisonSlots]);
+
   const buildSummarySkillCount=skillTotals.active+skillTotals.passive+skillTotals.stigma;
   const hasBuildContent=buildSummarySkillCount>0||gearCount>0||arcanaCount>0||Boolean(selectedWing||selectedPet);
   const visiblePickerItems=useMemo(()=>pickerItems.filter((item)=>item.name.toLowerCase().includes(pickerSearch.trim().toLowerCase())),[pickerItems,pickerSearch]);
@@ -371,6 +417,17 @@ export default function BuildCreator(){
       setNotice(item.name+" added to "+pickerSlot.label+".");
     }catch(_error){setPickerState("error")}
   };
+  const captureComparisonSlot=(slot)=>{
+    try{
+      const snapshot=JSON.parse(JSON.stringify({...build,title:build.title.trim()||((classInfo?.name||"AION 2")+" build "+slot)}));
+      setComparisonSlots((current)=>({...current,[slot]:snapshot}));
+      setNotice("Current build captured as Build "+slot+" for comparison.");
+    }catch(_error){setNotice("Could not capture this build for comparison.");}
+  };
+  const clearComparisonSlot=(slot)=>{
+    setComparisonSlots((current)=>({...current,[slot]:null}));
+    setNotice("Build "+slot+" removed from comparison.");
+  };
   const saveBuild=()=>{
     try{
       const named={...build,title:build.title.trim()||((classInfo?.name||"AION 2")+" build")};
@@ -432,7 +489,7 @@ export default function BuildCreator(){
       <div className={styles.workspace}>
         <div className={styles.editor}>
           <div className={styles.tabs} role="tablist" aria-label="Build sections">
-            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["arcana","Arcana"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
+            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
           </div>
 
           {tab==="overview"&&<section className={styles.panel}>
@@ -538,6 +595,40 @@ export default function BuildCreator(){
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to 10 cards for this build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>
             <div className={styles.fieldBlock}><h3>Selected cards · {arcanaCount}/10</h3><p>Choose a card for each slot. Selected Arcana and their listed stats appear in the build summary.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
             <div className={styles.dataFootnote}>Community reference · Global · Snapshot {arcanaCatalog.snapshot}. Arcana stats are shown by card; this prototype does not calculate combat or DPS totals.</div>
+          </section>}
+          {tab==="compare"&&<section className={styles.panel}>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Compare builds</h2><p>Save two versions and review their equipment and Arcana changes in a mobile-friendly list.</p></div></div>
+            <ol className={styles.compareSteps}><li>Save the current setup as A.</li><li>Change equipment or Arcana.</li><li>Save the new setup as B.</li></ol><p className={styles.compareStorageNote}>These comparison copies stay on this device and do not replace your current draft.</p>
+            <div className={styles.compareBuildCards}>
+              {["A","B"].map((slot)=>{
+                const snapshot=comparisonSlots[slot];
+                const info=snapshot?classData[snapshot.classSlug]:null;
+                const savedGear=Object.values(snapshot?.gear||{}).filter(Boolean).length;
+                const savedArcana=(snapshot?.advanced?.arcana||[]).filter(Boolean).length;
+                return <article className={styles.compareBuildCard} key={slot}>
+                  <div className={styles.compareCardLabel}>BUILD {slot}</div>
+                  <h3>{snapshot?.title||"No build saved"}</h3>
+                  {snapshot?<><p>{info?.name||"Class"} · {snapshot.goal} · Lv. {snapshot.level}</p><small>{savedGear} equipment pieces · {savedArcana}/10 Arcana</small></>:<p>Capture the current setup here.</p>}
+                  <div className={styles.compareCardActions}><button type="button" onClick={()=>captureComparisonSlot(slot)}>{snapshot?"Replace with current":"Save current as "+slot}</button>{snapshot&&<button type="button" onClick={()=>clearComparisonSlot(slot)} aria-label={"Clear Build "+slot}>Clear</button>}</div>
+                </article>;
+              })}
+            </div>
+            {comparisonSlots.A&&comparisonSlots.B&&<>
+              <div className={styles.compareResults}>
+                <h3>Equipment stat changes · B compared with A</h3>
+                <p>Only numeric equipment stats listed in the catalog are compared.</p>
+                {comparisonStatRows.length?comparisonStatRows.map(({label,a,b,delta})=><div className={styles.compareStatRow} key={label}><span>{label}</span><strong>{a} → {b}</strong><em>{delta>0?"+"+delta:delta}</em></div>):<div className={styles.compareEmpty}>No numeric equipment stat changes between these builds.</div>}
+              </div>
+              <div className={styles.compareResults}>
+                <h3>Equipment changes by slot</h3>
+                {comparisonGearRows.length?comparisonGearRows.map(({a,b},index)=><div className={styles.compareItemRow} key={(a?.id||b?.id||"slot")+index}><small>{a?.label||b?.label}</small><span>{a?.item?.name||"Empty"} <b>→</b> {b?.item?.name||"Empty"}</span></div>):<div className={styles.compareEmpty}>The equipment slots match.</div>}
+              </div>
+              <div className={styles.compareResults}>
+                <h3>Arcana changes by card slot</h3>
+                {comparisonArcanaRows.length?comparisonArcanaRows.map(({index,a,b})=><div className={styles.compareArcanaRow} key={index}><small>Card {index+1}</small><div>{a?<span><img src={a.icon} alt="" loading="lazy"/>{a.name} · {a.stats?.map((stat)=>stat.label+": "+stat.value).join(" · ")}</span>:<span>Empty slot</span>}<b>→</b>{b?<span><img src={b.icon} alt="" loading="lazy"/>{b.name} · {b.stats?.map((stat)=>stat.label+": "+stat.value).join(" · ")}</span>:<span>Empty slot</span>}</div></div>):<div className={styles.compareEmpty}>The Arcana slots match.</div>}
+              </div>
+              <div className={styles.dataFootnote}>Equipment totals and Arcana values are presented separately. This comparison does not estimate character base stats or DPS.</div>
+            </>}
           </section>}
         </div>
 

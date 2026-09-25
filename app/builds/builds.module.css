@@ -288,3 +288,31 @@
 .summarySection>.statContributionGroup>.summaryArcanaRow{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #203742}
 .summaryArcanaRow>span{display:grid;gap:4px;min-width:0;flex:1}
 @media(max-width:520px){.statContributionGroup{padding:8px}.statContributionSource{grid-template-columns:32px minmax(0,1fr)}.statContributionIcon{width:32px;height:32px}}
+
+.compareSteps{margin:0 0 8px;padding:10px 10px 10px 28px;border:1px solid #244655;border-radius:5px;background:#081923;color:#a9c3cd;font-size:9px;line-height:1.6}
+.compareSteps li+li{margin-top:4px}.compareStorageNote{margin:0 0 11px;color:#819aa5;font-size:8px;line-height:1.5}.compareBuildCards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.compareBuildCard{min-width:0;padding:12px;border:1px solid #2b5365;border-radius:6px;background:linear-gradient(140deg,#0c202c,#081721)}
+.compareCardLabel{color:#7bdcf1;font:700 9px system-ui,sans-serif;letter-spacing:2px}
+.compareBuildCard h3{margin:7px 0;color:#eaf6fa;font:400 17px Georgia,serif;overflow-wrap:anywhere}
+.compareBuildCard p{margin:0 0 6px;color:#a7bec8;font-size:9px;line-height:1.5}
+.compareBuildCard>small{color:#83a0ac;font-size:8px}
+.compareCardActions{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.compareCardActions button{min-height:36px;padding:0 10px;border:1px solid #376378;border-radius:4px;background:#0c2430;color:#bfe8f1;font:700 9px system-ui,sans-serif;cursor:pointer}
+.compareCardActions button:hover{border-color:#69d6ed;background:#103544}
+.compareResults{margin-top:12px;padding:11px;border:1px solid #244655;border-radius:5px;background:#081923}
+.compareResults h3{margin:0 0 5px;color:#e4f3f7;font:400 14px Georgia,serif}
+.compareResults>p{margin:0 0 8px;color:#819aa5;font-size:8px;line-height:1.5}
+.compareStatRow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;padding:8px 0;border-top:1px solid #203742;color:#9eb6c0;font-size:9px}
+.compareStatRow strong{color:#e2f4f8;font-size:9px;white-space:nowrap}
+.compareStatRow em{color:#7bdcf1;font-size:9px;font-style:normal;text-align:right;white-space:nowrap}
+.compareItemRow{display:grid;grid-template-columns:minmax(0,100px) minmax(0,1fr);gap:8px;padding:8px 0;border-top:1px solid #203742}
+.compareItemRow small,.compareArcanaRow>small{color:#82cfe0;font:700 8px/1.4 system-ui,sans-serif}
+.compareItemRow span{color:#c2d6de;font-size:9px;line-height:1.5;overflow-wrap:anywhere}
+.compareItemRow span b{color:#7bdcf1;padding:0 3px}
+.compareArcanaRow{padding:8px 0;border-top:1px solid #203742}
+.compareArcanaRow>div{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:7px;margin-top:5px}
+.compareArcanaRow>div>span{display:flex;align-items:center;gap:5px;color:#c1d6df;font-size:8px;line-height:1.4;overflow-wrap:anywhere}
+.compareArcanaRow img{width:26px;height:26px;flex:none;object-fit:contain;border:1px solid #31586a;border-radius:3px;background:#07151e}
+.compareArcanaRow>div>b{color:#7bdcf1}
+.compareEmpty{padding:8px 0;border-top:1px solid #203742;color:#819aa5;font-size:9px}
+@media(max-width:520px){.compareBuildCards{grid-template-columns:1fr}.compareStatRow{grid-template-columns:minmax(0,1fr) auto;gap:5px}.compareStatRow em{grid-column:2}.compareItemRow{grid-template-columns:1fr;gap:3px}.compareArcanaRow>div{grid-template-columns:1fr}.compareArcanaRow>div>b{justify-self:start;transform:rotate(90deg)}}
