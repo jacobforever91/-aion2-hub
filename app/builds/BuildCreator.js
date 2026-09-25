@@ -249,6 +249,7 @@ export default function BuildCreator(){
   const selectedPet=catalogData.pets.find((item)=>item.id===build.petId);
   const petDetails=selectedPet?catalogData.petDetails[selectedPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
+  const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const gearCount=Object.values(build.gear).filter(Boolean).length;
   const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
   const selectedGearItems=visibleGearSlots.map((slot)=>{
@@ -506,10 +507,13 @@ export default function BuildCreator(){
             </article>}
             {selectedPet&&<article className={styles.progressionCard}>
               <div className={styles.progressionCardHead}><span className={styles.progressionPetIcon}>{petIcons[selectedPet.id]&&<img src={petIcons[selectedPet.id]} alt="" loading="lazy" decoding="async"/>}</span><span><small>PET · {selectedPet.genus}</small><strong>{selectedPet.name}</strong><em>{petDetails?.fields?.find(([label])=>label==="Souls to summon")?.[1]?petDetails.fields.find(([label])=>label==="Souls to summon")[1]+" souls to summon":"Pet reference"}</em></span></div>
-              {petDetails?.fields?.length>0&&<div className={styles.progressionStatList}>{petDetails.fields.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>}
-              {petDetails?.tameFrom?.length>0&&<p className={styles.progressionDataLine}><strong>Found from</strong>{petDetails.tameFrom.join(" · ")}</p>}
-              {petLevelRow&&<div className={styles.petLevelStats}><h3>Level {build.petLevel} stats</h3><div className={styles.petStats}>{petDetails.baseStats.columns.slice(1).map((column,index)=><div key={column}><small>{column}</small><strong>{petLevelRow[index+1]}</strong></div>)}</div></div>}
+              {petLevelStats.length>0&&<div className={styles.petLevelStats}><h3>Level {build.petLevel} stats</h3><div className={styles.petStats}>{petLevelStats.map(([label,value])=><div key={label}><small>{label}</small><strong>{value}</strong></div>)}</div></div>}
               {!petDetails?.baseStats&&<p className={styles.progressionEmpty}>Level-based stats are not available for this pet in the current reference.</p>}
+              {(petDetails?.fields?.length>0||petDetails?.tameFrom?.length>0)&&<details className={styles.petReferenceDetails}>
+                <summary>More information <span>Source and catalog data</span></summary>
+                {petDetails?.fields?.length>0&&<div className={styles.petReferenceFields}>{petDetails.fields.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>}
+                {petDetails?.tameFrom?.length>0&&<div className={styles.petReferenceSources}><strong>Found from</strong><p>{petDetails.tameFrom.join(" · ")}</p></div>}
+              </details>}
             </article>}
             <details className={styles.advanced}>
               <summary><span><Sparkles size={16}/> Advanced setup</span><small>Reference fields · saved and shared, not included in stat totals</small></summary>
