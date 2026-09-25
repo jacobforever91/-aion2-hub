@@ -49,7 +49,7 @@ function WingsCatalog() {
   const visible=useMemo(()=>wingItems.filter(item=>(!query||`${item.name} ${item.grade} ${item.faction}`.toLowerCase().includes(query.toLowerCase()))&&(!selectedGrades.length||selectedGrades.includes(item.grade))&&(faction==="All factions"||item.faction===faction)),[query,selectedGrades,faction]);
   const selectedVisible=visible.find((item)=>item.id===selected.id)||visible[0]||selected;
   const toggleGrade=(grade)=>setSelectedGrades((current)=>current.includes(grade)?current.filter((value)=>value!==grade):[...current,grade]);
-  return <main className={styles.page}>
+  return <main className={styles.page + ' ' + styles.wingsPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
       <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Filter by rarity and faction. Equipment wings show their recorded stats; Special wings are listed as cosmetics in the KR reference.</p></header>
