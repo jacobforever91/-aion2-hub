@@ -123,7 +123,8 @@ function skillLevelEffect(info,level){
     if(typeof value==="object"){
       if(value.label&&value.value!=null){target[String(value.label)]=value.value;return target;}
       Object.entries(value).forEach(([key,item])=>{
-        if(["id","skillId","skill_id","level","name","icon","description","effect","effectDescription","text"].includes(key.toLowerCase()))return;
+        const normalized=key.toLowerCase().replace(/[ _-]/g,"");
+        if(["id","skillid","skill_id","level","name","icon","description","effect","effectdescription","text"].includes(normalized)||normalized.startsWith("tokenvalues"))return;
         flatten(item,prefix?prefix+" "+key:key,target);
       });
       return target;
@@ -133,24 +134,29 @@ function skillLevelEffect(info,level){
   };
   const raw=flatten(current);
   const prior=previous?flatten(previous):{};
-  const minKey=Object.keys(raw).find((key)=>/^(minvalue|min value)$/i.test(key));
-  const maxKey=Object.keys(raw).find((key)=>/^(maxvalue|max value)$/i.test(key));
+  const minKey=Object.keys(raw).find((key)=>/^(minvalue|min value|dmg min|dmgmin|damage min|damagemin)$/i.test(key));
+  const maxKey=Object.keys(raw).find((key)=>/^(maxvalue|max value|dmg max|dmgmax|damage max|damagemax)$/i.test(key));
   const skip=new Set([minKey,maxKey].filter(Boolean));
-  const labels={damage:"Damage",heal:"Healing",healing:"Healing",cooldown:"Cooldown",cooldownseconds:"Cooldown",cooldowntime:"Cooldown",recasttime:"Cooldown",reusetime:"Cooldown",duration:"Duration",range:"Range",casttime:"Cast time",mp:"MP cost",hp:"HP",dp:"DP",chance:"Chance",probability:"Chance",targetcount:"Targets",hitcount:"Hits",stackcount:"Stacks",shield:"Shield",staggergauge:"Stagger gauge"};
+  const labels={damage:"Damage",dmg:"Damage",heal:"Healing",healing:"Healing",cooldown:"Cooldown",cooldownseconds:"Cooldown",cooldowntime:"Cooldown",recasttime:"Cooldown",reusetime:"Cooldown",duration:"Duration",range:"Range",casttime:"Casting time",castingtime:"Casting time",costmp:"MP cost",costhp:"HP cost",costdp:"DP cost",mp:"MP cost",hp:"HP",dp:"DP",chance:"Chance",probability:"Chance",targetcount:"Targets",hitcount:"Hits",stackcount:"Stacks",shield:"Shield",staggergauge:"Stagger gauge"};
   const labelFor=(key)=>{
     const compact=key.replace(/[^a-z0-9]/gi,"").toLowerCase();
     if(labels[compact])return labels[compact];
     return key.replace(/([a-z])([A-Z])/g,"$1 $2").replace(/[_.-]+/g," ").replace(/\b\w/g,(letter)=>letter.toUpperCase());
   };
   const values=[];
+  const isZero=(value)=>value!=null&&/^[-+]?0+(?:\.0+)?%?$/.test(String(value).replace(/,/g,"").trim());
   if(minKey||maxKey){
     const now=[raw[minKey],raw[maxKey]].filter((value)=>value!=null).join("–");
     const before=[prior[minKey],prior[maxKey]].filter((value)=>value!=null).join("–");
-    values.push({label:"Effect value",current:now,previous:before});
+    if(now&&!isZero(now.replace(/[–-]/g,""))||before&&!isZero(before.replace(/[–-]/g,""))){
+      const label=/^(dmg|damage)/i.test(minKey||maxKey||"")?"Damage":"Effect value";
+      values.push({label,current:now,previous:before!==now?before:""});
+    }
   }
   Object.entries(raw).forEach(([key,value])=>{
-    if(skip.has(key))return;
-    values.push({label:labelFor(key),current:String(value),previous:prior[key]==null?"":String(prior[key])});
+    if(skip.has(key)||isZero(value)&&isZero(prior[key]??0))return;
+    const previous=prior[key]==null||String(prior[key])===String(value)?"":String(prior[key]);
+    values.push({label:labelFor(key),current:String(value),previous});
   });
   const description=current.description||current.effect||current.effectDescription||current.text||"";
   return {description,values};
@@ -419,7 +425,7 @@ export default function BuildCreator(){
                   const isEditing=editingSkillKey===levelKey;
                   const specialtyTiers=groupSpecialtyTiers(skillSpecialtyData[levelKey]);
                   const levelEffect=skillLevelEffect(skillDetailsData[levelKey],level);
-                  return <div key={item.name} className={styles.skillCard}>
+                  return <div key={item.name} className={selected&&isEditing?styles.skillCard+" "+styles.skillCardEditing:styles.skillCard}>
                     <div className={styles.skillCardHeader}>
                       <button type="button" className={selected?styles.skillSelected:styles.skill} onClick={()=>selectSkill(group.id,item.name,item.id)} aria-pressed={selected}>
                         <span className={styles.skillIconWrap}>{item.id&&<img className={styles.skillIcon} src={skillIconUrl(item.id)} alt="" loading="lazy"/>}</span>
