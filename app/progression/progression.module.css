@@ -65,7 +65,7 @@
 /* Pets follows the immersive Skills catalog design. */
 .petPage{background:linear-gradient(90deg,#0308129e,#03081270),url('/backgrounds/skills-atreia-ruins.webp') center bottom/cover fixed no-repeat}
 .petPage .nav{display:none}
-.petPage .wrap{width:min(1080px,calc(100% - 120px));padding:38px 0 64px}
+.petPage .wrap{width:min(1700px,calc(100% - 96px));padding:38px 0 64px}
 .petPage .back{position:fixed;top:18px;left:18px;z-index:10}
 .petTitle{display:flex;align-items:center;gap:11px;margin:0 0 13px;color:#edf8ff;font:400 22px/1.25 Georgia,serif;letter-spacing:1.8px;font-variant:small-caps;text-shadow:0 2px 7px #030812}
 .petTitle::before{content:"";display:block;width:25px;height:2px;flex:none;background:#46e5ff;box-shadow:0 0 9px #46e5ff88}
@@ -79,7 +79,7 @@
 .petTab span{color:#80dffa;font-size:10px}
 .petTab:focus-visible{outline:2px solid #46e5ff;outline-offset:-2px}
 .petPage .count{padding:6px 2px 12px;color:#aac0ce;text-shadow:0 1px 3px #030812}
-.petPage .petList{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-height:none;overflow:visible}
+.petPage .petList{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;max-height:none;overflow:visible}
 .petPage .item{min-width:0;min-height:54px;gap:10px;padding:7px 10px;border:1px solid #24475a;border-left:2px solid var(--tier-color);border-radius:6px;background:#081a28ec}
 .petPage .itemIcon{width:36px;height:36px;flex:none;border-radius:5px}
 .petPage .itemCopy{min-width:0;gap:3px}
@@ -87,5 +87,6 @@
 .petPage .itemCopy small{font-size:10px}
 .petPage .item:hover{border-color:#24475a;border-left-color:var(--tier-color);background:#081a28ec;box-shadow:none}
 .petPage .source{background:#071522e8}
-@media(max-width:800px){.petPage .wrap{width:calc(100% - 96px);margin-left:80px}.petPage .petList{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1200px){.petPage .petList{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){.petPage .wrap{width:calc(100% - 70px);margin-left:58px}.petPage .petList{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.petPage .wrap{width:calc(100% - 28px);margin:auto;padding-top:66px}.petPage .back{top:12px;left:12px}.petPage .petList{grid-template-columns:1fr}.petTab{padding:8px 10px}}
