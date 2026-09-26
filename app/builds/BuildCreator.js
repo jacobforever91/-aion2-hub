@@ -523,12 +523,12 @@ export default function BuildCreator(){
     <nav className={styles.nav}>
       <Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft aria-hidden="true"/></Link>
       <Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>BUILD CREATOR · PROTOTYPE</small></Link>
-      <div className={styles.navLinks}><Link href="/classes">Skills</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link><Link href="/pets">Pets</Link></div>
+      <div className={styles.navLinks}><Link href="/classes">Skills</Link><Link href="/equipment">Equipment</Link><Link href="/stigmas">Stigmas</Link><Link href="/daevanion">Daevanion</Link><Link href="/arcana">Arcana</Link></div>
     </nav>
 
     <div className={styles.wrap}>
       <header className={styles.hero}>
-        <div className={styles.eyebrow}><Sparkles size={15}/> BUILD LAB · CHARACTER PLANNER</div>
+        <div className={styles.eyebrow}><Sparkles size={15}/> AION 2 VISION · BUILD LAB</div>
         <div className={styles.heroRow}><div><h1>Build <em>Creator</em></h1><p>Plan a class setup, add skills and gear, then save it or share it with your party.</p></div><span className={styles.prototypeTag}>PROTOTYPE</span></div>
         <label className={styles.titleField}><span>BUILD NAME</span><input value={build.title} onChange={(event)=>patch("title",event.target.value)} placeholder="Example: Templar PvE tank"/></label>
       </header>
