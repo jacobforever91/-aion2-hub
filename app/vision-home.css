@@ -462,3 +462,11 @@
   .generalEquipmentPage .equipmentDesktopTotals strong{font-size:11px}
   .generalEquipmentPage .equipmentDesktopPieces strong{font-size:10px}
 }
+
+/* PC: the Daeva is already part of the shared wallpaper. Keep the atlas layer transparent. */
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentAtlas{background:transparent!important;border:0!important;box-shadow:none!important;}
+  .generalEquipmentPage .equipmentAtlasFigure{display:none!important;}
+  .generalEquipmentPage .equipmentAtlas:before,
+  .generalEquipmentPage .equipmentAtlas:after{display:none!important;}
+}
