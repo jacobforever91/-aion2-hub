@@ -224,7 +224,7 @@ export default function EquipmentBrowser() {
       <div className="equipmentAtlasLayout">
         <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
           <div className="equipmentAtlasHalo"/>
-          <div className="equipmentAtlasFigure"><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
+          <div className="equipmentAtlasFigure"><img className="equipmentAtlasDaevaArt" src="https://predeploy-b02124ee-aion2hub-xdyorsjy-ohzhjdhbkfeajgt6.manus.space/manus-storage/equipment-loadout-daeva-optimized_63d3a690.png" alt="Daeva loadout figure" onError={(event)=>{event.currentTarget.style.display="none"}}/><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSelected"><small>SELECTED SLOT</small><strong>{selectedCategory.name}</strong></div>
