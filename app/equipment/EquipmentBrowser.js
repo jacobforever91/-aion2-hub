@@ -353,10 +353,10 @@ export default function EquipmentBrowser() {
       <p className="equipmentDataNote">Choose a rarity to narrow the catalog. Select an item to open its information panel. Entries appear as their data is reviewed.</p>
         </section>
         <aside className="equipmentDesktopLoadout" aria-label="Current loadout summary">
-          <div className="equipmentDesktopLoadoutHead"><div><span>DAEVEXUS · LOADOUT</span><h2>Loadout Stats</h2></div><b>{equippedEntries.length} / {categories.length}<small>equipped</small></b></div>
+          <div className="equipmentDesktopLoadoutHead"><div><span>DAEVEXUS · LOADOUT</span><h2>Loadout Stats</h2></div><div className="equipmentDesktopLoadoutControls"><b>{equippedEntries.length} / {categories.length}<small>equipped</small></b><button className="equipmentDesktopClear" type="button" onClick={clearLoadout} disabled={!equippedEntries.length}>Clear</button></div></div>
           <div className="equipmentDesktopTotals">{Object.entries(loadoutTotals).length?Object.entries(loadoutTotals).map(([key,value])=>{const [label,suffix]=key.split("|");return <div key={key}><span>{label}</span><strong>{Number(value.toFixed(2))}{suffix}</strong></div>}):<p>Equip pieces from the Atlas to build your real combined stats.</p>}</div>
-          <div className="equipmentDesktopPiecesHead"><h3>Equipped Items</h3><button type="button" onClick={clearLoadout} disabled={!equippedEntries.length}>Clear</button></div>
-          <div className="equipmentDesktopPieces">{equippedEntries.length?equippedEntries.map(([slot,item])=><button type="button" key={slot} onClick={()=>setSelectedItem(item)}><span>{item.icon?<img src={item.icon} alt="" onError={(event)=>{event.currentTarget.style.display="none"}}/>:<EquipmentSlotIcon type={categories.find(x=>x.id===slot)?.icon}/>}</span><div><small>{categories.find(x=>x.id===slot)?.name}</small><strong>{item.name}</strong><em>{item.grade}</em></div><ChevronRight aria-hidden="true"/></button>):<div className="equipmentDesktopEmpty"><Gem/><strong>No items equipped</strong><span>Select a slot around your Daeva, then equip an item from the Atlas.</span></div>}</div>
+          
+          
         </aside>
       </div>
     </section>

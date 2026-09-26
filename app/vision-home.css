@@ -521,3 +521,25 @@
   .generalEquipmentPage .equipmentRegionNote{font-size:10px;line-height:1.5;}
   .generalEquipmentPage .equipmentResultsHeader{font-size:10px;}
 }
+
+
+/* Give the desktop stat summary the full right panel. */
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentDesktopLoadout{
+    box-sizing:border-box;height:min(780px,calc(100svh - 32px));min-height:min(780px,calc(100svh - 32px));
+    display:flex;flex-direction:column;padding:20px;
+  }
+  .generalEquipmentPage .equipmentDesktopLoadoutHead{align-items:center;gap:10px;padding-bottom:16px;}
+  .generalEquipmentPage .equipmentDesktopLoadoutHead h2{font-size:29px;}
+  .generalEquipmentPage .equipmentDesktopLoadoutControls{display:flex;align-items:center;gap:11px;flex:none;}
+  .generalEquipmentPage .equipmentDesktopLoadoutControls>b{color:#f1e0b5;font:400 20px Georgia,"Times New Roman",serif;text-align:right;white-space:nowrap;}
+  .generalEquipmentPage .equipmentDesktopLoadoutControls>b small{display:block;margin-top:2px;color:#6f8d9c;font:500 7px sans-serif;letter-spacing:.8px;text-transform:uppercase;}
+  .generalEquipmentPage .equipmentDesktopClear{padding:7px 9px;border:1px solid rgba(113,180,202,.3);border-radius:5px;background:rgba(5,19,31,.78);color:#9bb9c4;font:500 9px/1 Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer;}
+  .generalEquipmentPage .equipmentDesktopClear:hover:not(:disabled){border-color:#56d8f4;color:#e8faff;}
+  .generalEquipmentPage .equipmentDesktopClear:disabled{opacity:.4;cursor:default;}
+  .generalEquipmentPage .equipmentDesktopTotals{display:flex;flex:1;flex-direction:column;gap:3px;margin-top:15px;}
+  .generalEquipmentPage .equipmentDesktopTotals>div{flex:1;align-items:center;padding:9px 12px;background:linear-gradient(90deg,rgba(5,18,30,.92),rgba(8,27,41,.74));}
+  .generalEquipmentPage .equipmentDesktopTotals span{font-size:11px;line-height:1.35;}
+  .generalEquipmentPage .equipmentDesktopTotals strong{font-size:13px;}
+  .generalEquipmentPage .equipmentDesktopTotals>p{display:grid;flex:1;place-items:center;padding:28px 22px;font-size:12px;line-height:1.65;}
+}
