@@ -108,3 +108,15 @@
 @media(max-width:1050px){.equipmentAtlasLayout{grid-template-columns:340px minmax(0,1fr)}.equipmentAtlas{min-height:620px}.equipmentAtlasCatalog .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:780px){.equipmentAtlasLayout{grid-template-columns:1fr}.equipmentAtlas{position:relative;top:auto;min-height:620px}.equipmentAtlasCatalog .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.equipmentAtlas{min-height:560px;border-radius:16px}.equipmentAtlasSide{top:7%;bottom:12%}.equipmentAtlasSide.isLeft{left:2px}.equipmentAtlasSide.isRight{right:2px}.equipmentAtlasSlot{width:58px}.equipmentAtlasSlotIcon{width:39px;height:39px}.equipmentAtlasSlot:after{width:18px;top:20px}.equipmentAtlasSide.isLeft .equipmentAtlasSlot:after{left:48px}.equipmentAtlasSide.isRight .equipmentAtlasSlot:after{right:48px}.equipmentAtlasSlot>span:nth-child(2){font-size:6px}.equipmentAtlasFigure{width:44%}.equipmentAtlasCatalog .generalEquipmentGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.equipmentAtlasCatalog .equipmentItemCard{min-height:142px;padding:9px}.equipmentAtlasCatalog .equipmentItemIcon img{width:58px!important;height:58px!important}.equipmentAtlasCatalogHead{align-items:flex-start;flex-direction:column}}
+
+/* Equipment Atlas item finish */
+.equipmentAtlasCatalog .equipmentItemCard{position:relative;overflow:hidden;border-color:#173747;background:linear-gradient(145deg,#081722,#050d16);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.equipmentAtlasCatalog .equipmentItemCard:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 22%,rgba(80,192,229,.10),transparent 35%);pointer-events:none}
+.equipmentAtlasCatalog .equipmentItemCard:hover{transform:translateY(-3px);border-color:#387e98;box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.equipmentAtlasCatalog .equipmentItemIcon,.equipmentAtlasCatalog .equipmentItemName,.equipmentAtlasCatalog .equipmentItemGrade,.equipmentAtlasCatalog .equipmentItemOpen{position:relative;z-index:1}
+.equipmentAtlasCatalog .equipmentItemGrade{justify-self:start;padding:3px 6px;border:1px solid currentColor;border-radius:999px;background:#050b12;font-size:7px;letter-spacing:.7px}
+.equipmentAtlasCatalog .equipmentItemOpen{margin-top:2px;color:#6c9bad;font-size:8px;text-transform:uppercase;letter-spacing:.8px}
+.equipmentAtlasCatalog .equipmentItemCard:hover .equipmentItemOpen{color:#91eaff}
+.equipmentAtlasCatalog .equipmentWeaponSection{border-color:#173747;background:rgba(5,13,22,.72)}
+.equipmentAtlasCatalog .equipmentWeaponSectionToggle{min-height:48px}
+@media(max-width:520px){.equipmentAtlasCatalog .equipmentItemName{font-size:10px}.equipmentAtlasCatalog .equipmentItemGrade{font-size:6px}.equipmentAtlasCatalog .equipmentItemOpen{font-size:7px}}
