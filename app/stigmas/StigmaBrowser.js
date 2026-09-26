@@ -35,8 +35,10 @@ export default function StigmaBrowser() {
   const [skillLevel, setSkillLevel] = useState(1);
   const selectedClass = classList.find(({slug}) => slug === selectedSlug) || classList[0];
   const skills = stigmaCatalog[selectedSlug] || [];
-  const maxSkillLevel = skillInfo?.levels?.length || Number(skillInfo?.details?.find(({label}) => label === "Max Level")?.value) || 1;
-  const currentSkillLevel = skillInfo?.levels?.find(({level}) => level === skillLevel) || skillInfo?.levels?.[0];
+  const availableLevels = skillInfo?.levels?.map(({level}) => Number(level)).filter(Number.isFinite).sort((a,b) => a-b) || [];
+  const minSkillLevel = availableLevels[0] || 1;
+  const maxSkillLevel = availableLevels.at(-1) || Number(skillInfo?.details?.find(({label}) => label === "Max Level")?.value) || 1;
+  const currentSkillLevel = skillInfo?.levels?.find(({level}) => Number(level) === skillLevel) || skillInfo?.levels?.[0];
   const currentDescription = skillInfo?.descriptionTemplate && currentSkillLevel
     ? skillInfo.descriptionTemplate.replace(/\{([^{}]+)\}/g, (_match, token) => currentSkillLevel.token_values?.[token] ?? "?").replace(/\\n/g, "\n")
     : skillInfo?.description?.replace(/\\n/g, "\n");
@@ -54,7 +56,7 @@ export default function StigmaBrowser() {
       })
       .then((info) => {
         setSkillInfo(info);
-        setSkillLevel(1);
+        setSkillLevel(Number(info?.levels?.[0]?.level) || 1);
         setSkillState("ready");
       })
       .catch((error) => {
@@ -116,7 +118,7 @@ export default function StigmaBrowser() {
             {skills.map((skill) => (
               <button className="stigmaSkillCard" type="button" key={`${selectedSlug}-${skill.id}`} onClick={() => setSelectedSkill(skill)} aria-label={`View ${skill.name} details`}>
                 <span className="stigmaSkillIcon" aria-hidden="true">
-                  <img src={`https://aion2hub.com/api/skill-icon/${skill.id}`} alt="" loading="lazy" />
+                  <img src={`https://aion2hub.com/api/skill-icon/${skill.id}`} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.display = "none"; }} />
                 </span>
                 <span className="stigmaSkillName">{skill.name}</span>
                 <span className="stigmaSkillType">STIGMA</span>
@@ -138,7 +140,7 @@ export default function StigmaBrowser() {
           <button className="skillModalClose" type="button" onClick={() => setSelectedSkill(null)} aria-label="Close Stigma details"><X aria-hidden="true" /></button>
           <span className="skillModalEyebrow">{selectedClass.name} · STIGMA SKILL</span>
           <div className="skillModalSkillIdentity">
-            <img src={`https://aion2hub.com/api/skill-icon/${selectedSkill.id}`} alt="" />
+            <img src={`https://aion2hub.com/api/skill-icon/${selectedSkill.id}`} alt="" onError={(event) => { event.currentTarget.style.display = "none"; }} />
             <div><h2 id="stigmaModalTitle">{selectedSkill.name}</h2><span>Stigma skill</span></div>
           </div>
           <div className="skillModalDivider" />
@@ -154,7 +156,11 @@ export default function StigmaBrowser() {
             </div>}
             {maxSkillLevel > 1 && <div className="skillLevelControl">
               <div className="skillLevelHeading"><label htmlFor="stigma-level">Skill Level</label><output htmlFor="stigma-level">{skillLevel} / {maxSkillLevel}</output></div>
-              <input id="stigma-level" type="range" min="1" max={maxSkillLevel} value={skillLevel} onChange={(event) => setSkillLevel(Number(event.target.value))} />
+              <input id="stigma-level" type="range" min={minSkillLevel} max={maxSkillLevel} value={skillLevel} onChange={(event) => {
+                const requested = Number(event.target.value);
+                const nearest = availableLevels.length ? availableLevels.reduce((best, level) => Math.abs(level-requested) < Math.abs(best-requested) ? level : best, availableLevels[0]) : requested;
+                setSkillLevel(nearest);
+              }} />
             </div>}
             {currentStats?.length > 0 && <div className="skillModalStats" aria-label={`Main values at level ${skillLevel}`}>
               {currentStats.map(({label, value}) => <div className="skillModalStat" key={`${label}-${value}`}><span>{label}</span><strong>{value}</strong></div>)}
