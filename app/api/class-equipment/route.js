@@ -1,4 +1,4 @@
-import {classList} from "../../classes/classData.js";
+import {classList, classWeapons} from "../../classes/classData.js";
 import equipmentData from "../../classes/equipmentData.json";
 import weaponsData from "../../equipment/weaponsData.js";
 import armorData from "../../equipment/armorData.js";
@@ -11,6 +11,16 @@ const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
 const classNames = new Map(classList.map(({slug, name}) => [slug, name]));
 const sourceClassNames = new Map([["spiritmaster", "Elementalist"]]);
+const classWeaponTypes = new Map(Object.entries(classWeapons).map(([slug, loadout]) => {
+  const types = new Set();
+  Object.values(loadout).forEach(({name}) => {
+    const normalized = String(name || "").toLowerCase();
+    types.add(normalized);
+    if (normalized === "shield") types.add("guard");
+    if (normalized === "longsword") types.add("sword");
+  });
+  return [slug, types];
+}));
 
 export const maxDuration = 30;
 
@@ -158,10 +168,12 @@ async function getGeneralEquipment(request) {
   const category = params.get("category") || "Weapons";
   const slot = params.get("slot") || "";
   const region = params.get("region") || "GLOBAL";
+  const classSlug = params.get("class") || "";
   const itemId = params.get("item");
   const grade = params.get("grade") || "";
   const search = (params.get("q") || "").trim().slice(0, 80);
   if (!equipmentFamilies.has(category)) return Response.json({error: "Unknown equipment type."}, {status: 400});
+  if (classSlug && !classNames.has(classSlug)) return Response.json({error: "Unknown class."}, {status: 400});
   if (!["GLOBAL", "KR_TW"].includes(region)) return Response.json({error: "Unknown data region."}, {status: 400});
   if (category === "Weapons" ? Boolean(slot) : !equipmentSlots[category]?.has(slot)) return Response.json({error: "Unknown equipment slot."}, {status: 400});
   if (grade && !gradeOptions.has(grade)) return Response.json({error: "Unknown rarity."}, {status: 400});
@@ -172,8 +184,10 @@ async function getGeneralEquipment(request) {
     return Response.json({...item, icon: item.icon || (item.group === "Weapon" ? `/equipment-icons/${item.id}.webp` : equipmentArt[category]), rarity: item.grade, region, official: false});
   }
 
+  const allowedWeaponTypes = classWeaponTypes.get(classSlug);
   const filtered = localGeneralItems(category, slot).filter((item) =>
     (item.region || "GLOBAL") === region &&
+    (category !== "Weapons" || !allowedWeaponTypes || allowedWeaponTypes.has(String(item.category || item.itemType || "").toLowerCase())) &&
     (!grade || item.grade === grade) && (!search || item.name.toLowerCase().includes(search.toLowerCase()))
   ).sort((a, b) => a.name.localeCompare(b.name));
   return Response.json({
