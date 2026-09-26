@@ -181,10 +181,10 @@ export default function EquipmentBrowser() {
     const selectedCategory = categories.find(({id}) => id === categoryId) || categories[0];
     if (selectedCategory.family === "Wings") {
       const normalizedSearch = submittedSearch.toLowerCase();
-      const wingResults = region === "KR_TW" ? wingItems.filter((item) =>
+      const wingResults = wingItems.filter((item) =>
         (grade === "All rarities" || item.grade === grade) &&
         (!normalizedSearch || `${item.name} ${item.faction}`.toLowerCase().includes(normalizedSearch))
-      ) : [];
+      );
       setItems(wingResults);
       setPageInfo({total: wingResults.length, page: 1, pages: 1});
       setState("ready");
