@@ -498,3 +498,26 @@
   .generalEquipmentPage .equipmentAtlasCatalog,
   .generalEquipmentPage .equipmentDesktopLoadout{align-self:start;margin-top:0;}
 }
+
+
+/* PC: let the left catalog use more of the open margin and keep its labels easy to read. */
+@media(min-width:1280px){
+  .generalEquipmentPage.classPage{padding-inline:clamp(22px,2.2vw,42px);}
+  .generalEquipmentPage .equipmentAtlasLayout{
+    grid-template-columns:minmax(330px,380px) minmax(480px,1fr) minmax(330px,380px);
+    gap:14px;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog{padding-inline:18px;}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid{gap:6px 7px;}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlot{
+    min-height:38px!important;height:38px!important;padding-inline:10px!important;font-size:11px!important;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlotIcon{
+    width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlotIcon svg{width:17px!important;height:17px!important}
+  .generalEquipmentPage .equipmentGradeFilters button{min-height:33px;padding:6px 10px;font-size:10px;}
+  .generalEquipmentPage .equipmentSearch input{font-size:13px;}
+  .generalEquipmentPage .equipmentRegionNote{font-size:10px;line-height:1.5;}
+  .generalEquipmentPage .equipmentResultsHeader{font-size:10px;}
+}
