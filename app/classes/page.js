@@ -34,7 +34,7 @@ export default function Classes() {
           </button>
         ))}
       </div>
-      <section className="classInlineContent" aria-live="polite">
+      <div className="classVisionIdentity"><span>AION 2 VISION · SKILLS</span></div><section className="classInlineContent" aria-live="polite">
         <ClassInfo key={selectedSlug} slug={selectedSlug} onSelectClass={setSelectedSlug} />
       </section>
     </main>
