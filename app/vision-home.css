@@ -144,3 +144,15 @@
 .equipmentAtlasCore{z-index:3;top:auto;bottom:2%;padding:5px 10px;border-radius:999px;background:rgba(4,10,17,.5);backdrop-filter:blur(6px)}
 .equipmentAtlasHalo{inset:8% 13%;border-color:rgba(95,218,255,.12)}
 @media(max-width:520px){.equipmentAtlasFigure{width:58%;height:78%;top:48%}.equipmentAtlasDaevaArt{object-position:center bottom}.equipmentAtlasCore{bottom:0}}
+
+/* DAEVEXUS Equipment phase 1 composition pass */
+.generalEquipmentPage .equipmentGeneralContent{width:min(1780px,calc(100% - 48px));max-width:none}
+.equipmentAtlasLayout{grid-template-columns:minmax(420px,540px) minmax(0,1fr);gap:30px}
+.equipmentAtlas{min-height:760px;background:radial-gradient(circle at 50% 43%,rgba(73,183,224,.11),transparent 31%),linear-gradient(145deg,rgba(7,15,27,.96),rgba(4,9,18,.88))}
+.equipmentAtlasFigure{width:68%;height:86%;top:47%}
+.equipmentAtlasSide{top:5%;bottom:10%}.equipmentAtlasSlot{width:78px}.equipmentAtlasSlotIcon{width:48px;height:48px}.equipmentAtlasSide.isLeft{left:15px}.equipmentAtlasSide.isRight{right:15px}
+.equipmentAtlasSelected{bottom:17px}.equipmentLoadoutStatsButton{bottom:70px}
+@media(min-width:1280px){.equipmentAtlasCatalog .generalEquipmentGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.equipmentAtlasCatalog{padding-top:4px}}
+@media(max-width:1050px){.generalEquipmentPage .equipmentGeneralContent{width:min(100% - 32px,1100px)}.equipmentAtlasLayout{grid-template-columns:380px minmax(0,1fr);gap:18px}.equipmentAtlas{min-height:680px}.equipmentAtlasFigure{width:65%;height:82%}.equipmentAtlasSlot{width:66px}.equipmentAtlasSlotIcon{width:43px;height:43px}}
+@media(max-width:780px){.generalEquipmentPage .equipmentGeneralContent{width:calc(100% - 24px)}.equipmentAtlasLayout{grid-template-columns:1fr;gap:22px}.equipmentAtlas{min-height:720px}.equipmentAtlasFigure{width:66%;height:84%;top:47%}.equipmentAtlasCatalog{padding-bottom:18px}}
+@media(max-width:520px){.equipmentAtlas{min-height:650px}.equipmentAtlasHalo{inset:8% 15%}.equipmentAtlasFigure{width:67%;height:82%;top:47%}.equipmentAtlasSide{top:7%;bottom:13%}.equipmentAtlasSide.isLeft{left:0}.equipmentAtlasSide.isRight{right:0}.equipmentAtlasSlot{width:62px}.equipmentAtlasSlotIcon{width:42px;height:42px}.equipmentAtlasSlot>span:nth-child(2){max-width:58px;overflow:hidden;text-overflow:ellipsis}.equipmentAtlasSelected{bottom:12px}.equipmentLoadoutStatsButton{bottom:61px}}
