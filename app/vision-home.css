@@ -383,3 +383,6 @@
 @keyframes daevaLeftWingFlap{0%,100%{transform:translateX(-50%) rotate(0deg) scaleY(1);filter:brightness(1)}50%{transform:translateX(-50%) rotate(-2.2deg) scaleY(.965);filter:brightness(1.12)}}
 @keyframes daevaRightWingFlap{0%,100%{transform:translateX(-50%) rotate(0deg) scaleY(1);filter:brightness(1)}50%{transform:translateX(-50%) rotate(2.2deg) scaleY(.965);filter:brightness(1.12)}}
 .equipmentAtlasFigure:not(.isMoving) .equipmentAtlasWingArt{animation:none;transform:translateX(-50%)}
+
+/* Desktop uses the fixed loadout panel on the right; hide its duplicate atlas buttons. */
+@media(min-width:1280px){.equipmentAtlasActions{display:none!important}}
