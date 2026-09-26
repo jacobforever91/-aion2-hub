@@ -159,3 +159,11 @@
 
 .equipmentAtlasFigure.hasDaevaArt .equipmentAtlasHead,.equipmentAtlasFigure.hasDaevaArt .equipmentAtlasBody{opacity:0;pointer-events:none}.equipmentAtlasDaevaArt{transition:opacity .25s ease}.equipmentAtlasFigure.hasDaevaArt:before{content:"";position:absolute;left:50%;bottom:4%;width:70%;height:12%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(83,205,242,.20),transparent 68%);filter:blur(7px);z-index:1}
 @media(max-width:520px){.equipmentAtlasDaevaArt{max-width:100%}.equipmentAtlasFigure.hasDaevaArt:before{width:82%}}
+
+/* Equipment phase 1 final spacing pass */
+.generalEquipmentPage .equipmentTopline{position:relative;z-index:6}
+.equipmentAtlas:after{content:"DAEVEXUS";position:absolute;left:50%;top:18px;transform:translateX(-50%);z-index:1;color:rgba(217,189,120,.16);font-size:8px;font-weight:800;letter-spacing:4px;pointer-events:none}
+.equipmentAtlasFigure{z-index:2}.equipmentAtlasSide,.equipmentAtlasSelected,.equipmentLoadoutStatsButton{z-index:5}
+.equipmentAtlasDaevaArt{border-radius:42% 42% 14% 14%/18% 18% 8% 8%;mask-image:linear-gradient(to bottom,black 0%,black 90%,transparent 100%)}
+@media(max-width:780px){.generalEquipmentPage{padding-top:72px!important}.generalEquipmentPage .classBack{top:18px!important}.generalEquipmentPage .equipmentTopline{padding-top:8px}.equipmentVisionIdentity h1{font-size:clamp(42px,13vw,60px)}}
+@media(max-width:520px){.generalEquipmentPage{padding-top:82px!important}.generalEquipmentPage .equipmentTopline{gap:12px}.generalEquipmentPage .equipmentRegionChoices{margin-top:2px}.equipmentAtlas:after{top:13px;font-size:6px;letter-spacing:3px}.equipmentAtlasFigure{top:49%;width:64%;height:80%}.equipmentAtlasDaevaArt{border-radius:38% 38% 12% 12%/16% 16% 7% 7%}.equipmentAtlasSlot{gap:3px}.equipmentAtlasSlot>span:nth-child(2){letter-spacing:.55px}}
