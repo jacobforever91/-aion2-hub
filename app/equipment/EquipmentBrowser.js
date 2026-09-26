@@ -103,6 +103,7 @@ export default function EquipmentBrowser() {
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [atlasSelection, setAtlasSelection] = useState({});
+  const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
@@ -132,6 +133,13 @@ export default function EquipmentBrowser() {
       });
     return () => controller.abort();
   }, [region, categoryId, grade, page, submittedSearch]);
+
+  useEffect(() => {
+    if (atlasRegion !== region) {
+      setAtlasSelection({});
+      setAtlasRegion(region);
+    }
+  }, [region, atlasRegion]);
 
   useEffect(() => {
     setOpenWeaponGroups(
@@ -169,7 +177,7 @@ export default function EquipmentBrowser() {
     if (!entry) return null;
     const chosen = atlasSelection[id];
     return <button type="button" key={id} className={"equipmentAtlasSlot "+(categoryId===id?"isSelected":"")} aria-pressed={categoryId===id} onClick={()=>selectCategory(id)}>
-      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<img src={chosen.icon} alt="" onError={(event)=>{event.currentTarget.style.display="none"}}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
+      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<img src={chosen.icon} alt="" onError={(event)=>{event.currentTarget.onerror=null;event.currentTarget.src=familyArt[entry.family]||familyArt.Armor}}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
       <span>{entry.name}</span>{entry.slotCount===2&&<small>2</small>}
     </button>;
   };
