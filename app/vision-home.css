@@ -296,3 +296,19 @@
      linear-gradient(to bottom,transparent 0%,#000 8%,#000 79%,transparent 94%)!important;
  }
 }
+
+/* FINAL phase-1 Daeva asset: transparent, self-hosted, never cropped */
+.equipmentAtlasFigure{overflow:visible!important;width:72%!important;height:86%!important;top:48%!important}
+.equipmentAtlasDaevaArt{
+  inset:0!important;left:0!important;top:0!important;
+  width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+  object-fit:contain!important;object-position:center center!important;
+  clip-path:none!important;border-radius:0!important;
+  -webkit-mask-image:none!important;mask-image:none!important;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,.24)) drop-shadow(0 0 20px rgba(83,205,242,.08))!important;
+}
+.equipmentAtlasFigure.hasDaevaArt:after{display:none!important}
+.equipmentAtlasFigure.hasDaevaArt:before{bottom:1%!important;width:76%!important;height:10%!important}
+.equipmentAtlasFigure.hasDaevaArt .equipmentAtlasCore{bottom:0!important;background:rgba(4,10,18,.58)!important}
+@media(max-width:780px){.equipmentAtlasFigure{width:70%!important;height:84%!important}}
+@media(max-width:520px){.equipmentAtlasFigure{width:68%!important;height:82%!important;top:48%!important}.equipmentAtlasDaevaArt{object-fit:contain!important;object-position:center center!important}}
