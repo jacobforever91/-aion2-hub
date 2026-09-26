@@ -5,6 +5,7 @@ import Link from "next/link";
 import {ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
 import EquipmentSlotIcon from "./EquipmentSlotIcon";
 import progressionData from "../progression/catalogData.json";
+import {classList} from "../classes/classData";
 
 const grades = ["All rarities", "Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"];
 const weaponTypeOrder = ["Greatsword", "Longsword", "Dagger", "Bow", "Spellbook", "Orb", "Mace", "Staff", "Guard"];
@@ -25,6 +26,8 @@ const categories = [
   {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: "bracelet"},
   {id: "brooch", name: "Relic", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
 ];
+const equipmentClassOrder = ["gladiator","templar","assassin","ranger","sorcerer","spiritmaster","cleric","chanter"];
+const equipmentClasses = equipmentClassOrder.map((slug) => classList.find((entry) => entry.slug === slug)).filter(Boolean);
 const atlasLeft = ["weapons","wings","shoulders","cloak","gloves","belt","pants","boots"];
 const atlasRight = ["helmet","necklace","chest","earrings","rings","bracelet","brooch"];
 const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp", Wings: "/equipment-art/accessory.webp"};
@@ -126,6 +129,7 @@ function EquipmentModal({item, region, onClose}) {
 
 export default function EquipmentBrowser() {
   const [region, setRegion] = useState("GLOBAL");
+  const [selectedClass, setSelectedClass] = useState("gladiator");
   const [categoryId, setCategoryId] = useState("weapons");
   const [grade, setGrade] = useState("All rarities");
   const [search, setSearch] = useState("");
@@ -136,6 +140,7 @@ export default function EquipmentBrowser() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [atlasSelection, setAtlasSelection] = useState({});
   const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
+  const [atlasClass, setAtlasClass] = useState("gladiator");
   const [loadoutDetails, setLoadoutDetails] = useState({});
   const [showLoadout, setShowLoadout] = useState(false);
   const [loadoutStorageReady, setLoadoutStorageReady] = useState(false);
@@ -150,8 +155,11 @@ export default function EquipmentBrowser() {
         const parsed = JSON.parse(saved);
         if (parsed && typeof parsed === "object") {
           const savedRegion = parsed.region === "KR_TW" ? "KR_TW" : "GLOBAL";
+          const savedClass = equipmentClasses.some(({slug}) => slug === parsed.class) ? parsed.class : "gladiator";
           setRegion(savedRegion);
           setAtlasRegion(savedRegion);
+          setSelectedClass(savedClass);
+          setAtlasClass(savedClass);
           setAtlasSelection(parsed.selection && typeof parsed.selection === "object" ? parsed.selection : {});
           setLoadoutDetails(parsed.details && typeof parsed.details === "object" ? parsed.details : {});
         }
@@ -163,9 +171,9 @@ export default function EquipmentBrowser() {
   useEffect(() => {
     if (!loadoutStorageReady) return;
     try {
-      window.localStorage.setItem("daevexus-equipment-loadout-v1", JSON.stringify({region, selection: atlasSelection, details: loadoutDetails}));
+      window.localStorage.setItem("daevexus-equipment-loadout-v1", JSON.stringify({region, class: selectedClass, selection: atlasSelection, details: loadoutDetails}));
     } catch {}
-  }, [loadoutStorageReady, region, atlasSelection, loadoutDetails]);
+  }, [loadoutStorageReady, region, selectedClass, atlasSelection, loadoutDetails]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -183,6 +191,7 @@ export default function EquipmentBrowser() {
       return () => controller.abort();
     }
     const query = new URLSearchParams({region, category: selectedCategory.family, page: String(page)});
+    query.set("class", selectedClass);
     if (selectedCategory.sourceSlot) query.set("slot", selectedCategory.sourceSlot);
     if (grade !== "All rarities") query.set("grade", grade);
     if (submittedSearch) query.set("q", submittedSearch);
@@ -202,15 +211,16 @@ export default function EquipmentBrowser() {
         if (fetchError.name !== "AbortError") { setError(fetchError.message); setState("error"); }
       });
     return () => controller.abort();
-  }, [region, categoryId, grade, page, submittedSearch]);
+  }, [region, selectedClass, categoryId, grade, page, submittedSearch]);
 
   useEffect(() => {
-    if (atlasRegion !== region) {
+    if (atlasRegion !== region || atlasClass !== selectedClass) {
       setAtlasSelection({});
       setLoadoutDetails({});
       setAtlasRegion(region);
+      setAtlasClass(selectedClass);
     }
-  }, [region, atlasRegion]);
+  }, [region, atlasRegion, selectedClass, atlasClass]);
 
   useEffect(() => {
     setOpenWeaponGroups(
@@ -218,7 +228,7 @@ export default function EquipmentBrowser() {
         ? {}
         : Object.fromEntries(weaponTypeOrder.map((type) => [type, true]))
     );
-  }, [categoryId, grade, region, submittedSearch]);
+  }, [categoryId, grade, region, selectedClass, submittedSearch]);
 
   const weaponGroups = categoryId === "weapons"
     ? Object.entries(items.reduce((groups, item) => {
@@ -242,6 +252,7 @@ export default function EquipmentBrowser() {
 
   const closeItem = useCallback(() => setSelectedItem(null), []);
   const selectedCategory = categories.find(({id}) => id === categoryId) || categories[0];
+  const selectedClassName = equipmentClasses.find(({slug}) => slug === selectedClass)?.name || "Gladiator";
   const selectCategory = (id) => changeFilter(() => setCategoryId(id));
   const selectAtlasItem = (item) => {
     setAtlasSelection((current) => ({...current,[categoryId]:item}));
@@ -287,9 +298,8 @@ export default function EquipmentBrowser() {
     <section className="equipmentGeneralContent">
       <div className="equipmentTopline">
         <div className="equipmentVisionIdentity"><span>DAEVEXUS · DATABASE</span><h1>Equipment</h1></div>
-        <div className="equipmentRegionChoices" role="group" aria-label="Item data region">
-          <button type="button" className={region === "GLOBAL" ? "isSelected" : ""} aria-pressed={region === "GLOBAL"} onClick={() => changeFilter(() => setRegion("GLOBAL"))}>Global</button>
-          <button type="button" className={region === "KR_TW" ? "isSelected" : ""} aria-pressed={region === "KR_TW"} onClick={() => changeFilter(() => setRegion("KR_TW"))}>Asia / Taiwan</button>
+        <div className="equipmentClassChoices" role="group" aria-label="Choose a class">
+          {equipmentClasses.map(({name, slug}) => <button type="button" key={slug} className={selectedClass === slug ? "isSelected" : ""} aria-pressed={selectedClass === slug} onClick={() => { if (selectedClass !== slug) changeFilter(() => { setSelectedClass(slug); setCategoryId("weapons"); }); }}>{name}</button>)}
         </div>
       </div>
 
@@ -305,7 +315,7 @@ export default function EquipmentBrowser() {
           </div>
         </aside>
         <section className="equipmentAtlasCatalog">
-          <div className="equipmentAtlasCatalogHead"><div><span>LOADOUT ATLAS</span><h2>{selectedCategory.name}</h2></div><b>{pageInfo.total.toLocaleString()} pieces</b></div>
+          <div className="equipmentAtlasCatalogHead"><div><span>{selectedClassName.toUpperCase()} · CLASS EQUIPMENT</span><h2>{selectedCategory.name}</h2></div><b>{pageInfo.total.toLocaleString()} pieces</b></div>
           <div className="equipmentToolbar generalEquipmentToolbar">
         <form className="equipmentSearch searchHalo" onSubmit={(event) => { event.preventDefault(); changeFilter(() => setSubmittedSearch(search.trim())); }}>
           <Search aria-hidden="true" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search equipment by name…" aria-label="Search equipment by name" />
@@ -315,9 +325,9 @@ export default function EquipmentBrowser() {
           {grades.map((entry) => <button type="button" key={entry} aria-pressed={grade === entry} className={`${grade === entry ? "isSelected " : ""}${entry === "All rarities" ? "gradeAll" : gradeClass(entry)}`} onClick={() => changeFilter(() => setGrade(entry))}>{entry}</button>)}
         </div>
       </div>
-      <p className="equipmentRegionNote">{categoryId === "wings" ? "Wings use the unofficial AION2.app Korea / Taiwan client snapshot from 2026-09-18. Select Asia / Taiwan to browse the 90 reviewed entries." : region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
+      <p className="equipmentRegionNote">{categoryId === "wings" ? "Wings use the unofficial Korea / Taiwan client snapshot from 2026-09-18." : "Weapon results are filtered for the selected class; the other equipment slots use the shared reviewed catalog."}</p>
 
-      <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
+      <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{selectedClassName.toUpperCase()}</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading equipment…</p>}
       {state === "error" && <p className="equipmentLoading isError">{error || "Could not load equipment. Please try again."}</p>}
       {state === "ready" && items.length > 0 && (categoryId === "weapons"
