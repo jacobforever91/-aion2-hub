@@ -90,3 +90,8 @@
 @media(max-width:1200px){.petPage .petList{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:800px){.petPage .wrap{width:calc(100% - 70px);margin-left:58px}.petPage .petList{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:540px){.petPage .wrap{width:calc(100% - 28px);margin:auto;padding-top:66px}.petPage .back{top:12px;left:12px}.petPage .petList{grid-template-columns:1fr}.petTab{padding:8px 10px}}
+
+.visionTag{display:block;margin:-6px 0 15px;color:#d9bd78;font-size:8px;font-weight:800;letter-spacing:1.6px}
+.wingsPage .back,.petPage .back{border-color:#6f613d;color:#ead79f;background:#0a131dcc;backdrop-filter:blur(12px)}
+.wingsPage .tierFilterActive,.petPage .petTabActive{border-color:#9d8756;box-shadow:inset 0 0 18px rgba(217,189,120,.07)}
+@media(max-width:540px){.visionTag{margin-top:-8px}.wingsPage .back,.petPage .back{width:40px;height:40px}}
