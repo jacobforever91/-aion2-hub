@@ -328,11 +328,12 @@ export default function EquipmentBrowser() {
       <div className="equipmentAtlasCategoryGrid" role="group" aria-label="Equipment categories">
         {categories.map(({id}) => renderAtlasSlot(id))}
       </div>
-      <p className="equipmentRegionNote">{categoryId === "wings" ? "Wings use the unofficial Korea / Taiwan client snapshot from 2026-09-18." : "Weapon results are filtered for the selected class; the other equipment slots use the shared reviewed catalog."}</p>
+      <p className={`equipmentRegionNote${categoryId === "weapons" ? " isWeaponNote" : ""}`}>{categoryId === "wings" ? "Wings use the unofficial Korea / Taiwan client snapshot from 2026-09-18." : "Weapon results are filtered for the selected class; the other equipment slots use the shared reviewed catalog."}</p>
 
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{selectedClassName.toUpperCase()}</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading equipment…</p>}
       {state === "error" && <p className="equipmentLoading isError">{error || "Could not load equipment. Please try again."}</p>}
+      {categoryId === "weapons" && state === "ready" && items.length > 0 && <div className="equipmentWeaponMenuHead"><span>Weapon type</span><small>{weaponGroups.length} types</small></div>}
       {state === "ready" && items.length > 0 && (categoryId === "weapons"
         ? <div className="equipmentWeaponSections">
             {weaponGroups.map(([type, groupItems]) => {

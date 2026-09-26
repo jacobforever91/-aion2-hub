@@ -543,3 +543,22 @@
   .generalEquipmentPage .equipmentDesktopTotals strong{font-size:13px;}
   .generalEquipmentPage .equipmentDesktopTotals>p{display:grid;flex:1;place-items:center;padding:28px 22px;font-size:12px;line-height:1.65;}
 }
+
+/* PC left menu: keep rarity and the weapon list; leave the Daeva's slot buttons untouched. */
+.generalEquipmentPage .equipmentWeaponMenuHead{display:none;}
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid{display:none!important;}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentRegionNote.isWeaponNote,
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentDataNote{display:none!important;}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentWeaponMenuHead{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin:13px 1px 5px;padding-top:10px;border-top:1px solid rgba(113,180,202,.22);
+    color:#d8e8f1;font:600 10px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;
+    letter-spacing:1.25px;text-transform:uppercase;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentWeaponMenuHead small{
+    color:#8caab8;font:400 9px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;
+    letter-spacing:.2px;text-transform:none;white-space:nowrap;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentWeaponSections{margin-top:5px;}
+}
