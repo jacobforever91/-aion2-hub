@@ -138,7 +138,6 @@ export default function EquipmentBrowser() {
   const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
   const [loadoutDetails, setLoadoutDetails] = useState({});
   const [showLoadout, setShowLoadout] = useState(false);
-  const [motionEnabled, setMotionEnabled] = useState(true);
   const [loadoutStorageReady, setLoadoutStorageReady] = useState(false);
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
@@ -297,8 +296,7 @@ export default function EquipmentBrowser() {
       <div className="equipmentAtlasLayout">
         <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
           <div className="equipmentAtlasHalo"/>
-          <button className={"equipmentAtlasMotionButton "+(motionEnabled?"isMoving":"")} type="button" aria-pressed={motionEnabled} onClick={()=>setMotionEnabled((value)=>!value)}><span aria-hidden="true"/>{motionEnabled?"WINGS MOVING":"START WINGS"}</button>
-          <div className={"equipmentAtlasFigure hasDaevaArt "+(motionEnabled?"isMoving":"")}><img className="equipmentAtlasDaevaArt" src="/daevexus/equipment-sanctum-daeva.png" alt="Daeva loadout figure" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/><span aria-hidden="true" className={"equipmentAtlasWingArt isLeft "+(motionEnabled?"isMoving":"")}/><span aria-hidden="true" className={"equipmentAtlasWingArt isRight "+(motionEnabled?"isMoving":"")}/><span className="equipmentAtlasWing isLeft"/><span className="equipmentAtlasWing isRight"/><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
+          <div className="equipmentAtlasFigure hasDaevaArt"><img className="equipmentAtlasDaevaArt" src="/daevexus/equipment-sanctum-daeva.png" alt="Daeva integrada en el santuario" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/></div>
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasActions">
