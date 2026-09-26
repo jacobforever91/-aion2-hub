@@ -174,3 +174,6 @@
 .equipmentAtlas{contain:layout paint}
 @media(max-width:780px){.equipmentAtlasFigure{height:82%;width:64%;top:48%}.equipmentAtlasDaevaArt{object-position:center center!important}}
 @media(max-width:520px){.equipmentAtlasFigure{height:78%;width:61%;top:48%}.equipmentAtlasDaevaArt{object-position:center center!important}.equipmentAtlasSide{z-index:6}}
+
+/* Phase 1 review candidate: touch targets + legibility */
+@media(max-width:520px){.equipmentAtlasSlot{min-height:58px}.equipmentAtlasSlotIcon{min-width:42px;min-height:42px}.equipmentAtlasSelected{min-height:38px;box-sizing:border-box}.equipmentAtlasCatalogHead h2{line-height:1.05}.equipmentRegionChoices button{min-height:46px}}
