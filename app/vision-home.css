@@ -444,3 +444,21 @@
 
 /* Desktop uses the fixed loadout panel on the right; hide its duplicate atlas buttons. */
 @media(min-width:1280px){.equipmentAtlasActions{display:none!important}}
+
+/* PC final pass: category tiles use the atlas grid width, not the character slot size. */
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlot{
+    width:100%!important;min-height:35px!important;height:35px;padding:5px 8px;gap:8px;
+    font-size:10px;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlotIcon{
+    width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;
+  }
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlotIcon svg{width:16px!important;height:16px!important}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlotIcon img{width:22px!important;height:22px!important}
+  .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid .equipmentAtlasSlot>span:nth-child(2){font-size:10px!important;letter-spacing:.2px!important}
+  .generalEquipmentPage .equipmentAtlasSlot>span:nth-child(2){font-size:8px}
+  .generalEquipmentPage .equipmentDesktopTotals span{font-size:10px}
+  .generalEquipmentPage .equipmentDesktopTotals strong{font-size:11px}
+  .generalEquipmentPage .equipmentDesktopPieces strong{font-size:10px}
+}
