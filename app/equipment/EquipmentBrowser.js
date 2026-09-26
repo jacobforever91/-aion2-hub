@@ -22,6 +22,8 @@ const categories = [
   {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: "bracelet"},
   {id: "brooch", name: "Brooch", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
 ];
+const atlasLeft = ["weapons","shoulders","cloak","gloves","bracelet","rings","pants"];
+const atlasRight = ["helmet","necklace","chest","earrings","brooch","boots"];
 const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
 
 function gradeClass(grade) {
@@ -100,6 +102,7 @@ export default function EquipmentBrowser() {
   const [pageInfo, setPageInfo] = useState({total: 0, page: 1, pages: 1});
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [atlasSelection, setAtlasSelection] = useState({});
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
@@ -149,12 +152,27 @@ export default function EquipmentBrowser() {
         return (aIndex < 0 ? weaponTypeOrder.length : aIndex) - (bIndex < 0 ? weaponTypeOrder.length : bIndex) || a.localeCompare(b);
       })
     : [];
-  const renderItemCard = (item) => <button className="equipmentItemCard" type="button" key={`${region}-${item.id}`} onClick={() => setSelectedItem(item)}>
+  const renderItemCard = (item) => <button className="equipmentItemCard" type="button" key={`${region}-${item.id}`} onClick={() => selectAtlasItem(item)}>
     <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
     <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
   </button>;
 
   const closeItem = useCallback(() => setSelectedItem(null), []);
+  const selectedCategory = categories.find(({id}) => id === categoryId) || categories[0];
+  const selectCategory = (id) => changeFilter(() => setCategoryId(id));
+  const selectAtlasItem = (item) => {
+    setAtlasSelection((current) => ({...current,[categoryId]:item}));
+    setSelectedItem(item);
+  };
+  const renderAtlasSlot = (id) => {
+    const entry = categories.find((item) => item.id === id);
+    if (!entry) return null;
+    const chosen = atlasSelection[id];
+    return <button type="button" key={id} className={"equipmentAtlasSlot "+(categoryId===id?"isSelected":"")} aria-pressed={categoryId===id} onClick={()=>selectCategory(id)}>
+      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<img src={chosen.icon} alt="" onError={(event)=>{event.currentTarget.style.display="none"}}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
+      <span>{entry.name}</span>{entry.slotCount===2&&<small>2</small>}
+    </button>;
+  };
   function changeFilter(change) {
     setPage(1);
     change();
@@ -171,11 +189,17 @@ export default function EquipmentBrowser() {
         </div>
       </div>
 
-      <div className="equipmentSlotFilters" role="group" aria-label="Equipment slot">
-        {categories.map(({id, name, icon, slotCount}) => <button type="button" aria-pressed={categoryId === id} className={categoryId === id ? "isSelected" : ""} key={id} onClick={() => changeFilter(() => setCategoryId(id))}><EquipmentSlotIcon type={icon} />{name}{slotCount === 2 && <small>2 slots</small>}</button>)}
-      </div>
-
-      <div className="equipmentToolbar generalEquipmentToolbar">
+      <div className="equipmentAtlasLayout">
+        <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
+          <div className="equipmentAtlasHalo"/>
+          <div className="equipmentAtlasFigure"><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
+          <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
+          <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
+          <div className="equipmentAtlasSelected"><small>SELECTED SLOT</small><strong>{selectedCategory.name}</strong></div>
+        </aside>
+        <section className="equipmentAtlasCatalog">
+          <div className="equipmentAtlasCatalogHead"><div><span>LOADOUT ATLAS</span><h2>{selectedCategory.name}</h2></div><b>{pageInfo.total.toLocaleString()} pieces</b></div>
+          <div className="equipmentToolbar generalEquipmentToolbar">
         <form className="equipmentSearch searchHalo" onSubmit={(event) => { event.preventDefault(); changeFilter(() => setSubmittedSearch(search.trim())); }}>
           <Search aria-hidden="true" /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search equipment by name…" aria-label="Search equipment by name" />
           <button type="submit">Search</button>
@@ -206,8 +230,7 @@ export default function EquipmentBrowser() {
         : <div className="equipmentItemGrid generalEquipmentGrid">{items.map(renderItemCard)}</div>)}
       {state === "ready" && items.length === 0 && <p className="equipmentLoading">{submittedSearch || grade !== "All rarities" ? "No reviewed items match these filters." : "No reviewed entries are available for this slot and region yet."}</p>}
       {state === "ready" && pageInfo.pages > 1 && <div className="equipmentPagination"><button type="button" disabled={pageInfo.page <= 1} onClick={() => setPage((current) => current - 1)}><ChevronLeft aria-hidden="true" />Previous</button><span>Page {pageInfo.page} of {pageInfo.pages}</span><button type="button" disabled={pageInfo.page >= pageInfo.pages} onClick={() => setPage((current) => current + 1)}>Next<ChevronRight aria-hidden="true" /></button></div>}
-      <p className="equipmentDataNote">Choose a rarity to narrow the catalog. Select an item to open its information panel. Entries appear as their data is reviewed.</p>
-    </section>
+      <p className="equipmentDataNote">Choose a rarity to narrow the catalog. Select an item to open its information panel. Entries appear as their data is reviewed.</p>\n        </section>\n      </div>\n    </section>
     {selectedItem && <EquipmentModal item={selectedItem} region={region} onClose={closeItem} />}
   </main>;
 }
