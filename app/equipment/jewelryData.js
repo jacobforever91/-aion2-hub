@@ -2990,6 +2990,200 @@ const imprintPools = {
       "Natural HP Regen",
       "32 ~ 44"
     ]
+  ],
+  "neck:dragon-splendent": [
+    [
+      "Combat Speed",
+      "3.13% ~ 3.67%"
+    ],
+    [
+      "Might",
+      "9 ~ 17"
+    ],
+    [
+      "Precision",
+      "9 ~ 17"
+    ],
+    [
+      "Intelligence",
+      "13 ~ 22"
+    ],
+    [
+      "Flight Power",
+      "26,040 ~ 29,953"
+    ],
+    [
+      "Attack",
+      "22 ~ 32"
+    ],
+    [
+      "Critical Hit",
+      "34 ~ 46"
+    ],
+    [
+      "Accuracy",
+      "46 ~ 60"
+    ],
+    [
+      "Defense",
+      "271 ~ 319"
+    ],
+    [
+      "Evasion",
+      "27 ~ 38"
+    ],
+    [
+      "Critical Hit Resist",
+      "48 ~ 62"
+    ],
+    [
+      "Block",
+      "28 ~ 39"
+    ],
+    [
+      "MP",
+      "104 ~ 127"
+    ],
+    [
+      "HP",
+      "209 ~ 247"
+    ],
+    [
+      "Natural MP Regen",
+      "24 ~ 35"
+    ],
+    [
+      "Natural HP Regen",
+      "48 ~ 62"
+    ]
+  ],
+  "ear:dragon-splendent": [
+    [
+      "Move Speed",
+      "4.65% ~ 5.42%"
+    ],
+    [
+      "Might",
+      "7 ~ 15"
+    ],
+    [
+      "Precision",
+      "7 ~ 15"
+    ],
+    [
+      "Intelligence",
+      "11 ~ 20"
+    ],
+    [
+      "Flight Power",
+      "22,320 ~ 25,675"
+    ],
+    [
+      "Attack",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit",
+      "29 ~ 40"
+    ],
+    [
+      "Accuracy",
+      "39 ~ 52"
+    ],
+    [
+      "Defense",
+      "232 ~ 274"
+    ],
+    [
+      "Evasion",
+      "23 ~ 33"
+    ],
+    [
+      "Critical Hit Resist",
+      "41 ~ 54"
+    ],
+    [
+      "Block",
+      "24 ~ 35"
+    ],
+    [
+      "MP",
+      "89 ~ 109"
+    ],
+    [
+      "HP",
+      "179 ~ 213"
+    ],
+    [
+      "Natural MP Regen",
+      "21 ~ 31"
+    ],
+    [
+      "Natural HP Regen",
+      "41 ~ 54"
+    ]
+  ],
+  "ring:dragon-splendent": [
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "18,600 ~ 21,397"
+    ],
+    [
+      "Attack",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit",
+      "24 ~ 35"
+    ],
+    [
+      "Accuracy",
+      "33 ~ 45"
+    ],
+    [
+      "Defense",
+      "193 ~ 229"
+    ],
+    [
+      "Evasion",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit Resist",
+      "34 ~ 46"
+    ],
+    [
+      "Block",
+      "20 ~ 30"
+    ],
+    [
+      "MP",
+      "74 ~ 92"
+    ],
+    [
+      "HP",
+      "149 ~ 178"
+    ],
+    [
+      "Natural MP Regen",
+      "17 ~ 27"
+    ],
+    [
+      "Natural HP Regen",
+      "34 ~ 46"
+    ]
   ]
 };
 const skillPools = {
@@ -5637,6 +5831,90 @@ const jewels = [
       "Radiant Sapphire Gemstone ×3",
       "Radiant Odyle ×2",
       "25% chance to craft an upgraded Combo version"
+    ]
+  },
+  {
+    "grade": "Unique",
+    "level": "70",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+    "faction": "Elyos",
+    "id": "310130017",
+    "name": "Splendent True Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "124",
+    "defense": "298",
+    "pool": "neck:dragon-splendent",
+    "sell": "25,320 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 60 · 25% upgraded Combo result",
+      "Artisan's Splendent Ruby Necklace ×1",
+      "Artisan's Ultimate Refining Stone ×3",
+      "Enhanced Thick Balaur Scale ×14",
+      "Wrathful Mind ×6",
+      "Radiant Ruby Gemstone ×6",
+      "Radiant Odyle ×2"
+    ]
+  },
+  {
+    "grade": "Unique",
+    "level": "70",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+    "faction": "Elyos",
+    "id": "310230017",
+    "name": "Splendent True Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "104",
+    "defense": "249",
+    "pool": "ear:dragon-splendent",
+    "sell": "20,256 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 60 · 25% upgraded Combo result",
+      "Artisan's Splendent Diamond Earrings ×1",
+      "Artisan's Ultimate Refining Stone ×2",
+      "Enhanced Thick Balaur Scale ×11",
+      "Wrathful Mind ×5",
+      "Radiant Diamond Gemstone ×5",
+      "Radiant Odyle ×2"
+    ]
+  },
+  {
+    "grade": "Unique",
+    "level": "70",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "offensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+    "faction": "Elyos",
+    "id": "310330017",
+    "name": "Splendent True Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "83",
+    "defense": "199",
+    "pool": "ring:dragon-splendent",
+    "sell": "15,192 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 55 · 25% upgraded Combo result",
+      "Artisan's Splendent Sapphire Ring ×1",
+      "Artisan's Ultimate Refining Stone ×2",
+      "Enhanced Thick Balaur Scale ×8",
+      "Wrathful Mind ×4",
+      "Radiant Sapphire Gemstone ×3",
+      "Radiant Odyle ×2"
     ]
   }
 ];
