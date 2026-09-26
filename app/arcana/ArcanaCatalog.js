@@ -85,7 +85,7 @@ export default function ArcanaCatalog(){
     <Link className={styles.back} href="/?menu=open" aria-label="Back to the Game menu"><ArrowLeft/></Link>
     <div className={styles.content}>
       <header className={styles.hero}>
-        <span className={styles.eyebrow}><Sparkles/> AION 2 VISION · CHARACTER SYSTEM</span>
+        <span className={styles.eyebrow}><Sparkles/> DAEVEXUS · CHARACTER SYSTEM</span>
         <h1>Arcana</h1>
         <p>Search Arcana cards by name, type, or rarity. Open any card to see its icon, stats, and skill imprints.</p>
       </header>
