@@ -164,7 +164,7 @@ export default function EquipmentBrowser() {
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
       <div className="equipmentTopline">
-        <h1>Equipment</h1>
+        <div className="equipmentVisionIdentity"><span>AION 2 VISION · DATABASE</span><h1>Equipment</h1></div>
         <div className="equipmentRegionChoices" role="group" aria-label="Item data region">
           <button type="button" className={region === "GLOBAL" ? "isSelected" : ""} aria-pressed={region === "GLOBAL"} onClick={() => changeFilter(() => setRegion("GLOBAL"))}>Global</button>
           <button type="button" className={region === "KR_TW" ? "isSelected" : ""} aria-pressed={region === "KR_TW"} onClick={() => changeFilter(() => setRegion("KR_TW"))}>Asia / Taiwan</button>
