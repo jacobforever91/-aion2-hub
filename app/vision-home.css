@@ -478,3 +478,16 @@
   .generalEquipmentPage .equipmentAtlasCatalog{align-self:center;max-height:calc(100svh - 180px);padding-block:13px;}
   .generalEquipmentPage .equipmentAtlasCatalogHead{display:none!important;}
 }
+
+
+/* PC class selector: one centered row above the Daeva, using the open space in the header. */
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentTopline .equipmentClassChoices{
+    position:absolute;top:0;left:50%;z-index:7;transform:translateX(-50%);
+    box-sizing:border-box;width:min(720px,calc(100% - 300px));max-width:720px;flex:none;
+    grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;
+  }
+  .generalEquipmentPage .equipmentTopline .equipmentClassChoices button{
+    min-height:37px;padding:6px 4px;font-size:10px;
+  }
+}
