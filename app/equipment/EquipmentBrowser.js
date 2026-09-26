@@ -297,7 +297,7 @@ export default function EquipmentBrowser() {
       <div className="equipmentAtlasLayout">
         <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
           <div className="equipmentAtlasHalo"/>
-          <button className={"equipmentAtlasMotionButton "+(motionEnabled?"isMoving":"")} type="button" aria-pressed={motionEnabled} onClick={()=>setMotionEnabled((value)=>!value)}><span aria-hidden="true"/>{motionEnabled?"WINGS MOVING":"MOTION PAUSED"}</button>
+          <button className={"equipmentAtlasMotionButton "+(motionEnabled?"isMoving":"")} type="button" aria-pressed={motionEnabled} onClick={()=>setMotionEnabled((value)=>!value)}><span aria-hidden="true"/>{motionEnabled?"WING AURA ON":"WING AURA OFF"}</button>
           <div className={"equipmentAtlasFigure hasDaevaArt "+(motionEnabled?"isMoving":"")}><img className="equipmentAtlasDaevaArt" src="/daevexus/daeva-equipment.webp" alt="Daeva loadout figure" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/><span className="equipmentAtlasWing isLeft"/><span className="equipmentAtlasWing isRight"/><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
