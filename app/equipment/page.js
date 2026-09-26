@@ -1,7 +1,7 @@
 import EquipmentBrowser from "./EquipmentBrowser";
 
 export const metadata = {
-  title: "Equipment Encyclopedia | AION 2 VISION",
+  title: "Equipment Encyclopedia | DAEVEXUS",
   description: "Search AION 2 weapons, armor and accessories by name and rarity.",
 };
 
