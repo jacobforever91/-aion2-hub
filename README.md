@@ -1,4 +1,4 @@
-# AION 2 VISION
+# DAEVEXUS
 
 All-in-one community companion for AION 2.
 
