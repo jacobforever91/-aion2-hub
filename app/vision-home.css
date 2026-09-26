@@ -372,3 +372,14 @@
 .equipmentAtlasFigure.isMoving .equipmentAtlasDaevaArt{animation:equipmentWingAura 3.2s ease-in-out infinite!important;transform:none!important}
 @keyframes equipmentWingAura{0%,100%{filter:brightness(1) saturate(1)}50%{filter:brightness(1.12) saturate(1.06)}}
 @media(max-width:520px){.equipmentAtlas{min-height:82svh!important;height:82svh;max-height:940px;border-radius:22px}.equipmentAtlasFigure{width:100%!important;height:100%!important;top:0!important}}
+
+
+/* Separate feather layer: flap from the Daeva's shoulders while the body stays still */
+.equipmentAtlasWingArt{position:absolute;top:7%;left:50%;z-index:3;width:185%;height:50%;transform:translateX(-50%);transform-origin:50% 78%;background-image:url('/daevexus/equipment-wings-motion.png');background-position:center;background-repeat:no-repeat;background-size:100% 100%;opacity:.84;mix-blend-mode:screen;pointer-events:none;will-change:transform,filter}
+.equipmentAtlasWingArt.isLeft{clip-path:inset(0 50% 0 0);transform-origin:50% 78%}
+.equipmentAtlasWingArt.isRight{clip-path:inset(0 0 0 50%);transform-origin:50% 78%}
+.equipmentAtlasWingArt.isLeft.isMoving{animation:daevaLeftWingFlap 4.2s ease-in-out infinite}
+.equipmentAtlasWingArt.isRight.isMoving{animation:daevaRightWingFlap 4.2s ease-in-out infinite}
+@keyframes daevaLeftWingFlap{0%,100%{transform:translateX(-50%) rotate(0deg) scaleY(1);filter:brightness(1)}50%{transform:translateX(-50%) rotate(-2.2deg) scaleY(.965);filter:brightness(1.12)}}
+@keyframes daevaRightWingFlap{0%,100%{transform:translateX(-50%) rotate(0deg) scaleY(1);filter:brightness(1)}50%{transform:translateX(-50%) rotate(2.2deg) scaleY(.965);filter:brightness(1.12)}}
+.equipmentAtlasFigure:not(.isMoving) .equipmentAtlasWingArt{animation:none;transform:translateX(-50%)}
