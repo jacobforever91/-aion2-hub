@@ -134,12 +134,12 @@ function getItemInfo(html, id) {
 
 const equipmentFamilies = new Set(["Weapons", "Armor", "Accessories"]);
 const equipmentSlots = {
-  Armor: new Set(["Helmet", "Torso", "Shoulder", "Gloves", "Pants", "Boots", "Cape"]),
+  Armor: new Set(["Helmet", "Torso", "Shoulder", "Gloves", "Pants", "Boots", "Cape", "Belt"]),
   Accessories: new Set(["Necklace", "Earring", "Ring", "Bracelet", "Brooch"]),
 };
 const slotAliases = {
   Helmet: ["helmet"], Torso: ["torso", "breastplate", "chest"], Shoulder: ["shoulder", "pauldrons"],
-  Gloves: ["gloves", "glove"], Pants: ["pants", "greaves", "leggings"], Boots: ["boots", "boot"], Cape: ["cape", "cloak"],
+  Gloves: ["gloves", "glove"], Pants: ["pants", "greaves", "leggings"], Boots: ["boots", "boot"], Cape: ["cape", "cloak"], Belt: ["belt"],
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};

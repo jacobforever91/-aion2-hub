@@ -312,3 +312,25 @@
 .equipmentAtlasFigure.hasDaevaArt .equipmentAtlasCore{bottom:0!important;background:rgba(4,10,18,.58)!important}
 @media(max-width:780px){.equipmentAtlasFigure{width:70%!important;height:84%!important}}
 @media(max-width:520px){.equipmentAtlasFigure{width:68%!important;height:82%!important;top:48%!important}.equipmentAtlasDaevaArt{object-fit:contain!important;object-position:center center!important}}
+
+
+/* Manus equipment atlas adaptation: use the reviewed site catalog and keep mobile controls readable. */
+.equipmentAtlasMotionButton{position:absolute;top:12px;left:50%;z-index:7;transform:translateX(-50%);display:flex;align-items:center;gap:7px;min-height:30px;padding:0 12px;border:1px solid rgba(110,216,246,.22);border-radius:999px;background:rgba(4,13,24,.82);color:#a8c7d2;font:700 7px/1 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:1.2px;white-space:nowrap;backdrop-filter:blur(12px);cursor:pointer}
+.equipmentAtlasMotionButton>span{width:7px;height:7px;border-radius:50%;background:#4cc7e7;box-shadow:0 0 9px #4cc7e7}
+.equipmentAtlasMotionButton.isMoving>span{animation:equipmentMotionPulse 1.35s ease-in-out infinite}
+@keyframes equipmentMotionPulse{50%{opacity:.35;transform:scale(.78)}}
+.equipmentAtlasFigure.isMoving .equipmentAtlasDaevaArt{animation:equipmentDaevaFloat 4.8s ease-in-out infinite}
+@keyframes equipmentDaevaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.equipmentAtlasActions{position:absolute;left:50%;bottom:12px;z-index:8;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:calc(100% - 116px)}
+.equipmentAtlasActions .equipmentClearLoadoutButton,.equipmentAtlasActions .equipmentLoadoutStatsButton{position:static;left:auto;bottom:auto;transform:none;display:flex;align-items:center;justify-content:center;min-height:40px;min-width:0;padding:8px 10px;border:1px solid rgba(180,220,235,.18);border-radius:12px;background:rgba(4,13,24,.9);color:#b8d1dc;font:700 7px/1 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:1px;white-space:nowrap;backdrop-filter:blur(12px);cursor:pointer}
+.equipmentAtlasActions .equipmentLoadoutStatsButton{gap:9px;border-color:rgba(95,205,236,.26);color:#9ed9e7}
+.equipmentAtlasActions .equipmentLoadoutStatsButton span{font-size:7px;letter-spacing:.8px}
+.equipmentAtlasActions .equipmentLoadoutStatsButton b{font-size:8px}
+.equipmentAtlasActions .equipmentClearLoadoutButton:hover,.equipmentAtlasActions .equipmentLoadoutStatsButton:hover{border-color:#62d7f4;color:#e7faff}
+.equipmentWingSprite{display:block;flex:none;background-repeat:no-repeat}
+.equipmentModalTitleRow .equipmentWingSprite{width:62px!important;height:62px!important;border:1px solid #397990;border-radius:7px;background-color:#071725;box-shadow:0 0 18px #3dc7ef28}
+@media(max-width:520px){
+  .equipmentAtlasActions{gap:5px;max-width:calc(100% - 108px)}
+  .equipmentAtlasActions .equipmentClearLoadoutButton,.equipmentAtlasActions .equipmentLoadoutStatsButton{min-height:38px;padding:7px 8px;font-size:6px;letter-spacing:.7px}
+  .equipmentAtlasMotionButton{top:10px;min-height:28px;padding:0 10px;font-size:6px}
+}

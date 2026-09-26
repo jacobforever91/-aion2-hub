@@ -4,30 +4,58 @@ import {useCallback, useEffect, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
 import EquipmentSlotIcon from "./EquipmentSlotIcon";
+import progressionData from "../progression/catalogData.json";
 
 const grades = ["All rarities", "Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"];
 const weaponTypeOrder = ["Greatsword", "Longsword", "Dagger", "Bow", "Spellbook", "Orb", "Mace", "Staff", "Guard"];
 const categories = [
-  {id: "weapons", name: "Weapons", family: "Weapons", icon: "weapons"},
-  {id: "helmet", name: "Helmet", family: "Armor", sourceSlot: "Helmet", icon: "helmet"},
-  {id: "chest", name: "Chest", family: "Armor", sourceSlot: "Torso", icon: "chest"},
+  {id: "weapons", name: "Weapon", family: "Weapons", icon: "weapons"},
+  {id: "wings", name: "Wings", family: "Wings", icon: "wings"},
   {id: "shoulders", name: "Shoulders", family: "Armor", sourceSlot: "Shoulder", icon: "shoulders"},
-  {id: "gloves", name: "Gloves", family: "Armor", sourceSlot: "Gloves", icon: "gloves"},
-  {id: "pants", name: "Pants", family: "Armor", sourceSlot: "Pants", icon: "pants"},
-  {id: "boots", name: "Boots", family: "Armor", sourceSlot: "Boots", icon: "boots"},
   {id: "cloak", name: "Cloak", family: "Armor", sourceSlot: "Cape", icon: "cloak"},
+  {id: "gloves", name: "Gloves", family: "Armor", sourceSlot: "Gloves", icon: "gloves"},
+  {id: "belt", name: "Belt", family: "Armor", sourceSlot: "Belt", icon: "belt"},
+  {id: "pants", name: "Legs", family: "Armor", sourceSlot: "Pants", icon: "pants"},
+  {id: "boots", name: "Boots", family: "Armor", sourceSlot: "Boots", icon: "boots"},
+  {id: "helmet", name: "Helmet", family: "Armor", sourceSlot: "Helmet", icon: "helmet"},
   {id: "necklace", name: "Necklace", family: "Accessories", sourceSlot: "Necklace", icon: "necklace"},
-  {id: "earrings", name: "Earrings", family: "Accessories", sourceSlot: "Earring", slotCount: 2, icon: "earrings"},
-  {id: "rings", name: "Rings", family: "Accessories", sourceSlot: "Ring", slotCount: 2, icon: "rings"},
+  {id: "chest", name: "Chest", family: "Armor", sourceSlot: "Torso", icon: "chest"},
+  {id: "earrings", name: "Earrings", family: "Accessories", sourceSlot: "Earring", icon: "earrings"},
+  {id: "rings", name: "Ring", family: "Accessories", sourceSlot: "Ring", icon: "rings"},
   {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: "bracelet"},
-  {id: "brooch", name: "Brooch", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
+  {id: "brooch", name: "Relic", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
 ];
-const atlasLeft = ["weapons","shoulders","cloak","gloves","bracelet","rings","pants"];
-const atlasRight = ["helmet","necklace","chest","earrings","brooch","boots"];
-const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
+const atlasLeft = ["weapons","wings","shoulders","cloak","gloves","belt","pants","boots"];
+const atlasRight = ["helmet","necklace","chest","earrings","rings","bracelet","brooch"];
+const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp", Wings: "/equipment-art/accessory.webp"};
+const wingItems = progressionData.wings.map((wing) => {
+  const details = progressionData.wingDetails[wing.id] || {};
+  return {
+    id: wing.id, name: wing.name, grade: wing.grade, family: "Wings", category: "Wings",
+    icon: wing.iconSrc, iconPosition: wing.iconPosition, faction: wing.faction,
+    enhancementCap: wing.enhancementCap, region: "KR_TW",
+    stats: (details.stats || []).map(([label, value]) => ({label, value})),
+    upgrades: details.enchantmentCap ? `Enhancement cap +${details.enchantmentCap}` : "",
+    obtain: ["AION2.app community reference; Korea / Taiwan client snapshot (2026-09-18)."],
+  };
+});
 
 function gradeClass(grade) {
   return `grade${String(grade || "Common").replace(/[^a-z]/gi, "")}`;
+}
+
+function ItemVisual({item, size = 58}) {
+  if (item.iconPosition && item.icon) {
+    const [x, y] = item.iconPosition;
+    const scale = size / 38;
+    return <span className="equipmentWingSprite" aria-hidden="true" style={{
+      width: size, height: size, backgroundImage: `url("${item.icon}")`,
+      backgroundSize: `${304 * scale}px ${266 * scale}px`,
+      backgroundPosition: `-${x * size}px -${y * size}px`,
+    }} />;
+  }
+  return <img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy"
+    onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} />;
 }
 
 function EquipmentModal({item, region, onClose}) {
@@ -38,6 +66,11 @@ function EquipmentModal({item, region, onClose}) {
     const controller = new AbortController();
     setDetails(null);
     setState("loading");
+    if (item.family === "Wings") {
+      setDetails({name: item.name, rarity: item.grade, itemType: "Wings", classRestrictions: item.faction, stats: item.stats || [], imprints: [], details: [], upgrades: item.upgrades, obtain: item.obtain || []});
+      setState("ready");
+      return () => controller.abort();
+    }
     fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`, {signal: controller.signal})
       .then(async (response) => {
         const data = await response.json();
@@ -61,13 +94,12 @@ function EquipmentModal({item, region, onClose}) {
   }, [onClose]);
 
   const rarity = details?.rarity || item.grade;
-  const itemArt = familyArt[item.family] || familyArt.Armor;
   return <div className="equipmentModalBackdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
     <section className="equipmentModal" role="dialog" aria-modal="true" aria-labelledby="equipmentModalTitle">
       <button className="equipmentModalClose" type="button" onClick={onClose} aria-label="Close item details"><X aria-hidden="true" /></button>
       <div className="equipmentModalEyebrow">EQUIPMENT ENCYCLOPEDIA · {region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</div>
       <div className="equipmentModalTitleRow">
-        <img src={item.icon || itemArt} alt="" />
+        <ItemVisual item={item} size={62} />
         <div><h2 id="equipmentModalTitle">{details?.name || item.name}</h2><p>{[rarity, details?.itemType || item.category, details?.equipType && details.equipType !== "MainHand" ? details.equipType : ""].filter(Boolean).join(" · ")}</p></div>
       </div>
 
@@ -106,14 +138,51 @@ export default function EquipmentBrowser() {
   const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
   const [loadoutDetails, setLoadoutDetails] = useState({});
   const [showLoadout, setShowLoadout] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(true);
+  const [loadoutStorageReady, setLoadoutStorageReady] = useState(false);
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
 
   useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("daevexus-equipment-loadout-v1");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === "object") {
+          const savedRegion = parsed.region === "KR_TW" ? "KR_TW" : "GLOBAL";
+          setRegion(savedRegion);
+          setAtlasRegion(savedRegion);
+          setAtlasSelection(parsed.selection && typeof parsed.selection === "object" ? parsed.selection : {});
+          setLoadoutDetails(parsed.details && typeof parsed.details === "object" ? parsed.details : {});
+        }
+      }
+    } catch {}
+    setLoadoutStorageReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!loadoutStorageReady) return;
+    try {
+      window.localStorage.setItem("daevexus-equipment-loadout-v1", JSON.stringify({region, selection: atlasSelection, details: loadoutDetails}));
+    } catch {}
+  }, [loadoutStorageReady, region, atlasSelection, loadoutDetails]);
+
+  useEffect(() => {
     const controller = new AbortController();
     setState("loading");
     const selectedCategory = categories.find(({id}) => id === categoryId) || categories[0];
+    if (selectedCategory.family === "Wings") {
+      const normalizedSearch = submittedSearch.toLowerCase();
+      const wingResults = region === "KR_TW" ? wingItems.filter((item) =>
+        (grade === "All rarities" || item.grade === grade) &&
+        (!normalizedSearch || `${item.name} ${item.faction}`.toLowerCase().includes(normalizedSearch))
+      ) : [];
+      setItems(wingResults);
+      setPageInfo({total: wingResults.length, page: 1, pages: 1});
+      setState("ready");
+      return () => controller.abort();
+    }
     const query = new URLSearchParams({region, category: selectedCategory.family, page: String(page)});
     if (selectedCategory.sourceSlot) query.set("slot", selectedCategory.sourceSlot);
     if (grade !== "All rarities") query.set("grade", grade);
@@ -165,7 +234,7 @@ export default function EquipmentBrowser() {
     : [];
   const renderItemCard = (item) => <article className={"equipmentItemCard "+(atlasSelection[categoryId]?.id===item.id?"isEquipped":"")} key={`${region}-${item.id}`}>
     <button className="equipmentItemEquip" type="button" onClick={() => selectAtlasItem(item)} aria-label={`Equip ${item.name}`}>
-      <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
+      <span className="equipmentItemIcon"><ItemVisual item={item} size={66} /></span>
       <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span>
       <span className="equipmentItemEquipState">{atlasSelection[categoryId]?.id===item.id?"EQUIPPED":"EQUIP"}</span>
     </button>
@@ -177,6 +246,10 @@ export default function EquipmentBrowser() {
   const selectCategory = (id) => changeFilter(() => setCategoryId(id));
   const selectAtlasItem = (item) => {
     setAtlasSelection((current) => ({...current,[categoryId]:item}));
+    if (item.family === "Wings") {
+      setLoadoutDetails((current) => ({...current, [categoryId]: {stats: item.stats || []}}));
+      return;
+    }
     fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`)
       .then((response)=>response.ok?response.json():null)
       .then((details)=>{if(details)setLoadoutDetails((current)=>({...current,[categoryId]:details}))})
@@ -187,11 +260,11 @@ export default function EquipmentBrowser() {
     const stats=loadoutDetails[slot]?.stats||[];
     stats.forEach(({label,value})=>{
       const raw=String(value??"").replace(/,/g,"").trim();
-      const match=raw.match(/^([+-]?\d+(?:\.\d+)?)\s*(%)?$/);
+      const match=raw.match(/^([+-]?\d+(?:\.\d+)?)(?:\s*\+\s*([+-]?\d+(?:\.\d+)?))?\s*(%)?$/);
       if(!match)return;
-      const suffix=match[2]||"";
+      const suffix=match[3]||"";
       const key=label+"|"+suffix;
-      totals[key]=(totals[key]||0)+Number(match[1]);
+      totals[key]=(totals[key]||0)+Number(match[1])+Number(match[2]||0);
     });
     return totals;
   },{});
@@ -201,7 +274,7 @@ export default function EquipmentBrowser() {
     if (!entry) return null;
     const chosen = atlasSelection[id];
     return <button type="button" key={id} className={"equipmentAtlasSlot "+(categoryId===id?"isSelected":"")} aria-pressed={categoryId===id} onClick={()=>selectCategory(id)}>
-      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<img src={chosen.icon} alt="" onError={(event)=>{event.currentTarget.onerror=null;event.currentTarget.src=familyArt[entry.family]||familyArt.Armor}}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
+      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<ItemVisual item={chosen} size={34}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
       <span>{entry.name}</span>{entry.slotCount===2&&<small>2</small>}
     </button>;
   };
@@ -224,11 +297,14 @@ export default function EquipmentBrowser() {
       <div className="equipmentAtlasLayout">
         <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
           <div className="equipmentAtlasHalo"/>
-          <div className="equipmentAtlasFigure hasDaevaArt"><img className="equipmentAtlasDaevaArt" src="/daevexus/daeva-equipment.webp" alt="Daeva loadout figure" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/><span className="equipmentAtlasWing isLeft"/><span className="equipmentAtlasWing isRight"/><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
+          <button className={"equipmentAtlasMotionButton "+(motionEnabled?"isMoving":"")} type="button" aria-pressed={motionEnabled} onClick={()=>setMotionEnabled((value)=>!value)}><span aria-hidden="true"/>{motionEnabled?"WINGS MOVING":"MOTION PAUSED"}</button>
+          <div className={"equipmentAtlasFigure hasDaevaArt "+(motionEnabled?"isMoving":"")}><img className="equipmentAtlasDaevaArt" src="/daevexus/daeva-equipment.webp" alt="Daeva loadout figure" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/><span className="equipmentAtlasWing isLeft"/><span className="equipmentAtlasWing isRight"/><span className="equipmentAtlasHead"/><span className="equipmentAtlasBody"/><span className="equipmentAtlasCore">DAEVA</span></div>
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
-          <div className="equipmentAtlasSelected"><small>SELECTED SLOT</small><strong>{selectedCategory.name}</strong></div>
-          <button className="equipmentLoadoutStatsButton" type="button" onClick={()=>setShowLoadout(true)}><span>LOADOUT STATS</span><b>{equippedEntries.length} / {categories.length}</b></button>
+          <div className="equipmentAtlasActions">
+            <button className="equipmentClearLoadoutButton" type="button" onClick={clearLoadout}>CLEAR LOADOUT</button>
+            <button className="equipmentLoadoutStatsButton" type="button" onClick={()=>setShowLoadout(true)}><span>LOADOUT STATS</span><b>{equippedEntries.length} / {categories.length}</b></button>
+          </div>
         </aside>
         <section className="equipmentAtlasCatalog">
           <div className="equipmentAtlasCatalogHead"><div><span>LOADOUT ATLAS</span><h2>{selectedCategory.name}</h2></div><b>{pageInfo.total.toLocaleString()} pieces</b></div>
@@ -241,7 +317,7 @@ export default function EquipmentBrowser() {
           {grades.map((entry) => <button type="button" key={entry} aria-pressed={grade === entry} className={`${grade === entry ? "isSelected " : ""}${entry === "All rarities" ? "gradeAll" : gradeClass(entry)}`} onClick={() => changeFilter(() => setGrade(entry))}>{entry}</button>)}
         </div>
       </div>
-      <p className="equipmentRegionNote">{region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
+      <p className="equipmentRegionNote">{categoryId === "wings" ? "Wings use the unofficial AION2.app Korea / Taiwan client snapshot from 2026-09-18. Select Asia / Taiwan to browse the 90 reviewed entries." : region === "KR_TW" ? "Unofficial Korea / Taiwan reference data. Stats may differ from Global." : "Unofficial Global reference data. Entries may change as the Global catalog develops."}</p>
 
       <div className="equipmentResultsHeader"><span>{submittedSearch ? `Results for “${submittedSearch}” · ${categories.find(({id}) => id === categoryId)?.name}` : categories.find(({id}) => id === categoryId)?.name} <b>{pageInfo.total.toLocaleString()}</b></span><span>{region === "KR_TW" ? "KR / TW REFERENCE" : "GLOBAL REFERENCE"}</span></div>
       {state === "loading" && <p className="equipmentLoading">Loading equipment…</p>}

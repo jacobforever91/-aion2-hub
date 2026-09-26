@@ -1,4 +1,6 @@
 const paths = {
+  wings: <><path d="M15 16C9 8 5 7 2 7c1 6 4 10 11 12"/><path d="M17 16c6-8 10-9 13-9-1 6-4 10-11 12"/><path d="M7 12l5 5M25 12l-5 5M10 9l3 6M22 9l-3 6M16 15v14"/></>,
+  belt: <><path d="M4 10h24v12H4z"/><path d="M12 10v12M20 10v12M14 13h4v6h-4z"/><path d="M4 14H1v4h3M28 14h3v4h-3"/></>,
   weapons: <><path d="M6 26 23 9l2-5 3 3-5 2L6 26Z"/><path d="m16 13 3 3M12 17l3 3M4 28l4-1M18 8l6 6"/></>,
   helmet: <><path d="M5 18a11 11 0 0 1 22 0v2H5v-2Z"/><path d="M5 20h22l-2 5H9l-4-5ZM13 14h9M9 18v-3"/><path d="M15 7V4h3"/></>,
   chest: <><path d="m11 5 5 3 5-3 7 4-3 6-3-1v13H8V14l-3 1-3-6 7-4Z"/><path d="m11 5 1 5 4 3 4-3 1-5M16 13v13M8 19h16"/></>,
