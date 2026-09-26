@@ -779,3 +779,16 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .generalEquipmentPage .equipmentWeaponSectionToggle small{margin-left:auto;color:#7fd9ef;font:400 10px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap}
 .generalEquipmentPage .equipmentWeaponSection .generalEquipmentGrid{margin:9px 0 15px 25px}
 @media(max-width:520px){.generalEquipmentPage .equipmentWeaponSectionToggle{min-height:44px;padding:9px 8px;font-size:11px}.generalEquipmentPage .equipmentWeaponSection .generalEquipmentGrid{margin-left:13px}}
+
+
+/* Mobile equipment header: keep the title and navigation clear of the iPhone safe area. */
+.generalEquipmentPage.classPage .equipmentTopline .equipmentVisionIdentity{min-width:0;flex:1}
+.generalEquipmentPage.classPage .equipmentTopline .equipmentVisionIdentity h1{font-size:clamp(30px,3.4vw,42px)!important;line-height:1.05;letter-spacing:0;font-variant:normal;white-space:normal}
+@media(max-width:760px){
+  .generalEquipmentPage.classPage{padding-top:calc(96px + env(safe-area-inset-top,0px))}
+  .generalEquipmentPage .classBack{top:calc(env(safe-area-inset-top,0px) + 12px);left:14px;width:42px;height:42px}
+  .generalEquipmentPage .equipmentTopline{align-items:stretch;gap:12px;margin-bottom:18px}
+  .generalEquipmentPage .equipmentTopline .equipmentVisionIdentity h1{font-size:clamp(30px,8vw,38px)!important}
+  .generalEquipmentPage .equipmentTopline .equipmentRegionChoices{width:100%;gap:8px}
+  .generalEquipmentPage .equipmentTopline .equipmentRegionChoices button{flex:1;min-height:44px;padding:9px 10px;font-size:12px}
+}
