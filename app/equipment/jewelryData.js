@@ -2130,6 +2130,90 @@ const imprintPools = {
       "Natural HP Regen",
       "25 ~ 36"
     ]
+  ],
+  "neck:drifter": [
+    [
+      "Defense",
+      "44 ~ 44"
+    ],
+    [
+      "MP",
+      "28 ~ 28"
+    ],
+    [
+      "Natural MP Regen",
+      "9 ~ 9"
+    ]
+  ],
+  "neck:pilgrim": [
+    [
+      "Defense",
+      "47 ~ 47"
+    ],
+    [
+      "MP",
+      "30 ~ 30"
+    ],
+    [
+      "Natural MP Regen",
+      "10 ~ 10"
+    ]
+  ],
+  "ear:drifter": [
+    [
+      "Accuracy",
+      "12 ~ 12"
+    ],
+    [
+      "MP",
+      "23 ~ 23"
+    ],
+    [
+      "Natural MP Regen",
+      "8 ~ 8"
+    ]
+  ],
+  "ear:pilgrim": [
+    [
+      "Accuracy",
+      "13 ~ 13"
+    ],
+    [
+      "MP",
+      "25 ~ 25"
+    ],
+    [
+      "Natural MP Regen",
+      "8 ~ 8"
+    ]
+  ],
+  "ring:drifter": [
+    [
+      "Defense",
+      "29 ~ 29"
+    ],
+    [
+      "MP",
+      "19 ~ 19"
+    ],
+    [
+      "Natural MP Regen",
+      "7 ~ 7"
+    ]
+  ],
+  "ring:pilgrim": [
+    [
+      "Defense",
+      "31 ~ 31"
+    ],
+    [
+      "MP",
+      "20 ~ 20"
+    ],
+    [
+      "Natural MP Regen",
+      "7 ~ 7"
+    ]
   ]
 };
 const skillPools = {
@@ -4263,6 +4347,124 @@ const jewels = [
       "Pure Sapphire Gemstone ×3",
       "Pure Odyle ×1",
       "25% chance to craft an upgraded Combo version"
+    ]
+  },
+  {
+    "id": "310140030",
+    "name": "Drifter Necklace",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "58",
+    "defense": "138",
+    "pool": "neck:drifter",
+    "sockets": "3",
+    "sell": "273 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Quest: Too Far Gone (Lv. 33)"
+    ]
+  },
+  {
+    "id": "310140031",
+    "name": "Pilgrim Necklace",
+    "category": "Necklace",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "76",
+    "defense": "182",
+    "pool": "neck:pilgrim",
+    "sockets": "3",
+    "sell": "536 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Quest: Until I Hold You Again (Lv. 45)"
+    ]
+  },
+  {
+    "id": "310240030",
+    "name": "Drifter Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "48",
+    "defense": "115",
+    "pool": "ear:drifter",
+    "sockets": "3",
+    "sell": "218 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Quest: Price of Bravado (Lv. 36)",
+      "Quest: Spacetime Rift: Perfect Tool (Lv. 45)"
+    ]
+  },
+  {
+    "id": "310240031",
+    "name": "Pilgrim Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "63",
+    "defense": "151",
+    "pool": "ear:pilgrim",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Quest: Volunteer Farmhand (Lv. 45)",
+      "Quest: Destroyed Monument (Lv. 45)"
+    ]
+  },
+  {
+    "id": "310340030",
+    "name": "Drifter Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "38",
+    "defense": "92",
+    "pool": "ring:drifter",
+    "sockets": "3",
+    "sell": "164 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Quest: Spacetime Rift: Trendsetter (Lv. 45)",
+      "Quest: Zumion's Call: Part One (Lv. 37)"
+    ]
+  },
+  {
+    "id": "310340031",
+    "name": "Pilgrim Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "50",
+    "defense": "121",
+    "pool": "ring:pilgrim",
+    "sockets": "3",
+    "sell": "322 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Quest: Eternal Friend (Lv. 45)",
+      "Quest: First-mover Advantage (Lv. 41)"
     ]
   }
 ];
