@@ -470,3 +470,11 @@
   .generalEquipmentPage .equipmentAtlas:before,
   .generalEquipmentPage .equipmentAtlas:after{display:none!important;}
 }
+
+
+/* PC menu cleanup: remove the duplicate Atlas heading and center the shorter menu beside the Daeva. */
+@media(min-width:1280px){
+  .generalEquipmentPage .classBack{display:none!important;}
+  .generalEquipmentPage .equipmentAtlasCatalog{align-self:center;max-height:calc(100svh - 180px);padding-block:13px;}
+  .generalEquipmentPage .equipmentAtlasCatalogHead{display:none!important;}
+}
