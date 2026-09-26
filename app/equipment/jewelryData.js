@@ -2796,6 +2796,200 @@ const imprintPools = {
       "Natural HP Regen",
       "31 ~ 43"
     ]
+  ],
+  "neck:dragon-true": [
+    [
+      "Combat Speed",
+      "2.93% ~ 3.44%"
+    ],
+    [
+      "Might",
+      "8 ~ 16"
+    ],
+    [
+      "Precision",
+      "8 ~ 16"
+    ],
+    [
+      "Intelligence",
+      "12 ~ 21"
+    ],
+    [
+      "Flight Power",
+      "24,360 ~ 28,021"
+    ],
+    [
+      "Attack",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit",
+      "32 ~ 44"
+    ],
+    [
+      "Accuracy",
+      "43 ~ 56"
+    ],
+    [
+      "Defense",
+      "253 ~ 298"
+    ],
+    [
+      "Evasion",
+      "25 ~ 36"
+    ],
+    [
+      "Critical Hit Resist",
+      "45 ~ 59"
+    ],
+    [
+      "Block",
+      "26 ~ 37"
+    ],
+    [
+      "MP",
+      "97 ~ 119"
+    ],
+    [
+      "HP",
+      "195 ~ 231"
+    ],
+    [
+      "Natural MP Regen",
+      "23 ~ 33"
+    ],
+    [
+      "Natural HP Regen",
+      "45 ~ 59"
+    ]
+  ],
+  "ear:dragon-true": [
+    [
+      "Move Speed",
+      "4.35% ~ 5.07%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "10 ~ 19"
+    ],
+    [
+      "Flight Power",
+      "20,880 ~ 24,019"
+    ],
+    [
+      "Attack",
+      "18 ~ 28"
+    ],
+    [
+      "Critical Hit",
+      "27 ~ 38"
+    ],
+    [
+      "Accuracy",
+      "37 ~ 50"
+    ],
+    [
+      "Defense",
+      "217 ~ 257"
+    ],
+    [
+      "Evasion",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit Resist",
+      "39 ~ 52"
+    ],
+    [
+      "Block",
+      "22 ~ 32"
+    ],
+    [
+      "MP",
+      "83 ~ 102"
+    ],
+    [
+      "HP",
+      "167 ~ 199"
+    ],
+    [
+      "Natural MP Regen",
+      "20 ~ 30"
+    ],
+    [
+      "Natural HP Regen",
+      "39 ~ 52"
+    ]
+  ],
+  "ring:dragon-true": [
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "17,400 ~ 20,017"
+    ],
+    [
+      "Attack",
+      "15 ~ 24"
+    ],
+    [
+      "Critical Hit",
+      "23 ~ 33"
+    ],
+    [
+      "Accuracy",
+      "31 ~ 43"
+    ],
+    [
+      "Defense",
+      "181 ~ 215"
+    ],
+    [
+      "Evasion",
+      "18 ~ 28"
+    ],
+    [
+      "Critical Hit Resist",
+      "32 ~ 44"
+    ],
+    [
+      "Block",
+      "18 ~ 28"
+    ],
+    [
+      "MP",
+      "69 ~ 86"
+    ],
+    [
+      "HP",
+      "139 ~ 167"
+    ],
+    [
+      "Natural MP Regen",
+      "16 ~ 25"
+    ],
+    [
+      "Natural HP Regen",
+      "32 ~ 44"
+    ]
   ]
 };
 const skillPools = {
@@ -5357,6 +5551,93 @@ const jewels = [
       "Pure Odyle ×1",
       "25% chance to craft an upgraded Combo version"
     ]
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "faction": "Elyos",
+    "id": "310130015",
+    "name": "True Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "110",
+    "defense": "263",
+    "pool": "neck:dragon-true",
+    "sell": "12,878 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 60",
+      "Artisan's Splendent Ruby Necklace ×1",
+      "Artisan's Ultimate Refining Stone ×3",
+      "Enhanced Thick Balaur Scale ×14",
+      "Wrathful Mind ×6",
+      "Radiant Ruby Gemstone ×6",
+      "Radiant Odyle ×2",
+      "25% chance to craft an upgraded Combo version"
+    ]
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "faction": "Elyos",
+    "id": "310230015",
+    "name": "True Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "92",
+    "defense": "220",
+    "pool": "ear:dragon-true",
+    "sell": "10,302 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 60",
+      "Artisan's Splendent Diamond Earrings ×1",
+      "Artisan's Ultimate Refining Stone ×2",
+      "Enhanced Thick Balaur Scale ×11",
+      "Wrathful Mind ×5",
+      "Radiant Diamond Gemstone ×5",
+      "Radiant Odyle ×2",
+      "25% chance to craft an upgraded Combo version"
+    ]
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "skills": "offensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "faction": "Elyos",
+    "id": "310330015",
+    "name": "True Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "73",
+    "defense": "176",
+    "pool": "ring:dragon-true",
+    "sell": "7,727 Gold",
+    "recipe": [
+      "Jewelcrafting Lv. 55",
+      "Artisan's Splendent Sapphire Ring ×1",
+      "Artisan's Ultimate Refining Stone ×2",
+      "Enhanced Thick Balaur Scale ×8",
+      "Wrathful Mind ×4",
+      "Radiant Sapphire Gemstone ×3",
+      "Radiant Odyle ×2",
+      "25% chance to craft an upgraded Combo version"
+    ]
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
@@ -5379,7 +5660,7 @@ export default jewels.map((item) => ({
     {label: "Binding", value: item.binding},
     ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
     {label: "Manastone sockets", value: item.sockets},
-    ...item.binding === "Bind on Equip" || item.binding === "Bind on Pickup" ? [{label: "Soul imprint selection", value: "Choose " + item.sockets + (item.sockets === "1" ? " sub-stat" : " sub-stats")}] : [],
+    ...item.binding === "Bind on Equip" || item.binding === "Bind on Pickup" ? [{label: "Soul imprint selection", value: "Choose " + (item.imprintSlots || item.sockets) + ((item.imprintSlots || item.sockets) === "1" ? " sub-stat" : " sub-stats")}] : [],
     {label: "Sell price", value: item.sell},
     {label: "Enchantable to", value: item.enchant},
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
