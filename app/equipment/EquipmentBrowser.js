@@ -104,6 +104,8 @@ export default function EquipmentBrowser() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [atlasSelection, setAtlasSelection] = useState({});
   const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
+  const [loadoutDetails, setLoadoutDetails] = useState({});
+  const [showLoadout, setShowLoadout] = useState(false);
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
@@ -137,6 +139,7 @@ export default function EquipmentBrowser() {
   useEffect(() => {
     if (atlasRegion !== region) {
       setAtlasSelection({});
+      setLoadoutDetails({});
       setAtlasRegion(region);
     }
   }, [region, atlasRegion]);
@@ -171,7 +174,25 @@ export default function EquipmentBrowser() {
   const selectAtlasItem = (item) => {
     setAtlasSelection((current) => ({...current,[categoryId]:item}));
     setSelectedItem(item);
+    fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`)
+      .then((response)=>response.ok?response.json():null)
+      .then((details)=>{if(details)setLoadoutDetails((current)=>({...current,[categoryId]:details}))})
+      .catch(()=>{});
   };
+  const equippedEntries = Object.entries(atlasSelection).filter(([,item])=>item);
+  const loadoutTotals = equippedEntries.reduce((totals,[slot])=>{
+    const stats=loadoutDetails[slot]?.stats||[];
+    stats.forEach(({label,value})=>{
+      const raw=String(value??"").replace(/,/g,"").trim();
+      const match=raw.match(/^([+-]?\d+(?:\.\d+)?)\s*(%)?$/);
+      if(!match)return;
+      const suffix=match[2]||"";
+      const key=label+"|"+suffix;
+      totals[key]=(totals[key]||0)+Number(match[1]);
+    });
+    return totals;
+  },{});
+  const clearLoadout=()=>{setAtlasSelection({});setLoadoutDetails({});setShowLoadout(false)};
   const renderAtlasSlot = (id) => {
     const entry = categories.find((item) => item.id === id);
     if (!entry) return null;
@@ -204,6 +225,7 @@ export default function EquipmentBrowser() {
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSelected"><small>SELECTED SLOT</small><strong>{selectedCategory.name}</strong></div>
+          <button className="equipmentLoadoutStatsButton" type="button" onClick={()=>setShowLoadout(true)}><span>LOADOUT STATS</span><b>{equippedEntries.length} / {categories.length}</b></button>
         </aside>
         <section className="equipmentAtlasCatalog">
           <div className="equipmentAtlasCatalogHead"><div><span>LOADOUT ATLAS</span><h2>{selectedCategory.name}</h2></div><b>{pageInfo.total.toLocaleString()} pieces</b></div>
@@ -242,6 +264,7 @@ export default function EquipmentBrowser() {
         </section>
       </div>
     </section>
+    {showLoadout&&<div className="equipmentModalBackdrop" onMouseDown={(event)=>{if(event.target===event.currentTarget)setShowLoadout(false)}}><section className="equipmentLoadoutPanel" role="dialog" aria-modal="true" aria-labelledby="loadoutTitle"><button className="equipmentModalClose" type="button" onClick={()=>setShowLoadout(false)} aria-label="Close loadout stats"><X/></button><span className="equipmentModalEyebrow">AION 2 VISION · EQUIPMENT SUMMARY</span><h2 id="loadoutTitle">Loadout Stats</h2><p className="equipmentLoadoutCount">{equippedEntries.length} of {categories.length} equipment groups selected · {region==="KR_TW"?"Asia / Taiwan":"Global"}</p><div className="equipmentLoadoutTotals">{Object.entries(loadoutTotals).length?Object.entries(loadoutTotals).map(([key,value])=>{const [label,suffix]=key.split("|");return <div key={key}><span>{label}</span><strong>{Number(value.toFixed(2))}{suffix}</strong></div>}):<p>Select equipment pieces with numeric base stats to build your totals.</p>}</div><h3>Equipped pieces</h3><div className="equipmentLoadoutPieces">{equippedEntries.map(([slot,item])=><button type="button" key={slot} onClick={()=>{setShowLoadout(false);setSelectedItem(item)}}><span>{item.icon?<img src={item.icon} alt=""/>:<EquipmentSlotIcon type={categories.find(x=>x.id===slot)?.icon}/>}</span><div><small>{categories.find(x=>x.id===slot)?.name}</small><strong>{item.name}</strong><em>{item.grade}</em></div></button>)}</div><div className="equipmentLoadoutActions"><button type="button" onClick={clearLoadout}>Clear loadout</button><button type="button" onClick={()=>setShowLoadout(false)}>Continue equipping</button></div></section></div>}
     {selectedItem && <EquipmentModal item={selectedItem} region={region} onClose={closeItem} />}
   </main>;
 }
