@@ -177,3 +177,10 @@
 
 /* Phase 1 review candidate: touch targets + legibility */
 @media(max-width:520px){.equipmentAtlasSlot{min-height:58px}.equipmentAtlasSlotIcon{min-width:42px;min-height:42px}.equipmentAtlasSelected{min-height:38px;box-sizing:border-box}.equipmentAtlasCatalogHead h2{line-height:1.05}.equipmentRegionChoices button{min-height:46px}}
+
+/* Never show an empty/ghost Daeva if artwork fails */
+.equipmentAtlasWing{position:absolute;top:18%;z-index:0;width:62%;height:58%;opacity:.72;background:linear-gradient(135deg,rgba(117,220,255,.34),rgba(47,105,139,.08) 58%,transparent);filter:drop-shadow(0 0 18px rgba(84,204,242,.16));clip-path:polygon(100% 10%,72% 0,45% 13%,20% 8%,37% 30%,0 42%,32% 51%,7% 72%,45% 66%,28% 94%,65% 75%,86% 53%)}
+.equipmentAtlasWing.isLeft{right:48%;transform:rotate(-8deg)}.equipmentAtlasWing.isRight{left:48%;transform:scaleX(-1) rotate(-8deg)}
+.equipmentAtlasFigure.hasDaevaArt .equipmentAtlasWing{opacity:0}
+.equipmentAtlasFigure:not(.hasDaevaArt) .equipmentAtlasHead{opacity:1;width:58px;height:68px}
+.equipmentAtlasFigure:not(.hasDaevaArt) .equipmentAtlasBody{opacity:1;clip-path:polygon(38% 0,62% 0,75% 8%,69% 30%,78% 46%,68% 58%,63% 100%,52% 100%,50% 61%,48% 100%,37% 100%,32% 58%,22% 46%,31% 30%,25% 8%)}
