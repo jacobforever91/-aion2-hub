@@ -1,0 +1,13 @@
+/* AION 2 VISION — isolated presentation layer */
+.presentationHome{--vision-gold:#d9bd78;--vision-line:rgba(218,198,145,.2);--vision-glass:rgba(8,12,20,.66);background:#070a10;color:#f4f1e9;overflow:hidden}
+.presentationHome .cinemaNav{backdrop-filter:blur(18px);background:linear-gradient(180deg,rgba(5,8,13,.9),rgba(5,8,13,.58));border-bottom:1px solid var(--vision-line)}
+.presentationHome .cinemaBrand b,.presentationHome .intelHead h2,.presentationHome .progressionIntro h2,.presentationHome .enterHub h2{letter-spacing:-.035em}
+.presentationHome .cinemaBrand i,.presentationHome .panelCopy>span,.presentationHome .intelHead>span,.presentationHome .progressionIntro>span{color:var(--vision-gold)}
+.presentationHome .gamePanel{isolation:isolate;position:relative}
+.presentationHome .gamePanel:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,8,13,.72),transparent 48%,rgba(5,8,13,.24));pointer-events:none}
+.presentationHome .introPanel:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 50% 44%,rgba(195,219,255,.14),transparent 34%),url('/backgrounds/skills-atreia-ruins.webp') center/cover no-repeat;transform:scale(1.025)}
+.presentationHome .intelGrid a,.presentationHome .progressionRail a{transition:transform .25s ease,border-color .25s ease,background .25s ease}
+.presentationHome .intelGrid a:hover,.presentationHome .progressionRail a:hover{transform:translateY(-4px);border-color:rgba(217,189,120,.55);background:rgba(217,189,120,.055)}
+.presentationHome .regionNote,.presentationHome .progressionFoot{border-color:var(--vision-line)}
+@media(max-width:760px){.presentationHome .introPanel:before{background-position:58% center}.presentationHome .gamePanel:after{background:linear-gradient(0deg,rgba(5,8,13,.78),rgba(5,8,13,.12) 58%,rgba(5,8,13,.35))}.presentationHome .panelCopy{padding-left:24px;padding-right:24px}.presentationHome .intelGrid{gap:10px}}
+@media(prefers-reduced-motion:reduce){.presentationHome *{scroll-behavior:auto!important;transition:none!important}}
