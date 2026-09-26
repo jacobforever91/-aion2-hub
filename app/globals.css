@@ -740,6 +740,12 @@ body .equipmentSearch.searchHalo input{border:0;background:transparent;box-shado
 .equipmentTopline .equipmentRegionChoices button{min-height:37px;padding:7px 14px;border:1px solid #31566a;border-radius:5px;background:#091b2ae8;color:#b9d2dd;font:400 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer}
 .equipmentTopline .equipmentRegionChoices button:hover,.equipmentTopline .equipmentRegionChoices button.isSelected{border-color:#46e5ff;background:#0b3042;color:#ebfbff;box-shadow:0 0 11px #32dfff3b}
 .equipmentTopline .equipmentRegionChoices button:focus-visible{outline:2px solid #95f4ff;outline-offset:2px}
+.equipmentTopline .equipmentClassChoices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;flex:0 1 650px;width:min(100%,650px)}
+.equipmentTopline .equipmentClassChoices button{min-width:0;min-height:37px;padding:7px 8px;border:1px solid #31566a;border-radius:5px;background:#091b2ae8;color:#b9d2dd;font:400 11px/1.2 Inter,ui-sans-serif,system-ui,sans-serif;white-space:nowrap;cursor:pointer}
+.equipmentTopline .equipmentClassChoices button:hover,.equipmentTopline .equipmentClassChoices button.isSelected{border-color:#46e5ff;background:#0b3042;color:#ebfbff;box-shadow:0 0 11px #32dfff3b}
+.equipmentTopline .equipmentClassChoices button:focus-visible{outline:2px solid #95f4ff;outline-offset:2px}
+@media(max-width:760px){.generalEquipmentPage .equipmentTopline .equipmentClassChoices{width:100%;max-width:none;flex:none}}
+@media(max-width:520px){.generalEquipmentPage .equipmentTopline .equipmentClassChoices{gap:6px}.generalEquipmentPage .equipmentTopline .equipmentClassChoices button{min-height:42px;padding:7px 3px;font-size:clamp(8px,2.4vw,10px)}}
 .generalEquipmentPage .equipmentSlotFilters{grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:0 0 12px}
 .generalEquipmentPage .equipmentSlotFilters button{min-height:44px;padding:9px 11px;border-color:#2a5265;border-radius:6px;background:#081a28eb;color:#c0d5df;font-size:11px}
 .generalEquipmentPage .equipmentSlotFilters button.isSelected{border-color:#46e5ff;background:#0c3344;color:#edfbff;box-shadow:0 0 12px #32dfff35}
