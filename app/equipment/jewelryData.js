@@ -2214,6 +2214,332 @@ const imprintPools = {
       "Natural MP Regen",
       "7 ~ 7"
     ]
+  ],
+  "neck:courage": [
+    [
+      "Combat Speed",
+      "2.63% ~ 3.09%"
+    ],
+    [
+      "Might",
+      "7 ~ 15"
+    ],
+    [
+      "Precision",
+      "7 ~ 15"
+    ],
+    [
+      "Intelligence",
+      "10 ~ 19"
+    ],
+    [
+      "Flight Power",
+      "21,840 ~ 25,123"
+    ],
+    [
+      "Attack",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit",
+      "29 ~ 40"
+    ],
+    [
+      "Accuracy",
+      "39 ~ 52"
+    ],
+    [
+      "Defense",
+      "227 ~ 268"
+    ],
+    [
+      "Evasion",
+      "22 ~ 32"
+    ],
+    [
+      "Critical Hit Resist",
+      "40 ~ 53"
+    ],
+    [
+      "Block",
+      "23 ~ 33"
+    ],
+    [
+      "MP",
+      "87 ~ 107"
+    ],
+    [
+      "HP",
+      "175 ~ 208"
+    ],
+    [
+      "Natural MP Regen",
+      "20 ~ 30"
+    ],
+    [
+      "Natural HP Regen",
+      "40 ~ 53"
+    ]
+  ],
+  "neck:fallen-ancient": [
+    [
+      "Combat Speed",
+      "2.73% ~ 3.21%"
+    ],
+    [
+      "Might",
+      "8 ~ 16"
+    ],
+    [
+      "Precision",
+      "8 ~ 16"
+    ],
+    [
+      "Intelligence",
+      "11 ~ 20"
+    ],
+    [
+      "Flight Power",
+      "22,680 ~ 26,089"
+    ],
+    [
+      "Attack",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit",
+      "30 ~ 42"
+    ],
+    [
+      "Accuracy",
+      "40 ~ 53"
+    ],
+    [
+      "Defense",
+      "236 ~ 278"
+    ],
+    [
+      "Evasion",
+      "23 ~ 33"
+    ],
+    [
+      "Critical Hit Resist",
+      "42 ~ 55"
+    ],
+    [
+      "Block",
+      "24 ~ 35"
+    ],
+    [
+      "MP",
+      "90 ~ 111"
+    ],
+    [
+      "HP",
+      "182 ~ 216"
+    ],
+    [
+      "Natural MP Regen",
+      "21 ~ 31"
+    ],
+    [
+      "Natural HP Regen",
+      "42 ~ 55"
+    ]
+  ],
+  "neck:conquering": [
+    [
+      "Combat Speed",
+      "2.83% ~ 3.32%"
+    ],
+    [
+      "Might",
+      "8 ~ 16"
+    ],
+    [
+      "Precision",
+      "8 ~ 16"
+    ],
+    [
+      "Intelligence",
+      "11 ~ 20"
+    ],
+    [
+      "Flight Power",
+      "23,520 ~ 27,055"
+    ],
+    [
+      "Attack",
+      "20 ~ 30"
+    ],
+    [
+      "Critical Hit",
+      "31 ~ 43"
+    ],
+    [
+      "Accuracy",
+      "42 ~ 55"
+    ],
+    [
+      "Defense",
+      "245 ~ 289"
+    ],
+    [
+      "Evasion",
+      "24 ~ 35"
+    ],
+    [
+      "Critical Hit Resist",
+      "44 ~ 58"
+    ],
+    [
+      "Block",
+      "25 ~ 36"
+    ],
+    [
+      "MP",
+      "94 ~ 115"
+    ],
+    [
+      "HP",
+      "189 ~ 224"
+    ],
+    [
+      "Natural MP Regen",
+      "22 ~ 32"
+    ],
+    [
+      "Natural HP Regen",
+      "44 ~ 58"
+    ]
+  ],
+  "ear:courage": [
+    [
+      "Move Speed",
+      "3.9% ~ 4.56%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "18,720 ~ 21,535"
+    ],
+    [
+      "Attack",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit",
+      "24 ~ 35"
+    ],
+    [
+      "Accuracy",
+      "33 ~ 45"
+    ],
+    [
+      "Defense",
+      "195 ~ 231"
+    ],
+    [
+      "Evasion",
+      "19 ~ 29"
+    ],
+    [
+      "Critical Hit Resist",
+      "35 ~ 47"
+    ],
+    [
+      "Block",
+      "20 ~ 30"
+    ],
+    [
+      "MP",
+      "74 ~ 92"
+    ],
+    [
+      "HP",
+      "150 ~ 180"
+    ],
+    [
+      "Natural MP Regen",
+      "17 ~ 27"
+    ],
+    [
+      "Natural HP Regen",
+      "35 ~ 47"
+    ]
+  ],
+  "ring:courage": [
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "7 ~ 15"
+    ],
+    [
+      "Flight Power",
+      "15,600 ~ 17,947"
+    ],
+    [
+      "Attack",
+      "13 ~ 22"
+    ],
+    [
+      "Critical Hit",
+      "20 ~ 30"
+    ],
+    [
+      "Accuracy",
+      "27 ~ 38"
+    ],
+    [
+      "Defense",
+      "162 ~ 193"
+    ],
+    [
+      "Evasion",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit Resist",
+      "29 ~ 40"
+    ],
+    [
+      "Block",
+      "16 ~ 25"
+    ],
+    [
+      "MP",
+      "62 ~ 78"
+    ],
+    [
+      "HP",
+      "125 ~ 151"
+    ],
+    [
+      "Natural MP Regen",
+      "14 ~ 23"
+    ],
+    [
+      "Natural HP Regen",
+      "29 ~ 40"
+    ]
   ]
 };
 const skillPools = {
@@ -4466,6 +4792,91 @@ const jewels = [
       "Quest: Eternal Friend (Lv. 45)",
       "Quest: First-mover Advantage (Lv. 41)"
     ]
+  },
+  {
+    "id": "310130011",
+    "name": "Courage Ruby Necklace",
+    "category": "Necklace",
+    "grade": "Unique",
+    "level": "41",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "72",
+    "defense": "173",
+    "pool": "neck:courage",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "1,018 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 25, Defense 100"
+  },
+  {
+    "id": "310130012",
+    "name": "Fallen Ancient God Ruby Necklace",
+    "category": "Necklace",
+    "grade": "Unique",
+    "level": "46",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "81",
+    "defense": "194",
+    "pool": "neck:fallen-ancient",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "1,428 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 28, Defense 112"
+  },
+  {
+    "id": "310130044",
+    "name": "Conquering Ruby Necklace",
+    "category": "Necklace",
+    "grade": "Unique",
+    "level": "51",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "attack": "90",
+    "defense": "216",
+    "pool": "neck:conquering",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "2,003 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 31, Defense 125"
+  },
+  {
+    "id": "310230011",
+    "name": "Courage Diamond Earrings",
+    "category": "Earring",
+    "grade": "Unique",
+    "level": "41",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "60",
+    "defense": "144",
+    "pool": "ear:courage",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "815 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 25, Defense 100"
+  },
+  {
+    "id": "310330011",
+    "name": "Courage Sapphire Ring",
+    "category": "Ring",
+    "grade": "Unique",
+    "level": "41",
+    "required": "35",
+    "binding": "Bind on Equip",
+    "attack": "48",
+    "defense": "115",
+    "pool": "ring:courage",
+    "skills": "offensive",
+    "sockets": "4",
+    "sell": "611 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 25, Defense 100"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
