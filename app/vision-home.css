@@ -180,8 +180,8 @@
 @media(min-width:1280px){
   .generalEquipmentPage.classPage::before{
     background-image:
-      linear-gradient(90deg,rgba(3,8,18,.84) 0%,rgba(3,8,18,.72) 17%,rgba(3,8,18,.18) 39%,rgba(3,8,18,.10) 58%,rgba(3,8,18,.62) 82%,rgba(3,8,18,.86) 100%),
-      linear-gradient(0deg,rgba(3,8,18,.58),transparent 28%,transparent 78%,rgba(3,8,18,.35)),
+      linear-gradient(rgba(3,8,18,.18),rgba(3,8,18,.18)),
+      radial-gradient(ellipse 86% 92% at 50% 44%,transparent 38%,rgba(3,8,18,.12) 70%,rgba(3,8,18,.5) 100%),
       url('/daevexus/equipment-wallpaper.webp');
     background-position:center,center,center;
     background-size:cover;
