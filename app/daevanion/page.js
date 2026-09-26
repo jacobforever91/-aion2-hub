@@ -1,7 +1,7 @@
 import DaevanionCatalog from "./DaevanionCatalog";
 
 export const metadata={
-  title:"Daevanion | AION 2 VISION",
+  title:"Daevanion | DAEVEXUS",
   description:"Explore AION 2 Daevanion boards, nodes, skill upgrades and progression by class."
 };
 
