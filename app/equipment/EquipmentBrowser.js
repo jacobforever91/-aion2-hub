@@ -1,6 +1,6 @@
 "use client";
 
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, ChevronDown, ChevronLeft, ChevronRight, Gem, Search, X} from "lucide-react";
 import EquipmentSlotIcon from "./EquipmentSlotIcon";
@@ -26,6 +26,13 @@ const categories = [
   {id: "bracelet", name: "Bracelet", family: "Accessories", sourceSlot: "Bracelet", icon: "bracelet"},
   {id: "brooch", name: "Relic", family: "Accessories", sourceSlot: "Brooch", icon: "brooch"},
 ];
+const emptyLoadoutStatGroups = [
+  {title: "Base Stats", stats: ["Attack", "Magic Boost", "Accuracy", "Physical Defense", "Magic Defense", "Max HP", "Max MP"].map((label) => ({label, value: 0, suffix: ""}))},
+  {title: "Combat Stats", stats: ["Critical Hit", "Critical Hit Resist", "Attack Speed", "Cast Speed", "Block"].map((label) => ({label, value: 0, suffix: ""}))},
+  {title: "Additional Stats", stats: ["Movement Speed", "Skill Boost", "PvE Damage", "PvP Damage"].map((label) => ({label, value: 0, suffix: ""}))},
+];
+const baseLoadoutStatNames = new Set(["Attack", "Min Attack", "Max Attack", "Magic Boost", "Accuracy", "Defense", "Physical Defense", "Magic Defense", "HP", "Max HP", "MP", "Max MP", "Might", "Dexterity", "Constitution", "Willpower", "Precision"]);
+const combatLoadoutStatNames = new Set(["Critical Hit", "Critical Hit Resist", "Critical Resist", "Attack Speed", "Cast Speed", "Block", "Parry Damage Reduction Rate", "Parry Damage Reduction Amount", "Shield Block Damage Reduction Rate", "Shield Block Damage Reduction Amount", "Combat Speed"]);
 const equipmentClassOrder = ["gladiator","templar","assassin","ranger","sorcerer","spiritmaster","cleric","chanter"];
 const equipmentClasses = equipmentClassOrder.map((slug) => classList.find((entry) => entry.slug === slug)).filter(Boolean);
 const atlasLeft = ["weapons","wings","shoulders","cloak","gloves","belt","pants","boots"];
@@ -142,8 +149,13 @@ export default function EquipmentBrowser() {
   const [atlasRegion, setAtlasRegion] = useState("GLOBAL");
   const [atlasClass, setAtlasClass] = useState("gladiator");
   const [loadoutDetails, setLoadoutDetails] = useState({});
+  const [loadoutLoading, setLoadoutLoading] = useState({});
+  const [loadoutErrors, setLoadoutErrors] = useState({});
+  const loadoutRequests = useRef({});
+  const loadoutRequestSequence = useRef(0);
   const [showLoadout, setShowLoadout] = useState(false);
   const [loadoutStorageReady, setLoadoutStorageReady] = useState(false);
+  const [loadoutNeedsRefresh, setLoadoutNeedsRefresh] = useState(false);
   const [openWeaponGroups, setOpenWeaponGroups] = useState({});
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
@@ -160,8 +172,10 @@ export default function EquipmentBrowser() {
           setAtlasRegion(savedRegion);
           setSelectedClass(savedClass);
           setAtlasClass(savedClass);
-          setAtlasSelection(parsed.selection && typeof parsed.selection === "object" ? parsed.selection : {});
+          const savedSelection = parsed.selection && typeof parsed.selection === "object" ? parsed.selection : {};
+          setAtlasSelection(savedSelection);
           setLoadoutDetails(parsed.details && typeof parsed.details === "object" ? parsed.details : {});
+          setLoadoutNeedsRefresh(Object.values(savedSelection).some(Boolean));
         }
       }
     } catch {}
@@ -215,12 +229,49 @@ export default function EquipmentBrowser() {
 
   useEffect(() => {
     if (atlasRegion !== region || atlasClass !== selectedClass) {
+      loadoutRequests.current = {};
       setAtlasSelection({});
       setLoadoutDetails({});
+      setLoadoutLoading({});
+      setLoadoutErrors({});
       setAtlasRegion(region);
       setAtlasClass(selectedClass);
     }
   }, [region, atlasRegion, selectedClass, atlasClass]);
+
+  useEffect(() => {
+    if (!loadoutStorageReady || !loadoutNeedsRefresh) return;
+    setLoadoutNeedsRefresh(false);
+    Object.entries(atlasSelection).forEach(([slot, item]) => {
+      if (!item) return;
+      if (item.family === "Wings") {
+        const currentWing = wingItems.find(({id}) => id === item.id) || item;
+        setLoadoutDetails((current) => ({...current, [slot]: {stats: currentWing.stats || []}}));
+        return;
+      }
+      const requestId = ++loadoutRequestSequence.current;
+      loadoutRequests.current[slot] = requestId;
+      setLoadoutDetails((current) => { const next = {...current}; delete next[slot]; return next; });
+      setLoadoutLoading((current) => ({...current, [slot]: true}));
+      setLoadoutErrors((current) => { const next = {...current}; delete next[slot]; return next; });
+      fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`)
+        .then(async (response) => {
+          const details = await response.json();
+          if (!response.ok) throw new Error(details.error || "Could not load item stats.");
+          return details;
+        })
+        .then((details) => {
+          if (loadoutRequests.current[slot] !== requestId) return;
+          setLoadoutDetails((current) => ({...current, [slot]: details}));
+          setLoadoutLoading((current) => ({...current, [slot]: false}));
+        })
+        .catch((loadError) => {
+          if (loadoutRequests.current[slot] !== requestId) return;
+          setLoadoutLoading((current) => ({...current, [slot]: false}));
+          setLoadoutErrors((current) => ({...current, [slot]: loadError.message || "Could not load item stats."}));
+        });
+    });
+  }, [loadoutStorageReady, loadoutNeedsRefresh, atlasSelection, region]);
 
   useEffect(() => {
     setOpenWeaponGroups(
@@ -255,17 +306,38 @@ export default function EquipmentBrowser() {
   const selectedClassName = equipmentClasses.find(({slug}) => slug === selectedClass)?.name || "Gladiator";
   const selectCategory = (id) => changeFilter(() => setCategoryId(id));
   const selectAtlasItem = (item) => {
-    setAtlasSelection((current) => ({...current,[categoryId]:item}));
+    const slot = categoryId;
+    const requestId = ++loadoutRequestSequence.current;
+    loadoutRequests.current[slot] = requestId;
+    setAtlasSelection((current) => ({...current,[slot]:item}));
+    setLoadoutErrors((current) => { const next = {...current}; delete next[slot]; return next; });
     if (item.family === "Wings") {
-      setLoadoutDetails((current) => ({...current, [categoryId]: {stats: item.stats || []}}));
+      setLoadoutDetails((current) => ({...current, [slot]: {stats: item.stats || []}}));
+      setLoadoutLoading((current) => ({...current, [slot]: false}));
       return;
     }
+    setLoadoutDetails((current) => { const next = {...current}; delete next[slot]; return next; });
+    setLoadoutLoading((current) => ({...current, [slot]: true}));
     fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`)
-      .then((response)=>response.ok?response.json():null)
-      .then((details)=>{if(details)setLoadoutDetails((current)=>({...current,[categoryId]:details}))})
-      .catch(()=>{});
+      .then(async (response) => {
+        const details = await response.json();
+        if (!response.ok) throw new Error(details.error || "Could not load item stats.");
+        return details;
+      })
+      .then((details) => {
+        if (loadoutRequests.current[slot] !== requestId) return;
+        setLoadoutDetails((current) => ({...current, [slot]: details}));
+        setLoadoutLoading((current) => ({...current, [slot]: false}));
+      })
+      .catch((loadError) => {
+        if (loadoutRequests.current[slot] !== requestId) return;
+        setLoadoutLoading((current) => ({...current, [slot]: false}));
+        setLoadoutErrors((current) => ({...current, [slot]: loadError.message || "Could not load item stats."}));
+      });
   };
   const equippedEntries = Object.entries(atlasSelection).filter(([,item])=>item);
+  const loadoutPendingCount = equippedEntries.filter(([slot]) => loadoutLoading[slot]).length;
+  const loadoutErrorCount = equippedEntries.filter(([slot]) => loadoutErrors[slot]).length;
   const loadoutTotals = equippedEntries.reduce((totals,[slot])=>{
     const stats=loadoutDetails[slot]?.stats||[];
     stats.forEach(({label,value})=>{
@@ -273,12 +345,28 @@ export default function EquipmentBrowser() {
       const match=raw.match(/^([+-]?\d+(?:\.\d+)?)(?:\s*\+\s*([+-]?\d+(?:\.\d+)?))?\s*(%)?$/);
       if(!match)return;
       const suffix=match[3]||"";
-      const key=label+"|"+suffix;
+      const normalizedLabel = ({Defense: "Physical Defense", HP: "Max HP", MP: "Max MP"})[label] || label;
+      const key=normalizedLabel+"|"+suffix;
       totals[key]=(totals[key]||0)+Number(match[1])+Number(match[2]||0);
     });
     return totals;
   },{});
-  const clearLoadout=()=>{setAtlasSelection({});setLoadoutDetails({});setShowLoadout(false)};
+  const groupedLoadoutStats = Object.entries(loadoutTotals).reduce((groups, [key, value]) => {
+    const [label, suffix] = key.split("|");
+    const group = baseLoadoutStatNames.has(label) ? "Base Stats" : combatLoadoutStatNames.has(label) ? "Combat Stats" : "Additional Stats";
+    groups[group].push({label, suffix, value});
+    return groups;
+  }, {"Base Stats": [], "Combat Stats": [], "Additional Stats": []});
+  const loadoutStatGroups = equippedEntries.length
+    ? Object.entries(groupedLoadoutStats).filter(([, stats]) => stats.length).map(([title, stats]) => ({title, stats}))
+    : emptyLoadoutStatGroups;
+  const loadoutEmptyMessage = loadoutPendingCount
+      ? "Loading selected item stats…"
+      : loadoutErrorCount
+        ? "Could not load stats for one or more selected pieces. Select the item again to retry."
+        : "Selected items do not include numeric base stats.";
+  const formatStatValue = (value) => new Intl.NumberFormat("en-US", {maximumFractionDigits: 2}).format(value);
+  const clearLoadout=()=>{loadoutRequests.current={};setAtlasSelection({});setLoadoutDetails({});setLoadoutLoading({});setLoadoutErrors({});setShowLoadout(false)};
   const renderAtlasSlot = (id) => {
     const entry = categories.find((item) => item.id === id);
     if (!entry) return null;
@@ -292,6 +380,14 @@ export default function EquipmentBrowser() {
     setPage(1);
     change();
   }
+  const desktopLoadoutGroups = loadoutStatGroups.map(({title, stats}) => <section className="equipmentDesktopTotalsGroup" key={title}>
+    <h3>{title}</h3>
+    {stats.map(({label, value, suffix}) => <div className="equipmentDesktopTotalRow" key={`${label}|${suffix}`}><span>{label}</span><strong>{formatStatValue(value)}{suffix}</strong></div>)}
+  </section>);
+  const modalLoadoutGroups = loadoutStatGroups.map(({title, stats}) => <section className="equipmentLoadoutStatGroup" key={title}>
+    <h3>{title}</h3>
+    <div>{stats.map(({label, value, suffix}) => <div key={`${label}|${suffix}`}><span>{label}</span><strong>{formatStatValue(value)}{suffix}</strong></div>)}</div>
+  </section>);
 
   return <main className="classPage equipmentBrowsePage generalEquipmentPage">
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
@@ -355,13 +451,20 @@ export default function EquipmentBrowser() {
         </section>
         <aside className="equipmentDesktopLoadout" aria-label="Current loadout summary">
           <div className="equipmentDesktopLoadoutHead"><div><span>DAEVEXUS · LOADOUT</span><h2>Loadout Stats</h2></div><div className="equipmentDesktopLoadoutControls"><b>{equippedEntries.length} / {categories.length}<small>equipped</small></b><button className="equipmentDesktopClear" type="button" onClick={clearLoadout} disabled={!equippedEntries.length}>Clear</button></div></div>
-          <div className="equipmentDesktopTotals">{Object.entries(loadoutTotals).length?Object.entries(loadoutTotals).map(([key,value])=>{const [label,suffix]=key.split("|");return <div key={key}><span>{label}</span><strong>{Number(value.toFixed(2))}{suffix}</strong></div>}):<p>Equip pieces from the Atlas to build your real combined stats.</p>}</div>
+          <div className="equipmentDesktopTotals">
+            {!equippedEntries.length && <div className="equipmentDesktopTotalsStatus isEmpty" role="status">No items equipped · Select pieces from the Atlas to build your loadout.</div>}
+            {loadoutPendingCount > 0 && <div className="equipmentDesktopTotalsStatus" role="status">Updating stats for {loadoutPendingCount} {loadoutPendingCount === 1 ? "piece" : "pieces"}…</div>}
+            {loadoutErrorCount > 0 && <div className="equipmentDesktopTotalsStatus isError" role="status">Stats failed to load for {loadoutErrorCount} {loadoutErrorCount === 1 ? "piece" : "pieces"}.</div>}
+            {desktopLoadoutGroups.length
+              ? desktopLoadoutGroups
+              : <p>{loadoutEmptyMessage}</p>}
+          </div>
           
           
         </aside>
       </div>
     </section>
-    {showLoadout&&<div className="equipmentModalBackdrop" onMouseDown={(event)=>{if(event.target===event.currentTarget)setShowLoadout(false)}}><section className="equipmentLoadoutPanel" role="dialog" aria-modal="true" aria-labelledby="loadoutTitle"><button className="equipmentModalClose" type="button" onClick={()=>setShowLoadout(false)} aria-label="Close loadout stats"><X/></button><span className="equipmentModalEyebrow">DAEVEXUS · EQUIPMENT SUMMARY</span><h2 id="loadoutTitle">Loadout Stats</h2><p className="equipmentLoadoutCount">{equippedEntries.length} of {categories.length} equipment groups selected · {region==="KR_TW"?"Asia / Taiwan":"Global"}</p><div className="equipmentLoadoutTotals">{Object.entries(loadoutTotals).length?Object.entries(loadoutTotals).map(([key,value])=>{const [label,suffix]=key.split("|");return <div key={key}><span>{label}</span><strong>{Number(value.toFixed(2))}{suffix}</strong></div>}):<p>Select equipment pieces with numeric base stats to build your totals.</p>}</div><h3>Equipped pieces</h3><div className="equipmentLoadoutPieces">{equippedEntries.map(([slot,item])=><button type="button" key={slot} onClick={()=>{setShowLoadout(false);setSelectedItem(item)}}><span>{item.icon?<img src={item.icon} alt=""/>:<EquipmentSlotIcon type={categories.find(x=>x.id===slot)?.icon}/>}</span><div><small>{categories.find(x=>x.id===slot)?.name}</small><strong>{item.name}</strong><em>{item.grade}</em></div></button>)}</div><div className="equipmentLoadoutActions"><button type="button" onClick={clearLoadout}>Clear loadout</button><button type="button" onClick={()=>setShowLoadout(false)}>Continue equipping</button></div></section></div>}
+    {showLoadout&&<div className="equipmentModalBackdrop" onMouseDown={(event)=>{if(event.target===event.currentTarget)setShowLoadout(false)}}><section className="equipmentLoadoutPanel" role="dialog" aria-modal="true" aria-labelledby="loadoutTitle"><button className="equipmentModalClose" type="button" onClick={()=>setShowLoadout(false)} aria-label="Close loadout stats"><X/></button><span className="equipmentModalEyebrow">DAEVEXUS · EQUIPMENT SUMMARY</span><h2 id="loadoutTitle">Loadout Stats</h2><p className="equipmentLoadoutCount">{equippedEntries.length} of {categories.length} equipment groups selected · {region==="KR_TW"?"Asia / Taiwan":"Global"}</p><div className="equipmentLoadoutTotals">{!equippedEntries.length && <p className="equipmentLoadoutStatus isEmpty" role="status">No items equipped · Select pieces from the Atlas to build your loadout.</p>}{loadoutPendingCount > 0 && <p className="equipmentLoadoutStatus" role="status">Updating stats for {loadoutPendingCount} {loadoutPendingCount === 1 ? "piece" : "pieces"}…</p>}{loadoutErrorCount > 0 && <p className="equipmentLoadoutStatus isError" role="status">Stats failed to load for {loadoutErrorCount} {loadoutErrorCount === 1 ? "piece" : "pieces"}.</p>}{modalLoadoutGroups.length?modalLoadoutGroups:<p>{loadoutEmptyMessage}</p>}</div><h3>Equipped pieces</h3><div className="equipmentLoadoutPieces">{equippedEntries.map(([slot,item])=><button type="button" key={slot} onClick={()=>{setShowLoadout(false);setSelectedItem(item)}}><span>{item.icon?<img src={item.icon} alt=""/>:<EquipmentSlotIcon type={categories.find(x=>x.id===slot)?.icon}/>}</span><div><small>{categories.find(x=>x.id===slot)?.name}</small><strong>{item.name}</strong><em>{item.grade}</em></div></button>)}</div><div className="equipmentLoadoutActions"><button type="button" onClick={clearLoadout}>Clear loadout</button><button type="button" onClick={()=>setShowLoadout(false)}>Continue equipping</button></div></section></div>}
     {selectedItem && <EquipmentModal item={selectedItem} region={region} onClose={closeItem} />}
   </main>;
 }
