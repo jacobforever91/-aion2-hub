@@ -491,3 +491,10 @@
     min-height:37px;padding:6px 4px;font-size:10px;
   }
 }
+
+
+/* Keep both desktop side menus on the same top baseline. */
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentAtlasCatalog,
+  .generalEquipmentPage .equipmentDesktopLoadout{align-self:start;margin-top:0;}
+}
