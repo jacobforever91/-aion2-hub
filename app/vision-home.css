@@ -207,3 +207,35 @@
   .equipmentDesktopPieces{display:grid;gap:5px}.equipmentDesktopPieces>button{display:grid;grid-template-columns:42px minmax(0,1fr) 14px;align-items:center;gap:9px;padding:7px;border:1px solid #17394c;border-radius:6px;background:#071522;color:inherit;text-align:left;cursor:pointer}.equipmentDesktopPieces>button>span{display:grid;place-items:center;width:40px;height:40px;border:1px solid #31586a;border-radius:5px;background:#050d15}.equipmentDesktopPieces img{width:36px;height:36px;object-fit:contain}.equipmentDesktopPieces div{display:grid;gap:2px;min-width:0}.equipmentDesktopPieces small{color:#668391;font-size:6px;text-transform:uppercase;letter-spacing:.7px}.equipmentDesktopPieces strong{overflow:hidden;color:#dce9ee;font-size:9px;text-overflow:ellipsis;white-space:nowrap}.equipmentDesktopPieces em{color:#d9bd78;font-size:7px;font-style:normal}.equipmentDesktopPieces svg{width:12px;color:#4e7b8e}
   .equipmentDesktopEmpty{display:grid;place-items:center;gap:8px;padding:40px 18px;border:1px solid #17394c;border-radius:8px;background:#06111b;text-align:center}.equipmentDesktopEmpty svg{width:28px;color:#345c70}.equipmentDesktopEmpty strong{color:#c8d9df;font:400 16px Georgia,"Times New Roman",serif}.equipmentDesktopEmpty span{max-width:220px;color:#6f8d9c;font-size:8px;line-height:1.6}
 }
+
+/* Equipment Daeva integration fix: remove portrait-card look */
+.equipmentAtlasDaevaArt{
+  border-radius:0!important;
+  clip-path:inset(0 0 7% 0)!important;
+  -webkit-mask-image:radial-gradient(ellipse 92% 105% at 50% 48%,#000 0%,#000 68%,rgba(0,0,0,.88) 78%,transparent 100%)!important;
+  mask-image:radial-gradient(ellipse 92% 105% at 50% 48%,#000 0%,#000 68%,rgba(0,0,0,.88) 78%,transparent 100%)!important;
+  filter:saturate(.9) contrast(1.04) brightness(.94) drop-shadow(0 16px 30px rgba(0,0,0,.25))!important;
+}
+.equipmentAtlasFigure.hasDaevaArt:after{
+  content:"";
+  position:absolute;
+  z-index:3;
+  left:12%;
+  right:12%;
+  bottom:2%;
+  height:15%;
+  background:linear-gradient(to bottom,transparent,rgba(4,10,18,.9) 76%);
+  pointer-events:none;
+}
+.equipmentAtlasFigure.hasDaevaArt .equipmentAtlasCore{z-index:4;bottom:3%}
+@media(min-width:781px){
+ .equipmentAtlasFigure{width:78%;height:88%;top:48%}
+}
+@media(max-width:780px){
+ .equipmentAtlasFigure{width:76%;height:84%;top:48%}
+}
+@media(max-width:520px){
+ .equipmentAtlasFigure{width:73%;height:82%;top:48%}
+ .equipmentAtlasDaevaArt{-webkit-mask-image:radial-gradient(ellipse 96% 105% at 50% 48%,#000 0%,#000 70%,rgba(0,0,0,.9) 80%,transparent 100%)!important;mask-image:radial-gradient(ellipse 96% 105% at 50% 48%,#000 0%,#000 70%,rgba(0,0,0,.9) 80%,transparent 100%)!important}
+ .equipmentAtlasFigure.hasDaevaArt:after{left:8%;right:8%;bottom:1%;height:14%}
+}
