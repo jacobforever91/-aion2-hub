@@ -32,7 +32,7 @@ function WingsCatalog() {
   return <main className={styles.page + ' ' + styles.wingsPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/pets">Pets</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><p>Filter by rarity and faction. Equipment wings show their recorded stats; Special wings are listed as cosmetics in the KR reference.</p></header>
+      <header className={styles.header}><span className={styles.eyebrow}><Feather/> GAME · COSMETICS</span><h1>Wings</h1><small className={styles.visionTag}>AION 2 VISION · PROGRESSION</small><p>Filter by rarity and faction. Equipment wings show their recorded stats; Special wings are listed as cosmetics in the KR reference.</p></header>
       <div className={styles.layout}>
         <section className={styles.catalog}>
           <div className={styles.toolbar}><label className={`${styles.search} searchHalo`}><Search/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search wings…"/></label><select aria-label="Filter by faction" value={faction} onChange={event=>setFaction(event.target.value)}><option>All factions</option><option>Elyos</option><option>Asmodians</option></select></div>
@@ -61,7 +61,7 @@ function PetsCatalog() {
   return <main className={styles.page + " " + styles.petPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>AION <i>2</i> VISION</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <h1 className={styles.petTitle}>Pets</h1>
+      <h1 className={styles.petTitle}>Pets</h1><small className={styles.visionTag}>AION 2 VISION · PROGRESSION</small>
       <section className={styles.catalog} aria-label="Pets">
         <label className={styles.search + " searchHalo"}><Search aria-hidden="true"/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search pets by name…" aria-label="Search pets by name"/></label>
         <div className={styles.petTabs} role="group" aria-label="Pet groups">{groups.map(value=><button key={value} type="button" className={styles.petTab + (genus===value?" "+styles.petTabActive:"")} aria-pressed={genus===value} onClick={()=>setGenus(value)}>{value}<span>{value==="All groups"?catalogData.pets.length:catalogData.pets.filter(pet=>pet.genus===value).length}</span></button>)}</div>
