@@ -334,3 +334,20 @@
   .equipmentAtlasActions .equipmentClearLoadoutButton,.equipmentAtlasActions .equipmentLoadoutStatsButton{min-height:38px;padding:7px 8px;font-size:6px;letter-spacing:.7px}
   .equipmentAtlasMotionButton{top:10px;min-height:28px;padding:0 10px;font-size:6px}
 }
+
+
+/* Mobile atlas scale pass from the recorded iPhone view */
+@media(max-width:520px){
+  .equipmentAtlas{min-height:82svh!important;height:82svh;max-height:940px;border-radius:22px}
+  .equipmentAtlasSide{top:6%!important;bottom:14%!important}
+  .equipmentAtlasSlot{width:72px!important;min-height:72px!important;gap:5px!important}
+  .equipmentAtlasSlotIcon{width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important}
+  .equipmentAtlasSlotIcon svg{width:21px!important;height:21px!important}
+  .equipmentAtlasSlotIcon img{width:40px!important;height:40px!important}
+  .equipmentAtlasSlot>span:nth-child(2){max-width:70px!important;font-size:7px!important;letter-spacing:.7px!important;overflow:visible!important}
+  .equipmentAtlasFigure{width:70%!important;height:80%!important;top:47%!important}
+  .equipmentAtlasDaevaArt{-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 12%,#000 88%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 8%,#000 84%,transparent 99%)!important;-webkit-mask-composite:source-in!important;mask-image:linear-gradient(to right,transparent 0%,#000 12%,#000 88%,transparent 100%),linear-gradient(to bottom,transparent 0%,#000 8%,#000 84%,transparent 99%)!important;mask-composite:intersect!important}
+  .equipmentAtlasActions{bottom:16px!important;max-width:calc(100% - 150px)!important;gap:7px!important}
+  .equipmentAtlasActions .equipmentClearLoadoutButton,.equipmentAtlasActions .equipmentLoadoutStatsButton{min-height:44px!important;padding:9px 11px!important;font-size:7px!important}
+  .equipmentAtlasMotionButton{top:14px!important;min-height:32px!important;font-size:7px!important}
+}
