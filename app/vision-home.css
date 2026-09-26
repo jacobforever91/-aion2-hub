@@ -184,3 +184,26 @@
 .equipmentAtlasFigure.hasDaevaArt .equipmentAtlasWing{opacity:0}
 .equipmentAtlasFigure:not(.hasDaevaArt) .equipmentAtlasHead{opacity:1;width:58px;height:68px}
 .equipmentAtlasFigure:not(.hasDaevaArt) .equipmentAtlasBody{opacity:1;clip-path:polygon(38% 0,62% 0,75% 8%,69% 30%,78% 46%,68% 58%,63% 100%,52% 100%,50% 61%,48% 100%,37% 100%,32% 58%,22% 46%,31% 30%,25% 8%)}
+
+/* DAEVEXUS Equipment desktop: Atlas | Daeva | Loadout */
+.equipmentDesktopLoadout{display:none}
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentGeneralContent{width:min(1880px,calc(100% - 36px))}
+  .equipmentAtlasLayout{grid-template-columns:minmax(330px,390px) minmax(520px,1fr) minmax(300px,360px);gap:16px;align-items:start}
+  .equipmentAtlasCatalog{order:1;min-width:0;padding:14px;border:1px solid #17394c;border-radius:16px;background:linear-gradient(145deg,rgba(7,18,29,.95),rgba(4,10,18,.9))}
+  .equipmentAtlas{order:2;min-height:780px;position:sticky;top:16px}
+  .equipmentDesktopLoadout{order:3;display:block;position:sticky;top:16px;box-sizing:border-box;min-height:640px;max-height:calc(100svh - 32px);overflow:auto;padding:18px;border:1px solid #214a60;border-radius:16px;background:linear-gradient(145deg,rgba(7,18,29,.97),rgba(4,10,18,.94));box-shadow:0 24px 60px rgba(0,0,0,.28)}
+  .equipmentLoadoutStatsButton{display:none}
+  .equipmentAtlasCatalog .generalEquipmentGrid{grid-template-columns:1fr!important}
+  .equipmentAtlasCatalog .equipmentItemCard{min-height:130px}
+  .equipmentAtlasCatalog .equipmentItemEquip{grid-template-columns:76px minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:10px}
+  .equipmentAtlasCatalog .equipmentItemIcon{grid-row:1/4!important;grid-column:1!important;height:76px!important}
+  .equipmentAtlasCatalog .equipmentItemName,.equipmentAtlasCatalog .equipmentItemGrade,.equipmentAtlasCatalog .equipmentItemEquipState{grid-column:2}
+  .equipmentDesktopLoadoutHead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid #17394c}
+  .equipmentDesktopLoadoutHead span{color:#d9bd78;font-size:7px;font-weight:800;letter-spacing:1.4px}.equipmentDesktopLoadoutHead h2{margin:5px 0 0;color:#eef8fc;font:400 27px/1 Georgia,"Times New Roman",serif}
+  .equipmentDesktopLoadoutHead>b{color:#f1e0b5;font:400 22px Georgia,"Times New Roman",serif;text-align:right}.equipmentDesktopLoadoutHead b small{display:block;margin-top:2px;color:#6f8d9c;font:500 7px sans-serif;letter-spacing:.8px;text-transform:uppercase}
+  .equipmentDesktopTotals{display:grid;gap:1px;margin-top:12px;background:#17394c}.equipmentDesktopTotals>div{display:flex;justify-content:space-between;gap:12px;padding:8px 9px;background:#071522}.equipmentDesktopTotals span{color:#8aa2ad;font-size:9px}.equipmentDesktopTotals strong{color:#e3f0f4;font-size:10px}.equipmentDesktopTotals>p{margin:0;padding:18px;background:#071522;color:#6f8d9c;font-size:9px;line-height:1.6}
+  .equipmentDesktopPiecesHead{display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px}.equipmentDesktopPiecesHead h3{margin:0;color:#e8f2f5;font:400 18px Georgia,"Times New Roman",serif}.equipmentDesktopPiecesHead button{border:0;background:transparent;color:#8aa2ad;font:inherit;font-size:8px;cursor:pointer}.equipmentDesktopPiecesHead button:disabled{opacity:.35}
+  .equipmentDesktopPieces{display:grid;gap:5px}.equipmentDesktopPieces>button{display:grid;grid-template-columns:42px minmax(0,1fr) 14px;align-items:center;gap:9px;padding:7px;border:1px solid #17394c;border-radius:6px;background:#071522;color:inherit;text-align:left;cursor:pointer}.equipmentDesktopPieces>button>span{display:grid;place-items:center;width:40px;height:40px;border:1px solid #31586a;border-radius:5px;background:#050d15}.equipmentDesktopPieces img{width:36px;height:36px;object-fit:contain}.equipmentDesktopPieces div{display:grid;gap:2px;min-width:0}.equipmentDesktopPieces small{color:#668391;font-size:6px;text-transform:uppercase;letter-spacing:.7px}.equipmentDesktopPieces strong{overflow:hidden;color:#dce9ee;font-size:9px;text-overflow:ellipsis;white-space:nowrap}.equipmentDesktopPieces em{color:#d9bd78;font-size:7px;font-style:normal}.equipmentDesktopPieces svg{width:12px;color:#4e7b8e}
+  .equipmentDesktopEmpty{display:grid;place-items:center;gap:8px;padding:40px 18px;border:1px solid #17394c;border-radius:8px;background:#06111b;text-align:center}.equipmentDesktopEmpty svg{width:28px;color:#345c70}.equipmentDesktopEmpty strong{color:#c8d9df;font:400 16px Georgia,"Times New Roman",serif}.equipmentDesktopEmpty span{max-width:220px;color:#6f8d9c;font-size:8px;line-height:1.6}
+}
