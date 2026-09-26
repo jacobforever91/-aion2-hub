@@ -31,7 +31,7 @@ export default function DaevanionCatalog(){
       <header className="daevanionHero">
         <span><Sparkles/> GAME · CHARACTER PROGRESSION</span>
         <h1>Daevanion</h1>
-        <p>Explore Daevanion boards by class using the same dataset connected to VISION Build Creator.</p>
+        <p>Explore Daevanion boards by class using the same dataset connected to DAEVEXUS Build Creator.</p>
       </header>
       <aside className="daevanionNote"><strong>REFERENCE DATA</strong><p>Asia/Taiwan reference dataset. Global names, values and requirements may change.</p></aside>
       <nav className="daevanionClasses" aria-label="Choose class">
