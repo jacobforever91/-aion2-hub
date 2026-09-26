@@ -2540,6 +2540,262 @@ const imprintPools = {
       "Natural HP Regen",
       "29 ~ 40"
     ]
+  ],
+  "ear:fallen-ancient": [
+    [
+      "Move Speed",
+      "4.05% ~ 4.73%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "19,440 ~ 22,363"
+    ],
+    [
+      "Attack",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit",
+      "25 ~ 36"
+    ],
+    [
+      "Accuracy",
+      "34 ~ 46"
+    ],
+    [
+      "Defense",
+      "202 ~ 239"
+    ],
+    [
+      "Evasion",
+      "20 ~ 30"
+    ],
+    [
+      "Critical Hit Resist",
+      "36 ~ 48"
+    ],
+    [
+      "Block",
+      "21 ~ 31"
+    ],
+    [
+      "MP",
+      "77 ~ 96"
+    ],
+    [
+      "HP",
+      "156 ~ 186"
+    ],
+    [
+      "Natural MP Regen",
+      "18 ~ 28"
+    ],
+    [
+      "Natural HP Regen",
+      "36 ~ 48"
+    ]
+  ],
+  "ring:fallen-ancient": [
+    [
+      "Might",
+      "4 ~ 12"
+    ],
+    [
+      "Precision",
+      "4 ~ 12"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "16,200 ~ 18,637"
+    ],
+    [
+      "Attack",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit",
+      "21 ~ 31"
+    ],
+    [
+      "Accuracy",
+      "29 ~ 40"
+    ],
+    [
+      "Defense",
+      "168 ~ 200"
+    ],
+    [
+      "Evasion",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit Resist",
+      "30 ~ 42"
+    ],
+    [
+      "Block",
+      "17 ~ 27"
+    ],
+    [
+      "MP",
+      "64 ~ 81"
+    ],
+    [
+      "HP",
+      "130 ~ 157"
+    ],
+    [
+      "Natural MP Regen",
+      "15 ~ 24"
+    ],
+    [
+      "Natural HP Regen",
+      "30 ~ 42"
+    ]
+  ],
+  "ear:conquering": [
+    [
+      "Move Speed",
+      "4.2% ~ 4.9%"
+    ],
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "10 ~ 19"
+    ],
+    [
+      "Flight Power",
+      "20,160 ~ 23,191"
+    ],
+    [
+      "Attack",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit",
+      "26 ~ 37"
+    ],
+    [
+      "Accuracy",
+      "36 ~ 48"
+    ],
+    [
+      "Defense",
+      "210 ~ 249"
+    ],
+    [
+      "Evasion",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit Resist",
+      "37 ~ 50"
+    ],
+    [
+      "Block",
+      "21 ~ 31"
+    ],
+    [
+      "MP",
+      "80 ~ 99"
+    ],
+    [
+      "HP",
+      "162 ~ 193"
+    ],
+    [
+      "Natural MP Regen",
+      "19 ~ 29"
+    ],
+    [
+      "Natural HP Regen",
+      "37 ~ 50"
+    ]
+  ],
+  "ring:conquering": [
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "8 ~ 16"
+    ],
+    [
+      "Flight Power",
+      "16,800 ~ 19,327"
+    ],
+    [
+      "Attack",
+      "14 ~ 23"
+    ],
+    [
+      "Critical Hit",
+      "22 ~ 32"
+    ],
+    [
+      "Accuracy",
+      "30 ~ 42"
+    ],
+    [
+      "Defense",
+      "175 ~ 208"
+    ],
+    [
+      "Evasion",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit Resist",
+      "31 ~ 43"
+    ],
+    [
+      "Block",
+      "18 ~ 28"
+    ],
+    [
+      "MP",
+      "67 ~ 84"
+    ],
+    [
+      "HP",
+      "135 ~ 162"
+    ],
+    [
+      "Natural MP Regen",
+      "16 ~ 25"
+    ],
+    [
+      "Natural HP Regen",
+      "31 ~ 43"
+    ]
   ]
 };
 const skillPools = {
@@ -4877,6 +5133,74 @@ const jewels = [
     "sell": "611 Gold",
     "enchant": "+15",
     "upgrade": "At +15: Attack 25, Defense 100"
+  },
+  {
+    "id": "310230012",
+    "name": "Fallen Ancient God Diamond Earrings",
+    "category": "Earring",
+    "grade": "Unique",
+    "level": "46",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "68",
+    "defense": "162",
+    "pool": "ear:fallen-ancient",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "1,143 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 28, Defense 112"
+  },
+  {
+    "id": "310330012",
+    "name": "Fallen Ancient God Sapphire Ring",
+    "category": "Ring",
+    "grade": "Unique",
+    "level": "46",
+    "required": "40",
+    "binding": "Bind on Equip",
+    "attack": "54",
+    "defense": "130",
+    "pool": "ring:fallen-ancient",
+    "skills": "offensive",
+    "sockets": "4",
+    "sell": "857 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 28, Defense 112"
+  },
+  {
+    "id": "310230044",
+    "name": "Conquering Diamond Earrings",
+    "category": "Earring",
+    "grade": "Unique",
+    "level": "51",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "attack": "75",
+    "defense": "180",
+    "pool": "ear:conquering",
+    "skills": "defensive",
+    "sockets": "4",
+    "sell": "1,602 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 31, Defense 125"
+  },
+  {
+    "id": "310330044",
+    "name": "Conquering Sapphire Ring",
+    "category": "Ring",
+    "grade": "Unique",
+    "level": "51",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "attack": "60",
+    "defense": "144",
+    "pool": "ring:conquering",
+    "skills": "offensive",
+    "sockets": "4",
+    "sell": "1,202 Gold",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 31, Defense 125"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
