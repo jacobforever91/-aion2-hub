@@ -163,17 +163,20 @@ export default function EquipmentBrowser() {
         return (aIndex < 0 ? weaponTypeOrder.length : aIndex) - (bIndex < 0 ? weaponTypeOrder.length : bIndex) || a.localeCompare(b);
       })
     : [];
-  const renderItemCard = (item) => <button className="equipmentItemCard" type="button" key={`${region}-${item.id}`} onClick={() => selectAtlasItem(item)}>
-    <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
-    <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span><span className="equipmentItemOpen">Details <ChevronRight aria-hidden="true" /></span>
-  </button>;
+  const renderItemCard = (item) => <article className={"equipmentItemCard "+(atlasSelection[categoryId]?.id===item.id?"isEquipped":"")} key={`${region}-${item.id}`}>
+    <button className="equipmentItemEquip" type="button" onClick={() => selectAtlasItem(item)} aria-label={`Equip ${item.name}`}>
+      <span className="equipmentItemIcon"><img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} /></span>
+      <span className="equipmentItemName">{item.name}</span><span className={`equipmentItemGrade ${gradeClass(item.grade)}`}>{item.grade}</span>
+      <span className="equipmentItemEquipState">{atlasSelection[categoryId]?.id===item.id?"EQUIPPED":"EQUIP"}</span>
+    </button>
+    <button className="equipmentItemDetailsButton" type="button" onClick={()=>setSelectedItem(item)}>DETAILS <ChevronRight aria-hidden="true"/></button>
+  </article>;
 
   const closeItem = useCallback(() => setSelectedItem(null), []);
   const selectedCategory = categories.find(({id}) => id === categoryId) || categories[0];
   const selectCategory = (id) => changeFilter(() => setCategoryId(id));
   const selectAtlasItem = (item) => {
     setAtlasSelection((current) => ({...current,[categoryId]:item}));
-    setSelectedItem(item);
     fetch(`/api/class-equipment?view=general&region=${region}&item=${item.id}`)
       .then((response)=>response.ok?response.json():null)
       .then((details)=>{if(details)setLoadoutDetails((current)=>({...current,[categoryId]:details}))})
