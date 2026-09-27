@@ -3572,6 +3572,200 @@ const imprintPools = {
       "Natural HP Regen",
       "39 ~ 52"
     ]
+  ],
+  "neck:dragon-white-splendent": [
+    [
+      "Combat Speed",
+      "3.44% ~ 4.03%"
+    ],
+    [
+      "Might",
+      "10 ~ 19"
+    ],
+    [
+      "Precision",
+      "10 ~ 19"
+    ],
+    [
+      "Intelligence",
+      "14 ~ 23"
+    ],
+    [
+      "Flight Power",
+      "28,560 ~ 32,851"
+    ],
+    [
+      "Attack",
+      "24 ~ 35"
+    ],
+    [
+      "Critical Hit",
+      "38 ~ 51"
+    ],
+    [
+      "Accuracy",
+      "51 ~ 66"
+    ],
+    [
+      "Defense",
+      "297 ~ 349"
+    ],
+    [
+      "Evasion",
+      "29 ~ 40"
+    ],
+    [
+      "Critical Hit Resist",
+      "53 ~ 68"
+    ],
+    [
+      "Block",
+      "30 ~ 42"
+    ],
+    [
+      "MP",
+      "114 ~ 138"
+    ],
+    [
+      "HP",
+      "229 ~ 270"
+    ],
+    [
+      "Natural MP Regen",
+      "27 ~ 38"
+    ],
+    [
+      "Natural HP Regen",
+      "53 ~ 68"
+    ]
+  ],
+  "ear:dragon-white-splendent": [
+    [
+      "Move Speed",
+      "5.1% ~ 5.94%"
+    ],
+    [
+      "Might",
+      "8 ~ 16"
+    ],
+    [
+      "Precision",
+      "8 ~ 16"
+    ],
+    [
+      "Intelligence",
+      "12 ~ 21"
+    ],
+    [
+      "Flight Power",
+      "24,480 ~ 28,159"
+    ],
+    [
+      "Attack",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit",
+      "32 ~ 44"
+    ],
+    [
+      "Accuracy",
+      "43 ~ 56"
+    ],
+    [
+      "Defense",
+      "255 ~ 300"
+    ],
+    [
+      "Evasion",
+      "25 ~ 36"
+    ],
+    [
+      "Critical Hit Resist",
+      "45 ~ 59"
+    ],
+    [
+      "Block",
+      "26 ~ 37"
+    ],
+    [
+      "MP",
+      "97 ~ 119"
+    ],
+    [
+      "HP",
+      "196 ~ 232"
+    ],
+    [
+      "Natural MP Regen",
+      "23 ~ 33"
+    ],
+    [
+      "Natural HP Regen",
+      "45 ~ 59"
+    ]
+  ],
+  "ring:dragon-white-splendent": [
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "10 ~ 19"
+    ],
+    [
+      "Flight Power",
+      "20,400 ~ 23,467"
+    ],
+    [
+      "Attack",
+      "17 ~ 27"
+    ],
+    [
+      "Critical Hit",
+      "27 ~ 38"
+    ],
+    [
+      "Accuracy",
+      "36 ~ 48"
+    ],
+    [
+      "Defense",
+      "212 ~ 251"
+    ],
+    [
+      "Evasion",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit Resist",
+      "38 ~ 51"
+    ],
+    [
+      "Block",
+      "22 ~ 32"
+    ],
+    [
+      "MP",
+      "81 ~ 100"
+    ],
+    [
+      "HP",
+      "164 ~ 196"
+    ],
+    [
+      "Natural MP Regen",
+      "19 ~ 29"
+    ],
+    [
+      "Natural HP Regen",
+      "38 ~ 51"
+    ]
   ]
 };
 const skillPools = {
@@ -6730,6 +6924,72 @@ const jewels = [
     "defense": "222",
     "pool": "ring:centurion",
     "sell": "13,276 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130018",
+    "name": "Splendent White Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "153",
+    "defense": "367",
+    "pool": "neck:dragon-white-splendent",
+    "sell": "43,504 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230018",
+    "name": "Splendent White Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "128",
+    "defense": "306",
+    "pool": "ear:dragon-white-splendent",
+    "sell": "34,803 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "offensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330018",
+    "name": "Splendent White Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "102",
+    "defense": "245",
+    "pool": "ring:dragon-white-splendent",
+    "sell": "26,102 Gold"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
