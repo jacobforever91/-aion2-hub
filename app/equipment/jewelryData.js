@@ -3184,6 +3184,200 @@ const imprintPools = {
       "Natural HP Regen",
       "34 ~ 46"
     ]
+  ],
+  "neck:centurion": [
+    [
+      "Combat Speed",
+      "3.24% ~ 3.8%"
+    ],
+    [
+      "Might",
+      "9 ~ 17"
+    ],
+    [
+      "Precision",
+      "9 ~ 17"
+    ],
+    [
+      "Intelligence",
+      "13 ~ 22"
+    ],
+    [
+      "Flight Power",
+      "26,880 ~ 30,919"
+    ],
+    [
+      "Attack",
+      "23 ~ 33"
+    ],
+    [
+      "Critical Hit",
+      "35 ~ 47"
+    ],
+    [
+      "Accuracy",
+      "48 ~ 62"
+    ],
+    [
+      "Defense",
+      "280 ~ 329"
+    ],
+    [
+      "Evasion",
+      "28 ~ 39"
+    ],
+    [
+      "Critical Hit Resist",
+      "50 ~ 65"
+    ],
+    [
+      "Block",
+      "29 ~ 40"
+    ],
+    [
+      "MP",
+      "107 ~ 130"
+    ],
+    [
+      "HP",
+      "216 ~ 255"
+    ],
+    [
+      "Natural MP Regen",
+      "25 ~ 36"
+    ],
+    [
+      "Natural HP Regen",
+      "50 ~ 65"
+    ]
+  ],
+  "ear:centurion": [
+    [
+      "Move Speed",
+      "4.8% ~ 5.59%"
+    ],
+    [
+      "Might",
+      "7 ~ 15"
+    ],
+    [
+      "Precision",
+      "7 ~ 15"
+    ],
+    [
+      "Intelligence",
+      "11 ~ 20"
+    ],
+    [
+      "Flight Power",
+      "23,040 ~ 26,503"
+    ],
+    [
+      "Attack",
+      "20 ~ 30"
+    ],
+    [
+      "Critical Hit",
+      "30 ~ 42"
+    ],
+    [
+      "Accuracy",
+      "41 ~ 54"
+    ],
+    [
+      "Defense",
+      "240 ~ 283"
+    ],
+    [
+      "Evasion",
+      "24 ~ 35"
+    ],
+    [
+      "Critical Hit Resist",
+      "43 ~ 56"
+    ],
+    [
+      "Block",
+      "24 ~ 35"
+    ],
+    [
+      "MP",
+      "92 ~ 113"
+    ],
+    [
+      "HP",
+      "185 ~ 220"
+    ],
+    [
+      "Natural MP Regen",
+      "22 ~ 32"
+    ],
+    [
+      "Natural HP Regen",
+      "43 ~ 56"
+    ]
+  ],
+  "ring:centurion": [
+    [
+      "Might",
+      "5 ~ 13"
+    ],
+    [
+      "Precision",
+      "5 ~ 13"
+    ],
+    [
+      "Intelligence",
+      "9 ~ 17"
+    ],
+    [
+      "Flight Power",
+      "19,200 ~ 22,087"
+    ],
+    [
+      "Attack",
+      "16 ~ 25"
+    ],
+    [
+      "Critical Hit",
+      "25 ~ 36"
+    ],
+    [
+      "Accuracy",
+      "34 ~ 46"
+    ],
+    [
+      "Defense",
+      "200 ~ 237"
+    ],
+    [
+      "Evasion",
+      "20 ~ 30"
+    ],
+    [
+      "Critical Hit Resist",
+      "36 ~ 48"
+    ],
+    [
+      "Block",
+      "20 ~ 30"
+    ],
+    [
+      "MP",
+      "76 ~ 94"
+    ],
+    [
+      "HP",
+      "154 ~ 184"
+    ],
+    [
+      "Natural MP Regen",
+      "18 ~ 28"
+    ],
+    [
+      "Natural HP Regen",
+      "36 ~ 48"
+    ]
   ]
 };
 const skillPools = {
@@ -6036,6 +6230,126 @@ const jewels = [
     "defense": "176",
     "pool": "ring:dragon-true",
     "sell": "6,308 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130027",
+    "name": "Guardian Centurion Necklace",
+    "category": "Necklace",
+    "attack": "139",
+    "defense": "333",
+    "pool": "neck:centurion",
+    "sell": "34,119 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230027",
+    "name": "Guardian Centurion Earrings",
+    "category": "Earring",
+    "attack": "116",
+    "defense": "277",
+    "pool": "ear:centurion",
+    "sell": "27,296 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "offensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330027",
+    "name": "Guardian Centurion Ring",
+    "category": "Ring",
+    "attack": "92",
+    "defense": "222",
+    "pool": "ring:centurion",
+    "sell": "20,472 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130031",
+    "name": "Archon Centurion Necklace",
+    "category": "Necklace",
+    "attack": "139",
+    "defense": "333",
+    "pool": "neck:centurion",
+    "sell": "34,119 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230031",
+    "name": "Archon Centurion Earrings",
+    "category": "Earring",
+    "attack": "116",
+    "defense": "277",
+    "pool": "ear:centurion",
+    "sell": "27,296 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "offensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330031",
+    "name": "Archon Centurion Ring",
+    "category": "Ring",
+    "attack": "92",
+    "defense": "222",
+    "pool": "ring:centurion",
+    "sell": "20,472 Gold"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
