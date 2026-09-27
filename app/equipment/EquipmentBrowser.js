@@ -37,6 +37,11 @@ const equipmentClassOrder = ["gladiator","templar","assassin","ranger","sorcerer
 const equipmentClasses = equipmentClassOrder.map((slug) => classList.find((entry) => entry.slug === slug)).filter(Boolean);
 const atlasLeft = ["weapons","wings","shoulders","cloak","gloves","belt","pants","boots"];
 const atlasRight = ["helmet","necklace","chest","earrings","rings","bracelet","brooch"];
+const realisticAtlasSpritePositions = {
+  weapons: [0, 0], wings: [1, 0], shoulders: [2, 0], cloak: [3, 0], gloves: [4, 0],
+  belt: [0, 1], pants: [1, 1], boots: [2, 1], helmet: [3, 1], necklace: [4, 1],
+  chest: [0, 2], earrings: [1, 2], rings: [2, 2], bracelet: [3, 2], brooch: [4, 2],
+};
 const familyArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp", Wings: "/equipment-art/accessory.webp"};
 const wingItems = progressionData.wings.map((wing) => {
   const details = progressionData.wingDetails[wing.id] || {};
@@ -66,6 +71,16 @@ function ItemVisual({item, size = 58}) {
   }
   return <img src={item.icon || familyArt[item.family] || familyArt.Armor} alt="" loading="lazy"
     onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = familyArt[item.family] || familyArt.Armor; }} />;
+}
+
+function AtlasSlotVisual({type}) {
+  const position = realisticAtlasSpritePositions[type];
+  if (!position) return <EquipmentSlotIcon type={type}/>;
+  const [column, row] = position;
+  return <>
+    <span className="equipmentAtlasRealIcon" aria-hidden="true" style={{"--atlas-sprite-position": `${column * 25}% ${row * 50}%`}}/>
+    <span className="equipmentAtlasFallbackIcon" aria-hidden="true"><EquipmentSlotIcon type={type}/></span>
+  </>;
 }
 
 function EquipmentModal({item, region, onClose}) {
@@ -368,7 +383,7 @@ export default function EquipmentBrowser() {
     if (!entry) return null;
     const chosen = atlasSelection[id];
     return <button type="button" key={id} className={"equipmentAtlasSlot "+(categoryId===id?"isSelected":"")} aria-pressed={categoryId===id} onClick={()=>selectCategory(id)}>
-      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<ItemVisual item={chosen} size={34}/>:<EquipmentSlotIcon type={entry.icon}/>}</span>
+      <span className="equipmentAtlasSlotIcon">{chosen?.icon?<ItemVisual item={chosen} size={34}/>:<AtlasSlotVisual type={entry.icon}/>}</span>
       <span>{entry.name}</span>{entry.slotCount===2&&<small>2</small>}
     </button>;
   };

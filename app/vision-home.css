@@ -714,3 +714,17 @@
     border-color:rgba(202,166,91,.98)!important;
   }
 }
+
+/* Realistic miniatures for the Daeva equipment slots. */
+.equipmentAtlasRealIcon{
+  display:none;width:82%;height:82%;
+  background-image:url("/equipment-icons/daeva-realistic-sprite.webp");
+  background-repeat:no-repeat;background-size:500% 300%;
+  background-position:var(--atlas-sprite-position);
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.58));
+}
+.equipmentAtlasFallbackIcon{display:grid;place-items:center}
+@media(min-width:1280px){
+  .generalEquipmentPage .equipmentAtlasRealIcon{display:block}
+  .generalEquipmentPage .equipmentAtlasFallbackIcon{display:none}
+}
