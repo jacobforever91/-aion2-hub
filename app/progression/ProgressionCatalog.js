@@ -58,7 +58,7 @@ function PetsCatalog() {
   const [genus,setGenus]=useState("All groups");
   const [selectedId,setSelectedId]=useState("1004");
   const [activeId,setActiveId]=useState("");
-  const [level,setLevel]=useState("1");
+  const [level,setLevel]=useState("3");
   const groups=["All groups","Fera","Cogni","Natura","Varian","Special"];
   const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||(pet.name+" "+pet.genus).toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
   const selected=visible.find(pet=>pet.id===selectedId)||visible[0]||null;
@@ -85,11 +85,14 @@ function PetsCatalog() {
               <h2>{selected.name}</h2>
               <p className={styles.sanctuaryIntro}>A companion recorded in the Atreia reference archive.</p>
               <div className={styles.sanctuaryFacts}><span><Shield/><small>GROUP</small><strong>{selected.genus}</strong></span><span><Activity/><small>SUMMON COST</small><strong>{details?.fields?.find(([label])=>label==="Souls to summon")?.[1]||"Not listed"} {details?.fields?.some(([label])=>label==="Souls to summon")?"souls":""}</strong></span></div>
-              <button type="button" className={styles.activePetButton+(activeId===selected.id?" "+styles.activePetButtonOn:"")} onClick={setActive} aria-pressed={activeId===selected.id}>{activeId===selected.id?<><Check/> Featured in sanctuary</>:<><Heart/> Set as featured companion</>}</button>
+              <div className={styles.sanctuaryActions}>
+                <button type="button" className={styles.activePetButton+(activeId===selected.id?" "+styles.activePetButtonOn:"")} onClick={setActive} aria-pressed={activeId===selected.id}>{activeId===selected.id?<><Check/> Active companion</>:<><Heart/> Set as Active</>}</button>
+                <a className={styles.detailsButton} href="#pet-record-details">View Details <ArrowLeft aria-hidden="true"/></a>
+              </div>
             </div>
           </article>
           <div className={styles.sanctuaryLower}>
-            <section className={styles.sanctuaryStats} aria-label="Companion growth details">
+            <section className={styles.sanctuaryStats} id="pet-record-details" aria-label="Companion growth details">
               <div className={styles.sanctuarySectionHead}><div><span>RECORDED PROGRESSION</span><h3>Growth & traits</h3></div><div className={styles.levelPicker} role="group" aria-label="Select recorded level">{["1","2","3"].map(value=><button key={value} type="button" aria-pressed={level===value} className={level===value?styles.levelActive:""} onClick={()=>setLevel(value)}>Lv. {value}</button>)}</div></div>
               {stats.length?<div className={styles.sanctuaryStatGrid}>{stats.map(([label,value],index)=><div key={label}><span>{index===0?<Sparkles/>:<Activity/>}{label.replace(/^🔮\s*/,"")}</span><strong>{value}</strong></div>)}</div>:<p className={styles.sanctuaryEmpty}>This reference record does not include level-based stats for this companion.</p>}
               {details?.tameFrom?.length>0&&<div className={styles.sanctuarySources}><span>RECORDED SOURCES</span><p>{details.tameFrom.slice(0,3).join(" · ")}{details.tameFrom.length>3?` · +${details.tameFrom.length-3} more`:""}</p></div>}
