@@ -8691,6 +8691,132 @@ const jewels = [
   "pool": "ring:fallen-ancient",
   "sell": "857 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: High Commander Lagta (Lv. 70) in Verteron or Altgard."
+  ],
+  "id": "310130075",
+  "name": "High Commander Lagta Necklace (Bind on Equip)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Lagta's Loot Chest (Bound)."
+  ],
+  "id": "310130106",
+  "name": "High Commander Lagta Necklace (Bind on Pickup)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "High Commander Lagta (Lv. 45) in Verteron or Altgard."
+  ],
+  "id": "310230077",
+  "name": "High Commander Lagta Earrings (Bind on Equip)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Lagta's Loot Chest (Bound)."
+  ],
+  "id": "310230108",
+  "name": "High Commander Lagta Earrings (Bind on Pickup)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "High Commander Lagta (Lv. 45) in Verteron or Altgard."
+  ],
+  "id": "310330077",
+  "name": "High Commander Lagta Ring (Bind on Equip)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Lagta's Loot Chest (Bound)."
+  ],
+  "id": "310330108",
+  "name": "High Commander Lagta Ring (Bind on Pickup)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
