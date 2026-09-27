@@ -153,7 +153,10 @@ const slotAliases = {
   Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
-const generalEquipmentItems = [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData, ...broochData];
+const generalEquipmentItems = [...new Map(
+  [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData, ...broochData]
+    .map((item) => [`${item.region || "GLOBAL"}:${item.id}`, item])
+).values()];
 
 function localGeneralItems(category, slot) {
   return generalEquipmentItems.filter((item) => {
