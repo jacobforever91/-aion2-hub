@@ -7782,6 +7782,75 @@ const jewels = [
   "pool": "ring:centurion",
   "sell": "40,000 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Fire Temple: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310130051",
+  "name": "Enraged Kromede Necklace",
+  "category": "Necklace",
+  "attack": "153",
+  "defense": "367",
+  "pool": "neck:tribunus",
+  "sell": "55,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Fire Temple: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310230053",
+  "name": "Enraged Kromede Earrings",
+  "category": "Earring",
+  "attack": "128",
+  "defense": "306",
+  "pool": "ear:tribunus",
+  "sell": "55,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Fire Temple: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310330053",
+  "name": "Enraged Kromede Ring",
+  "category": "Ring",
+  "attack": "102",
+  "defense": "245",
+  "pool": "ring:tribunus",
+  "sell": "55,000 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
