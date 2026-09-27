@@ -3378,6 +3378,200 @@ const imprintPools = {
       "Natural HP Regen",
       "36 ~ 48"
     ]
+  ],
+  "neck:tribunus": [
+    [
+      "Combat Speed",
+      "3.54% ~ 4.14%"
+    ],
+    [
+      "Might",
+      "10 ~ 19"
+    ],
+    [
+      "Precision",
+      "10 ~ 19"
+    ],
+    [
+      "Intelligence",
+      "14 ~ 23"
+    ],
+    [
+      "Flight Power",
+      "29,400 ~ 33,817"
+    ],
+    [
+      "Attack",
+      "25 ~ 36"
+    ],
+    [
+      "Critical Hit",
+      "39 ~ 52"
+    ],
+    [
+      "Accuracy",
+      "52 ~ 67"
+    ],
+    [
+      "Defense",
+      "306 ~ 359"
+    ],
+    [
+      "Evasion",
+      "30 ~ 42"
+    ],
+    [
+      "Critical Hit Resist",
+      "55 ~ 70"
+    ],
+    [
+      "Block",
+      "31 ~ 43"
+    ],
+    [
+      "MP",
+      "117 ~ 142"
+    ],
+    [
+      "HP",
+      "236 ~ 278"
+    ],
+    [
+      "Natural MP Regen",
+      "28 ~ 39"
+    ],
+    [
+      "Natural HP Regen",
+      "55 ~ 70"
+    ]
+  ],
+  "ear:tribunus": [
+    [
+      "Move Speed",
+      "5.25% ~ 6.11%"
+    ],
+    [
+      "Might",
+      "8 ~ 16"
+    ],
+    [
+      "Precision",
+      "8 ~ 16"
+    ],
+    [
+      "Intelligence",
+      "12 ~ 21"
+    ],
+    [
+      "Flight Power",
+      "25,200 ~ 28,987"
+    ],
+    [
+      "Attack",
+      "22 ~ 32"
+    ],
+    [
+      "Critical Hit",
+      "33 ~ 45"
+    ],
+    [
+      "Accuracy",
+      "45 ~ 59"
+    ],
+    [
+      "Defense",
+      "262 ~ 308"
+    ],
+    [
+      "Evasion",
+      "26 ~ 37"
+    ],
+    [
+      "Critical Hit Resist",
+      "47 ~ 61"
+    ],
+    [
+      "Block",
+      "27 ~ 38"
+    ],
+    [
+      "MP",
+      "100 ~ 122"
+    ],
+    [
+      "HP",
+      "202 ~ 239"
+    ],
+    [
+      "Natural MP Regen",
+      "24 ~ 35"
+    ],
+    [
+      "Natural HP Regen",
+      "47 ~ 61"
+    ]
+  ],
+  "ring:tribunus": [
+    [
+      "Might",
+      "6 ~ 14"
+    ],
+    [
+      "Precision",
+      "6 ~ 14"
+    ],
+    [
+      "Intelligence",
+      "10 ~ 19"
+    ],
+    [
+      "Flight Power",
+      "21,000 ~ 24,157"
+    ],
+    [
+      "Attack",
+      "18 ~ 28"
+    ],
+    [
+      "Critical Hit",
+      "28 ~ 39"
+    ],
+    [
+      "Accuracy",
+      "37 ~ 50"
+    ],
+    [
+      "Defense",
+      "218 ~ 258"
+    ],
+    [
+      "Evasion",
+      "21 ~ 31"
+    ],
+    [
+      "Critical Hit Resist",
+      "39 ~ 52"
+    ],
+    [
+      "Block",
+      "22 ~ 32"
+    ],
+    [
+      "MP",
+      "84 ~ 104"
+    ],
+    [
+      "HP",
+      "168 ~ 200"
+    ],
+    [
+      "Natural MP Regen",
+      "20 ~ 30"
+    ],
+    [
+      "Natural HP Regen",
+      "39 ~ 52"
+    ]
   ]
 };
 const skillPools = {
@@ -6350,6 +6544,126 @@ const jewels = [
     "defense": "222",
     "pool": "ring:centurion",
     "sell": "20,472 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130028",
+    "name": "Guardian Tribunus Necklace",
+    "category": "Necklace",
+    "attack": "167",
+    "defense": "402",
+    "pool": "neck:tribunus",
+    "sell": "97,625 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230028",
+    "name": "Guardian Tribunus Earrings",
+    "category": "Earring",
+    "attack": "140",
+    "defense": "335",
+    "pool": "ear:tribunus",
+    "sell": "78,100 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "offensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330028",
+    "name": "Guardian Tribunus Ring",
+    "category": "Ring",
+    "attack": "112",
+    "defense": "268",
+    "pool": "ring:tribunus",
+    "sell": "58,575 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130032",
+    "name": "Archon Tribunus Necklace",
+    "category": "Necklace",
+    "attack": "167",
+    "defense": "402",
+    "pool": "neck:tribunus",
+    "sell": "97,625 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230032",
+    "name": "Archon Tribunus Earrings",
+    "category": "Earring",
+    "attack": "140",
+    "defense": "335",
+    "pool": "ear:tribunus",
+    "sell": "78,100 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "94",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "skills": "offensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 57, Defense 231; Exceed to +5: Attack 38, Defense 113, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330032",
+    "name": "Archon Tribunus Ring",
+    "category": "Ring",
+    "attack": "112",
+    "defense": "268",
+    "pool": "ring:tribunus",
+    "sell": "58,575 Gold"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
