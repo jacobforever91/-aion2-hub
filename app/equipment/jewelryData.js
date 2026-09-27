@@ -8115,6 +8115,132 @@ const jewels = [
   "pool": "ring:fallen-ancient",
   "sell": "857 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Eternal Gartua (Lv. 70) in Verteron or Immortal Gartua (Lv. 70) in Altgard."
+  ],
+  "id": "310130063",
+  "name": "Gartua Necklace (Bind on Equip)",
+  "category": "Necklace",
+  "attack": "124",
+  "defense": "298",
+  "pool": "neck:dragon-splendent",
+  "sell": "5,161 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Gartua's Loot Chest (Bound)."
+  ],
+  "id": "310130102",
+  "name": "Gartua Necklace (Bind on Pickup)",
+  "category": "Necklace",
+  "attack": "124",
+  "defense": "298",
+  "pool": "neck:dragon-splendent",
+  "sell": "5,161 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Eternal Gartua (Lv. 51) in Verteron or Immortal Gartua (Lv. 51) in Altgard."
+  ],
+  "id": "310230065",
+  "name": "Gartua Earrings (Bind on Equip)",
+  "category": "Earring",
+  "attack": "104",
+  "defense": "249",
+  "pool": "ear:dragon-splendent",
+  "sell": "4,129 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Gartua's Loot Chest (Bound)."
+  ],
+  "id": "310230104",
+  "name": "Gartua Earrings (Bind on Pickup)",
+  "category": "Earring",
+  "attack": "104",
+  "defense": "249",
+  "pool": "ear:dragon-splendent",
+  "sell": "4,129 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Eternal Gartua (Lv. 51) in Verteron or Immortal Gartua (Lv. 51) in Altgard."
+  ],
+  "id": "310330065",
+  "name": "Gartua Ring (Bind on Equip)",
+  "category": "Ring",
+  "attack": "83",
+  "defense": "199",
+  "pool": "ring:dragon-splendent",
+  "sell": "3,097 Gold",
+  "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Gartua's Loot Chest (Bound)."
+  ],
+  "id": "310330104",
+  "name": "Gartua Ring (Bind on Pickup)",
+  "category": "Ring",
+  "attack": "83",
+  "defense": "199",
+  "pool": "ring:dragon-splendent",
+  "sell": "3,097 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
