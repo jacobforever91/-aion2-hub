@@ -8565,6 +8565,132 @@ const jewels = [
     "Argo, the Spirit King (Lv. 65) or Executor Argo (Lv. 65) in Chaotic Lower Reshanta.",
     "Argo's Merit Chest: Epic (Bound); Argo's Merit Chest: Rare (Bound); Argo's Merit Chest (Bound); Argo's Merit Chest: Unique (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound)."
   ]
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Soul Ruler Kashapa (Lv. 70) in Verteron or Altgard."
+  ],
+  "id": "310130074",
+  "name": "Kashapa Necklace (Bind on Equip)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Kashapa's Loot Chest (Bound)."
+  ],
+  "id": "310130105",
+  "name": "Kashapa Necklace (Bind on Pickup)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "Soul Ruler Kashapa (Lv. 45) in Verteron or Altgard."
+  ],
+  "id": "310230076",
+  "name": "Kashapa Earrings (Bind on Equip)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Kashapa's Loot Chest (Bound)."
+  ],
+  "id": "310230107",
+  "name": "Kashapa Earrings (Bind on Pickup)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Equip",
+  "recipe": [
+    "Soul Ruler Kashapa (Lv. 45) in Verteron or Altgard."
+  ],
+  "id": "310330076",
+  "name": "Kashapa Ring (Bind on Equip)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Kashapa's Loot Chest (Bound)."
+  ],
+  "id": "310330107",
+  "name": "Kashapa Ring (Bind on Pickup)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
