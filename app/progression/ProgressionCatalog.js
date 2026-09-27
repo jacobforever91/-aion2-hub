@@ -70,7 +70,7 @@ function PetsCatalog() {
   return <main className={styles.page + " " + styles.petPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>DAEVEXUS</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <header className={styles.sanctuaryHeader}><span className={styles.sanctuaryEyebrow}><PawPrint/> DAEVEXUS · PETS</span><h1>Bond Sanctuary</h1><p>Meet the companions of Atreia. Explore their recorded growth and choose one to feature in your sanctuary.</p></header>
+      <header className={styles.sanctuaryHeader}><span className={styles.sanctuaryEyebrow}><PawPrint/> DAEVEXUS · PETS</span><h1>Bond Sanctuary</h1></header>
       <section className={styles.catalog+" "+styles.sanctuaryCatalog} aria-label="Pet sanctuary">
         {selected?<>
           <article className={styles.sanctuaryHero} style={{"--pet-accent":genusColors[selected.genus]||"#d8b975"}}>
