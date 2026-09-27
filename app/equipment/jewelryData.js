@@ -7641,6 +7641,78 @@ const jewels = [
   "pool": "ring:wise-splendent",
   "sell": "44,849 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "54",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 33, Defense 132; Exceed to +1: Attack 5, Defense 13, Damage Boost 0.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Krao Cave: Accessory Selection Chest (Bound).",
+    "Berk Accessory Selection Chest (Bound)."
+  ],
+  "id": "310130049",
+  "name": "Berk Necklace",
+  "category": "Necklace",
+  "attack": "95",
+  "defense": "229",
+  "pool": "neck:dragon-true",
+  "sell": "30,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "54",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 33, Defense 132; Exceed to +1: Attack 5, Defense 13, Damage Boost 0.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Krao Cave: Accessory Selection Chest (Bound).",
+    "Berk Accessory Selection Chest (Bound)."
+  ],
+  "id": "310230051",
+  "name": "Berk Earrings",
+  "category": "Earring",
+  "attack": "80",
+  "defense": "191",
+  "pool": "ear:dragon-true",
+  "sell": "30,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "54",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 33, Defense 132; Exceed to +1: Attack 5, Defense 13, Damage Boost 0.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Krao Cave: Accessory Selection Chest (Bound).",
+    "Berk Accessory Selection Chest (Bound)."
+  ],
+  "id": "310330051",
+  "name": "Berk Ring",
+  "category": "Ring",
+  "attack": "64",
+  "defense": "153",
+  "pool": "ring:dragon-true",
+  "sell": "30,000 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
