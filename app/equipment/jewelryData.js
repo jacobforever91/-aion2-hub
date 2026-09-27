@@ -1,4 +1,198 @@
 const imprintPools = {
+"neck:argo": [
+  [
+    "Combat Speed",
+    "3.03% ~ 3.55%"
+  ],
+  [
+    "Might",
+    "9 ~ 17"
+  ],
+  [
+    "Precision",
+    "9 ~ 17"
+  ],
+  [
+    "Intelligence",
+    "12 ~ 21"
+  ],
+  [
+    "Flight Power",
+    "25,200 ~ 28,987"
+  ],
+  [
+    "Attack",
+    "22 ~ 32"
+  ],
+  [
+    "Critical Hit",
+    "33 ~ 45"
+  ],
+  [
+    "Accuracy",
+    "45 ~ 59"
+  ],
+  [
+    "Defense",
+    "262 ~ 308"
+  ],
+  [
+    "Evasion",
+    "26 ~ 37"
+  ],
+  [
+    "Critical Hit Resist",
+    "47 ~ 61"
+  ],
+  [
+    "Block",
+    "27 ~ 38"
+  ],
+  [
+    "MP",
+    "100 ~ 122"
+  ],
+  [
+    "HP",
+    "202 ~ 239"
+  ],
+  [
+    "Natural MP Regen",
+    "24 ~ 35"
+  ],
+  [
+    "Natural HP Regen",
+    "47 ~ 61"
+  ]
+],
+"ear:argo": [
+  [
+    "Move Speed",
+    "4.5% ~ 5.25%"
+  ],
+  [
+    "Might",
+    "7 ~ 15"
+  ],
+  [
+    "Precision",
+    "7 ~ 15"
+  ],
+  [
+    "Intelligence",
+    "10 ~ 19"
+  ],
+  [
+    "Flight Power",
+    "21,600 ~ 24,847"
+  ],
+  [
+    "Attack",
+    "18 ~ 28"
+  ],
+  [
+    "Critical Hit",
+    "28 ~ 39"
+  ],
+  [
+    "Accuracy",
+    "38 ~ 51"
+  ],
+  [
+    "Defense",
+    "225 ~ 266"
+  ],
+  [
+    "Evasion",
+    "22 ~ 32"
+  ],
+  [
+    "Critical Hit Resist",
+    "40 ~ 53"
+  ],
+  [
+    "Block",
+    "23 ~ 33"
+  ],
+  [
+    "MP",
+    "86 ~ 106"
+  ],
+  [
+    "HP",
+    "173 ~ 206"
+  ],
+  [
+    "Natural MP Regen",
+    "20 ~ 30"
+  ],
+  [
+    "Natural HP Regen",
+    "40 ~ 53"
+  ]
+],
+"ring:argo": [
+  [
+    "Might",
+    "5 ~ 13"
+  ],
+  [
+    "Precision",
+    "5 ~ 13"
+  ],
+  [
+    "Intelligence",
+    "9 ~ 17"
+  ],
+  [
+    "Flight Power",
+    "18,000 ~ 20,707"
+  ],
+  [
+    "Attack",
+    "15 ~ 24"
+  ],
+  [
+    "Critical Hit",
+    "24 ~ 35"
+  ],
+  [
+    "Accuracy",
+    "32 ~ 44"
+  ],
+  [
+    "Defense",
+    "187 ~ 222"
+  ],
+  [
+    "Evasion",
+    "18 ~ 28"
+  ],
+  [
+    "Critical Hit Resist",
+    "33 ~ 45"
+  ],
+  [
+    "Block",
+    "19 ~ 29"
+  ],
+  [
+    "MP",
+    "72 ~ 90"
+  ],
+  [
+    "HP",
+    "144 ~ 173"
+  ],
+  [
+    "Natural MP Regen",
+    "17 ~ 27"
+  ],
+  [
+    "Natural HP Regen",
+    "33 ~ 45"
+  ]
+],
   "neck:rare": [
     [
       "Combat Speed",
@@ -8305,6 +8499,71 @@ const jewels = [
   "recipe": [
     "Kaira's Merit Chest: Epic (Bound); Kaira's Merit Chest: Rare (Bound); Kaira's Merit Chest (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound).",
     "Watcher Kaira (Lv. 65) or Executor Kaira (Lv. 65) in Chaotic Lower Reshanta."
+  ]
+},
+{
+  "grade": "Unique",
+  "level": "66",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 40, Defense 162; Exceed to +1: Attack 6, Defense 16, Damage Boost 0.5%",
+  "id": "310130067",
+  "name": "Argo Necklace",
+  "category": "Necklace",
+  "attack": "117",
+  "defense": "281",
+  "pool": "neck:argo",
+  "sell": "4,823 Gold",
+  "skills": "defensive",
+  "recipe": [
+    "Argo's Merit Chest: Epic (Bound); Argo's Merit Chest: Rare (Bound); Argo's Merit Chest (Bound); Argo's Merit Chest: Unique (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound)."
+  ]
+},
+{
+  "grade": "Unique",
+  "level": "66",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 40, Defense 162; Exceed to +1: Attack 6, Defense 16, Damage Boost 0.5%",
+  "id": "310230069",
+  "name": "Argo Earrings",
+  "category": "Earring",
+  "attack": "98",
+  "defense": "234",
+  "pool": "ear:argo",
+  "sell": "3,859 Gold",
+  "skills": "defensive",
+  "recipe": [
+    "Argo, the Spirit King (Lv. 65) or Executor Argo (Lv. 65) in Chaotic Lower Reshanta.",
+    "Argo's Merit Chest: Epic (Bound); Argo's Merit Chest: Rare (Bound); Argo's Merit Chest (Bound); Argo's Merit Chest: Unique (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound)."
+  ]
+},
+{
+  "grade": "Unique",
+  "level": "66",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 40, Defense 162; Exceed to +1: Attack 6, Defense 16, Damage Boost 0.5%",
+  "id": "310330069",
+  "name": "Argo Ring",
+  "category": "Ring",
+  "attack": "78",
+  "defense": "187",
+  "pool": "ring:argo",
+  "sell": "2,894 Gold",
+  "skills": "offensive",
+  "recipe": [
+    "Argo, the Spirit King (Lv. 65) or Executor Argo (Lv. 65) in Chaotic Lower Reshanta.",
+    "Argo's Merit Chest: Epic (Bound); Argo's Merit Chest: Rare (Bound); Argo's Merit Chest (Bound); Argo's Merit Chest: Unique (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound)."
   ]
 }
 ];
