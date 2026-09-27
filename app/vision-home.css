@@ -937,3 +937,5 @@
 .equipmentSceneControls svg{width:17px;height:17px}
 .equipmentSceneControls>span{min-width:150px;text-align:center;font:400 15px Georgia,serif}
 .equipmentSceneControls small{display:block;margin-bottom:3px;font:600 8px system-ui,sans-serif;letter-spacing:1.3px;color:#9eb5c5}
+
+@media(min-width:1280px){.equipmentSceneControls{margin-right:0;margin-left:auto}}
