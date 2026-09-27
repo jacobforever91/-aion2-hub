@@ -77,7 +77,7 @@ function PetsCatalog() {
             <div className={styles.sanctuaryArtwork+(selected.id==="1004"?" "+styles.fossaArtwork:"")}>
               <div className={styles.sanctuarySigil}><PawPrint/></div>
               {activeId===selected.id&&<span className={styles.activePetBadge}><Check/> FEATURED COMPANION</span>}
-              {selected.id==="1004"?<img className={styles.fossaHeroArt} src="/pets/fossa-sanctuary.webp" alt="Fossa, a white and blue spirit companion in a moonlit sanctuary" decoding="async"/>:petIcons[selected.id]?<img className={styles.catalogHeroArt} src={petIcons[selected.id]} alt={selected.name+" companion"} decoding="async"/>:<PawPrint className={styles.sanctuaryFallback} aria-hidden="true"/>}
+              {selected.id==="1004"?<img className={styles.fossaHeroArt} src="/pets/fossa-sanctuary-panorama.webp" alt="Fossa in the moonlit floating-island sanctuary" decoding="async"/>:petIcons[selected.id]?<img className={styles.catalogHeroArt} src={petIcons[selected.id]} alt={selected.name+" companion"} decoding="async"/>:<PawPrint className={styles.sanctuaryFallback} aria-hidden="true"/>}
               <span className={styles.artworkCaption}>COMPANION {selected.id}</span>
             </div>
             <div className={styles.sanctuaryInfo}>
