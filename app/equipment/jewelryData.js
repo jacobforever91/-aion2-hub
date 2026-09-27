@@ -7851,6 +7851,81 @@ const jewels = [
   "pool": "ring:tribunus",
   "sell": "55,000 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Guardian Lord Nahma (Lv. 65), world boss in Chaotic Lower Reshanta.",
+    "Enraged Guardian Lord Nahma (Lv. 80), world boss.",
+    "Nahma's Exquisite Merit Chest: Unique (Bound).",
+    "Nahma's Merit Chests: Unique, Epic, Rare, or standard (Bound).",
+    "Enraged Nahma's Merit Chests: Unique, Epic, or Rare (Bound)."
+  ],
+  "id": "310130039",
+  "name": "Guardian Lord Nahma Necklace",
+  "category": "Necklace",
+  "attack": "153",
+  "defense": "367",
+  "pool": "neck:tribunus",
+  "sell": "16,293 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Guardian Lord Nahma (Lv. 65), world boss in Chaotic Lower Reshanta.",
+    "Enraged Guardian Lord Nahma (Lv. 80), world boss.",
+    "Nahma's Exquisite Merit Chest: Unique (Bound).",
+    "Nahma's Merit Chests: Unique, Epic, Rare, or standard (Bound).",
+    "Enraged Nahma's Merit Chests: Unique, Epic, or Rare (Bound)."
+  ],
+  "id": "310230039",
+  "name": "Guardian Lord Nahma Earrings",
+  "category": "Earring",
+  "attack": "128",
+  "defense": "306",
+  "pool": "ear:tribunus",
+  "sell": "13,035 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "86",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+  "recipe": [
+    "Guardian Lord Nahma (Lv. 65), world boss in Chaotic Lower Reshanta.",
+    "Enraged Guardian Lord Nahma (Lv. 80), world boss.",
+    "Nahma's Exquisite Merit Chest: Unique (Bound).",
+    "Nahma's Merit Chests: Unique, Epic, Rare, or standard (Bound).",
+    "Enraged Nahma's Merit Chests: Unique, Epic, or Rare (Bound)."
+  ],
+  "id": "310330039",
+  "name": "Guardian Lord Nahma Ring",
+  "category": "Ring",
+  "attack": "102",
+  "defense": "245",
+  "pool": "ring:tribunus",
+  "sell": "9,776 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
