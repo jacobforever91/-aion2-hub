@@ -16,9 +16,11 @@ export default function PetSanctuary() {
   const [level,setLevel]=useState("3");
   const [expanded,setExpanded]=useState(true);
   const [sourceOpen,setSourceOpen]=useState(false);
+  const [scenesOnly,setScenesOnly]=useState(false);
+  const readyPets=catalog.pets.filter(p=>petScenes[p.id]);
   const rail=useRef(null);
   const dialog=useRef(null);
-  const visible=useMemo(()=>catalog.pets.filter(p=>(!group||p.genus===group)&&(!query||`${p.name} ${p.genus}`.toLowerCase().includes(query.toLowerCase()))),[group,query]);
+  const visible=useMemo(()=>catalog.pets.filter(p=>(!scenesOnly||petScenes[p.id])&&(!group||p.genus===group)&&(!query||`${p.name} ${p.genus}`.toLowerCase().includes(query.toLowerCase()))),[group,query,scenesOnly]);
   const selected=catalog.pets.find(p=>p.id===selectedId)||catalog.pets[0];
   const details=catalog.petDetails[selected.id];
   const scene=petScenes[selected.id];
@@ -26,9 +28,10 @@ export default function PetSanctuary() {
   const stats=row?details.baseStats.columns.slice(1).map((label,i)=>[label,row[i+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const summon=details?.fields?.find(([label])=>label==="Souls to summon")?.[1];
   useEffect(()=>{try{setActiveId(localStorage.getItem("daevexus-pets-active")||"")}catch{}},[]);
-  useEffect(()=>{rail.current?.scrollTo({left:0});},[query,group]);
+  useEffect(()=>{rail.current?.scrollTo({left:0});},[query,group,scenesOnly]);
   useEffect(()=>{if(sourceOpen)dialog.current?.showModal();else dialog.current?.close();},[sourceOpen]);
   function activate(){setActiveId(selected.id);try{localStorage.setItem("daevexus-pets-active",selected.id)}catch{}}
+  function reviewScene(direction){const index=readyPets.findIndex(p=>p.id===selectedId);const next=index<0?(direction>0?0:readyPets.length-1):(index+direction+readyPets.length)%readyPets.length;setSelectedId(readyPets[next].id);}
   function scroll(direction){rail.current?.scrollBy({left:direction*rail.current.clientWidth*.75,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});}
   return <main className={styles.page}>
     <header className={styles.header}>
@@ -38,6 +41,12 @@ export default function PetSanctuary() {
       <button className={styles.reference} onClick={()=>setSourceOpen(true)}>Reference info</button>
     </header>
     <section className={styles.scene} aria-label="Pet sanctuary">
+      <div role="group" className={styles.sceneReview} aria-label="Review sanctuary scenes">
+        <button onClick={()=>reviewScene(-1)} aria-label="Previous scene"><ChevronLeft size={16}/></button>
+        <span aria-live="polite">{scene?`${readyPets.findIndex(p=>p.id===selectedId)+1} / ${readyPets.length} scenes`:"Scene coming soon"}</span>
+        <button onClick={()=>reviewScene(1)} aria-label="Next scene"><ChevronRight size={16}/></button>
+        <button className={styles.readyFilter} aria-pressed={scenesOnly} onClick={()=>setScenesOnly(!scenesOnly)}>Scenes ready · {readyPets.length}</button>
+      </div>
       <div className={styles.artwork}>
         {scene?<img key={scene.src} className={styles.panorama} src={scene.src} style={{"--scene-position":scene.position,"--scene-mobile-position":scene.mobilePosition||"center 35%"}} fetchPriority="high" alt={scene.alt}/>:<div className={styles.otherPet}>{icons[selected.id]?<img src={icons[selected.id]} alt={selected.name+" companion"}/>:<PawPrint size={100}/>}</div>}
       </div>
@@ -68,7 +77,7 @@ export default function PetSanctuary() {
         </div>
       </div>
       <div className={styles.rail} ref={rail}>{visible.map(p=><button key={p.id} className={styles.pet} aria-pressed={selectedId===p.id} onClick={()=>setSelectedId(p.id)}><span className={styles.portrait}>{icons[p.id]?<img src={icons[p.id]} alt="" loading="lazy"/>:<PawPrint size={28}/>} {activeId===p.id&&<Check className={styles.featured} size={14} aria-label="Featured companion"/>}</span><strong>{p.name}</strong><small>{p.genus}</small></button>)}</div>
-      {!visible.length&&<div className={styles.empty}>No companions match. <button onClick={()=>{setQuery("");setGroup("")}}>Clear filters</button></div>}
+      {!visible.length&&<div className={styles.empty}>No companions match. <button onClick={()=>{setQuery("");setGroup("");setScenesOnly(false)}}>Clear filters</button></div>}
     </section>
     <dialog ref={dialog} className={styles.dialog} onCancel={()=>setSourceOpen(false)} onClose={()=>setSourceOpen(false)} onClick={e=>{if(e.target===e.currentTarget)setSourceOpen(false)}}>
       <div className={styles.dialogHeading}><h2>{selected.name} · record</h2><button aria-label="Close reference info" onClick={()=>setSourceOpen(false)}><X size={20}/></button></div>
