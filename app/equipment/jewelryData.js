@@ -7989,6 +7989,132 @@ const jewels = [
   "pool": "ring:tribunus",
   "sell": "55,000 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Silent Dartan (Lv. 70) world boss in Verteron or Altgard."
+  ],
+  "id": "310130061",
+  "name": "Dartan Necklace (Bind on Equip)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Dartan's Loot Chest (Bound)."
+  ],
+  "id": "310130101",
+  "name": "Dartan Necklace (Bind on Pickup)",
+  "category": "Necklace",
+  "attack": "81",
+  "defense": "194",
+  "pool": "neck:fallen-ancient",
+  "sell": "1,428 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Silent Dartan (Lv. 45) world boss in Verteron or Altgard."
+  ],
+  "id": "310230063",
+  "name": "Dartan Earrings (Bind on Equip)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Dartan's Loot Chest (Bound)."
+  ],
+  "id": "310230103",
+  "name": "Dartan Earrings (Bind on Pickup)",
+  "category": "Earring",
+  "attack": "68",
+  "defense": "162",
+  "pool": "ear:fallen-ancient",
+  "sell": "1,143 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Silent Dartan (Lv. 45) world boss in Verteron or Altgard."
+  ],
+  "id": "310330063",
+  "name": "Dartan Ring (Bind on Equip)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "46",
+  "required": "40",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 28, Defense 112",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Dartan's Loot Chest (Bound)."
+  ],
+  "id": "310330103",
+  "name": "Dartan Ring (Bind on Pickup)",
+  "category": "Ring",
+  "attack": "54",
+  "defense": "130",
+  "pool": "ring:fallen-ancient",
+  "sell": "857 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
