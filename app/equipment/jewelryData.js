@@ -7227,6 +7227,72 @@ const jewels = [
     "pool": "ring:centurion",
     "sell": "13,276 Gold",
     "skills": "offensive"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130022",
+    "name": "Splendent Dark Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "153",
+    "defense": "367",
+    "pool": "neck:dragon-white-splendent",
+    "sell": "43,504 Gold",
+    "skills": "defensive"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230022",
+    "name": "Splendent Dark Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "128",
+    "defense": "306",
+    "pool": "ear:dragon-white-splendent",
+    "sell": "34,803 Gold",
+    "skills": "defensive"
+  },
+  {
+    "grade": "Unique",
+    "level": "86",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 52, Defense 212; Exceed to +5: Attack 35, Defense 103, Damage Boost 2.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330022",
+    "name": "Splendent Dark Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "102",
+    "defense": "245",
+    "pool": "ring:dragon-white-splendent",
+    "sell": "26,102 Gold",
+    "skills": "offensive"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
