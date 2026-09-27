@@ -1,5 +1,17 @@
 // Individual sanctuary illustrations; pets without a scene retain their reference portrait.
 const petScenes = {
+  "1006": {src:"/pets/sparkie-emerald.webp",alt:"Sparkie on a rain-soaked jungle canopy branch",position:"center 42%",mobilePosition:"35% 35%"},
+  "1007": {src:"/pets/potcrab-tidepool.webp",alt:"Potcrab in a sunlit coastal tide pool",position:"center 42%",mobilePosition:"center 35%"},
+  "1008": {src:"/pets/baby-spider-fern.webp",alt:"Baby Odyle Spider on a dew-covered fern web",position:"center 42%",mobilePosition:"center 35%"},
+  "1009": {src:"/pets/kernon-ice-lake.webp",alt:"Kernon on a frozen lake at pink dawn",position:"center 42%",mobilePosition:"center 35%"},
+  "1010": {src:"/pets/manduri-arena.webp",alt:"Manduri Fighter in a ruined jungle arena",position:"center 42%",mobilePosition:"center 35%"},
+  "1011": {src:"/pets/skyray-cloud-canyon.webp",alt:"Skyray above a cloud-filled sandstone canyon",position:"center 42%",mobilePosition:"center 35%"},
+  "1012": {src:"/pets/fungie-orchard.webp",alt:"Fungie in an apple orchard in the rain",position:"center 42%",mobilePosition:"center 35%"},
+  "1013": {src:"/pets/swarm-meteor.webp",alt:"Swarm inside a star-lit meteor crater",position:"center 42%",mobilePosition:"35% 35%"},
+  "1014": {src:"/pets/guard-dog-fortress.webp",alt:"Drakan Guard Dog outside an iron fortress in the rain",position:"center 42%",mobilePosition:"35% 35%"},
+  "1015": {src:"/pets/kailin-coast.webp",alt:"Kailin on a white chalk coastal cliff",position:"center 42%",mobilePosition:"35% 35%"},
+  "1016": {src:"/pets/slink-reeds.webp",alt:"Slink in a papyrus river delta at sunset",position:"center 42%",mobilePosition:"35% 35%"},
+  "1017": {src:"/pets/warshaman-camp.webp",alt:"Krall Warshaman in an ashen ritual camp",position:"center 42%",mobilePosition:"center 35%"},
   "1111": {src:"/pets/swift-lugi-autumn.webp",alt:"Swift Lugi crossing a golden autumn birch valley",position:"center 42%",mobilePosition:"40% 35%"},
   "1112": {src:"/pets/merchant-lugi-oasis.webp",alt:"Wandering Merchant Lugi resting in a sunlit desert caravan courtyard",position:"center 42%",mobilePosition:"center 35%"},
   "1245": {src:"/pets/kumiho-blue-flame.webp",alt:"Azure Flame Kumiho beside blue spirit flames in a tidal shrine",position:"center 42%",mobilePosition:"30% 35%"},
