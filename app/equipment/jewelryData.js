@@ -3766,7 +3766,10 @@ const imprintPools = {
       "Natural HP Regen",
       "38 ~ 51"
     ]
-  ]
+  ],
+"neck:wise-splendent": [["Combat Speed","3.74% ~ 4.37%"],["Might","11 ~ 20"],["Precision","11 ~ 20"],["Intelligence","15 ~ 24"],["Flight Power","31,080 ~ 35,749"],["Attack","27 ~ 38"],["Critical Hit","41 ~ 54"],["Accuracy","55 ~ 70"],["Defense","323 ~ 378"],["Evasion","32 ~ 44"],["Critical Hit Resist","58 ~ 74"],["Block","33 ~ 45"],["MP","124 ~ 150"],["HP","249 ~ 293"],["Natural MP Regen","29 ~ 40"],["Natural HP Regen","58 ~ 74"]],
+"ear:wise-splendent": [["Move Speed","5.55% ~ 6.45%"],["Might","8 ~ 16"],["Precision","8 ~ 16"],["Intelligence","13 ~ 22"],["Flight Power","26,640 ~ 30,643"],["Attack","23 ~ 33"],["Critical Hit","35 ~ 47"],["Accuracy","47 ~ 61"],["Defense","277 ~ 326"],["Evasion","27 ~ 38"],["Critical Hit Resist","49 ~ 63"],["Block","28 ~ 39"],["MP","106 ~ 129"],["HP","214 ~ 253"],["Natural MP Regen","25 ~ 36"],["Natural HP Regen","49 ~ 63"]],
+"ring:wise-splendent": [["Might","6 ~ 14"],["Precision","6 ~ 14"],["Intelligence","11 ~ 20"],["Flight Power","22,200 ~ 25,537"],["Attack","19 ~ 29"],["Critical Hit","29 ~ 40"],["Accuracy","39 ~ 52"],["Defense","231 ~ 273"],["Evasion","23 ~ 33"],["Critical Hit Resist","41 ~ 54"],["Block","24 ~ 35"],["MP","88 ~ 108"],["HP","178 ~ 212"],["Natural MP Regen","21 ~ 31"],["Natural HP Regen","41 ~ 54"]]
 };
 const skillPools = {
   "defensive": [
@@ -7425,7 +7428,73 @@ const jewels = [
     "pool": "ring:tribunus",
     "sell": "22,810 Gold",
     "skills": "offensive"
-  }
+  },
+{
+  "grade": "Unique",
+  "level": "102",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "faction": "Elyos",
+  "sockets": "4",
+  "imprintSlots": "5",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 62, Defense 251; Exceed to +5: Attack 41, Defense 122, Damage Boost 2.5%",
+  "recipe": [
+    "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+  ],
+  "id": "310130040",
+  "name": "Splendent Wise Dragon Lord Necklace",
+  "category": "Necklace",
+  "attack": "182",
+  "defense": "436",
+  "pool": "neck:wise-splendent",
+  "sell": "74,747 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "102",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "faction": "Elyos",
+  "sockets": "4",
+  "imprintSlots": "5",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 62, Defense 251; Exceed to +5: Attack 41, Defense 122, Damage Boost 2.5%",
+  "recipe": [
+    "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+  ],
+  "id": "310230040",
+  "name": "Splendent Wise Dragon Lord Earrings",
+  "category": "Earring",
+  "attack": "152",
+  "defense": "364",
+  "pool": "ear:wise-splendent",
+  "sell": "59,798 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "102",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "faction": "Elyos",
+  "sockets": "4",
+  "imprintSlots": "5",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 62, Defense 251; Exceed to +5: Attack 41, Defense 122, Damage Boost 2.5%",
+  "recipe": [
+    "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+  ],
+  "id": "310330040",
+  "name": "Splendent Wise Dragon Lord Ring",
+  "category": "Ring",
+  "attack": "121",
+  "defense": "291",
+  "pool": "ring:wise-splendent",
+  "sell": "44,849 Gold",
+  "skills": "offensive"
+}
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 
