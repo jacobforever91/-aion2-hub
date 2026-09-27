@@ -5,6 +5,7 @@ import Link from "next/link";
 import {ArrowLeft, Check, ChevronLeft, ChevronRight, Heart, Minus, PawPrint, Plus, Search, X} from "lucide-react";
 import catalog from "./catalogData.json";
 import icons from "./petIcons.json";
+import petScenes from "./petScenes";
 import styles from "./petSanctuary.module.css";
 
 export default function PetSanctuary() {
@@ -20,6 +21,7 @@ export default function PetSanctuary() {
   const visible=useMemo(()=>catalog.pets.filter(p=>(!group||p.genus===group)&&(!query||`${p.name} ${p.genus}`.toLowerCase().includes(query.toLowerCase()))),[group,query]);
   const selected=catalog.pets.find(p=>p.id===selectedId)||catalog.pets[0];
   const details=catalog.petDetails[selected.id];
+  const scene=petScenes[selected.id];
   const row=details?.baseStats?.rows?.find(r=>String(r[0])===level);
   const stats=row?details.baseStats.columns.slice(1).map((label,i)=>[label,row[i+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const summon=details?.fields?.find(([label])=>label==="Souls to summon")?.[1];
@@ -37,7 +39,7 @@ export default function PetSanctuary() {
     </header>
     <section className={styles.scene} aria-label="Pet sanctuary">
       <div className={styles.artwork}>
-        {selected.id==="1004"?<img className={styles.panorama} src="/pets/fossa-sanctuary-refined.png" width="1672" height="941" fetchPriority="high" alt="Fossa in the moonlit floating-island sanctuary"/>:<div className={styles.otherPet}>{icons[selected.id]?<img src={icons[selected.id]} alt={selected.name+" companion"}/>:<PawPrint size={100}/>}</div>}
+        {scene?<img key={scene.src} className={styles.panorama} src={scene.src} style={{"--scene-position":scene.position,"--scene-mobile-position":scene.mobilePosition||"center 35%"}} fetchPriority="high" alt={scene.alt}/>:<div className={styles.otherPet}>{icons[selected.id]?<img src={icons[selected.id]} alt={selected.name+" companion"}/>:<PawPrint size={100}/>}</div>}
       </div>
       <div className={styles.content}>
         <div className={styles.identity} aria-live="polite">
@@ -70,6 +72,7 @@ export default function PetSanctuary() {
     </section>
     <dialog ref={dialog} className={styles.dialog} onCancel={()=>setSourceOpen(false)} onClose={()=>setSourceOpen(false)} onClick={e=>{if(e.target===e.currentTarget)setSourceOpen(false)}}>
       <div className={styles.dialogHeading}><h2>{selected.name} · record</h2><button aria-label="Close reference info" onClick={()=>setSourceOpen(false)}><X size={20}/></button></div>
+      {scene&&<p>Sanctuary artwork: a creative recreation inspired by the companion reference icon.</p>}
       {details?.fields?.length>0&&<dl>{details.fields.map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
       {details?.tameFrom?.length>0&&<><h3>Recorded sources</h3><ul>{details.tameFrom.map((source,i)=><li key={i}>{source}</li>)}</ul></>}
       <p>Pet names, groups and growth values come from the AION2.app community reference, game client snapshot 2026-09-18. This is not an official DAEVEXUS or NCSOFT source; Global values may differ.</p>
