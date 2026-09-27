@@ -8817,6 +8817,49 @@ const jewels = [
   "pool": "ring:fallen-ancient",
   "sell": "857 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Epic",
+  "level": "38",
+  "required": "35",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 15, Defense 62",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Party Dungeon.",
+    "Fire Temple Accessory Selection Chest (Bound)."
+  ],
+  "id": "310140024",
+  "name": "Silent Necklace",
+  "category": "Necklace",
+  "attack": "67",
+  "defense": "160",
+  "pool": "neck:vowed",
+  "sell": "509 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "40",
+  "required": "37",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 16, Defense 65",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Party Dungeon."
+  ],
+  "id": "310140025",
+  "name": "Lakshmi Necklace",
+  "category": "Necklace",
+  "attack": "70",
+  "defense": "169",
+  "pool": "neck:pact",
+  "sell": "583 Gold",
+  "skills": "defensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
