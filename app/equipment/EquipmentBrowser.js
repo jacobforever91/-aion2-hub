@@ -7,6 +7,14 @@ import EquipmentSlotIcon from "./EquipmentSlotIcon";
 import progressionData from "../progression/catalogData.json";
 import {classList} from "../classes/classData";
 
+const equipmentScenes = [
+  {name: "Crystal Citadel", src: "/daevexus/equipment-wallpaper.webp"},
+  {name: "Moonlit Sanctuary", src: "/daevexus/scenes/moon.webp"},
+  {name: "Celestial Garden", src: "/daevexus/scenes/garden.webp"},
+  {name: "Aurora Palace", src: "/daevexus/scenes/aurora.webp"},
+  {name: "Divine Forge", src: "/daevexus/scenes/forge.webp"},
+];
+
 const grades = ["All rarities", "Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"];
 const weaponTypeOrder = ["Greatsword", "Longsword", "Dagger", "Bow", "Spellbook", "Orb", "Mace", "Staff", "Guard"];
 const categories = [
@@ -150,6 +158,8 @@ function EquipmentModal({item, region, onClose}) {
 }
 
 export default function EquipmentBrowser() {
+  const [sceneIndex, setSceneIndex] = useState(1);
+  const scene = equipmentScenes[sceneIndex];
   const [region, setRegion] = useState("GLOBAL");
   const [selectedClass, setSelectedClass] = useState("gladiator");
   const [categoryId, setCategoryId] = useState("weapons");
@@ -400,7 +410,7 @@ export default function EquipmentBrowser() {
     <div>{stats.map(({label, value, suffix}) => <div key={`${label}|${suffix}`}><span>{label}</span><strong>{formatStatValue(value)}{suffix}</strong></div>)}</div>
   </section>);
 
-  return <main className="classPage equipmentBrowsePage generalEquipmentPage">
+  return <main className="classPage equipmentBrowsePage generalEquipmentPage" style={{"--equipment-scene": `url("${scene.src}")`}}>
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
       <div className="equipmentTopline">
@@ -410,10 +420,15 @@ export default function EquipmentBrowser() {
         </div>
       </div>
 
+      <div className="equipmentSceneControls" role="group" aria-label="Daeva scenery">
+        <button type="button" aria-label="Previous Daeva scene" onClick={() => setSceneIndex((index) => (index - 1 + equipmentScenes.length) % equipmentScenes.length)}><ChevronLeft aria-hidden="true"/></button>
+        <span aria-live="polite"><small>DAEVA · {sceneIndex + 1} / {equipmentScenes.length}</small>{scene.name}</span>
+        <button type="button" aria-label="Next Daeva scene" onClick={() => setSceneIndex((index) => (index + 1) % equipmentScenes.length)}><ChevronRight aria-hidden="true"/></button>
+      </div>
       <div className="equipmentAtlasLayout">
         <aside className="equipmentAtlas" aria-label="Equipment loadout atlas">
           <div className="equipmentAtlasHalo"/>
-          <div className="equipmentAtlasFigure hasDaevaArt"><img className="equipmentAtlasDaevaArt" src="/daevexus/equipment-sanctum-daeva.png" alt="Daeva integrada en el santuario" onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/></div>
+          <div className="equipmentAtlasFigure hasDaevaArt"><img className="equipmentAtlasDaevaArt" src={scene.src} alt={"Daeva in " + scene.name} onError={(event)=>{event.currentTarget.style.display="none";event.currentTarget.parentElement?.classList.remove("hasDaevaArt")}}/></div>
           <div className="equipmentAtlasSide isLeft">{atlasLeft.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasSide isRight">{atlasRight.map(renderAtlasSlot)}</div>
           <div className="equipmentAtlasActions">

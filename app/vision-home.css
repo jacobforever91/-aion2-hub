@@ -322,7 +322,7 @@
     background-image:
       linear-gradient(rgba(3,8,18,.18),rgba(3,8,18,.18)),
       radial-gradient(ellipse 86% 92% at 50% 44%,transparent 38%,rgba(3,8,18,.12) 70%,rgba(3,8,18,.5) 100%),
-      url('/daevexus/equipment-wallpaper.webp');
+      var(--equipment-scene, url('/daevexus/equipment-wallpaper.webp'));
     background-position:center,center,center;
     background-size:cover;
     background-repeat:no-repeat;
@@ -928,3 +928,12 @@
   .classSkillDetailsTitle h2{font-size:24px}
   .classSkillDetailsList{grid-template-columns:minmax(0,1fr)}
 }
+
+/* Manual scenery selection preserves the current equipment and filters. */
+.equipmentSceneControls{display:flex;align-items:center;justify-content:center;gap:12px;margin:0 auto 14px;width:fit-content;max-width:100%;padding:5px;border:1px solid #9a855955;border-radius:9px;background:#06101ee8;color:#eee4ca}
+.equipmentSceneControls>button{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid #456376;border-radius:6px;background:#0b2030;color:#e6d4a1;cursor:pointer}
+.equipmentSceneControls>button:hover{background:#193549;border-color:#d9bd78}
+.equipmentSceneControls>button:focus-visible{outline:2px solid #d9bd78;outline-offset:3px}
+.equipmentSceneControls svg{width:17px;height:17px}
+.equipmentSceneControls>span{min-width:150px;text-align:center;font:400 15px Georgia,serif}
+.equipmentSceneControls small{display:block;margin-bottom:3px;font:600 8px system-ui,sans-serif;letter-spacing:1.3px;color:#9eb5c5}
