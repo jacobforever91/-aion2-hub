@@ -5916,6 +5916,66 @@ const jewels = [
       "Radiant Sapphire Gemstone ×3",
       "Radiant Odyle ×2"
     ]
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130026",
+    "name": "Guardian Decanus Necklace",
+    "category": "Necklace",
+    "attack": "110",
+    "defense": "263",
+    "pool": "neck:dragon-true",
+    "sell": "10,512 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "skills": "defensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230026",
+    "name": "Guardian Decanus Earrings",
+    "category": "Earring",
+    "attack": "92",
+    "defense": "220",
+    "pool": "ear:dragon-true",
+    "sell": "8,410 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "62",
+    "required": "40",
+    "binding": "Bind on Pickup",
+    "skills": "offensive",
+    "sockets": "4",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 38, Defense 152; Exceed to +1: Attack 5, Defense 15, Damage Boost 0.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330026",
+    "name": "Guardian Decanus Ring",
+    "category": "Ring",
+    "attack": "73",
+    "defense": "176",
+    "pool": "ring:dragon-true",
+    "sell": "6,308 Gold"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
