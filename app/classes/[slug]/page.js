@@ -9,13 +9,11 @@ export default function ClassDetails() {
   const {slug} = useParams();
 
   return (
-    <main className="classDetailPage">
+    <main className="classPage classSkillExperiencePage">
       <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel">
         <ArrowLeft aria-hidden="true" />
       </Link>
-      <div className="classDetailWrap">
-        <ClassInfo slug={slug} />
-      </div>
+      <ClassInfo slug={slug}/>
     </main>
   );
 }
