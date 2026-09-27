@@ -7713,6 +7713,75 @@ const jewels = [
   "pool": "ring:dragon-true",
   "sell": "30,000 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Urugugu Canyon: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310130050",
+  "name": "Aulamus Necklace",
+  "category": "Necklace",
+  "attack": "124",
+  "defense": "298",
+  "pool": "neck:centurion",
+  "sell": "40,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Urugugu Canyon: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310230052",
+  "name": "Aulamus Earrings",
+  "category": "Earring",
+  "attack": "104",
+  "defense": "249",
+  "pool": "ear:centurion",
+  "sell": "40,000 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Unique",
+  "level": "70",
+  "required": "45",
+  "binding": "Bind on Pickup",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 42, Defense 172; Exceed to +3: Attack 17, Defense 50, Damage Boost 1.5%",
+  "recipe": [
+    "Abyssal Forge: Ludra raid reward.",
+    "Party Dungeon reward (specific dungeon not listed).",
+    "Urugugu Canyon: Accessory Selection Chest (Bound)."
+  ],
+  "id": "310330052",
+  "name": "Aulamus Ring",
+  "category": "Ring",
+  "attack": "83",
+  "defense": "199",
+  "pool": "ring:centurion",
+  "sell": "40,000 Gold",
+  "skills": "offensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
