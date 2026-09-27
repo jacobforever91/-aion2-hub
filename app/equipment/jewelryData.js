@@ -8241,6 +8241,71 @@ const jewels = [
   "pool": "ring:dragon-splendent",
   "sell": "3,097 Gold",
   "skills": "offensive"
+},
+{
+  "grade": "Unique",
+  "level": "56",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 34, Defense 137; Exceed to +1: Attack 5, Defense 14, Damage Boost 0.5%",
+  "id": "310130064",
+  "name": "Kaira Necklace",
+  "category": "Necklace",
+  "attack": "99",
+  "defense": "238",
+  "pool": "neck:dragon-true",
+  "sell": "2,809 Gold",
+  "skills": "defensive",
+  "recipe": [
+    "Kaira's Merit Chest: Epic (Bound); Kaira's Merit Chest: Rare (Bound); Kaira's Merit Chest (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound)."
+  ]
+},
+{
+  "grade": "Unique",
+  "level": "56",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 34, Defense 137; Exceed to +1: Attack 5, Defense 14, Damage Boost 0.5%",
+  "id": "310230066",
+  "name": "Kaira Earrings",
+  "category": "Earring",
+  "attack": "83",
+  "defense": "198",
+  "pool": "ear:dragon-true",
+  "sell": "2,247 Gold",
+  "skills": "defensive",
+  "recipe": [
+    "Kaira's Merit Chest: Epic (Bound); Kaira's Merit Chest: Rare (Bound); Kaira's Merit Chest (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound).",
+    "Watcher Kaira (Lv. 65) or Executor Kaira (Lv. 65) in Chaotic Lower Reshanta."
+  ]
+},
+{
+  "grade": "Unique",
+  "level": "56",
+  "required": "45",
+  "binding": "Bind on Equip",
+  "sockets": "4",
+  "imprintSlots": "4",
+  "enchant": "+15",
+  "upgrade": "At +15: Attack 34, Defense 137; Exceed to +1: Attack 5, Defense 14, Damage Boost 0.5%",
+  "id": "310330066",
+  "name": "Kaira Ring",
+  "category": "Ring",
+  "attack": "66",
+  "defense": "158",
+  "pool": "ring:dragon-true",
+  "sell": "1,685 Gold",
+  "skills": "offensive",
+  "recipe": [
+    "Kaira's Merit Chest: Epic (Bound); Kaira's Merit Chest: Rare (Bound); Kaira's Merit Chest (Bound); Dimensional Merit Chest: Rare (Bound); Dimensional Merit Chest: Epic (Bound); Dimensional Merit Chest: Unique (Bound).",
+    "Watcher Kaira (Lv. 65) or Executor Kaira (Lv. 65) in Chaotic Lower Reshanta."
+  ]
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
