@@ -163,7 +163,7 @@
   .generalEquipmentPage .equipmentAtlasSlotIcon,
   .generalEquipmentPage .equipmentAtlasSlot.isSelected .equipmentAtlasSlotIcon{
     border-radius:6px;
-    border-color:rgba(202,166,91,.88);
+    border-color:rgba(202,166,91,.88)!important;
   }
   .generalEquipmentPage .equipmentAtlasCatalog .equipmentItemCard,
   .generalEquipmentPage .equipmentAtlasCatalog .equipmentItemCard:hover,
@@ -684,7 +684,7 @@
   .generalEquipmentPage .equipmentDesktopTotals>p{display:grid;flex:1;place-items:center;padding:28px 22px;font-size:12px;line-height:1.65;}
 }
 
-/* PC left menu: keep rarity and the weapon list; leave the Daeva's slot buttons untouched. */
+/* PC left menu: keep rarity and the weapon list. */
 .generalEquipmentPage .equipmentWeaponMenuHead{display:none;}
 @media(min-width:1280px){
   .generalEquipmentPage .equipmentAtlasCatalog .equipmentAtlasCategoryGrid{display:none!important;}
@@ -701,4 +701,16 @@
     letter-spacing:.2px;text-transform:none;white-space:nowrap;
   }
   .generalEquipmentPage .equipmentAtlasCatalog .equipmentWeaponSections{margin-top:5px;}
+}
+
+/* PC equipment access: show the return arrow and gold-frame both Daeva side menus. */
+@media(min-width:1280px){
+  .generalEquipmentPage .classBack{display:grid!important;}
+  .generalEquipmentPage .equipmentAtlasSide .equipmentAtlasSlotIcon{
+    border:1px solid rgba(202,166,91,.88)!important;
+    border-radius:6px!important;
+  }
+  .generalEquipmentPage .equipmentAtlasSide .equipmentAtlasSlot.isSelected .equipmentAtlasSlotIcon{
+    border-color:rgba(202,166,91,.98)!important;
+  }
 }

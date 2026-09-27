@@ -156,7 +156,7 @@ export default function EquipmentBrowser() {
   const [showLoadout, setShowLoadout] = useState(false);
   const [loadoutStorageReady, setLoadoutStorageReady] = useState(false);
   const [loadoutNeedsRefresh, setLoadoutNeedsRefresh] = useState(false);
-  const [openWeaponGroups, setOpenWeaponGroups] = useState({});
+  const [openWeaponGroups, setOpenWeaponGroups] = useState(() => Object.fromEntries(weaponTypeOrder.map((type) => [type, true])));
   const [state, setState] = useState("loading");
   const [error, setError] = useState("");
 
@@ -274,11 +274,7 @@ export default function EquipmentBrowser() {
   }, [loadoutStorageReady, loadoutNeedsRefresh, atlasSelection, region]);
 
   useEffect(() => {
-    setOpenWeaponGroups(
-      grade === "All rarities" && !submittedSearch
-        ? {}
-        : Object.fromEntries(weaponTypeOrder.map((type) => [type, true]))
-    );
+    setOpenWeaponGroups(Object.fromEntries(weaponTypeOrder.map((type) => [type, true])));
   }, [categoryId, grade, region, selectedClass, submittedSearch]);
 
   const weaponGroups = categoryId === "weapons"
