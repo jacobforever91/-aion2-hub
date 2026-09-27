@@ -6664,6 +6664,72 @@ const jewels = [
     "defense": "268",
     "pool": "ring:tribunus",
     "sell": "58,575 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130016",
+    "name": "White Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "139",
+    "defense": "333",
+    "pool": "neck:centurion",
+    "sell": "22,126 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "defensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230016",
+    "name": "White Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "116",
+    "defense": "277",
+    "pool": "ear:centurion",
+    "sell": "17,701 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Elyos",
+    "skills": "offensive",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330016",
+    "name": "White Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "92",
+    "defense": "222",
+    "pool": "ring:centurion",
+    "sell": "13,276 Gold"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
