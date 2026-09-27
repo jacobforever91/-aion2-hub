@@ -1,8 +1,8 @@
 "use client";
 
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import Link from "next/link";
-import {ArrowLeft, Search, Feather, Sparkles} from "lucide-react";
+import {ArrowLeft, Search, Feather, Sparkles, PawPrint, Heart, Shield, Activity, Check, ChevronRight} from "lucide-react";
 import styles from "./progression.module.css";
 import catalogData from "./catalogData.json";
 import petIcons from "./petIcons.json";
@@ -56,20 +56,51 @@ function WingsCatalog() {
 function PetsCatalog() {
   const [query,setQuery]=useState("");
   const [genus,setGenus]=useState("All groups");
+  const [selectedId,setSelectedId]=useState("1004");
+  const [activeId,setActiveId]=useState("");
+  const [level,setLevel]=useState("1");
   const groups=["All groups","Fera","Cogni","Natura","Varian","Special"];
   const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||(pet.name+" "+pet.genus).toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
+  const selected=visible.find(pet=>pet.id===selectedId)||visible[0]||null;
+  const details=selected?catalogData.petDetails[selected.id]:null;
+  const levelRow=details?.baseStats?.rows?.find(row=>String(row[0])===level);
+  const stats=levelRow&&details?.baseStats?.columns?details.baseStats.columns.slice(1).map((label,index)=>[label,levelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
+  useEffect(()=>{try{setActiveId(window.localStorage.getItem("daevexus-pets-active")||"")}catch{setActiveId("")}},[]);
+  const setActive=()=>{if(!selected)return;setActiveId(selected.id);try{window.localStorage.setItem("daevexus-pets-active",selected.id)}catch{}}
   return <main className={styles.page + " " + styles.petPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>DAEVEXUS</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <h1 className={styles.petTitle}>Pets</h1><small className={styles.visionTag}>DAEVEXUS · PROGRESSION</small>
-      <section className={styles.catalog} aria-label="Pets">
-        <label className={styles.search + " searchHalo"}><Search aria-hidden="true"/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search pets by name…" aria-label="Search pets by name"/></label>
-        <div className={styles.petTabs} role="group" aria-label="Pet groups">{groups.map(value=><button key={value} type="button" className={styles.petTab + (genus===value?" "+styles.petTabActive:"")} aria-pressed={genus===value} onClick={()=>setGenus(value)}>{value}<span>{value==="All groups"?catalogData.pets.length:catalogData.pets.filter(pet=>pet.genus===value).length}</span></button>)}</div>
-        <div className={styles.count}>{visible.length} of {catalogData.pets.length} pets</div>
-        <div className={styles.petList}>{visible.map(pet=><article key={pet.id} className={styles.item + " " + styles.tierItem} style={{"--tier-color":genusColors[pet.genus]}}><span className={styles.itemIcon + " " + styles.artIcon} aria-hidden="true"><img src={petIcons[pet.id]} alt="" loading="lazy" decoding="async"/></span><span className={styles.itemCopy}><strong>{pet.name}</strong><small>{pet.genus}</small></span></article>)}</div>
-        {!visible.length&&<p className={styles.empty}>No pets match this search.</p>}
+      <header className={styles.sanctuaryHeader}><span className={styles.sanctuaryEyebrow}><PawPrint/> COMPANION ARCHIVE · DAEVEXUS</span><h1>Bond Sanctuary</h1><p>Meet the companions of Atreia. Explore their recorded growth and choose one to feature in your sanctuary.</p></header>
+      <section className={styles.catalog+" "+styles.sanctuaryCatalog} aria-label="Pet sanctuary">
+        <div className={styles.sanctuaryToolbar}><label className={styles.search+" searchHalo"}><Search aria-hidden="true"/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search companions…" aria-label="Search companions by name or group"/></label><span className={styles.sanctuaryTotal}><PawPrint/> {visible.length} <small>/ {catalogData.pets.length}</small></span></div>
+        <div className={styles.petTabs} role="group" aria-label="Filter companions by group">{groups.map(value=><button key={value} type="button" className={styles.petTab+(genus===value?" "+styles.petTabActive:"")} aria-pressed={genus===value} onClick={()=>setGenus(value)}>{value}<span>{value==="All groups"?catalogData.pets.length:catalogData.pets.filter(pet=>pet.genus===value).length}</span></button>)}</div>
+        {selected?<>
+          <article className={styles.sanctuaryHero} style={{"--pet-accent":genusColors[selected.genus]||"#d8b975"}}>
+            <div className={styles.sanctuaryArtwork}>
+              <div className={styles.sanctuarySigil}><PawPrint/></div>
+              {activeId===selected.id&&<span className={styles.activePetBadge}><Check/> FEATURED COMPANION</span>}
+              {petIcons[selected.id]?<img src={petIcons[selected.id]} alt={selected.name+" companion"} decoding="async"/>:<PawPrint className={styles.sanctuaryFallback} aria-hidden="true"/>}
+              <span className={styles.artworkCaption}>COMPANION {selected.id}</span>
+            </div>
+            <div className={styles.sanctuaryInfo}>
+              <span className={styles.sanctuaryKicker}><Sparkles/> {selected.genus.toUpperCase()} · PET RECORD</span>
+              <h2>{selected.name}</h2>
+              <p className={styles.sanctuaryIntro}>A companion recorded in the Atreia reference archive.</p>
+              <div className={styles.sanctuaryFacts}><span><Shield/><small>GROUP</small><strong>{selected.genus}</strong></span><span><Activity/><small>SUMMON COST</small><strong>{details?.fields?.find(([label])=>label==="Souls to summon")?.[1]||"Not listed"} {details?.fields?.some(([label])=>label==="Souls to summon")?"souls":""}</strong></span></div>
+              <button type="button" className={styles.activePetButton+(activeId===selected.id?" "+styles.activePetButtonOn:"")} onClick={setActive} aria-pressed={activeId===selected.id}>{activeId===selected.id?<><Check/> Featured in sanctuary</>:<><Heart/> Set as featured companion</>}</button>
+            </div>
+          </article>
+          <div className={styles.sanctuaryLower}>
+            <section className={styles.sanctuaryStats} aria-label="Companion growth details">
+              <div className={styles.sanctuarySectionHead}><div><span>RECORDED PROGRESSION</span><h3>Growth & traits</h3></div><div className={styles.levelPicker} role="group" aria-label="Select recorded level">{["1","2","3"].map(value=><button key={value} type="button" aria-pressed={level===value} className={level===value?styles.levelActive:""} onClick={()=>setLevel(value)}>Lv. {value}</button>)}</div></div>
+              {stats.length?<div className={styles.sanctuaryStatGrid}>{stats.map(([label,value],index)=><div key={label}><span>{index===0?<Sparkles/>:<Activity/>}{label.replace(/^🔮\s*/,"")}</span><strong>{value}</strong></div>)}</div>:<p className={styles.sanctuaryEmpty}>This reference record does not include level-based stats for this companion.</p>}
+              {details?.tameFrom?.length>0&&<div className={styles.sanctuarySources}><span>RECORDED SOURCES</span><p>{details.tameFrom.slice(0,3).join(" · ")}{details.tameFrom.length>3?` · +${details.tameFrom.length-3} more`:""}</p></div>}
+            </section>
+            <section className={styles.companionRoster} aria-label="Companion roster"><div className={styles.sanctuarySectionHead}><div><span>YOUR DISCOVERY</span><h3>Companion roster</h3></div><span className={styles.rosterCount}>{visible.length} entries</span></div><div className={styles.rosterScroll}>{visible.map(pet=><button key={pet.id} type="button" className={styles.rosterPet+(selected.id===pet.id?" "+styles.rosterPetSelected:"")} onClick={()=>setSelectedId(pet.id)} aria-pressed={selected.id===pet.id} style={{"--pet-accent":genusColors[pet.genus]||"#d8b975"}}><span className={styles.rosterPortrait}>{petIcons[pet.id]?<img src={petIcons[pet.id]} alt="" loading="lazy" decoding="async"/>:<PawPrint/>}{activeId===pet.id&&<i aria-label="Featured"/>}</span><strong>{pet.name}</strong><small>{pet.genus}</small></button>)}</div>{!visible.length&&<p className={styles.sanctuaryEmpty}>No companions match this search.</p>}</section>
+          </div>
+        </>:<p className={styles.sanctuaryEmpty}>No companions match this search.</p>}
       </section>
-      <SourceNote>The {catalogData.pets.length} pet names and groups are indexed locally from the community reference snapshot.</SourceNote>
+      <SourceNote>Companion names, groups, summon details, and growth values come from an independent AION 2 community snapshot; records are not official and may differ from Global.</SourceNote>
     </div>
   </main>;
 }
