@@ -705,7 +705,7 @@
 
 /* PC equipment access: show the return arrow and gold-frame both Daeva side menus. */
 @media(min-width:1280px){
-  .generalEquipmentPage .classBack{display:grid!important;}
+  .generalEquipmentPage .classBack{display:grid!important;top:48px!important;left:18px!important;}
   .generalEquipmentPage .equipmentAtlasSide .equipmentAtlasSlotIcon{
     border:1px solid rgba(202,166,91,.88)!important;
     border-radius:6px!important;
