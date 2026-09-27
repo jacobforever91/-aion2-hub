@@ -7161,6 +7161,72 @@ const jewels = [
     "defense": "199",
     "pool": "ring:dragon-splendent",
     "sell": "15,192 Gold"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310130020",
+    "name": "Dark Dragon Lord Necklace",
+    "category": "Necklace",
+    "attack": "139",
+    "defense": "333",
+    "pool": "neck:centurion",
+    "sell": "22,126 Gold",
+    "skills": "defensive"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310230020",
+    "name": "Dark Dragon Lord Earrings",
+    "category": "Earring",
+    "attack": "116",
+    "defense": "277",
+    "pool": "ear:centurion",
+    "sell": "17,701 Gold",
+    "skills": "defensive"
+  },
+  {
+    "grade": "Unique",
+    "level": "78",
+    "required": "45",
+    "binding": "Bind on Equip",
+    "faction": "Asmodians",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 47, Defense 192; Exceed to +3: Attack 19, Defense 56, Damage Boost 1.5%",
+    "recipe": [
+      "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
+    ],
+    "id": "310330020",
+    "name": "Dark Dragon Lord Ring",
+    "category": "Ring",
+    "attack": "92",
+    "defense": "222",
+    "pool": "ring:centurion",
+    "sell": "13,276 Gold",
+    "skills": "offensive"
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
