@@ -5,7 +5,7 @@
 .presentationHome .cinemaBrand i,.presentationHome .panelCopy>span,.presentationHome .intelHead>span,.presentationHome .progressionIntro>span{color:var(--vision-gold)}
 .presentationHome .gamePanel{isolation:isolate;position:relative}
 .presentationHome .gamePanel:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,8,13,.72),transparent 48%,rgba(5,8,13,.24));pointer-events:none}
-.presentationHome .introPanel:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 50% 44%,rgba(195,219,255,.14),transparent 34%),url('/backgrounds/skills-atreia-ruins.webp') center/cover no-repeat;transform:scale(1.025)}
+.presentationHome .introPanel:before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(circle at 50% 44%,rgba(195,219,255,.14),transparent 34%),url('/daevexus/equipment-sanctum-daeva.png') center 38%/cover no-repeat;transform:scale(1.025)}
 .presentationHome .intelGrid a,.presentationHome .progressionRail a{transition:transform .25s ease,border-color .25s ease,background .25s ease}
 .presentationHome .intelGrid a:hover,.presentationHome .progressionRail a:hover{transform:translateY(-4px);border-color:rgba(217,189,120,.55);background:rgba(217,189,120,.055)}
 .presentationHome .regionNote,.presentationHome .progressionFoot{border-color:var(--vision-line)}
@@ -64,7 +64,7 @@
 .visionHeroActions{display:flex;justify-content:center;gap:9px;margin-top:28px}.visionHeroActions a{min-width:170px;padding:13px 18px;border:1px solid rgba(217,189,120,.3);background:rgba(6,13,21,.5);color:#dce4e7;font-size:8px;font-weight:800;letter-spacing:1.4px;text-decoration:none}.visionHeroActions .primaryHeroAction{background:#d7c087;color:#101217;border-color:#d7c087}
 .visionHeroRail{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(217,189,120,.16)}.visionHeroRail a{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 18px;border-right:1px solid rgba(217,189,120,.12);color:#dbe3e6;text-decoration:none;transition:background .2s ease}.visionHeroRail a:last-child{border-right:0}.visionHeroRail a:hover{background:rgba(217,189,120,.08)}.visionHeroRail span{color:#756b52;font-size:8px}.visionHeroRail b{font-size:9px;letter-spacing:1.5px}
 .visionSystems{position:relative;background:radial-gradient(circle at 50% 0,rgba(217,189,120,.06),transparent 30%),linear-gradient(180deg,#080c13,#05080d)}
-.visionSystems:before{content:"VISION / SYSTEMS";position:absolute;top:34px;right:4vw;color:rgba(217,189,120,.1);font-size:clamp(2rem,7vw,7rem);font-weight:800;letter-spacing:-.06em;pointer-events:none}
+.visionSystems:before{content:"DAEVEXUS / SYSTEMS";position:absolute;top:34px;right:4vw;color:rgba(217,189,120,.1);font-size:clamp(2rem,7vw,7rem);font-weight:800;letter-spacing:-.06em;pointer-events:none}
 @media(max-width:760px){.presentationHome .visionHero{padding:70px 12px 14px}.visionHeroFrame{min-height:calc(100svh - 86px)}.visionHeroMeta{padding:12px;font-size:6px;letter-spacing:1.2px}.visionHero .centerCopy{width:calc(100% - 24px)}.visionHero .centerCopy h1{font-size:clamp(4.6rem,24vw,7.3rem)}.visionWordmark{font-size:8px;letter-spacing:.8em;text-indent:.8em}.visionHeroActions{flex-direction:column;align-items:stretch}.visionHeroActions a{min-width:0}.visionHeroRail{grid-template-columns:repeat(2,1fr)}.visionHeroRail a{min-height:52px;padding:8px 11px}.visionHeroRail a:nth-child(2){border-right:0}.visionHeroRail a:nth-child(-n+2){border-bottom:1px solid rgba(217,189,120,.12)}}
 
 /* VISION 2.0 systems atlas */
@@ -939,3 +939,34 @@
 .equipmentSceneControls>span{min-width:150px;text-align:center;font:400 15px Georgia,serif}
 .equipmentSceneControls small{display:block;margin-bottom:3px;font:600 8px system-ui,sans-serif;letter-spacing:1.3px;color:#9eb5c5}
 @media(min-width:1280px){.equipmentSceneControls{margin-right:0;margin-left:auto}}
+
+/* Final DAEVEXUS Home navigation: persistent hamburger + Home controls on PC and mobile. */
+.presentationHome .homeFloatNav{
+  display:flex;position:fixed;z-index:95;top:18px;left:20px;right:20px;
+  justify-content:space-between;pointer-events:none;
+}
+.presentationHome .homeFloatNav>button,
+.presentationHome .homeFloatNav>a{
+  pointer-events:auto;width:50px;height:50px;display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(217,189,120,.58);border-radius:6px;
+  background:rgba(6,14,22,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 10px 32px rgba(0,0,0,.34);color:#f1e5c2;text-decoration:none;
+  transition:border-color .18s ease,background .18s ease,transform .18s ease;
+}
+.presentationHome .homeFloatNav>button{flex-direction:column;gap:5px;cursor:pointer}
+.presentationHome .homeFloatNav>button i{display:block;width:21px;height:1.5px;background:#f1dfae;box-shadow:0 0 8px rgba(217,189,120,.25)}
+.presentationHome .homeFloatNav .homeRoof{font-size:27px;line-height:1;color:#f1dfae;text-shadow:none}
+.presentationHome .homeFloatNav>button:hover,
+.presentationHome .homeFloatNav>a:hover{border-color:#ead394;background:rgba(18,28,35,.9);transform:translateY(-1px)}
+.presentationHome .homeFloatNav>button:focus-visible,
+.presentationHome .homeFloatNav>a:focus-visible{outline:2px solid #ead394;outline-offset:3px}
+@media(max-width:760px){
+  .presentationHome .homeFloatNav{top:max(12px,env(safe-area-inset-top));left:12px;right:12px}
+  .presentationHome .homeFloatNav>button,.presentationHome .homeFloatNav>a{width:44px;height:44px}
+  .presentationHome .introPanel:before{background-position:center 30%}
+}
+
+/* DAEVEXUS hero lockup. */
+.presentationHome .visionHero .centerCopy h1{font-size:clamp(4.6rem,10.6vw,9.8rem);letter-spacing:-.065em}
+.presentationHome .visionHero .centerCopy h1 strong{color:#d9bd78}
+.presentationHome .visionWordmark{letter-spacing:.62em;text-indent:.62em}
