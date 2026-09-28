@@ -130,3 +130,42 @@
 .homeV2 .updateCenterHotspots .cardThree{left:calc(var(--art-x) + var(--art-w)*.61);top:calc(var(--art-y) + var(--art-h)*.535);width:calc(var(--art-w)*.208);height:calc(var(--art-h)*.22)}
 .homeV2 .updateCenterHotspots .viewAll{left:calc(var(--art-x) + var(--art-w)*.344);top:calc(var(--art-y) + var(--art-h)*.792);width:calc(var(--art-w)*.152);height:calc(var(--art-h)*.075)}
 .homeV2 .updateCenterHotspots .officialNews{left:calc(var(--art-x) + var(--art-w)*.505);top:calc(var(--art-y) + var(--art-h)*.792);width:calc(var(--art-w)*.152);height:calc(var(--art-h)*.075)}
+
+
+/* Side page controls for cinematic Home screens */
+.cinematicPageArrow{
+  position:fixed;
+  top:50%;
+  z-index:40;
+  width:54px;
+  height:96px;
+  transform:translateY(-50%);
+  border:1px solid rgba(199,164,90,.72);
+  background:linear-gradient(180deg,rgba(8,10,12,.82),rgba(4,6,8,.9));
+  color:#e3c67f;
+  font:400 54px/1 Georgia,serif;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  box-shadow:0 0 24px rgba(0,0,0,.35),inset 0 0 18px rgba(199,164,90,.06);
+  transition:opacity .2s ease,border-color .2s ease,background .2s ease,transform .2s ease;
+}
+.cinematicPageArrow:hover{
+  border-color:#e0bd70;
+  background:linear-gradient(180deg,rgba(30,25,16,.92),rgba(8,10,12,.96));
+}
+.cinematicPageArrow:focus-visible{
+  outline:2px solid #e0bd70;
+  outline-offset:3px;
+}
+.cinematicPrev{left:14px}
+.cinematicNext{right:14px}
+.cinematicPageArrow:disabled{
+  opacity:0;
+  pointer-events:none;
+}
+@media(max-width:900px){
+  .cinematicPageArrow{width:42px;height:72px;font-size:42px}
+  .cinematicPrev{left:6px}
+  .cinematicNext{right:6px}
+}
