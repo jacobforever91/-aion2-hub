@@ -94,3 +94,39 @@
   min-height: 100svh;
   aspect-ratio: auto;
 }
+
+
+/* Keep interactive hotspots locked to the visible 16:9 artwork when object-fit: contain adds side/top margins. */
+.homeV2.presentationHome.cinematicHome {
+  --art-w: min(100vw, calc(100svh * 16 / 9));
+  --art-h: min(100svh, calc(100vw * 9 / 16));
+  --art-x: calc((100vw - var(--art-w)) / 2);
+  --art-y: calc((100svh - var(--art-h)) / 2);
+}
+
+/* Home */
+.homeV2 .heroMenuHotspot{left:calc(var(--art-x) + var(--art-w)*.0145);top:calc(var(--art-y) + var(--art-h)*.0145);width:calc(var(--art-w)*.0485);height:calc(var(--art-h)*.079)}
+.homeV2 .heroHomeHotspot{right:auto;left:calc(var(--art-x) + var(--art-w)*.937);top:calc(var(--art-y) + var(--art-h)*.0145);width:calc(var(--art-w)*.0485);height:calc(var(--art-h)*.079)}
+.homeV2 .heroElyosHotspot{left:calc(var(--art-x) + var(--art-w)*.0425);top:calc(var(--art-y) + var(--art-h)*.702);width:calc(var(--art-w)*.164);height:calc(var(--art-h)*.062)}
+.homeV2 .heroAsmoHotspot{right:auto;left:calc(var(--art-x) + var(--art-w)*.7805);top:calc(var(--art-y) + var(--art-h)*.702);width:calc(var(--art-w)*.177);height:calc(var(--art-h)*.062)}
+.homeV2 .heroSystemHotspots{left:calc(var(--art-x) + var(--art-w)*.1545);right:auto;top:calc(var(--art-y) + var(--art-h)*.792);width:calc(var(--art-w)*.691);height:calc(var(--art-h)*.141)}
+
+/* Founder Packs */
+.homeV2 .founderOfficialHotspot{left:calc(var(--art-x) + var(--art-w)*.34);top:calc(var(--art-y) + var(--art-h)*.76);width:calc(var(--art-w)*.32);height:calc(var(--art-h)*.09)}
+
+/* Build Your Daeva */
+.homeV2 .buildDaevaHotspots .equipment{left:calc(var(--art-x) + var(--art-w)*.117);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .skills{left:calc(var(--art-x) + var(--art-w)*.226);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .stigmas{left:calc(var(--art-x) + var(--art-w)*.336);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .wings{left:calc(var(--art-x) + var(--art-w)*.446);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .pets{left:calc(var(--art-x) + var(--art-w)*.556);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .arcana{left:calc(var(--art-x) + var(--art-w)*.666);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .daevanion{left:calc(var(--art-x) + var(--art-w)*.776);top:calc(var(--art-y) + var(--art-h)*.621);width:calc(var(--art-w)*.104);height:calc(var(--art-h)*.162)}
+.homeV2 .buildDaevaHotspots .creator{left:calc(var(--art-x) + var(--art-w)*.353);top:calc(var(--art-y) + var(--art-h)*.794);width:calc(var(--art-w)*.295);height:calc(var(--art-h)*.093)}
+
+/* Update Center */
+.homeV2 .updateCenterHotspots .cardOne{left:calc(var(--art-x) + var(--art-w)*.182);top:calc(var(--art-y) + var(--art-h)*.535);width:calc(var(--art-w)*.208);height:calc(var(--art-h)*.22)}
+.homeV2 .updateCenterHotspots .cardTwo{left:calc(var(--art-x) + var(--art-w)*.396);top:calc(var(--art-y) + var(--art-h)*.535);width:calc(var(--art-w)*.208);height:calc(var(--art-h)*.22)}
+.homeV2 .updateCenterHotspots .cardThree{left:calc(var(--art-x) + var(--art-w)*.61);top:calc(var(--art-y) + var(--art-h)*.535);width:calc(var(--art-w)*.208);height:calc(var(--art-h)*.22)}
+.homeV2 .updateCenterHotspots .viewAll{left:calc(var(--art-x) + var(--art-w)*.344);top:calc(var(--art-y) + var(--art-h)*.792);width:calc(var(--art-w)*.152);height:calc(var(--art-h)*.075)}
+.homeV2 .updateCenterHotspots .officialNews{left:calc(var(--art-x) + var(--art-w)*.505);top:calc(var(--art-y) + var(--art-h)*.792);width:calc(var(--art-w)*.152);height:calc(var(--art-h)*.075)}
