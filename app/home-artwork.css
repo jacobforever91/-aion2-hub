@@ -230,5 +230,20 @@ body:has(.homeV2.cinematicHome){
   min-width:0!important;
   min-height:0!important;
   object-fit:cover!important;
-  object-position:center 35%!important;
+  object-position:center center!important;
+}
+
+
+/* Browser-window framing: preserve top controls when browser chrome makes the viewport wider than 16:9. */
+@media (min-aspect-ratio: 16/9){
+  .homeV2.presentationHome.cinematicHome > #home-screen > img{
+    object-position:center top!important;
+  }
+}
+
+/* Near-native 16:9 fullscreen keeps the balanced centered composition. */
+@media (min-aspect-ratio: 1.72) and (max-aspect-ratio: 1.82){
+  .homeV2.presentationHome.cinematicHome > #home-screen > img{
+    object-position:center center!important;
+  }
 }
