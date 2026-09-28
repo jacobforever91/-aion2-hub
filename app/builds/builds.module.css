@@ -848,3 +848,37 @@
   color:#7f796d;
   font-size:8px;
 }
+
+
+/* Unified build tabs + actions toolbar */
+.buildToolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:14px;
+  padding:0;
+}
+.buildToolbar .tabs{
+  flex:1 1 auto;
+  min-width:0;
+  padding-bottom:0;
+}
+.toolbarActions{
+  display:flex;
+  flex:0 0 auto;
+  gap:8px;
+}
+.toolbarNotice{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:-4px 0 12px;
+  color:#968b78;
+  font-size:9px;
+}
+.toolbarNotice small{color:#cdb16f}
+@media(max-width:1050px){
+  .buildToolbar{align-items:stretch;flex-direction:column}
+  .toolbarActions{justify-content:flex-end}
+}
