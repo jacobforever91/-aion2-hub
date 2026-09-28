@@ -531,3 +531,36 @@
 
   .summary{top:20px}
 }
+
+
+/* 4K correction: keep Wings & Pets comfortably inside one desktop viewport. */
+@media (min-width:1800px){
+  .companionHeader{padding:22px 28px 17px}
+  .companionHeader h2{font-size:clamp(36px,2.4vw,48px)}
+  .companionHeader p{font-size:12px}
+  .companionTab,.companionTabActive{min-width:210px;min-height:50px;font-size:13px}
+  .companionWorkspace{grid-template-columns:minmax(0,1.1fr) minmax(430px,.9fr);min-height:0;height:auto}
+  .companionCatalog{padding:18px}
+  .companionSearch{margin-bottom:13px}
+  .companionSearch input{height:44px;font-size:13px}
+  .companionGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-height:430px;overflow:auto;padding-right:4px}
+  .companionCard,.companionCardActive{padding:7px}
+  .companionWingThumb,.companionPetThumb{aspect-ratio:16/8;margin-bottom:6px}
+  .companionCard strong,.companionCardActive strong{font-size:12px}
+  .companionCard small,.companionCardActive small{font-size:9px}
+  .companionPreview{padding:18px 20px 20px}
+  .companionPreviewArt{min-height:240px;max-height:270px}
+  .companionWingHero{transform:scale(1.15)}
+  .companionPetHero{max-height:220px}
+  .companionPreviewCopy{padding:13px 0 8px}
+  .companionPreviewCopy h3{font-size:30px}
+  .companionPreviewCopy p{margin-top:8px;font-size:11px}
+  .companionStats{margin:6px 0 10px}
+  .companionStats div{padding:7px 0}
+  .companionEquip{min-height:44px;font-size:14px}
+  .selectedCompanionBar{padding:12px 18px;gap:20px}
+  .selectedCompanionIcon{width:54px;height:44px}
+  .selectedCompanionInfo strong{font-size:14px}
+  .selectedCompanionInfo small{font-size:9px}
+  .selectedCompanionBar>button{min-height:36px}
+}
