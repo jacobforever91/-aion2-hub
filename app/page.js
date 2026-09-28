@@ -20,22 +20,12 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
 <button className={"a2Close forgeClose "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
 
 <section id="home-screen" className="approvedHomeHero cinematicScreen" aria-label="DAEVEXUS Elyos and Asmodians Home">
-  <img src="/home/daevexus-home-hero.webp" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians, launch date and system shortcuts"/>
+  <img src="/home/1.png" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians"/>
   <button className="heroHotspot heroMenuHotspot" type="button" onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><span className="srOnly">Open menu</span></button>
   <a className="heroHotspot heroHomeHotspot" href="/" aria-label="Home"><span className="srOnly">Home</span></a>
   <a className="heroHotspot heroElyosHotspot" href="#elyos-screen" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
   <a className="heroHotspot heroAsmoHotspot" href="#asmodians-screen" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
-  <nav className="heroSystemHotspots" aria-label="DAEVEXUS systems">
-    <a href="/classes" aria-label="Skills"><span className="srOnly">Skills</span></a>
-    <a href="/equipment" aria-label="Equipment"><span className="srOnly">Equipment</span></a>
-    <a href="/stigmas" aria-label="Stigmas"><span className="srOnly">Stigmas</span></a>
-    <a href="/pets" aria-label="Pets"><span className="srOnly">Pets</span></a>
-    <a href="/wings" aria-label="Wings"><span className="srOnly">Wings</span></a>
-    <a href="/arcana" aria-label="Arcanas"><span className="srOnly">Arcanas</span></a>
-    <a href="/daevanion" aria-label="Daevanion"><span className="srOnly">Daevanion</span></a>
-    <a href="/builds" aria-label="Builds"><span className="srOnly">Builds</span></a>
-    <span aria-label="World Map recovery in progress"><span className="srOnly">World Map recovery in progress</span></span>
-  </nav>
+
 </section>
 
 <section id="elyos-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/1B701743-81F6-4C8A-B827-D07FFD0EDFA3.png" alt="DAEVEXUS Elyos faction introduction"/></section>
