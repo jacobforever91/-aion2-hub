@@ -169,3 +169,31 @@
   .cinematicPrev{left:6px}
   .cinematicNext{right:6px}
 }
+
+
+/* Ultra-wide Home polish: slightly enlarge cinematic artwork and anchor arrows on the artwork edge. */
+@media (min-aspect-ratio: 19/9) and (min-width:1400px){
+  .homeV2.presentationHome.cinematicHome{
+    --art-scale:1.09;
+    --art-w-scaled:calc(var(--art-w) * var(--art-scale));
+    --art-h-scaled:calc(var(--art-h) * var(--art-scale));
+    --art-x-scaled:calc((100vw - var(--art-w-scaled)) / 2);
+    --art-y-scaled:calc((100svh - var(--art-h-scaled)) / 2);
+  }
+
+  .homeV2.presentationHome.cinematicHome > .cinematicScreen > img{
+    width:var(--art-w-scaled);
+    height:var(--art-h-scaled);
+    left:var(--art-x-scaled);
+    top:var(--art-y-scaled);
+    inset:auto;
+    object-fit:fill;
+  }
+
+  .cinematicPrev{
+    left:calc(max(8px,var(--art-x-scaled) + 10px));
+  }
+  .cinematicNext{
+    right:calc(max(8px,var(--art-x-scaled) + 10px));
+  }
+}
