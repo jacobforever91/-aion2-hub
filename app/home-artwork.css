@@ -46,6 +46,13 @@
 }
 .homeV2.presentationHome .approvedHomeHero .heroSystemHotspots {
   display: grid;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .homeV2.presentationHome .approvedHomeHero .heroHotspot:hover,
 .homeV2.presentationHome .approvedHomeHero .heroSystemHotspots a:hover {
