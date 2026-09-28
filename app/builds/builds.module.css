@@ -918,3 +918,17 @@
     min-width:auto;
   }
 }
+
+
+/* Align build toolbar with the editor column, ending before Build Summary. */
+@media (min-width:761px){
+  .buildToolbar{
+    width:auto;
+    margin-right:316px;
+  }
+}
+@media (min-width:1800px){
+  .buildToolbar{
+    margin-right:412px;
+  }
+}
