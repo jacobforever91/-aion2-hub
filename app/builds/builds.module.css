@@ -448,3 +448,86 @@
 .selectedCompanionBar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;padding:14px 18px;border-top:1px solid #5b472a;background:#081119}.selectedCompanionLabel{display:flex;align-items:center;gap:9px;color:#d8bf82;font:600 11px Georgia,serif}.selectedCompanionInfo{display:flex;align-items:center;gap:11px;min-width:0}.selectedCompanionIcon{display:grid;place-items:center;width:54px;height:44px;overflow:hidden;border:1px solid #48544d;background:#0b171d;color:#c6a45e}.selectedCompanionIcon img{width:100%;height:100%;object-fit:cover}.selectedCompanionInfo>span:last-child{display:flex;min-width:0;flex-direction:column;gap:3px}.selectedCompanionInfo strong{color:#efe7d4;font:400 14px Georgia,serif}.selectedCompanionInfo small{color:#b59a61;font-size:9px}.selectedCompanionBar>button{min-height:36px;padding:0 15px;border:1px solid #6f5a35;background:#0d171b;color:#d9c28b;font-size:9px;cursor:pointer}
 @media(max-width:980px){.companionWorkspace{grid-template-columns:1fr}.companionCatalog{border-right:0;border-bottom:1px solid #514128}.companionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.companionQuote{display:none}}
 @media(max-width:620px){.companionHeader{padding:20px;display:block}.companionTabs{overflow-x:auto}.companionTab,.companionTabActive{min-width:150px}.companionGrid{grid-template-columns:1fr 1fr}.selectedCompanionBar{grid-template-columns:1fr}.selectedCompanionBar>button{width:100%}}
+
+
+/* Large desktop / 4K tuning — expand the Build Creator instead of leaving a 1360px island. */
+@media (min-width:1800px){
+  .nav{
+    height:82px;
+    padding:0 clamp(30px,3vw,72px);
+  }
+  .back{width:46px;height:46px}
+  .brand b{font-size:21px;letter-spacing:2.4px}
+  .brand small{font-size:10px;letter-spacing:2.2px}
+  .navLinks{gap:30px}
+  .navLinks a{font-size:13px}
+
+  .wrap{
+    width:min(2200px,calc(100% - 120px));
+  }
+
+  .hero{padding:46px 0 28px}
+  .eyebrow{font-size:12px;letter-spacing:2.5px}
+  .hero h1{font-size:clamp(54px,4.2vw,78px)}
+  .hero p{font-size:16px}
+  .titleField{max-width:760px;margin-top:26px;padding:0 16px}
+  .titleField span,.field>span{font-size:11px}
+  .titleField input{height:52px;font-size:17px}
+
+  .actionBar{padding:15px 17px;margin-bottom:20px}
+  .actionCopy{font-size:12px}
+  .actionCopy small{font-size:12px}
+  .primaryButton,.secondaryButton{min-height:44px;padding:0 16px;font-size:12px}
+
+  .workspace{
+    grid-template-columns:minmax(0,1fr) 390px;
+    gap:22px;
+  }
+  .tabs{gap:7px;padding-bottom:14px}
+  .tab,.tabActive{min-height:46px;padding:0 20px;font-size:12px}
+
+  .companionHeader{padding:34px 36px 26px}
+  .companionKicker{font-size:11px}
+  .companionHeader h2{font-size:clamp(44px,3vw,62px)}
+  .companionHeader p{font-size:14px}
+  .companionQuote{font-size:10px}
+
+  .companionTab,.companionTabActive{
+    min-width:240px;
+    min-height:62px;
+    font-size:15px;
+  }
+
+  .companionWorkspace{
+    grid-template-columns:minmax(0,1.08fr) minmax(520px,.92fr);
+    min-height:720px;
+  }
+  .companionCatalog{padding:24px}
+  .companionSearch{margin-bottom:18px;padding:0 16px}
+  .companionSearch input{height:52px;font-size:14px}
+  .companionSearch span{font-size:11px}
+
+  .companionGrid{gap:14px}
+  .companionCard,.companionCardActive{padding:10px}
+  .companionCard strong,.companionCardActive strong{font-size:15px}
+  .companionCard small,.companionCardActive small{font-size:10px}
+
+  .companionPreview{padding:24px 28px 30px}
+  .companionPreviewArt{min-height:390px}
+  .companionPreviewCopy{padding:22px 0 14px}
+  .companionPreviewCopy>span{font-size:10px}
+  .companionPreviewCopy h3{font-size:40px}
+  .companionPreviewCopy em{font-size:12px}
+  .companionPreviewCopy p{font-size:13px}
+  .companionStats span,.companionStats b{font-size:12px}
+  .companionEquip{min-height:58px;font-size:18px}
+
+  .selectedCompanionBar{gap:28px;padding:18px 24px}
+  .selectedCompanionLabel{font-size:14px}
+  .selectedCompanionIcon{width:68px;height:56px}
+  .selectedCompanionInfo strong{font-size:17px}
+  .selectedCompanionInfo small{font-size:11px}
+  .selectedCompanionBar>button{min-height:44px;padding:0 20px;font-size:11px}
+
+  .summary{top:20px}
+}
