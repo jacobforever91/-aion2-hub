@@ -1,354 +1,58 @@
-.page {
-  min-width: 0;
+.singleScreen {
+  position: relative;
+  width: 100%;
   min-height: 100svh;
   margin: 0;
-  background: var(--faction-base);
-}
-
-.elyos {
-  --faction-base: #e9e9df;
-  --faction-text: #25323a;
-  --faction-muted: #46514f;
-  --faction-gold: #89692e;
-  --faction-line: rgb(137 105 46 / 48%);
-  --faction-wash: rgb(243 241 226 / 92%);
-  --faction-wash-soft: rgb(243 241 226 / 64%);
-  --faction-button: linear-gradient(135deg, #f1dfaf, #d9bb78);
-  --faction-button-text: #302819;
-}
-
-.asmodians {
-  --faction-base: #120e16;
-  --faction-text: #f1e9dc;
-  --faction-muted: #d0c4c4;
-  --faction-gold: #dbc186;
-  --faction-line: rgb(219 193 134 / 46%);
-  --faction-wash: rgb(18 14 22 / 89%);
-  --faction-wash-soft: rgb(18 14 22 / 65%);
-  --faction-button: linear-gradient(135deg, #4c1722, #2b111c);
-  --faction-button-text: #f0dec0;
-}
-
-.scene {
-  position: relative;
-  isolation: isolate;
-  display: block;
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
-  background: var(--faction-base);
-  color: var(--faction-text);
+  background: #05070b;
 }
 
-.artwork {
-  position: relative;
-  width: 100%;
-  line-height: 0;
-}
-
-.image {
+.approvedArtwork {
   display: block;
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  margin: 0;
+  height: 100svh;
   object-fit: contain;
+  object-position: center;
 }
 
-.wash {
+.homeHotspot {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, var(--faction-wash) 0%, var(--faction-wash-soft) 28%, transparent 62%);
-}
-
-.copy {
-  position: absolute;
-  top: 50%;
-  left: 6.3%;
-  z-index: 1;
-  width: 41.5%;
-  max-width: 1300px;
-  transform: translateY(-50%);
-}
-
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 0.8em;
-  margin: 0 0 clamp(16px, 1.35vw, 42px);
-  color: var(--faction-gold);
-  font-size: clamp(10px, 0.77vw, 22px);
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  line-height: 1.5;
-}
-
-.title {
-  margin: 0;
-  color: var(--faction-text);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(60px, 7.2vw, 220px);
-  font-weight: 400;
-  letter-spacing: 0.045em;
-  line-height: 1;
-  text-transform: uppercase;
-  text-shadow: 0 2px 25px rgb(255 255 255 / 13%);
-}
-
-.asmodians .title {
-  font-size: clamp(48px, 5.35vw, 168px);
-  letter-spacing: 0.025em;
-  text-shadow: 0 2px 25px rgb(0 0 0 / 25%);
-}
-
-.slogan {
-  margin: clamp(12px, 1.05vw, 32px) 0 0;
-  color: var(--faction-gold);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(12px, 1.08vw, 31px);
-  letter-spacing: 0.12em;
-  line-height: 1.5;
-}
-
-.asmodians .slogan {
-  font-size: clamp(11px, 0.92vw, 28px);
-  letter-spacing: 0.07em;
-}
-
-.rule {
-  position: relative;
-  width: clamp(100px, 12vw, 370px);
-  height: 1px;
-  margin: clamp(20px, 1.65vw, 52px) 0;
-  background: linear-gradient(90deg, var(--faction-gold), transparent);
-}
-
-.rule::before {
-  position: absolute;
-  top: -2px;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  background: var(--faction-gold);
-  content: "";
-  transform: rotate(45deg);
-}
-
-.introduction {
-  max-width: 32em;
-  margin: 0;
-  color: var(--faction-text);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(18px, 1.58vw, 46px);
-  line-height: 1.45;
-}
-
-.description {
-  max-width: 43em;
-  margin: clamp(10px, 0.85vw, 26px) 0 0;
-  color: var(--faction-muted);
-  font-size: clamp(14px, 1.04vw, 29px);
-  line-height: 1.75;
-}
-
-.themes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0;
-  margin: clamp(18px, 1.75vw, 54px) 0;
-  padding: 0;
-  color: var(--faction-gold);
-  font-size: clamp(9px, 0.7vw, 20px);
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  line-height: 1.8;
-  list-style: none;
-}
-
-.themes li + li::before {
-  display: inline-block;
-  margin: 0 1.25em;
-  content: "·";
-}
-
-.exploreLink {
-  display: inline-flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(22px, 2.3vw, 66px);
-  padding: clamp(12px, 1vw, 28px) clamp(20px, 1.6vw, 48px);
-  border: 1px solid var(--faction-gold);
-  border-radius: 3px;
-  background: var(--faction-button);
-  box-shadow: inset 0 0 0 3px rgb(219 193 134 / 9%);
-  color: var(--faction-button-text);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(12px, 1vw, 28px);
-  letter-spacing: 0.075em;
-  line-height: 1.4;
-  text-decoration: none;
-  transition: filter 180ms ease, border-color 180ms ease;
-}
-
-.exploreLink svg {
-  flex: 0 0 auto;
-  width: 1.15em;
-  height: 1.15em;
-  stroke-width: 1.5;
-}
-
-.exploreLink:hover {
-  filter: brightness(1.12);
-}
-
-.sourceLink {
-  display: table;
-  margin-top: clamp(14px, 1.15vw, 32px);
-  color: var(--faction-muted);
-  font-size: clamp(11px, 0.63vw, 18px);
-  letter-spacing: 0.015em;
-  line-height: 1.7;
-  text-decoration: underline;
-  text-decoration-color: var(--faction-line);
-  text-underline-offset: 4px;
-}
-
-.sourceArrow {
-  display: inline-block;
-  margin-left: 0.5em;
-}
-
-.sourceLink:hover {
-  color: var(--faction-gold);
-}
-
-.navigation {
-  position: absolute;
-  top: max(18px, env(safe-area-inset-top));
-  right: clamp(18px, 2vw, 64px);
-  left: clamp(18px, 2vw, 64px);
+  top: 1.2%;
+  right: 1%;
   z-index: 2;
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  pointer-events: none;
+  width: 4.5%;
+  min-width: 44px;
+  height: 7.5%;
+  min-height: 44px;
 }
 
-.backLink,
-.homeLink {
-  display: inline-flex;
-  min-width: 46px;
-  min-height: 46px;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 15px;
-  border: 1px solid #bea46a;
-  border-radius: 3px;
-  background: rgb(12 16 22 / 82%);
-  box-shadow: inset 0 0 0 3px rgb(219 193 134 / 8%);
-  color: #e5ce96;
-  font-size: 11px;
-  letter-spacing: 0.13em;
-  line-height: 1.4;
-  pointer-events: auto;
-  text-decoration: none;
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.backLink svg,
-.homeLink svg {
-  width: 21px;
-  height: 21px;
-  stroke-width: 1.6;
-}
-
-.homeLink {
-  padding: 10px;
-}
-
-.backLink:hover,
-.homeLink:hover {
-  background: #1e2530;
-  border-color: #f0d69b;
-}
-
-.exploreLink:focus-visible,
-.sourceLink:focus-visible,
-.backLink:focus-visible,
-.homeLink:focus-visible {
-  outline: 2px solid var(--faction-gold);
-  outline-offset: 5px;
-}
-
-@media (min-width: 2200px) {
-  .navigation { top: 32px; }
-  .backLink,
-  .homeLink {
-    min-width: 64px;
-    min-height: 64px;
-    padding: 16px 20px;
-    font-size: 15px;
+@media (max-width: 900px) {
+  .singleScreen {
+    min-height: auto;
   }
-  .backLink svg,
-  .homeLink svg { width: 29px; height: 29px; }
-  .homeLink { padding: 16px; }
-}
 
-@media (max-width: 1024px) {
-  .wash {
-    background: linear-gradient(180deg, transparent 70%, var(--faction-base) 100%);
+  .approvedArtwork {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
-  .copy {
-    position: relative;
-    inset: auto;
-    width: auto;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 20px 28px 48px;
-    transform: none;
-  }
-  .eyebrow { margin-bottom: 18px; font-size: 10px; }
-  .title { font-size: clamp(56px, 11vw, 100px); }
-  .asmodians .title {
-    font-size: clamp(38px, 8.3vw, 76px);
-    letter-spacing: 0.025em;
-  }
-  .slogan,
-  .asmodians .slogan {
-    margin-top: 14px;
-    font-size: 12px;
-    letter-spacing: 0.085em;
-  }
-  .rule { width: 140px; margin: 24px 0; }
-  .introduction { font-size: 23px; line-height: 1.5; }
-  .description { margin-top: 14px; font-size: 16px; line-height: 1.8; }
-  .themes { margin: 24px 0; font-size: 10px; }
-  .exploreLink {
-    min-height: 50px;
-    gap: 28px;
-    padding: 14px 22px;
-    font-size: 13px;
-  }
-  .sourceLink { margin-top: 20px; padding: 5px 0; font-size: 12px; }
-}
 
-@media (max-width: 380px) {
-  .copy { padding-right: 20px; padding-left: 20px; }
-  .asmodians .title { font-size: 34px; letter-spacing: 0.015em; }
-  .asmodians .slogan { font-size: 10px; }
-  .introduction { font-size: 21px; }
-  .themes li + li::before { margin-right: 0.9em; margin-left: 0.9em; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .exploreLink { transition: none; }
+  .homeHotspot {
+    top: 2%;
+    right: 2%;
+    width: 8%;
+    height: 12%;
+  }
 }
