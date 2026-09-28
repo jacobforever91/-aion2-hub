@@ -5,7 +5,7 @@ const FACTIONS = {
   elyos: {
     name: "Elyos",
     slogan: "LIGHT CREATES HOPE",
-    image: "/home/daevexus-elyos-scene.webp",
+    image: "/home/1B701743-81F6-4C8A-B827-D07FFD0EDFA3.png",
     imageAlt:
       "An Elyos-inspired warrior with white wings and golden armor above a radiant city in the clouds.",
     introduction:
@@ -18,7 +18,7 @@ const FACTIONS = {
   asmodians: {
     name: "Asmodians",
     slogan: "POWER FOR A GREATER TOMORROW",
-    image: "/home/daevexus-asmodians-scene.webp",
+    image: "/home/8A997A54-D1D5-430C-AFC3-C4E5FC95C104.png",
     imageAlt:
       "An Asmodian-inspired warrior with black wings and dark armor before a fortress beneath a crimson sky.",
     introduction:
