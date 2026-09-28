@@ -892,3 +892,17 @@ body:has(.cinematicHome) {
     transform: none !important;
   }
 }
+
+.founderOfficialHotspot{
+  position:absolute;
+  z-index:5;
+  left:34%;
+  top:76%;
+  width:32%;
+  height:9%;
+  cursor:pointer;
+}
+.founderOfficialHotspot:focus-visible{
+  outline:2px solid #e5c780;
+  outline-offset:4px;
+}
