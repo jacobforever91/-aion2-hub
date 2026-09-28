@@ -23,8 +23,8 @@ export default function Home(){const[open,setOpen]=useState(false);useEffect(()=
   <img src="/home/daevexus-home-hero.webp" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians, launch date and system shortcuts"/>
   <button className="heroHotspot heroMenuHotspot" type="button" onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><span className="srOnly">Open menu</span></button>
   <a className="heroHotspot heroHomeHotspot" href="/" aria-label="Home"><span className="srOnly">Home</span></a>
-  <a className="heroHotspot heroElyosHotspot" href="/elyos" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
-  <a className="heroHotspot heroAsmoHotspot" href="/asmodians" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
+  <a className="heroHotspot heroElyosHotspot" href="#elyos-screen" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
+  <a className="heroHotspot heroAsmoHotspot" href="#asmodians-screen" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
   <nav className="heroSystemHotspots" aria-label="DAEVEXUS systems">
     <a href="/classes" aria-label="Skills"><span className="srOnly">Skills</span></a>
     <a href="/equipment" aria-label="Equipment"><span className="srOnly">Equipment</span></a>
@@ -37,7 +37,7 @@ export default function Home(){const[open,setOpen]=useState(false);useEffect(()=
     <span aria-label="World Map recovery in progress"><span className="srOnly">World Map recovery in progress</span></span>
   </nav>
 </section>
-<section className="gamePanel founderPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>AION 2 GLOBAL</span><h2>GLOBAL LAUNCH</h2><p>DAEVEXUS is preparing its Global database and tools for the worldwide AION 2 launch.</p><div className="launchDate"><small>OFFICIAL GLOBAL DATE</small><strong>OCTOBER 5, 2026</strong></div><div className="factRow centeredFacts"><b>GLOBAL</b><b>DATABASE</b><b>BUILD TOOLS</b></div><a href="https://aion2.plaync.com/en-us/" target="_blank" rel="noreferrer">VIEW OFFICIAL AION 2 →</a></div><div className="panelIndex">04</div></section>
-<section className="enterHub"><span>READY TO GO DEEPER?</span><h2>Enter DAEVEXUS</h2><p>Classes · Database · Builds · World · Guides</p><a href="/classes">ENTER DAEVEXUS →</a></section>
-<footer><div><b>DAEVEXUS</b><p>Independent community companion for AION 2.</p></div><div className="footerTags"><span>GLOBAL</span><span>KR / TW<small>Korea &amp; Taiwan server info</small></span></div></footer>
+
+<section id="elyos-screen" className="approvedFactionScreen"><img src="/home/1B701743-81F6-4C8A-B827-D07FFD0EDFA3.png" alt="DAEVEXUS Elyos faction introduction"/></section>
+<section id="asmodians-screen" className="approvedFactionScreen"><img src="/home/8A997A54-D1D5-430C-AFC3-C4E5FC95C104.png" alt="DAEVEXUS Asmodians faction introduction"/></section>
 </main>}
