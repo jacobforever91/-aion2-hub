@@ -20,10 +20,45 @@ export default function Home(){const[open,setOpen]=useState(false);useEffect(()=
 </div>
 <button className={"a2Close forgeClose "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
 
-<section className="gamePanel introPanel visionHero"><div className="panelShade"/><div className="visionHeroFrame"><div className="visionHeroMeta"><span>DAEVEXUS · AION 2 COMPANION</span><b>GLOBAL · KR / TW</b></div><div className="panelCopy centerCopy"><small>SEE BEYOND ATREIA</small><h1>DAEVE<strong>XUS</strong></h1><div className="visionWordmark">AION 2 COMPANION</div><p>Skills, equipment, progression, builds and field knowledge — connected in one place.</p><div className="visionHeroActions"><a className="primaryHeroAction" href="/classes">EXPLORE SYSTEMS →</a><a href="/builds">BUILD YOUR DAEVA →</a></div></div><div className="visionHeroRail"><a href="/classes"><span>01</span><b>SKILLS</b></a><a href="/equipment"><span>02</span><b>EQUIPMENT</b></a><a href="/daevanion"><span>03</span><b>DAEVANION</b></a><a href="/builds"><span>04</span><b>BUILDS</b></a></div></div></section>
-<section id="factions" className="gamePanel factionPanel elyosPanel"><div className="panelShade"/><div className="panelCopy leftCopy"><span>THE CELESTIAL REALM</span><h2>ELYOS</h2><p>Discover one of AION 2's two factions and enter Atreia from the Elyos side.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ELYOS →</a></div><div className="panelIndex">01</div></section>
-<section className="gamePanel factionPanel asmoPanel"><div className="panelShade"/><div className="panelCopy rightCopy"><span>THE OTHER SKY</span><h2>ASMODIANS</h2><p>Cross to the opposing faction and discover another side of the world of AION 2.</p><div className="factRow"><b>FACTION</b><b>ATREIA</b><b>DAEVA</b></div><a href="/database">DISCOVER ASMODIANS →</a></div><div className="panelIndex">02</div></section>
-<section className="gamePanel worldPresentation"><div className="panelShade"/><div className="panelCopy leftCopy"><span>THE WORLD</span><h2>ATREIA</h2><p>Explore a cross-world MMORPG built around adventure, combat and a world divided beneath two skies.</p><div className="factRow"><b>WORLD</b><b>PVE</b><b>PVP</b><b>EXPLORATION</b></div><a href="/database">EXPLORE THE WORLD →</a></div><div className="panelIndex">03</div></section>
+<section className="splitFactionHero">
+  <div className="splitFactionSide splitElyos">
+    <div className="splitFactionShade"/>
+    <div className="splitFactionCopy splitFactionCopyLeft">
+      <span>THE CELESTIAL REALM</span>
+      <h2>ELYOS</h2>
+      <small>LIGHT CREATES HOPE</small>
+      <p>Guided by the light, they strive for a brighter tomorrow.</p>
+      <a href="/database">EXPLORE ELYOS →</a>
+    </div>
+  </div>
+  <div className="splitFactionSide splitAsmo">
+    <div className="splitFactionShade"/>
+    <div className="splitFactionCopy splitFactionCopyRight">
+      <span>THE OTHER SKY</span>
+      <h2>ASMODIANS</h2>
+      <small>POWER FOR A GREATER TOMORROW</small>
+      <p>Through will and sacrifice, they forge a new future.</p>
+      <a href="/database">EXPLORE ASMODIANS →</a>
+    </div>
+  </div>
+  <div className="splitFactionCenter">
+    <div className="splitFactionCrest">✦</div>
+    <h1>DAEVEXUS</h1>
+    <p>AION 2 COMPANION</p>
+    <div className="splitLaunch"><small>A NEW JOURNEY BEGINS</small><strong>OCTOBER 5, 2026</strong></div>
+  </div>
+  <div className="splitSystemRail">
+    <a href="/classes"><b>SKILLS</b><small>Master your power</small></a>
+    <a href="/equipment"><b>EQUIPMENT</b><small>Discover gear</small></a>
+    <a href="/stigmas"><b>STIGMAS</b><small>Enhance your soul</small></a>
+    <a href="/pets"><b>PETS</b><small>Faithful companions</small></a>
+    <a href="/wings"><b>WINGS</b><small>Soar beyond limits</small></a>
+    <a href="/arcana"><b>ARCANAS</b><small>Unlock potential</small></a>
+    <a href="/daevanion"><b>DAEVANION</b><small>Plan your path</small></a>
+    <a href="/builds"><b>BUILDS</b><small>Create & share</small></a>
+    <span className="isRecovering" aria-disabled="true"><b>WORLD MAP</b><small>Recovery in progress</small></span>
+  </div>
+</section>
 <section id="vision-systems" className="homeIntel visionSystems"><div className="intelHead"><span>DISCOVER AION 2</span><h2>Everything worth knowing. One place.</h2><p>Jump from the world into the systems that shape your Daeva.</p></div><div className="intelFeature"><div><small>CHOOSE YOUR PATH</small><h3>8 CLASSES. YOUR DAEVA.</h3><p>Start with a class, then follow its skills, stigmas, builds and recommended gear through DAEVEXUS.</p><a href="/classes">EXPLORE ALL CLASSES →</a></div><div className="classStrip"><b>TEMPLAR</b><b>GLADIATOR</b><b>ASSASSIN</b><b>RANGER</b><b>SORCERER</b><b>SPIRITMASTER</b><b>CLERIC</b><b>CHANTER</b></div></div><div className="intelGrid visionSystemGrid"><a href="/classes"><small>01 · COMBAT</small><strong>SKILLS</strong><span>Class kits, actives and passives →</span></a><a href="/stigmas"><small>02 · SPECIALIZE</small><strong>STIGMAS</strong><span>Class-specific Stigma skills →</span></a><a href="/daevanion"><small>03 · DEVELOP</small><strong>DAEVANION</strong><span>Boards, nodes and upgrades →</span></a><a href="/arcana"><small>04 · REFINE</small><strong>ARCANA</strong><span>Cards, stats and imprints →</span></a><a href="/equipment"><small>05 · POWER</small><strong>EQUIPMENT</strong><span>Weapons, armor and accessories →</span></a><a href="/wings"><small>06 · FLIGHT</small><strong>WINGS</strong><span>Faction wings and recorded stats →</span></a><a href="/pets"><small>07 · COMPANIONS</small><strong>PETS</strong><span>Browse the companion catalog →</span></a><a href="/builds"><small>08 · PLAN</small><strong>BUILD LAB</strong><span>Connect every system in one build →</span></a></div><div className="regionNote"><b>REGION-AWARE DATA</b><span>GLOBAL and KR/TW content stays clearly separated.</span></div><div className="combatShowcase"><div className="combatCopy"><small>PVE DISCOVERY</small><h3>DUNGEONS<br/>& BOSSES</h3><p>See the encounter, then jump straight to its dungeon, drops, related gear and guides.</p><a href="/database">EXPLORE PVE →</a></div><div className="combatFlow"><div><span>01</span><b>BOSS</b><small>Encounter</small></div><i>→</i><div><span>02</span><b>DUNGEON</b><small>Location</small></div><i>→</i><div><span>03</span><b>LOOT</b><small>Item source</small></div><i>→</i><div><span>04</span><b>BUILD</b><small>Use it</small></div></div></div></section><section className="progressionShowcase"><div className="progressionIntro"><span>BUILD YOUR DAEVA</span><h2>PROGRESSION<br/>AT A GLANCE</h2><p>See how the major character systems connect, then open DAEVEXUS when you need the details.</p></div><div className="progressionRail"><a href="/classes"><small>01</small><b>SKILLS</b><span>Core combat</span></a><i>→</i><a href="/stigmas"><small>02</small><b>STIGMAS</b><span>Specialize</span></a><i>→</i><a href="/daevanion"><small>03</small><b>DAEVANION</b><span>Develop</span></a><i>→</i><a href="/arcana"><small>04</small><b>ARCANA</b><span>Refine</span></a><i>→</i><a href="/equipment"><small>05</small><b>GEAR</b><span>Power up</span></a></div><div className="progressionFoot"><b>ONE CONNECTED DATABASE</b><span>Systems → builds → equipment → sources</span></div></section><section className="gamePanel founderPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>AION 2 GLOBAL</span><h2>GLOBAL LAUNCH</h2><p>DAEVEXUS is preparing its Global database and tools for the worldwide AION 2 launch.</p><div className="launchDate"><small>OFFICIAL GLOBAL DATE</small><strong>OCTOBER 5, 2026</strong></div><div className="factRow centeredFacts"><b>GLOBAL</b><b>DATABASE</b><b>BUILD TOOLS</b></div><a href="https://aion2.plaync.com/en-us/" target="_blank" rel="noreferrer">VIEW OFFICIAL AION 2 →</a></div><div className="panelIndex">04</div></section>
 <section className="enterHub"><span>READY TO GO DEEPER?</span><h2>Enter DAEVEXUS</h2><p>Classes · Database · Builds · World · Guides</p><a href="/classes">ENTER DAEVEXUS →</a></section>
 <footer><div><b>DAEVEXUS</b><p>Independent community companion for AION 2.</p></div><div className="footerTags"><span>GLOBAL</span><span>KR / TW<small>Korea &amp; Taiwan server info</small></span></div></footer>
