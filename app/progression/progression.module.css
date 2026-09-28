@@ -95,3 +95,19 @@
 .wingsPage .back,.petPage .back{border-color:#6f613d;color:#ead79f;background:#0a131dcc;backdrop-filter:blur(12px)}
 .wingsPage .tierFilterActive,.petPage .petTabActive{border-color:#9d8756;box-shadow:inset 0 0 18px rgba(217,189,120,.07)}
 @media(max-width:540px){.visionTag{margin-top:-8px}.wingsPage .back,.petPage .back{width:40px;height:40px}}
+
+/* Final Pets concept: immersive full-screen sanctuary with native-aspect artwork. */
+.petPage{position:relative;min-height:100svh;background:#02070d;overflow-x:hidden}
+.petPage .wrap{width:100%;max-width:none;padding:0 0 64px}
+.petPage .back{z-index:30}
+.petSanctuary{position:relative;width:100%;height:min(78svh,900px);min-height:560px;overflow:hidden;background:#02070d}
+.petSanctuaryArt{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center 38%;transform:none}
+.petSanctuaryShade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(2,7,13,.04) 0%,rgba(2,7,13,.02) 52%,rgba(2,7,13,.82) 91%,#02070d 100%),linear-gradient(90deg,rgba(2,7,13,.18),transparent 30%,transparent 70%,rgba(2,7,13,.18))}
+.petSanctuaryControls{position:absolute;left:50%;bottom:28px;z-index:2;display:flex;gap:8px;transform:translateX(-50%)}
+.petSanctuaryControls button{display:flex;align-items:center;gap:8px;min-height:44px;padding:5px 10px 5px 6px;border:1px solid rgba(217,189,120,.34);border-radius:7px;background:rgba(5,13,20,.72);color:#c9d9e2;backdrop-filter:blur(12px);cursor:pointer}
+.petSanctuaryControls button:hover,.petSanctuaryControls .petSanctuaryActive{border-color:#d9bd78;background:rgba(22,27,28,.88);color:#f4e5ba;box-shadow:inset 0 0 18px rgba(217,189,120,.08)}
+.petSanctuaryControls img{width:32px;height:32px;display:block;object-fit:contain;border-radius:5px}
+.petSanctuaryControls span{font-size:10px;white-space:nowrap}
+.petCatalog{width:min(1700px,calc(100% - 96px));margin:22px auto 0}
+.petPage>.wrap>.source{width:min(1700px,calc(100% - 96px));margin:25px auto 0}
+@media(max-width:800px){.petPage .wrap{width:100%;margin:0}.petSanctuary{height:68svh;min-height:460px}.petCatalog,.petPage>.wrap>.source{width:calc(100% - 28px)}.petSanctuaryControls span{display:none}.petSanctuaryControls button{padding-right:6px}}
