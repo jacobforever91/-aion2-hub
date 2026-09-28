@@ -918,3 +918,12 @@ body:has(.cinematicHome) {
 .buildDaevaHotspots .daevanion{left:77.6%;top:62.1%;width:10.4%;height:16.2%}
 .buildDaevaHotspots .creator{left:35.3%;top:79.4%;width:29.5%;height:9.3%}
 .buildDaevaHotspots .buildHot:focus-visible{outline:2px solid #e5c780;outline-offset:2px}
+
+.updateCenterHotspots{position:absolute;inset:0;z-index:5;pointer-events:none}
+.updateCenterHotspots .updateHot{position:absolute;display:block;pointer-events:auto}
+.updateCenterHotspots .cardOne{left:18.2%;top:53.5%;width:20.8%;height:22%}
+.updateCenterHotspots .cardTwo{left:39.6%;top:53.5%;width:20.8%;height:22%}
+.updateCenterHotspots .cardThree{left:61%;top:53.5%;width:20.8%;height:22%}
+.updateCenterHotspots .viewAll{left:34.4%;top:79.2%;width:15.2%;height:7.5%}
+.updateCenterHotspots .officialNews{left:50.5%;top:79.2%;width:15.2%;height:7.5%}
+.updateCenterHotspots .updateHot:focus-visible{outline:2px solid #e5c780;outline-offset:3px}
