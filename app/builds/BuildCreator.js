@@ -529,8 +529,6 @@ export default function BuildCreator(){
 
     <div className={styles.wrap}>
       <header className={styles.hero}>
-        <div className={styles.eyebrow}><Sparkles size={15}/> DAEVEXUS · BUILD LAB</div>
-        <div className={styles.heroRow}><div><h1>Build <em>Creator</em></h1><p>Plan a class setup, add skills and gear, then save it or share it with your party.</p></div><span className={styles.prototypeTag}>PROTOTYPE</span></div>
         <label className={styles.titleField}><span>BUILD NAME</span><input value={build.title} onChange={(event)=>patch("title",event.target.value)} placeholder="Example: Templar PvE tank"/></label>
       </header>
 
