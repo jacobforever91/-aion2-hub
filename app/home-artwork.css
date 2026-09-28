@@ -1,0 +1,59 @@
+/* Approved Home artwork. Scope these overrides so other pages are unchanged. */
+.homeV2.presentationHome .approvedHomeHero {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #03070c;
+}
+.homeV2.presentationHome .approvedHomeHero > img {
+  position: static;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  filter: none;
+  image-rendering: auto;
+}
+/* Keep controls aligned to the artwork at every viewport width. */
+.homeV2.presentationHome .approvedHomeHero .heroHotspot {
+  position: absolute;
+  display: block;
+  z-index: 12;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.homeV2.presentationHome .approvedHomeHero .heroSystemHotspots {
+  display: grid;
+}
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:hover,
+.homeV2.presentationHome .approvedHomeHero .heroSystemHotspots a:hover {
+  background: rgb(234 211 148 / 10%);
+}
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:focus-visible,
+.homeV2.presentationHome .approvedHomeHero .heroSystemHotspots a:focus-visible {
+  outline: 2px solid #ead394;
+  outline-offset: -2px;
+  background: rgb(234 211 148 / 12%);
+}
