@@ -192,6 +192,7 @@ export default function BuildCreator(){
   const [pickerState,setPickerState]=useState("idle");
   const [progressionPicker,setProgressionPicker]=useState("");
   const [progressionSearch,setProgressionSearch]=useState("");
+  const [progressionKind,setProgressionKind]=useState("wings");
   const [daevanionBoard,setDaevanionBoard]=useState("nezekan");
   const [skillSearch,setSkillSearch]=useState("");
   const [arcanaSlotIndex,setArcanaSlotIndex]=useState(null);
@@ -541,7 +542,7 @@ export default function BuildCreator(){
       <div className={styles.workspace}>
         <div className={styles.editor}>
           <div className={styles.tabs} role="tablist" aria-label="Build sections">
-            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Progression"],["daevanion","Daevanion"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
+            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Wings & Pets"],["daevanion","Daevanion"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
           </div>
 
           {tab==="overview"&&<section className={styles.panel}>
@@ -619,28 +620,77 @@ export default function BuildCreator(){
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
 
-          {tab==="progression"&&<section className={styles.panel}>
-            <div className={styles.panelHeading}><span className={styles.panelIcon}><Feather size={19}/></span><div><h2>Progression &amp; advanced systems</h2><p>Add the pieces that complete a character build.</p></div></div>
-            <div className={styles.formGrid}>
-              <div className={styles.field}><span>WINGS</span><button type="button" className={styles.progressionPickerButton} onClick={()=>{setProgressionPicker("wings");setProgressionSearch("")}}><span className={styles.progressionPickerIcon+(selectedWing?" "+styles.progressionWingPickerIcon:"")} style={selectedWing?{"--wing-picker-position":(-selectedWing.iconPosition[0]*36)+"px "+(-selectedWing.iconPosition[1]*36)+"px"}:undefined}>{!selectedWing&&<Feather size={16}/>}</span><span className={styles.progressionPickerCopy}><small>{selectedWing?selectedWing.grade+" · "+selectedWing.faction:"Tap to browse"}</small><strong>{selectedWing?.name||"Choose wings"}</strong></span><Search size={16}/></button></div>
-              <div className={styles.field}><span>PET</span><button type="button" className={styles.progressionPickerButton} onClick={()=>{setProgressionPicker("pets");setProgressionSearch("")}}><span className={styles.progressionPickerIcon+" "+styles.progressionPetPickerIcon}>{selectedPet&&petIcons[selectedPet.id]?<img src={petIcons[selectedPet.id]} alt="" loading="lazy" decoding="async"/>:<PawPrint size={16}/>}</span><span className={styles.progressionPickerCopy}><small>{selectedPet?.genus||"Tap to browse"}</small><strong>{selectedPet?.name||"Choose a pet"}</strong></span><Search size={16}/></button></div>
-              {petDetails?.baseStats&&<label className={styles.field}><span>PET LEVEL</span><select value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>}
+          {tab==="progression"&&<section className={styles.companionPanel}>
+            <div className={styles.companionHeader}>
+              <div>
+                <span className={styles.companionKicker}>CATALOG · BUILD SYSTEM</span>
+                <h2>Wings <em>&amp;</em> Companions</h2>
+                <p>Choose the wings and companion that complete this build.</p>
+              </div>
+              <span className={styles.companionQuote}>SELECT · PREVIEW · EQUIP</span>
             </div>
-            {selectedWing&&<article className={styles.progressionCard}>
-              <div className={styles.progressionCardHead}><span className={styles.progressionWingIcon} style={{"--wing-position":(-selectedWing.iconPosition[0]*52)+"px "+(-selectedWing.iconPosition[1]*52)+"px"}} aria-hidden="true"/><span><small>WINGS · {selectedWing.faction}</small><strong>{selectedWing.name}</strong><em>{selectedWing.grade}{selectedWing.enhancementCap?" · Enhancement cap +"+selectedWing.enhancementCap:wingDetails?.cosmetic?" · Cosmetic":" · Reference record"}</em></span></div>
-              {wingStats.length>0?<div className={styles.progressionStatList}>{wingStats.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>:<p className={styles.progressionEmpty}>No verified stat breakdown is available for this wing yet.</p>}
-            </article>}
-            {selectedPet&&<article className={styles.progressionCard}>
-              <div className={styles.progressionCardHead}><span className={styles.progressionPetIcon}>{petIcons[selectedPet.id]&&<img src={petIcons[selectedPet.id]} alt="" loading="lazy" decoding="async"/>}</span><span><small>PET · {selectedPet.genus}</small><strong>{selectedPet.name}</strong><em>{petDetails?.fields?.find(([label])=>label==="Souls to summon")?.[1]?petDetails.fields.find(([label])=>label==="Souls to summon")[1]+" souls to summon":"Pet reference"}</em></span></div>
-              {petLevelStats.length>0&&<div className={styles.petLevelStats}><h3>Level {build.petLevel} stats</h3><div className={styles.petStats}>{petLevelStats.map(([label,value])=><div key={label}><small>{label}</small><strong>{value}</strong></div>)}</div></div>}
-              {(petDetails?.fields?.length>0||petDetails?.tameFrom?.length>0)&&<details className={styles.petReferenceDetails}>
-                <summary>More information <span>Source and catalog data</span></summary>
-                {petDetails?.fields?.length>0&&<div className={styles.petReferenceFields}>{petDetails.fields.map(([label,value],index)=><div key={label+value+index}><span>{label}</span><b>{value}</b></div>)}</div>}
-                {petDetails?.tameFrom?.length>0&&<div className={styles.petReferenceSources}><strong>Found from</strong><p>{petDetails.tameFrom.join(" · ")}</p></div>}
-              </details>}
-            </article>}
 
+            <div className={styles.companionTabs}>
+              <button type="button" className={progressionKind==="wings"?styles.companionTabActive:styles.companionTab} onClick={()=>{setProgressionKind("wings");setProgressionSearch("")}}><Feather size={17}/> Wings</button>
+              <button type="button" className={progressionKind==="pets"?styles.companionTabActive:styles.companionTab} onClick={()=>{setProgressionKind("pets");setProgressionSearch("")}}><PawPrint size={17}/> Pets</button>
+            </div>
 
+            <div className={styles.companionWorkspace}>
+              <div className={styles.companionCatalog}>
+                <div className={styles.companionSearch}><Search size={17}/><input value={progressionSearch} onChange={(event)=>setProgressionSearch(event.target.value)} placeholder={progressionKind==="wings"?"Search wings…":"Search companions…"}/><span>{(progressionKind==="wings"?catalogData.wings:catalogData.pets).filter((item)=>item.name.toLowerCase().includes(progressionSearch.trim().toLowerCase())).length} results</span></div>
+                <div className={styles.companionGrid}>
+                  {(progressionKind==="wings"?catalogData.wings:catalogData.pets).filter((item)=>item.name.toLowerCase().includes(progressionSearch.trim().toLowerCase())).slice(0,12).map((item)=>{
+                    const isWing=progressionKind==="wings";
+                    const active=isWing?build.wingId===item.id:build.petId===item.id;
+                    return <button key={item.id} type="button" className={active?styles.companionCardActive:styles.companionCard} onClick={()=>isWing?patch("wingId",item.id):patch("petId",item.id)}>
+                      <span className={isWing?styles.companionWingThumb:styles.companionPetThumb} style={isWing?{"--companion-wing-position":(-item.iconPosition[0]*72)+"px "+(-item.iconPosition[1]*72)+"px"}:undefined}>
+                        {!isWing&&petIcons[item.id]&&<img src={petIcons[item.id]} alt="" loading="lazy" decoding="async"/>}
+                      </span>
+                      <strong>{item.name}</strong>
+                      <small>{isWing?item.grade+" · "+item.faction:item.genus}</small>
+                    </button>
+                  })}
+                </div>
+              </div>
+
+              <div className={styles.companionPreview}>
+                {progressionKind==="wings"?<>
+                  <div className={styles.companionPreviewArt}>
+                    {selectedWing?<span className={styles.companionWingHero} style={{"--companion-wing-hero-position":(-selectedWing.iconPosition[0]*180)+"px "+(-selectedWing.iconPosition[1]*180)+"px"}} aria-hidden="true"/>:<Feather size={84}/>}
+                  </div>
+                  <div className={styles.companionPreviewCopy}>
+                    <span>WINGS · {selectedWing?.faction||"NO SELECTION"}</span>
+                    <h3>{selectedWing?.name||"Choose wings"}</h3>
+                    <em>{selectedWing?.grade||"Select an item from the catalog"}</em>
+                    {selectedWing&&<p>Wing record from the DAEVEXUS catalog. Verified stats appear below when available.</p>}
+                  </div>
+                  {selectedWing&&<div className={styles.companionStats}>{wingStats.length?wingStats.map(([label,value],index)=><div key={label+index}><span>{label}</span><b>{value}</b></div>):<div><span>Stats</span><b>Reference data pending</b></div>}</div>}
+                  <button type="button" className={styles.companionEquip} disabled={!selectedWing}>{selectedWing?"Equipped":"Choose wings"}</button>
+                </>:<>
+                  <div className={styles.companionPreviewArt}>
+                    {selectedPet&&petIcons[selectedPet.id]?<img className={styles.companionPetHero} src={petIcons[selectedPet.id]} alt="" loading="lazy"/>:<PawPrint size={84}/>}
+                  </div>
+                  <div className={styles.companionPreviewCopy}>
+                    <span>COMPANION · {selectedPet?.genus||"NO SELECTION"}</span>
+                    <h3>{selectedPet?.name||"Choose a companion"}</h3>
+                    <em>{selectedPet?"Level "+build.petLevel:"Select a pet from the catalog"}</em>
+                    {selectedPet&&<p>Companion data from the DAEVEXUS progression catalog.</p>}
+                  </div>
+                  {selectedPet&&petLevelStats.length>0&&<div className={styles.companionStats}>{petLevelStats.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>)}</div>}
+                  {selectedPet&&petDetails?.baseStats&&<label className={styles.companionLevel}><span>Pet level</span><select value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>}
+                  <button type="button" className={styles.companionEquip} disabled={!selectedPet}>{selectedPet?"Selected":"Choose companion"}</button>
+                </>}
+              </div>
+            </div>
+
+            <div className={styles.selectedCompanionBar}>
+              <div className={styles.selectedCompanionLabel}><PawPrint size={18}/><span>Selected companion</span></div>
+              <div className={styles.selectedCompanionInfo}>
+                <span className={styles.selectedCompanionIcon}>{selectedPet&&petIcons[selectedPet.id]?<img src={petIcons[selectedPet.id]} alt="" loading="lazy"/>:<PawPrint size={22}/>}</span>
+                <span><strong>{selectedPet?.name||"No companion selected"}</strong><small>{selectedPet?.genus||"Choose one from the Pets tab"}</small></span>
+              </div>
+              <button type="button" onClick={()=>{setProgressionKind("pets");setProgressionSearch("")}}>Change companion →</button>
+            </div>
           </section>}
 
           {tab==="daevanion"&&<section id="daevanion-setup" className={styles.panel}>
