@@ -56,13 +56,14 @@ function WingsCatalog() {
 function PetsCatalog() {
   const [query,setQuery]=useState("");
   const [genus,setGenus]=useState("All groups");
+  const [featuredPet,setFeaturedPet]=useState("1089");
   const groups=["All groups","Fera","Cogni","Natura","Varian","Special"];
   const visible=useMemo(()=>catalogData.pets.filter(pet=>(!query||(pet.name+" "+pet.genus).toLowerCase().includes(query.toLowerCase()))&&(genus==="All groups"||pet.genus===genus)),[query,genus]);
   return <main className={styles.page + " " + styles.petPage}>
     <nav className={styles.nav}><Link className={styles.brand} href="/"><b>DAEVEXUS</b><small>GAME PROGRESSION</small></Link><div className={styles.links}><Link href="/classes">Classes</Link><Link href="/database">Database</Link><Link href="/equipment">Equipment</Link><Link href="/wings">Wings</Link></div><span className={styles.region}>REFERENCE DATA</span></nav>
     <div className={styles.wrap}><Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
-      <h1 className={styles.petTitle}>Pets</h1><small className={styles.visionTag}>DAEVEXUS · PROGRESSION</small>
-      <section className={styles.catalog} aria-label="Pets">
+      <section className={styles.petSanctuary} aria-label="Pet sanctuary preview"><img className={styles.petSanctuaryArt} src={`/pets/pet-${featuredPet}.webp`} alt="" /><div className={styles.petSanctuaryShade}/><div className={styles.petSanctuaryControls}>{["1089","1092","1094"].map(id=>{const pet=catalogData.pets.find(item=>item.id===id);return <button key={id} type="button" className={featuredPet===id?styles.petSanctuaryActive:""} onClick={()=>setFeaturedPet(id)} aria-label={`Show ${pet?.name||"pet"}`}><img src={petIcons[id]} alt="" /><span>{pet?.name||"Pet"}</span></button>})}</div></section>
+      <section className={styles.catalog + " " + styles.petCatalog} aria-label="Pets">
         <label className={styles.search + " searchHalo"}><Search aria-hidden="true"/><input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Search pets by name…" aria-label="Search pets by name"/></label>
         <div className={styles.petTabs} role="group" aria-label="Pet groups">{groups.map(value=><button key={value} type="button" className={styles.petTab + (genus===value?" "+styles.petTabActive:"")} aria-pressed={genus===value} onClick={()=>setGenus(value)}>{value}<span>{value==="All groups"?catalogData.pets.length:catalogData.pets.filter(pet=>pet.genus===value).length}</span></button>)}</div>
         <div className={styles.count}>{visible.length} of {catalogData.pets.length} pets</div>
