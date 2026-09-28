@@ -247,3 +247,38 @@ body:has(.homeV2.cinematicHome){
     object-position:center center!important;
   }
 }
+
+
+/* Clean Home artwork hotspots — follow the real 16:9 image while it uses cover. */
+.homeV2.presentationHome.cinematicHome{
+  --home-art-w:max(100vw,calc(100svh * 16 / 9));
+  --home-art-h:max(100svh,calc(100vw * 9 / 16));
+  --home-art-x:calc((100vw - var(--home-art-w)) / 2);
+  --home-art-y:calc((100svh - var(--home-art-h)) / 2);
+}
+.homeV2 .heroMenuHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .014);
+  top:calc(var(--home-art-y) + var(--home-art-h) * .018);
+  width:calc(var(--home-art-w) * .047);
+  height:calc(var(--home-art-h) * .078);
+}
+.homeV2 .heroHomeHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .934);
+  right:auto;
+  top:calc(var(--home-art-y) + var(--home-art-h) * .018);
+  width:calc(var(--home-art-w) * .047);
+  height:calc(var(--home-art-h) * .078);
+}
+.homeV2 .heroElyosHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .037);
+  top:calc(var(--home-art-y) + var(--home-art-h) * .713);
+  width:calc(var(--home-art-w) * .175);
+  height:calc(var(--home-art-h) * .058);
+}
+.homeV2 .heroAsmoHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .790);
+  right:auto;
+  top:calc(var(--home-art-y) + var(--home-art-h) * .713);
+  width:calc(var(--home-art-w) * .177);
+  height:calc(var(--home-art-h) * .058);
+}
