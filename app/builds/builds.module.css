@@ -684,3 +684,36 @@
   .companionWingHero{height:250px}
   .companionWingHero::before{transform:scale(1.15)}
 }
+
+
+/* Clean pet presentation: one companion per card and a contained large preview. */
+.companionPetThumb{
+  display:grid;
+  place-items:center;
+  background:#081018;
+}
+.companionPetThumb img{
+  width:78%;
+  height:78%;
+  object-fit:contain;
+  object-position:center;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.45));
+}
+.companionPetHero{
+  width:min(72%,320px);
+  max-height:230px;
+  object-fit:contain;
+  object-position:center;
+  filter:drop-shadow(0 16px 28px rgba(0,0,0,.55));
+}
+.selectedCompanionIcon img{
+  width:84%;
+  height:84%;
+  object-fit:contain;
+  object-position:center;
+}
+
+@media (min-width:1800px){
+  .companionPetThumb img{width:72%;height:72%}
+  .companionPetHero{width:min(66%,300px);max-height:210px}
+}
