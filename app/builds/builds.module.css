@@ -564,3 +564,72 @@
   .selectedCompanionInfo small{font-size:9px}
   .selectedCompanionBar>button{min-height:36px}
 }
+
+
+/* Unify Build Creator navigation with DAEVEXUS black + gold language. */
+.page{
+  background:
+    radial-gradient(ellipse at 50% -12%,rgba(91,69,35,.24) 0,transparent 40%),
+    linear-gradient(180deg,#03080c,#071016 55%,#03070a);
+}
+.nav{
+  border-bottom-color:#5a4528;
+  background:#050b0feF;
+}
+.back{
+  border-color:#8d7240;
+  color:#e3ca8d;
+}
+.brand{color:#f0dfb5}
+.brand small{color:#9f8b65}
+.navLinks a{color:#b4aa96}
+.navLinks a:hover{color:#e2c580}
+
+.titleField{
+  border-color:#66502f;
+  background:#071017;
+}
+.titleField span,.field>span{color:#c5a765}
+.titleField input{color:#eee5d2}
+.titleField input::placeholder{color:#746d61}
+
+.actionBar{
+  border-color:#59452a;
+  background:#081117eF;
+}
+.actionCopy{color:#938b7d}
+.actionCopy small{color:#cdb16f}
+.primaryButton,.secondaryButton{
+  border-color:#6e5834;
+  background:#0d171a;
+  color:#d9c394;
+}
+.primaryButton:hover,.secondaryButton:hover{
+  border-color:#d1ae62;
+  background:#191a16;
+  color:#f2ddb0;
+}
+.primaryButton:active,.secondaryButton:active{
+  border-color:#e0bd70;
+  background:#252017;
+  color:#fff0c8;
+}
+.primaryButton:focus-visible,.secondaryButton:focus-visible{
+  outline-color:#dfbd70;
+}
+
+.tab,.tabActive{
+  border-color:#55452e;
+  background:#081116;
+  color:#a79c88;
+}
+.tab:hover{
+  border-color:#9d7d43;
+  color:#dfc891;
+}
+.tabActive{
+  border-color:#c7a45a;
+  background:linear-gradient(180deg,#1b1b16,#0d1314);
+  color:#f0d89f;
+  box-shadow:inset 0 -2px #c7a45a,0 0 16px rgba(199,164,90,.12);
+}
