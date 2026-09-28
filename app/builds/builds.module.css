@@ -878,7 +878,43 @@
   font-size:9px;
 }
 .toolbarNotice small{color:#cdb16f}
-@media(max-width:1050px){
+@media(max-width:760px){
   .buildToolbar{align-items:stretch;flex-direction:column}
-  .toolbarActions{justify-content:flex-end}
+  .toolbarActions{justify-content:flex-start}
+}
+
+
+/* Desktop toolbar lock: keep tabs and build actions on one horizontal rail. */
+@media (min-width:761px){
+  .buildToolbar{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    column-gap:20px;
+    width:100%;
+  }
+  .buildToolbar .tabs{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    min-width:0;
+    gap:6px;
+    padding:0;
+    margin:0;
+  }
+  .toolbarActions{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    align-items:center;
+    justify-content:flex-end;
+    gap:7px;
+    white-space:nowrap;
+  }
+  .toolbarActions .primaryButton,
+  .toolbarActions .secondaryButton{
+    flex:0 0 auto;
+    width:auto;
+    min-width:auto;
+  }
 }
