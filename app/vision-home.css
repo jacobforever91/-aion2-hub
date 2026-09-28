@@ -1036,3 +1036,23 @@
   .splitLaunch{display:none}
   .splitSystemRail{grid-template-columns:repeat(2,1fr)}
 }
+
+
+/* Home tab 1 — approved artwork, shown exactly as selected. */
+.approvedHomeHero{position:relative;width:100%;background:#03070c;overflow:hidden}
+.approvedHomeHero>img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
+.srOnly{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.heroHotspot,.heroSystemHotspots a,.heroSystemHotspots>span{position:absolute;z-index:12;background:transparent;border:0;outline:0;cursor:pointer}
+.heroHotspot:focus-visible,.heroSystemHotspots a:focus-visible{outline:2px solid #ead394;outline-offset:-2px;background:rgba(217,189,120,.08)}
+.heroMenuHotspot{left:1.45%;top:1.45%;width:4.85%;height:7.9%}
+.heroHomeHotspot{right:1.45%;top:1.45%;width:4.85%;height:7.9%}
+.heroElyosHotspot{left:4.25%;top:70.2%;width:16.4%;height:6.2%}
+.heroAsmoHotspot{right:4.25%;top:70.2%;width:17.7%;height:6.2%}
+.heroSystemHotspots{position:absolute;z-index:11;left:15.45%;right:15.45%;top:79.2%;height:14.1%;display:grid;grid-template-columns:repeat(9,1fr)}
+.heroSystemHotspots a,.heroSystemHotspots>span{position:relative;inset:auto;width:100%;height:100%;display:block}
+.heroSystemHotspots>span{cursor:default}
+@media(max-width:760px){
+  .approvedHomeHero{overflow-x:auto;overscroll-behavior-x:contain}
+  .approvedHomeHero>img{width:100%;min-width:900px;max-width:none}
+  .heroHotspot,.heroSystemHotspots{display:none}
+}
