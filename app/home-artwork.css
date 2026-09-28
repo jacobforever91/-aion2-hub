@@ -325,3 +325,53 @@ body:has(.homeV2.cinematicHome){
   box-shadow:none!important;
   -webkit-tap-highlight-color:transparent;
 }
+
+
+/* Refined cinematic page controls: slim ornamental chevrons instead of boxed arrows. */
+.cinematicPageArrow{
+  width:34px!important;
+  height:72px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#e2c47b!important;
+  font-size:0!important;
+  box-shadow:none!important;
+  opacity:.78;
+}
+.cinematicPageArrow::before{
+  content:"";
+  width:18px;
+  height:18px;
+  border-top:2px solid currentColor;
+  border-right:2px solid currentColor;
+  filter:drop-shadow(0 0 5px rgba(211,174,95,.38));
+  transition:transform .22s ease,filter .22s ease,opacity .22s ease;
+}
+.cinematicNext::before{transform:rotate(45deg)}
+.cinematicPrev::before{transform:rotate(-135deg)}
+.cinematicPageArrow::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:1px;
+  height:46px;
+  background:linear-gradient(180deg,transparent,rgba(211,174,95,.6),transparent);
+  transform:translateY(-50%);
+  opacity:.55;
+}
+.cinematicNext::after{right:-7px}
+.cinematicPrev::after{left:-7px}
+.cinematicPageArrow:hover{
+  opacity:1;
+  background:transparent!important;
+}
+.cinematicNext:hover::before{transform:translateX(3px) rotate(45deg);filter:drop-shadow(0 0 8px rgba(230,196,118,.75))}
+.cinematicPrev:hover::before{transform:translateX(-3px) rotate(-135deg);filter:drop-shadow(0 0 8px rgba(230,196,118,.75))}
+.cinematicPageArrow:focus-visible{
+  outline:0!important;
+}
+@media(max-width:900px){
+  .cinematicPageArrow{width:30px!important;height:60px!important}
+  .cinematicPageArrow::before{width:15px;height:15px}
+}
