@@ -1,7 +1,6 @@
 "use client";
 import {useEffect, useState} from "react";
 import {MessageCircle} from "lucide-react";
-import FactionScene from "./factions/FactionScene";
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
 export default function Home(){const[open,setOpen]=useState(false);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);return <main className="homeV2 presentationHome">
 <div id="aion-menu" className={"a2MobileMenu forgeMenu "+(open?"isOpen":"")} aria-hidden={!open}>
@@ -38,8 +37,6 @@ export default function Home(){const[open,setOpen]=useState(false);useEffect(()=
     <span aria-label="World Map recovery in progress"><span className="srOnly">World Map recovery in progress</span></span>
   </nav>
 </section>
-<FactionScene faction="elyos" />
-<FactionScene faction="asmodians" />
 <section className="gamePanel founderPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>AION 2 GLOBAL</span><h2>GLOBAL LAUNCH</h2><p>DAEVEXUS is preparing its Global database and tools for the worldwide AION 2 launch.</p><div className="launchDate"><small>OFFICIAL GLOBAL DATE</small><strong>OCTOBER 5, 2026</strong></div><div className="factRow centeredFacts"><b>GLOBAL</b><b>DATABASE</b><b>BUILD TOOLS</b></div><a href="https://aion2.plaync.com/en-us/" target="_blank" rel="noreferrer">VIEW OFFICIAL AION 2 →</a></div><div className="panelIndex">04</div></section>
 <section className="enterHub"><span>READY TO GO DEEPER?</span><h2>Enter DAEVEXUS</h2><p>Classes · Database · Builds · World · Guides</p><a href="/classes">ENTER DAEVEXUS →</a></section>
 <footer><div><b>DAEVEXUS</b><p>Independent community companion for AION 2.</p></div><div className="footerTags"><span>GLOBAL</span><span>KR / TW<small>Korea &amp; Taiwan server info</small></span></div></footer>
