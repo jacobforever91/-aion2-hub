@@ -251,8 +251,8 @@ body:has(.homeV2.cinematicHome){
 
 /* Clean Home artwork hotspots — follow the real 16:9 image while it uses cover. */
 .homeV2.presentationHome.cinematicHome{
-  --home-art-w:max(100vw,calc(100svh * 16 / 9));
-  --home-art-h:max(100svh,calc(100vw * 9 / 16));
+  --home-art-w:max(100vw,calc(100svh * 2));
+  --home-art-h:max(100svh,calc(100vw / 2));
   --home-art-x:calc((100vw - var(--home-art-w)) / 2);
   --home-art-y:calc((100svh - var(--home-art-h)) / 2);
 }
