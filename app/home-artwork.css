@@ -282,3 +282,32 @@ body:has(.homeV2.cinematicHome){
   width:calc(var(--home-art-w) * .177);
   height:calc(var(--home-art-h) * .058);
 }
+
+
+/* Home 2.png final hotspot tuning */
+.homeV2 .heroMenuHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .0105);
+  top:calc(var(--home-art-y) + var(--home-art-h) * .018);
+  width:calc(var(--home-art-w) * .031);
+  height:calc(var(--home-art-h) * .047);
+}
+.homeV2 .heroHomeHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .958);
+  right:auto;
+  top:calc(var(--home-art-y) + var(--home-art-h) * .018);
+  width:calc(var(--home-art-w) * .031);
+  height:calc(var(--home-art-h) * .047);
+}
+.homeV2 .heroElyosHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .048);
+  top:calc(var(--home-art-y) + var(--home-art-h) * .758);
+  width:calc(var(--home-art-w) * .145);
+  height:calc(var(--home-art-h) * .052);
+}
+.homeV2 .heroAsmoHotspot{
+  left:calc(var(--home-art-x) + var(--home-art-w) * .812);
+  right:auto;
+  top:calc(var(--home-art-y) + var(--home-art-h) * .758);
+  width:calc(var(--home-art-w) * .150);
+  height:calc(var(--home-art-h) * .052);
+}
