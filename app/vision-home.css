@@ -739,7 +739,7 @@
   background:
     linear-gradient(90deg,rgba(2,8,17,.47),rgba(2,8,17,.08) 29%,rgba(2,8,17,.06) 71%,rgba(2,8,17,.48)),
     linear-gradient(180deg,rgba(2,8,17,.17),transparent 38%,rgba(2,8,17,.35)),
-    url("/daevexus/equipment-wallpaper.webp") center/cover no-repeat;
+    var(--class-scene, url("/daevexus/equipment-wallpaper.webp")) center/cover no-repeat;
 }
 .classSkillExperience{width:min(100%,1840px);min-height:calc(100svh - 34px);margin:0 auto;display:flex;flex-direction:column;gap:14px}
 .classSkillExperiencePage>.classBack{
