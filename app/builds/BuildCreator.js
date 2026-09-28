@@ -532,16 +532,20 @@ export default function BuildCreator(){
         <label className={styles.titleField}><span>BUILD NAME</span><input value={build.title} onChange={(event)=>patch("title",event.target.value)} placeholder="Example: Templar PvE tank"/></label>
       </header>
 
-      <div className={styles.actionBar}>
-        <div className={styles.actionCopy}><span>{savedAt||"Your draft stays in this browser until you save it."}</span>{notice&&<small>{notice}</small>}</div>
-        <div className={styles.actions}><button type="button" className={styles.secondaryButton} onClick={resetBuild}>New build</button><button type="button" className={styles.secondaryButton} onClick={copyShareLink}><Copy size={15}/> Share</button><button type="button" className={styles.primaryButton} onClick={saveBuild}><Save size={15}/> Save draft</button></div>
+      <div className={styles.buildToolbar}>
+        <div className={styles.tabs} role="tablist" aria-label="Build sections">
+          {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Wings & Pets"],["daevanion","Daevanion"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
+        </div>
+        <div className={styles.toolbarActions}>
+          <button type="button" className={styles.secondaryButton} onClick={resetBuild}>New build</button>
+          <button type="button" className={styles.secondaryButton} onClick={copyShareLink}><Copy size={15}/> Share</button>
+          <button type="button" className={styles.primaryButton} onClick={saveBuild}><Save size={15}/> Save draft</button>
+        </div>
       </div>
+      {(savedAt||notice)&&<div className={styles.toolbarNotice}><span>{savedAt}</span>{notice&&<small>{notice}</small>}</div>}
 
       <div className={styles.workspace}>
         <div className={styles.editor}>
-          <div className={styles.tabs} role="tablist" aria-label="Build sections">
-            {[["overview","Overview"],["skills","Skills"],["equipment","Equipment"],["progression","Wings & Pets"],["daevanion","Daevanion"],["arcana","Arcana"],["compare","Compare"]].map(([id,label])=><button key={id} type="button" role="tab" aria-selected={tab===id} className={tab===id?styles.tabActive:styles.tab} onClick={()=>setTab(id)}>{label}</button>)}
-          </div>
 
           {tab==="overview"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Shield size={19}/></span><div><h2>Character setup</h2><p>Choose the class, region and kind of content this build is for.</p></div></div>
