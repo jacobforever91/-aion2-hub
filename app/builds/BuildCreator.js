@@ -523,7 +523,7 @@ export default function BuildCreator(){
     <nav className={styles.nav}>
       <Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft aria-hidden="true"/></Link>
       <Link className={styles.brand} href="/"><b>DAEVEXUS</b><small>BUILD CREATOR · PROTOTYPE</small></Link>
-      <div className={styles.navLinks}><Link href="/classes">Skills</Link><Link href="/equipment">Equipment</Link><Link href="/stigmas">Stigmas</Link><Link href="/daevanion">Daevanion</Link><Link href="/arcana">Arcana</Link></div>
+      <div className={styles.navLinks}><Link href="/community-builds">Community</Link><Link href="/classes">Skills</Link><Link href="/equipment">Equipment</Link><Link href="/stigmas">Stigmas</Link><Link href="/daevanion">Daevanion</Link><Link href="/arcana">Arcana</Link></div>
     </nav>
 
     <div className={styles.wrap}>
