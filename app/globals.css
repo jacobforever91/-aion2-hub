@@ -906,3 +906,15 @@ body:has(.cinematicHome) {
   outline:2px solid #e5c780;
   outline-offset:4px;
 }
+
+.buildDaevaHotspots{position:absolute;inset:0;z-index:5;pointer-events:none}
+.buildDaevaHotspots .buildHot{position:absolute;display:block;pointer-events:auto}
+.buildDaevaHotspots .equipment{left:11.7%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .skills{left:22.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .stigmas{left:33.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .wings{left:44.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .pets{left:55.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .arcana{left:66.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .daevanion{left:77.6%;top:62.1%;width:10.4%;height:16.2%}
+.buildDaevaHotspots .creator{left:35.3%;top:79.4%;width:29.5%;height:9.3%}
+.buildDaevaHotspots .buildHot:focus-visible{outline:2px solid #e5c780;outline-offset:2px}
