@@ -40,5 +40,5 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
 
 <section id="elyos-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/1B701743-81F6-4C8A-B827-D07FFD0EDFA3.png" alt="DAEVEXUS Elyos faction introduction"/></section>
 <section id="asmodians-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/8A997A54-D1D5-430C-AFC3-C4E5FC95C104.png" alt="DAEVEXUS Asmodians faction introduction"/></section>
-<section id="global-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/D86FC685-ADCD-45C4-8AC2-B7B69858488E.png" alt="DAEVEXUS AION 2 Global launch October 5, 2026"/></section>
+<section id="global-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/D86FC685-ADCD-45C4-8AC2-B7B69858488E.png" alt="DAEVEXUS AION 2 Global launch October 5, 2026"/></section>\n<section id="founder-packs-screen" className="approvedFactionScreen cinematicScreen"><img src="/home/25047614-E33E-4054-957A-F3F82D70B249.png" alt="DAEVEXUS AION 2 Founder Packs"/><a className="founderOfficialHotspot" href="https://purple.plaync.com/game/aion2global?locale=en-US" target="_blank" rel="noreferrer" aria-label="View official AION 2 Founder Packs"><span className="srOnly">View official Founder Packs</span></a></section>
 </main>}
