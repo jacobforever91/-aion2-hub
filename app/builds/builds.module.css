@@ -717,3 +717,134 @@
   .companionPetThumb img{width:72%;height:72%}
   .companionPetHero{width:min(66%,300px);max-height:210px}
 }
+
+
+/* DAEVEXUS Build Summary — compact black + gold stat card. */
+.summary{
+  position:sticky;
+  top:18px;
+  align-self:start;
+  overflow:hidden;
+  border:1px solid #6f572f;
+  border-radius:0;
+  background:
+    radial-gradient(circle at 100% 0,rgba(187,145,68,.12),transparent 38%),
+    linear-gradient(155deg,#0b1114f5,#05090cf7);
+  box-shadow:0 18px 45px rgba(0,0,0,.38),inset 0 1px rgba(255,231,177,.04);
+}
+.summary::before{
+  content:"";
+  display:block;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#d3ae5f 28%,#d3ae5f 72%,transparent);
+}
+.summaryDetails>summary{
+  min-height:72px;
+  padding:14px 16px;
+  background:linear-gradient(180deg,rgba(26,25,20,.86),rgba(8,13,16,.9));
+}
+.summaryDetails>summary:hover{background:linear-gradient(180deg,rgba(38,32,22,.92),rgba(9,14,17,.94))}
+.summaryDetails>summary:focus-visible{outline:2px solid #d5b46e;outline-offset:-3px}
+.summaryCompactCopy strong{
+  color:#f2e6c7;
+  font:400 18px/1.15 Georgia,serif;
+  letter-spacing:.2px;
+}
+.summaryCompactCopy small{
+  color:#9f947f;
+  font-size:9px;
+  letter-spacing:.3px;
+}
+.summaryToggleAction{
+  color:#b69a61;
+  letter-spacing:1.1px;
+}
+.summaryToggleAction b{
+  width:28px;
+  height:28px;
+  border:1px solid #8a6e3c;
+  border-radius:0;
+  background:#0b1215;
+  color:#e2c47d;
+}
+.summaryDetails[open]>.summaryToggle{border-bottom:1px solid #59472b}
+.summaryContent{padding:16px}
+.summaryHead{
+  gap:8px;
+  padding-bottom:15px;
+  border-bottom:1px solid #514128;
+}
+.summaryHead>span{
+  color:#c7a45e;
+  font-size:8px;
+  letter-spacing:2.2px;
+}
+.summaryHead strong{
+  color:#f3ead6;
+  font-size:20px;
+}
+.summaryHead small{color:#9b9487;font-size:9px}
+.summaryHead em{
+  border:1px solid #7c6338;
+  border-radius:0;
+  background:#151710;
+  color:#d6b86f;
+  letter-spacing:1.2px;
+}
+.summaryCounts{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:0;
+  padding:0;
+  margin:14px 0 0;
+  border:1px solid #4d3d27;
+  background:#080e11;
+}
+.summaryCounts>div{
+  gap:5px;
+  padding:11px 5px;
+  border-right:1px solid #3e3324;
+}
+.summaryCounts>div:last-child{border-right:0}
+.summaryCounts strong{
+  color:#e3c77f;
+  font:600 18px/1 Georgia,serif;
+}
+.summaryCounts small{
+  color:#938a78;
+  font-size:7px;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.summarySection{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid #403524;
+  background:rgba(8,14,17,.7);
+}
+.summarySection h3{
+  margin:0 0 9px;
+  color:#d7bc79;
+  font:400 14px Georgia,serif;
+}
+.summarySection>div{
+  padding:7px 0;
+  border-bottom:1px solid #2d2a22;
+  color:#9d978b;
+  font-size:9px;
+}
+.summarySection>div:last-child{border-bottom:0}
+.summarySection>div b{
+  color:#efe4c9;
+  font-size:9px;
+}
+.summarySection p{
+  color:#908a7e;
+  font-size:9px;
+}
+.summaryFoot{
+  margin-top:14px;
+  padding:11px 12px 0;
+  border-top:1px solid #4c3d28;
+  color:#7f796d;
+  font-size:8px;
+}
