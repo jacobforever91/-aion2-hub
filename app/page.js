@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {MessageCircle} from "lucide-react";
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
 export default function Home(){const[open,setOpen]=useState(false);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);return <main className="homeV2 presentationHome">
-<div className="homeFloatNav"><button onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><i/><i/><i/></button><a href="/" aria-label="Home"><span className="homeRoof">⌂</span></a></div>
 <div id="aion-menu" className={"a2MobileMenu forgeMenu "+(open?"isOpen":"")} aria-hidden={!open}>
   <div className="forgeMenuContent">
     <div className="forgeMenuHeader"><span>DAEVEXUS</span><small>GAME &amp; DATABASE</small></div>
@@ -20,44 +19,23 @@ export default function Home(){const[open,setOpen]=useState(false);useEffect(()=
 </div>
 <button className={"a2Close forgeClose "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
 
-<section className="splitFactionHero">
-  <div className="splitFactionSide splitElyos">
-    <div className="splitFactionShade"/>
-    <div className="splitFactionCopy splitFactionCopyLeft">
-      <span>THE CELESTIAL REALM</span>
-      <h2>ELYOS</h2>
-      <small>LIGHT CREATES HOPE</small>
-      <p>Guided by the light, they strive for a brighter tomorrow.</p>
-      <a href="/database">EXPLORE ELYOS →</a>
-    </div>
-  </div>
-  <div className="splitFactionSide splitAsmo">
-    <div className="splitFactionShade"/>
-    <div className="splitFactionCopy splitFactionCopyRight">
-      <span>THE OTHER SKY</span>
-      <h2>ASMODIANS</h2>
-      <small>POWER FOR A GREATER TOMORROW</small>
-      <p>Through will and sacrifice, they forge a new future.</p>
-      <a href="/database">EXPLORE ASMODIANS →</a>
-    </div>
-  </div>
-  <div className="splitFactionCenter">
-    <div className="splitFactionCrest">✦</div>
-    <h1>DAEVEXUS</h1>
-    <p>AION 2 COMPANION</p>
-    <div className="splitLaunch"><small>A NEW JOURNEY BEGINS</small><strong>OCTOBER 5, 2026</strong></div>
-  </div>
-  <div className="splitSystemRail">
-    <a href="/classes"><b>SKILLS</b><small>Master your power</small></a>
-    <a href="/equipment"><b>EQUIPMENT</b><small>Discover gear</small></a>
-    <a href="/stigmas"><b>STIGMAS</b><small>Enhance your soul</small></a>
-    <a href="/pets"><b>PETS</b><small>Faithful companions</small></a>
-    <a href="/wings"><b>WINGS</b><small>Soar beyond limits</small></a>
-    <a href="/arcana"><b>ARCANAS</b><small>Unlock potential</small></a>
-    <a href="/daevanion"><b>DAEVANION</b><small>Plan your path</small></a>
-    <a href="/builds"><b>BUILDS</b><small>Create & share</small></a>
-    <span className="isRecovering" aria-disabled="true"><b>WORLD MAP</b><small>Recovery in progress</small></span>
-  </div>
+<section className="approvedHomeHero" aria-label="DAEVEXUS Elyos and Asmodians Home">
+  <img src="/home/daevexus-home-hero.webp" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians, launch date and system shortcuts"/>
+  <button className="heroHotspot heroMenuHotspot" type="button" onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><span className="srOnly">Open menu</span></button>
+  <a className="heroHotspot heroHomeHotspot" href="/" aria-label="Home"><span className="srOnly">Home</span></a>
+  <a className="heroHotspot heroElyosHotspot" href="/database" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
+  <a className="heroHotspot heroAsmoHotspot" href="/database" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
+  <nav className="heroSystemHotspots" aria-label="DAEVEXUS systems">
+    <a href="/classes" aria-label="Skills"><span className="srOnly">Skills</span></a>
+    <a href="/equipment" aria-label="Equipment"><span className="srOnly">Equipment</span></a>
+    <a href="/stigmas" aria-label="Stigmas"><span className="srOnly">Stigmas</span></a>
+    <a href="/pets" aria-label="Pets"><span className="srOnly">Pets</span></a>
+    <a href="/wings" aria-label="Wings"><span className="srOnly">Wings</span></a>
+    <a href="/arcana" aria-label="Arcanas"><span className="srOnly">Arcanas</span></a>
+    <a href="/daevanion" aria-label="Daevanion"><span className="srOnly">Daevanion</span></a>
+    <a href="/builds" aria-label="Builds"><span className="srOnly">Builds</span></a>
+    <span aria-label="World Map recovery in progress"><span className="srOnly">World Map recovery in progress</span></span>
+  </nav>
 </section>
 <section id="vision-systems" className="homeIntel visionSystems"><div className="intelHead"><span>DISCOVER AION 2</span><h2>Everything worth knowing. One place.</h2><p>Jump from the world into the systems that shape your Daeva.</p></div><div className="intelFeature"><div><small>CHOOSE YOUR PATH</small><h3>8 CLASSES. YOUR DAEVA.</h3><p>Start with a class, then follow its skills, stigmas, builds and recommended gear through DAEVEXUS.</p><a href="/classes">EXPLORE ALL CLASSES →</a></div><div className="classStrip"><b>TEMPLAR</b><b>GLADIATOR</b><b>ASSASSIN</b><b>RANGER</b><b>SORCERER</b><b>SPIRITMASTER</b><b>CLERIC</b><b>CHANTER</b></div></div><div className="intelGrid visionSystemGrid"><a href="/classes"><small>01 · COMBAT</small><strong>SKILLS</strong><span>Class kits, actives and passives →</span></a><a href="/stigmas"><small>02 · SPECIALIZE</small><strong>STIGMAS</strong><span>Class-specific Stigma skills →</span></a><a href="/daevanion"><small>03 · DEVELOP</small><strong>DAEVANION</strong><span>Boards, nodes and upgrades →</span></a><a href="/arcana"><small>04 · REFINE</small><strong>ARCANA</strong><span>Cards, stats and imprints →</span></a><a href="/equipment"><small>05 · POWER</small><strong>EQUIPMENT</strong><span>Weapons, armor and accessories →</span></a><a href="/wings"><small>06 · FLIGHT</small><strong>WINGS</strong><span>Faction wings and recorded stats →</span></a><a href="/pets"><small>07 · COMPANIONS</small><strong>PETS</strong><span>Browse the companion catalog →</span></a><a href="/builds"><small>08 · PLAN</small><strong>BUILD LAB</strong><span>Connect every system in one build →</span></a></div><div className="regionNote"><b>REGION-AWARE DATA</b><span>GLOBAL and KR/TW content stays clearly separated.</span></div><div className="combatShowcase"><div className="combatCopy"><small>PVE DISCOVERY</small><h3>DUNGEONS<br/>& BOSSES</h3><p>See the encounter, then jump straight to its dungeon, drops, related gear and guides.</p><a href="/database">EXPLORE PVE →</a></div><div className="combatFlow"><div><span>01</span><b>BOSS</b><small>Encounter</small></div><i>→</i><div><span>02</span><b>DUNGEON</b><small>Location</small></div><i>→</i><div><span>03</span><b>LOOT</b><small>Item source</small></div><i>→</i><div><span>04</span><b>BUILD</b><small>Use it</small></div></div></div></section><section className="progressionShowcase"><div className="progressionIntro"><span>BUILD YOUR DAEVA</span><h2>PROGRESSION<br/>AT A GLANCE</h2><p>See how the major character systems connect, then open DAEVEXUS when you need the details.</p></div><div className="progressionRail"><a href="/classes"><small>01</small><b>SKILLS</b><span>Core combat</span></a><i>→</i><a href="/stigmas"><small>02</small><b>STIGMAS</b><span>Specialize</span></a><i>→</i><a href="/daevanion"><small>03</small><b>DAEVANION</b><span>Develop</span></a><i>→</i><a href="/arcana"><small>04</small><b>ARCANA</b><span>Refine</span></a><i>→</i><a href="/equipment"><small>05</small><b>GEAR</b><span>Power up</span></a></div><div className="progressionFoot"><b>ONE CONNECTED DATABASE</b><span>Systems → builds → equipment → sources</span></div></section><section className="gamePanel founderPanel"><div className="panelShade"/><div className="panelCopy centerCopy"><span>AION 2 GLOBAL</span><h2>GLOBAL LAUNCH</h2><p>DAEVEXUS is preparing its Global database and tools for the worldwide AION 2 launch.</p><div className="launchDate"><small>OFFICIAL GLOBAL DATE</small><strong>OCTOBER 5, 2026</strong></div><div className="factRow centeredFacts"><b>GLOBAL</b><b>DATABASE</b><b>BUILD TOOLS</b></div><a href="https://aion2.plaync.com/en-us/" target="_blank" rel="noreferrer">VIEW OFFICIAL AION 2 →</a></div><div className="panelIndex">04</div></section>
 <section className="enterHub"><span>READY TO GO DEEPER?</span><h2>Enter DAEVEXUS</h2><p>Classes · Database · Builds · World · Guides</p><a href="/classes">ENTER DAEVEXUS →</a></section>
