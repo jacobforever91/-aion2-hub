@@ -197,3 +197,24 @@
     right:calc(max(8px,var(--art-x-scaled) + 10px));
   }
 }
+
+
+/* Home cinematic canvas: never expose the legacy blue site background at viewport edges. */
+html:has(.homeV2.cinematicHome),
+body:has(.homeV2.cinematicHome){
+  margin:0!important;
+  padding:0!important;
+  background:#000!important;
+  border:0!important;
+  outline:0!important;
+}
+.homeV2.presentationHome.cinematicHome,
+.homeV2.presentationHome.cinematicHome > .cinematicScreen,
+.homeV2.presentationHome.cinematicHome > .approvedHomeHero,
+.homeV2.presentationHome.cinematicHome > .approvedFactionScreen{
+  background:#000!important;
+  border-top:0!important;
+  border-bottom:0!important;
+  outline:0!important;
+  box-shadow:none;
+}
