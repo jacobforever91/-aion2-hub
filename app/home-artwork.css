@@ -311,3 +311,17 @@ body:has(.homeV2.cinematicHome){
   width:calc(var(--home-art-w) * .150);
   height:calc(var(--home-art-h) * .052);
 }
+
+
+/* Invisible Home hotspots: no visible click/focus rectangle over the artwork. */
+.homeV2.presentationHome .approvedHomeHero .heroHotspot,
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:hover,
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:active,
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:focus,
+.homeV2.presentationHome .approvedHomeHero .heroHotspot:focus-visible{
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  -webkit-tap-highlight-color:transparent;
+}
