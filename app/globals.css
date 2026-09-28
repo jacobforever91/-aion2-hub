@@ -927,3 +927,13 @@ body:has(.cinematicHome) {
 .updateCenterHotspots .viewAll{left:34.4%;top:79.2%;width:15.2%;height:7.5%}
 .updateCenterHotspots .officialNews{left:50.5%;top:79.2%;width:15.2%;height:7.5%}
 .updateCenterHotspots .updateHot:focus-visible{outline:2px solid #e5c780;outline-offset:3px}
+
+.updatesArchivePage{min-height:100svh;padding:100px 6vw;background:radial-gradient(circle at 50% 20%,#173e57 0,#081723 40%,#03070d 100%);color:#edf6f8}
+.updatesArchiveInner{width:min(1100px,100%);margin:0 auto}
+.updatesEyebrow{color:#d8bc78;font-size:12px;letter-spacing:.2em}
+.updatesArchiveInner h1{margin:18px 0 12px;font:400 clamp(42px,6vw,86px)/1 Georgia,serif;color:#f4e5b9}
+.updatesLead{max-width:720px;color:#b9cbd2;line-height:1.8}
+.updatesArchiveEmpty{display:grid;gap:10px;margin:46px 0 28px;padding:28px;border:1px solid #947d4f;background:#07131dd9}
+.updatesArchiveEmpty b{color:#e2c986;letter-spacing:.12em}
+.updatesArchiveEmpty span{color:#a9bdc6}
+.updatesOfficialLink{display:inline-block;padding:14px 20px;border:1px solid #c8aa67;color:#ead8a6;text-decoration:none;letter-spacing:.08em}
