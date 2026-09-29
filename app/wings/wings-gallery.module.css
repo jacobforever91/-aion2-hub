@@ -89,3 +89,115 @@
   .stats>div{font-size:15px!important;padding:13px 0!important}
   .stats p,.note{font-size:14px!important}
 }
+
+
+/* 2026-09-29 approved concept final proportion pass — compact 3x3 gallery, no overlap. */
+@media(min-width:1201px){
+  .page{padding:28px 2.2vw 28px!important}
+  .header{height:118px!important;padding:0 0 18px!important}
+  .header span{font-size:12px!important}
+  .header h1{font-size:46px!important;margin:6px 0 3px!important}
+  .header small{font-size:10px!important}
+  .filters label{width:320px!important;height:50px!important}
+  .filters input{font-size:15px!important}
+  .filters select{height:50px!important;font-size:13px!important}
+  .workspace{
+    height:auto!important;
+    min-height:0!important;
+    display:grid!important;
+    grid-template-columns:210px minmax(0,1fr) 390px!important;
+    gap:18px!important;
+    padding-top:18px!important;
+    align-items:start!important
+  }
+  .side{
+    position:relative!important;
+    inset:auto!important;
+    z-index:1!important;
+    width:210px!important;
+    min-width:210px!important;
+    height:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-self:start!important;
+    overflow:hidden!important;
+    margin:0!important
+  }
+  .side button{
+    width:100%!important;
+    min-width:0!important;
+    height:52px!important;
+    flex:0 0 52px!important;
+    padding:0 17px!important;
+    font-size:14px!important;
+    border-right:0!important
+  }
+  .side>i{display:block!important;margin:6px 14px!important}
+  .center{
+    position:relative!important;
+    z-index:0!important;
+    width:100%!important;
+    height:auto!important;
+    min-width:0!important;
+    display:flex!important;
+    flex-direction:column!important
+  }
+  .gallery{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:repeat(3,190px)!important;
+    grid-auto-rows:190px!important;
+    gap:12px!important;
+    padding:1px!important
+  }
+  .gallery>button{
+    width:100%!important;
+    height:190px!important;
+    min-height:190px!important;
+    padding:14px!important;
+    gap:9px!important
+  }
+  .gallery i{transform:scale(1.7)!important;margin:17px 0!important}
+  .gallery strong{font-size:20px!important;line-height:1.15!important}
+  .gallery small{font-size:11px!important;letter-spacing:.1em!important}
+  .pagination{height:52px!important;font-size:12px!important;flex:none!important}
+  .pagination button{width:36px!important;height:36px!important}
+  .detail{
+    position:relative!important;
+    inset:auto!important;
+    z-index:1!important;
+    width:390px!important;
+    height:622px!important;
+    min-height:622px!important;
+    max-height:622px!important;
+    align-self:start!important;
+    padding:26px!important;
+    overflow:auto!important
+  }
+  .empty{height:100%!important;min-height:0!important}
+  .empty b{font-size:28px!important}
+  .empty span{font-size:12px!important;max-width:260px!important}
+  .title{grid-template-columns:1fr 100px!important;padding-bottom:22px!important}
+  .title i{transform:scale(1.55)!important}
+  .title small{font-size:10px!important}
+  .title h2{font-size:27px!important}
+  .levelBox{margin-top:20px!important;padding:15px!important}
+  .levelHead span{font-size:12px!important}
+  .stats h3{font-size:17px!important}
+  .stats>div{font-size:12px!important;padding:10px 0!important}
+  .stats p,.note{font-size:11px!important}
+}
+@media(min-width:1900px){
+  .workspace{grid-template-columns:230px minmax(0,1fr) 420px!important;gap:20px!important}
+  .side{width:230px!important;min-width:230px!important}
+  .gallery{grid-template-rows:repeat(3,210px)!important;grid-auto-rows:210px!important}
+  .gallery>button{height:210px!important;min-height:210px!important}
+  .gallery i{transform:scale(1.85)!important;margin:20px 0!important}
+  .gallery strong{font-size:22px!important}
+  .gallery small{font-size:12px!important}
+  .detail{width:420px!important;height:682px!important;min-height:682px!important;max-height:682px!important}
+}
