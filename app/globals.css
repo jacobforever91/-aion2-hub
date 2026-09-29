@@ -1075,3 +1075,58 @@ body:has(.cinematicHome) {
   border-color:#62cfff!important;
   box-shadow:0 0 20px rgba(40,169,255,.34),inset 0 1px rgba(255,255,255,.24)!important;
 }
+
+
+/* Crystal UI approved concept — exact variant mapping */
+.daevexusAquaMenu .forgeSecondary a{border-radius:14px!important;backdrop-filter:blur(10px) saturate(1.25)!important;-webkit-backdrop-filter:blur(10px) saturate(1.25)!important}
+.daevexusAquaMenu .forgeSecondary a.crystalPure{
+  clip-path:polygon(3% 0,97% 0,100% 18%,100% 82%,97% 100%,3% 100%,0 82%,0 18%);
+  border-color:#bcecff!important;background:linear-gradient(110deg,rgba(36,126,188,.34),rgba(3,38,77,.62) 55%,rgba(48,154,214,.25))!important;
+  box-shadow:0 0 16px #2fbaff55,inset 0 0 14px #8bdcff24!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalGold{
+  clip-path:polygon(3% 0,97% 0,100% 18%,100% 82%,97% 100%,3% 100%,0 82%,0 18%);
+  border-color:#f1ca78!important;background:linear-gradient(110deg,rgba(72,102,130,.38),rgba(5,39,75,.70) 58%,rgba(173,126,47,.18))!important;
+  box-shadow:0 0 13px #dba94b35,inset 0 0 12px #ffd77b1f!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalFloating{
+  border-radius:26px!important;border-color:#54cfff!important;background:linear-gradient(120deg,rgba(16,86,143,.64),rgba(2,39,82,.74) 55%,rgba(15,111,182,.55))!important;
+  box-shadow:0 0 20px #2ebcff48,inset 0 0 22px #2b8bcf26!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalEtched{
+  clip-path:polygon(4% 0,96% 0,100% 18%,100% 82%,96% 100%,4% 100%,0 82%,0 18%);
+  border-color:#d3edff!important;background:linear-gradient(135deg,rgba(115,168,202,.20),rgba(8,51,91,.72))!important;
+  box-shadow:inset 0 0 0 2px #c9efff18,0 0 12px #8bdcff28!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalWater{
+  border-radius:25px!important;border-color:#65d6ff!important;
+  background:radial-gradient(ellipse at 72% 80%,#138ad85c,transparent 34%),linear-gradient(120deg,rgba(13,77,128,.70),rgba(2,38,76,.72))!important;
+  box-shadow:0 0 18px #2cc2ff45,inset 0 -8px 20px #0c7fc12e!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalFrosted{
+  border-radius:21px!important;border-color:#e4f4ff!important;
+  background:linear-gradient(115deg,rgba(190,222,239,.25),rgba(39,91,126,.48),rgba(164,208,230,.22))!important;
+  box-shadow:inset 0 0 22px #e9f8ff24,0 0 10px #bde9ff2e!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalMinimal{
+  clip-path:polygon(2% 0,98% 0,100% 12%,100% 88%,98% 100%,2% 100%,0 88%,0 12%);
+  border-color:#b9eaff!important;background:linear-gradient(100deg,rgba(8,54,96,.54),rgba(2,29,61,.70))!important;
+  box-shadow:inset -5px 0 #d6b65d26,0 0 10px #51c7ff2b!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalOrnate{
+  clip-path:polygon(5% 0,97% 0,100% 18%,100% 82%,97% 100%,5% 100%,0 78%,0 22%);
+  border-color:#e8bd6b!important;background:linear-gradient(105deg,rgba(126,88,28,.18),rgba(4,38,74,.74) 25%,rgba(3,32,65,.72))!important;
+  box-shadow:0 0 13px #e1ae4c32,inset 0 0 13px #f3cf7c16!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalLiquid{
+  border-radius:24px!important;border-color:#8edfff!important;
+  background:radial-gradient(ellipse at 25% 15%,#51bdf04a,transparent 28%),radial-gradient(ellipse at 78% 78%,#1b82c24d,transparent 34%),linear-gradient(115deg,rgba(14,79,128,.60),rgba(2,36,73,.72))!important;
+  box-shadow:inset 0 0 25px #47bfff1c,0 0 13px #40bfff35!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalPremium{
+  clip-path:polygon(4% 0,96% 0,100% 20%,100% 80%,96% 100%,4% 100%,0 80%,0 20%);
+  border-color:#67d8ff!important;
+  background:radial-gradient(circle at 82% 30%,#5fbef02b,transparent 25%),linear-gradient(120deg,rgba(22,89,148,.70),rgba(3,39,83,.80))!important;
+  box-shadow:0 0 22px #28b8ff55,inset 0 0 18px #9ee8ff22!important
+}
+.daevexusAquaMenu .forgeSecondary a.crystalPremium::after{height:2px!important;box-shadow:0 0 13px #42c7ff!important}
