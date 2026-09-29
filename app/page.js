@@ -19,10 +19,11 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
 </div>
 <button className={"a2Close forgeClose "+(open?"isVisible":"")} onClick={()=>setOpen(false)} aria-label="Close menu" aria-hidden={!open}>×</button>
 
+<button className="globalCinematicControl globalMenuControl" type="button" onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><span className="srOnly">Open menu</span><span className="menuGlyph" aria-hidden="true"><i/><i/><i/></span></button>
+<a className="globalCinematicControl globalHomeControl" href="/" aria-label="Home"><span className="srOnly">Home</span><span className="homeGlyph" aria-hidden="true">⌂</span></a>
+
 <section id="home-screen" className="approvedHomeHero cinematicScreen" aria-label="DAEVEXUS Elyos and Asmodians Home">
   <img src="/home/2.png" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians"/>
-  <button className="heroHotspot heroMenuHotspot" type="button" onClick={()=>setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="aion-menu"><span className="srOnly">Open menu</span></button>
-  <a className="heroHotspot heroHomeHotspot" href="/" aria-label="Home"><span className="srOnly">Home</span></a>
   <a className="heroHotspot heroElyosHotspot" href="#elyos-screen" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
   <a className="heroHotspot heroAsmoHotspot" href="#asmodians-screen" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
 
