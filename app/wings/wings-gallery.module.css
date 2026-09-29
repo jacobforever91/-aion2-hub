@@ -25,8 +25,8 @@
 .stats h3{color:#d7e1e6!important}
 .note{border-left-color:#748d9a!important;background:#0b1218!important}
 
-/* Wing sprite cells are 64px in the source sheet; use one consistent crop size. */
+/* The atlas has 8 columns and 7 rows. Match the 58px offsets in page.js. */
 .gallery i,.title i{
-  width:64px!important;height:64px!important;
-  background-size:auto!important;
+  width:58px!important;height:58px!important;
+  background-size:464px 406px!important;
 }
