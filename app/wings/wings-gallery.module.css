@@ -12,3 +12,80 @@
 @media(min-width:1800px){.workspace{grid-template-columns:220px minmax(0,1fr) 420px}.gallery i{transform:scale(1.8);margin:18px 0}.gallery strong{font-size:22px}.gallery small{font-size:12px}.side button{height:60px;font-size:15px}.detail{padding:28px}}
 @media(max-width:1100px){.workspace{grid-template-columns:150px minmax(0,1fr) 300px}.gallery{grid-template-columns:repeat(2,1fr);grid-template-rows:none;grid-auto-rows:170px}.filters label{width:220px}}
 @media(max-width:800px){.page{height:auto;min-height:100svh;overflow:auto;padding:18px 14px}.header{height:auto;display:block;padding:12px 0}.filters{margin-top:14px;flex-wrap:wrap}.filters label{width:100%}.workspace{height:auto;display:block}.side{display:flex;overflow:auto;margin-bottom:12px}.side button{min-width:max-content;height:42px;border-right:1px solid #29343d}.side>i{display:none}.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px;max-height:60svh}.detail{margin-top:14px}.empty{min-height:220px}}
+
+
+/* 2026-09-29 approved-concept fidelity pass — force the desktop composition to fill the viewport. */
+@media(min-width:1201px){
+  .page{padding:34px 2.2vw 30px!important}
+  .header{height:150px!important;padding-bottom:24px!important}
+  .header span{font-size:14px!important}
+  .header h1{font-size:58px!important;margin:8px 0 5px!important}
+  .header small{font-size:12px!important}
+  .filters label{width:360px!important;height:58px!important}
+  .filters input{font-size:17px!important}
+  .filters select{height:58px!important;font-size:15px!important}
+  .workspace{
+    height:calc(100svh - 214px)!important;
+    min-height:680px!important;
+    grid-template-columns:250px minmax(0,1fr) 460px!important;
+    gap:20px!important;
+    padding-top:20px!important;
+    align-items:stretch!important
+  }
+  .side{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    height:max-content!important;
+    overflow:visible!important;
+    margin:0!important
+  }
+  .side button{
+    display:flex!important;
+    flex:none!important;
+    width:100%!important;
+    min-width:0!important;
+    height:66px!important;
+    padding:0 22px!important;
+    border-right:0!important;
+    font-size:17px!important
+  }
+  .side>i{display:block!important;margin:8px 16px!important}
+  .center{height:100%!important;min-height:0!important}
+  .gallery{
+    flex:1 1 auto!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:repeat(3,minmax(190px,1fr))!important;
+    grid-auto-rows:auto!important;
+    gap:14px!important;
+    padding:1px!important
+  }
+  .gallery>button{min-height:0!important;padding:18px!important;gap:12px!important}
+  .gallery i{transform:scale(2.05)!important;margin:26px 0!important}
+  .gallery strong{font-size:25px!important}
+  .gallery small{font-size:14px!important}
+  .pagination{height:64px!important;font-size:14px!important;flex:none!important}
+  .pagination button{width:42px!important;height:42px!important}
+  .detail{
+    align-self:stretch!important;
+    width:100%!important;
+    height:100%!important;
+    max-height:none!important;
+    padding:32px!important
+  }
+  .empty{height:100%!important;min-height:0!important}
+  .empty b{font-size:34px!important}
+  .empty span{font-size:15px!important;max-width:320px!important}
+  .title{grid-template-columns:1fr 120px!important;padding-bottom:30px!important}
+  .title i{transform:scale(1.9)!important}
+  .title small{font-size:13px!important}
+  .title h2{font-size:34px!important}
+  .levelBox{margin-top:28px!important;padding:20px!important}
+  .levelHead span{font-size:15px!important}
+  .stats h3{font-size:21px!important}
+  .stats>div{font-size:15px!important;padding:13px 0!important}
+  .stats p,.note{font-size:14px!important}
+}
