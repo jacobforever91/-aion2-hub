@@ -749,19 +749,3 @@ body:has(.homeV2.cinematicHome){
 }
 
 
-/* On the first Home artwork, use the buttons already painted into the image.
-   Keep fixed controls clickable but visually hidden to avoid duplicates. */
-.homeV2.cinematicHome[data-screen-index="0"] .globalCinematicControl{
-  opacity:0!important;
-  background:transparent!important;
-  border-color:transparent!important;
-  box-shadow:none!important;
-  backdrop-filter:none!important;
-}
-.homeV2.cinematicHome[data-screen-index="0"] .globalCinematicControl:hover,
-.homeV2.cinematicHome[data-screen-index="0"] .globalCinematicControl:focus{
-  opacity:0!important;
-}
-.homeV2.cinematicHome:not([data-screen-index="0"]) .globalCinematicControl{
-  opacity:1;
-}
