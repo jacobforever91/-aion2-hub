@@ -1,6 +1,6 @@
 "use client";
 import {useEffect, useRef, useState} from "react";
-import {Home as HomeIcon, Menu, MessageCircle} from "lucide-react";
+import {Home as HomeIcon, Menu, MessageCircle, BookOpen, Shield, Gem, Feather, PawPrint, Sparkles, Trees, Swords, ScrollText} from "lucide-react";
 // Full-bleed framing for Elyos and Asmodians only. Keep the other scenes and fixed controls unchanged.
 const factionArtworkStyle={position:"absolute",inset:0,display:"block",width:"100%",height:"100%",maxWidth:"none",maxHeight:"none",minWidth:0,minHeight:0,margin:0,padding:0,aspectRatio:"auto",objectFit:"cover",objectPosition:"center center"};
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
@@ -63,10 +63,22 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
   <div className="forgeMenuContent">
     <div className="forgeMenuHeader"><span>DAEVEXUS</span><small>AION 2 DATABASE &amp; TOOLS</small></div>
     <div className="forgeSecondary">
-      <section><h3>CHARACTER</h3><a href="/classes"><span>Skills</span><b>›</b></a><a href="/equipment"><span>Equipment</span><b>›</b></a><a href="/stigmas"><span>Stigmas</span><b>›</b></a><a href="/daevanion"><span>Daevanion</span><b>›</b></a></section>
-      <section><h3>COLLECTIONS</h3><a href="/wings"><span>Wings</span><b>›</b></a><a href="/pets"><span>Pets</span><b>›</b></a><a href="/arcana"><span>Arcana</span><b>›</b></a></section>
-      <section><h3>TOOLS</h3><a href="/builds"><span>Build Creator</span><b>›</b></a></section>
-      <section><h3>GAME</h3><a href="/database"><span>Game</span><b>›</b></a><a href="/updates"><span>Updates</span><b>›</b></a></section>
+      <section><h3>CHARACTER</h3>
+        <a href="/classes"><i><BookOpen/></i><span>Skills<small>MASTER YOUR POWER</small></span><b>›</b></a>
+        <a href="/equipment"><i><Shield/></i><span>Equipment<small>GEAR YOUR LEGEND</small></span><b>›</b></a>
+        <a href="/stigmas"><i><Gem/></i><span>Stigmas<small>AWAKEN POTENTIAL</small></span><b>›</b></a>
+        <a href="/daevanion"><i><Trees/></i><span>Daevanion<small>FORGE YOUR PATH</small></span><b>›</b></a>
+      </section>
+      <section><h3>COLLECTIONS</h3>
+        <a href="/wings"><i><Feather/></i><span>Wings<small>SOAR HIGHER</small></span><b>›</b></a>
+        <a href="/pets"><i><PawPrint/></i><span>Pets<small>FAITHFUL COMPANIONS</small></span><b>›</b></a>
+        <a href="/arcana"><i><Sparkles/></i><span>Arcana<small>UNLOCK MYSTERIES</small></span><b>›</b></a>
+      </section>
+      <section><h3>TOOLS</h3><a href="/builds"><i><Swords/></i><span>Build Creator<small>PLAN · COMPARE · OPTIMIZE</small></span><b>›</b></a></section>
+      <section><h3>GAME</h3>
+        <a href="/database"><i><Sparkles/></i><span>Game<small>EXPLORE AION 2</small></span><b>›</b></a>
+        <a href="/updates"><i><ScrollText/></i><span>Updates<small>STAY INFORMED</small></span><b>›</b></a>
+      </section>
     </div>
   </div>
 </div>
