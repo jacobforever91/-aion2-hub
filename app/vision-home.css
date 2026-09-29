@@ -1451,3 +1451,56 @@ body:has(.classSkillExperiencePage){
   .classSkillRelatedItem>svg{width:20px!important;height:20px!important}
   .classSkillDataSource{font-size:13px!important}
 }
+
+
+/* 2026-09-29 Skills 4K readability pass 5 — intentionally large, fewer items, zero squinting. */
+@media(min-width:1400px){
+  .classSkillCatalogTitle h2{font-size:54px!important}
+  .classSkillCatalogTitle>span,.classSkillDetailsTitle>span{font-size:17px!important}
+  .classSkillResultCount{font-size:31px!important}
+  .classSkillSearch{height:72px!important}
+  .classSkillSearch input{font-size:22px!important}
+  .classSkillCatalogBody{grid-template-columns:190px minmax(0,1fr)!important;gap:20px!important}
+  .classSkillFilter{min-height:72px!important;font-size:20px!important}
+  .classSkillFilter>svg{width:26px!important;height:26px!important}
+  .classSkillFilter>small{font-size:15px!important}
+
+  .classSkillGrid{gap:18px!important}
+  .classSkillTile{min-height:205px!important;padding:18px 13px 16px!important;gap:11px!important}
+  .classSkillIconBox{width:124px!important;height:124px!important}
+  .classSkillTileName{font-size:22px!important}
+  .classSkillTile>small{font-size:14px!important}
+  .classSkillCatalogNote{font-size:15px!important}
+
+  .classSkillDetailsPanel{padding:32px 34px 30px!important;gap:24px!important}
+  .classSkillDetailsHead{grid-template-columns:150px minmax(0,1fr)!important;gap:27px!important}
+  .classSkillIconBox.islarge{width:150px!important;height:150px!important}
+  .classSkillDetailsTitle h2{font-size:58px!important}
+  .classSkillBadges span{font-size:16px!important;padding:9px 12px!important}
+
+  .classSkillDescription{min-height:105px!important;padding:20px 22px!important}
+  .classSkillDescription p{font-size:21px!important;line-height:1.65!important}
+
+  .classSkillLevelHeading{font-size:20px!important}
+  .classSkillLevelHeading output{font-size:22px!important}
+  .classSkillLevelRow{grid-template-columns:52px minmax(0,1fr) 52px!important}
+  .classSkillLevelRow>button{width:52px!important;height:52px!important;font-size:28px!important}
+
+  .classSkillStatRow{min-height:68px!important;padding:13px 18px!important}
+  .classSkillStatRow>svg{width:27px!important;height:27px!important}
+  .classSkillStatRow>span{font-size:20px!important}
+  .classSkillStatRow>strong{font-size:21px!important}
+
+  .classSkillProperties{font-size:20px!important}
+  .classSkillSupplement h3{font-size:18px!important}
+  .classSkillSpecialties li{grid-template-columns:76px minmax(0,1fr)!important}
+  .classSkillSpecialties li>span{font-size:16px!important}
+  .classSkillSpecialties p{font-size:20px!important}
+  .classSkillDetailsList dt,.classSkillDetailsList dd{font-size:19px!important}
+
+  .classSkillRelatedItem{grid-template-columns:70px minmax(0,1fr) 24px!important;min-height:88px!important}
+  .classSkillIconBox.isrelated{width:66px!important;height:66px!important}
+  .classSkillRelatedItem strong{font-size:20px!important}
+  .classSkillRelatedItem small{font-size:16px!important}
+  .classSkillDataSource{font-size:14px!important}
+}
