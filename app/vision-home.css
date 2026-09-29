@@ -1288,3 +1288,23 @@
   .classSkillProperties,.classSkillNoStats,.classSkillSpecialties p{font-size:17px!important}
   .classSkillDetailsList dt,.classSkillDetailsList dd{font-size:15px!important}
 }
+
+
+/* 2026-09-29 Skills annotated correction — expand BOTH panels downward only; do not grow rightward. */
+@media(min-width:1400px){
+  .classSkillPanels{
+    min-height:calc(100svh - 112px)!important;
+    align-items:start!important
+  }
+  .classSkillCatalog,
+  .classSkillDetailsPanel{
+    width:100%!important;
+    height:calc(100svh - 112px)!important;
+    min-height:calc(100svh - 112px)!important;
+    max-height:calc(100svh - 112px)!important;
+  }
+  .classSkillDetailsPanel{
+    justify-self:stretch!important;
+    margin-right:0!important;
+  }
+}
