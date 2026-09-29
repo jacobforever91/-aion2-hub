@@ -514,3 +514,63 @@ body:has(.homeV2.cinematicHome){
   .cinematicNext::before{top:42px!important}
   .cinematicPrev::before{bottom:42px!important}
 }
+
+
+/* Intentional ornamental side navigator — visible, slim, no box. */
+.cinematicPageArrow{
+  width:48px!important;
+  height:220px!important;
+  opacity:1!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.cinematicPageArrow::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:18px!important;
+  bottom:18px!important;
+  width:2px!important;
+  transform:translateX(-50%)!important;
+  background:linear-gradient(180deg,transparent 0,#8f733d 18%,#e0bd70 50%,#8f733d 82%,transparent 100%)!important;
+  box-shadow:0 0 7px rgba(224,189,112,.3)!important;
+  opacity:1!important;
+}
+.cinematicPageArrow::before{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:15px!important;
+  height:15px!important;
+  margin:0!important;
+  border:2px solid #e0bd70!important;
+  border-left:0!important;
+  border-bottom:0!important;
+  background:#0a0b0c!important;
+  z-index:3!important;
+  filter:drop-shadow(0 0 5px rgba(224,189,112,.5))!important;
+}
+.cinematicNext::before{
+  transform:translate(-42%,-50%) rotate(45deg)!important;
+}
+.cinematicPrev::before{
+  transform:translate(-58%,-50%) rotate(-135deg)!important;
+}
+.cinematicPageArrow span,
+.cinematicPageArrow b{display:none!important}
+.cinematicNext{right:12px!important;left:auto!important}
+.cinematicPrev{left:12px!important;right:auto!important}
+.cinematicPageArrow:hover::after{
+  background:linear-gradient(180deg,transparent 0,#b9944e 18%,#f0d48a 50%,#b9944e 82%,transparent 100%)!important;
+}
+.cinematicPageArrow:hover::before{
+  border-color:#f0d48a!important;
+  filter:drop-shadow(0 0 8px rgba(240,212,138,.75))!important;
+}
+@media(max-width:900px){
+  .cinematicPageArrow{width:42px!important;height:170px!important}
+  .cinematicNext{right:6px!important}
+  .cinematicPrev{left:6px!important}
+}
