@@ -4,7 +4,61 @@ import {Home as HomeIcon, Menu, MessageCircle} from "lucide-react";
 // Full-bleed framing for Elyos and Asmodians only. Keep the other scenes and fixed controls unchanged.
 const factionArtworkStyle={position:"absolute",inset:0,display:"block",width:"100%",height:"100%",maxWidth:"none",maxHeight:"none",minWidth:0,minHeight:0,margin:0,padding:0,aspectRatio:"auto",objectFit:"cover",objectPosition:"center center"};
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
-export default function Home(){const[open,setOpen]=useState(false);const stageRef=useRef(null);const indexRef=useRef(0);const lockRef=useRef(false);const touchRef=useRef(null);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);useEffect(()=>{const root=stageRef.current;if(!root)return;const screens=[...root.querySelectorAll(".cinematicScreen")];const prevButton=root.querySelector(".cinematicNavPrev");const nextButton=root.querySelector(".cinematicNavNext");const syncArrows=()=>{root.dataset.screenIndex=String(indexRef.current);if(prevButton){prevButton.disabled=indexRef.current===0;prevButton.setAttribute("aria-hidden",indexRef.current===0?"true":"false")}if(nextButton){nextButton.disabled=indexRef.current===screens.length-1;nextButton.setAttribute("aria-hidden",indexRef.current===screens.length-1?"true":"false")}};const go=(next)=>{next=Math.max(0,Math.min(screens.length-1,next));if(next===indexRef.current||lockRef.current)return;lockRef.current=true;const old=indexRef.current;indexRef.current=next;screens.forEach((s,i)=>{s.classList.toggle("isActive",i===next);s.classList.toggle("isLeaving",i===old)});root.style.setProperty("--screen-index",String(next));syncArrows();history.replaceState(null,"",next===0?location.pathname:"#"+screens[next].id);setTimeout(()=>{screens[old]?.classList.remove("isLeaving");lockRef.current=false},220)};const wheel=e=>{if(open)return;const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)<2)return;e.preventDefault();if(lockRef.current)return;go(indexRef.current+(delta>0?1:-1))};const key=e=>{if(open)return;if(["ArrowDown","PageDown"].includes(e.key)){e.preventDefault();go(indexRef.current+1)}if(["ArrowUp","PageUp"].includes(e.key)){e.preventDefault();go(indexRef.current-1)}};const start=e=>{touchRef.current=e.touches[0]?.clientY??null};const end=e=>{if(open||touchRef.current==null)return;const y=e.changedTouches[0]?.clientY??touchRef.current;const d=touchRef.current-y;touchRef.current=null;if(Math.abs(d)>45)go(indexRef.current+(d>0?1:-1))};const links=[...root.querySelectorAll('a[href^="#"]')];const click=e=>{const id=e.currentTarget.getAttribute("href")?.slice(1);const i=screens.findIndex(s=>s.id===id);if(i>=0){e.preventDefault();go(i)}};const prev=()=>go(indexRef.current-1);const next=()=>go(indexRef.current+1);links.forEach(a=>a.addEventListener("click",click));prevButton?.addEventListener("click",prev);nextButton?.addEventListener("click",next);document.addEventListener("wheel",wheel,{passive:false,capture:true});window.addEventListener("keydown",key);window.addEventListener("touchstart",start,{passive:true});window.addEventListener("touchend",end,{passive:true});screens[0]?.classList.add("isActive");syncArrows();return()=>{links.forEach(a=>a.removeEventListener("click",click));prevButton?.removeEventListener("click",prev);nextButton?.removeEventListener("click",next);document.removeEventListener("wheel",wheel,{capture:true});window.removeEventListener("keydown",key);window.removeEventListener("touchstart",start);window.removeEventListener("touchend",end)}},[open]);return <main ref={stageRef} className="homeV2 presentationHome cinematicHome">
+// Match the two painted buttons in public/home/3.png, not the previous artwork.
+const homeButtonRegions=[
+  {selector:".heroElyosHotspot",x:69/1774,y:733/887,width:303/1774,height:56/887},
+  {selector:".heroAsmoHotspot",x:1404/1774,y:733/887,width:329/1774,height:56/887}
+];
+function useHomeButtonAlignment(stageRef){
+  useEffect(()=>{
+    const scene=stageRef.current?.querySelector("#home-screen");
+    const image=scene?.querySelector("img");
+    if(!scene||!image)return;
+    const targets=homeButtonRegions.map(region=>({...region,element:scene.querySelector(region.selector)}));
+    const positionOffset=(token,space)=>{
+      if(token==="left"||token==="top")return 0;
+      if(token==="right"||token==="bottom")return space;
+      if(token==="center")return space/2;
+      const value=parseFloat(token);
+      if(!Number.isFinite(value))return space/2;
+      return token.endsWith("%")?space*value/100:value;
+    };
+    const align=()=>{
+      if(!image.naturalWidth||!image.naturalHeight)return;
+      const width=image.clientWidth,height=image.clientHeight;
+      if(!width||!height)return;
+      const computed=window.getComputedStyle(image);
+      const scale=computed.objectFit==="contain"
+        ?Math.min(width/image.naturalWidth,height/image.naturalHeight)
+        :Math.max(width/image.naturalWidth,height/image.naturalHeight);
+      const artWidth=image.naturalWidth*scale,artHeight=image.naturalHeight*scale;
+      const [horizontal="50%",vertical="50%"]=computed.objectPosition.trim().split(/\s+/);
+      const left=image.offsetLeft+positionOffset(horizontal,width-artWidth);
+      const top=image.offsetTop+positionOffset(vertical,height-artHeight);
+      targets.forEach(({element,x,y,width:regionWidth,height:regionHeight})=>{
+        if(!element)return;
+        Object.assign(element.style,{
+          left:(left+artWidth*x)+"px",top:(top+artHeight*y)+"px",
+          width:(artWidth*regionWidth)+"px",height:(artHeight*regionHeight)+"px",
+          right:"auto",bottom:"auto"
+        });
+      });
+    };
+    const observer=typeof ResizeObserver!=="undefined"?new ResizeObserver(align):null;
+    observer?.observe(scene);
+    observer?.observe(image);
+    image.addEventListener("load",align);
+    window.addEventListener("resize",align);
+    align();
+    return()=>{
+      observer?.disconnect();
+      image.removeEventListener("load",align);
+      window.removeEventListener("resize",align);
+    };
+  },[stageRef]);
+}
+
+export default function Home(){const[open,setOpen]=useState(false);const stageRef=useRef(null);const indexRef=useRef(0);const lockRef=useRef(false);const touchRef=useRef(null);useHomeButtonAlignment(stageRef);useEffect(()=>{if(new URLSearchParams(window.location.search).get("menu")==="open"){setOpen(true);window.history.replaceState(null,"","/")}},[]);useEffect(()=>{const closeOnEscape=e=>{if(e.key==="Escape")setOpen(false)};document.body.style.overflow=open?"hidden":"";if(open){const menu=document.getElementById("aion-menu");if(menu)menu.scrollTop=0}window.addEventListener("keydown",closeOnEscape);return()=>{document.body.style.overflow="";window.removeEventListener("keydown",closeOnEscape)}},[open]);useEffect(()=>{const root=stageRef.current;if(!root)return;const screens=[...root.querySelectorAll(".cinematicScreen")];const prevButton=root.querySelector(".cinematicNavPrev");const nextButton=root.querySelector(".cinematicNavNext");const syncArrows=()=>{root.dataset.screenIndex=String(indexRef.current);if(prevButton){prevButton.disabled=indexRef.current===0;prevButton.setAttribute("aria-hidden",indexRef.current===0?"true":"false")}if(nextButton){nextButton.disabled=indexRef.current===screens.length-1;nextButton.setAttribute("aria-hidden",indexRef.current===screens.length-1?"true":"false")}};const go=(next)=>{next=Math.max(0,Math.min(screens.length-1,next));if(next===indexRef.current||lockRef.current)return;lockRef.current=true;const old=indexRef.current;indexRef.current=next;screens.forEach((s,i)=>{s.classList.toggle("isActive",i===next);s.classList.toggle("isLeaving",i===old)});root.style.setProperty("--screen-index",String(next));syncArrows();history.replaceState(null,"",next===0?location.pathname:"#"+screens[next].id);setTimeout(()=>{screens[old]?.classList.remove("isLeaving");lockRef.current=false},220)};const wheel=e=>{if(open)return;const delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;if(Math.abs(delta)<2)return;e.preventDefault();if(lockRef.current)return;go(indexRef.current+(delta>0?1:-1))};const key=e=>{if(open)return;if(["ArrowDown","PageDown"].includes(e.key)){e.preventDefault();go(indexRef.current+1)}if(["ArrowUp","PageUp"].includes(e.key)){e.preventDefault();go(indexRef.current-1)}};const start=e=>{touchRef.current=e.touches[0]?.clientY??null};const end=e=>{if(open||touchRef.current==null)return;const y=e.changedTouches[0]?.clientY??touchRef.current;const d=touchRef.current-y;touchRef.current=null;if(Math.abs(d)>45)go(indexRef.current+(d>0?1:-1))};const links=[...root.querySelectorAll('a[href^="#"]')];const click=e=>{const id=e.currentTarget.getAttribute("href")?.slice(1);const i=screens.findIndex(s=>s.id===id);if(i>=0){e.preventDefault();go(i)}};const prev=()=>go(indexRef.current-1);const next=()=>go(indexRef.current+1);links.forEach(a=>a.addEventListener("click",click));prevButton?.addEventListener("click",prev);nextButton?.addEventListener("click",next);document.addEventListener("wheel",wheel,{passive:false,capture:true});window.addEventListener("keydown",key);window.addEventListener("touchstart",start,{passive:true});window.addEventListener("touchend",end,{passive:true});screens.forEach((screen,i)=>screen.classList.toggle("isActive",i===indexRef.current));syncArrows();return()=>{links.forEach(a=>a.removeEventListener("click",click));prevButton?.removeEventListener("click",prev);nextButton?.removeEventListener("click",next);document.removeEventListener("wheel",wheel,{capture:true});window.removeEventListener("keydown",key);window.removeEventListener("touchstart",start);window.removeEventListener("touchend",end)}},[open]);return <main ref={stageRef} className="homeV2 presentationHome cinematicHome">
 <div id="aion-menu" className={"a2MobileMenu forgeMenu "+(open?"isOpen":"")} aria-hidden={!open}>
   <div className="forgeMenuContent">
     <div className="forgeMenuHeader"><span>DAEVEXUS</span><small>GAME &amp; DATABASE</small></div>
