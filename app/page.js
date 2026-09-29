@@ -23,7 +23,7 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
 <a className="globalCinematicControl globalHomeControl" href="/" aria-label="Home"><span className="srOnly">Home</span><span className="homeGlyph" aria-hidden="true">⌂</span></a>
 
 <section id="home-screen" className="approvedHomeHero cinematicScreen" aria-label="DAEVEXUS Elyos and Asmodians Home">
-  <img src="/home/2.png" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians"/>
+  <img src="/home/3.png" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians"/>
   <a className="heroHotspot heroElyosHotspot" href="#elyos-screen" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
   <a className="heroHotspot heroAsmoHotspot" href="#asmodians-screen" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
 
