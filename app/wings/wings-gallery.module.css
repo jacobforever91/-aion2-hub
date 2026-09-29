@@ -95,3 +95,14 @@
   .empty b{font-size:31px!important}
   .empty span{font-size:15px!important}
 }
+
+
+/* 2026-09-29 detail-panel cleanup — stop the selected wing card from stretching into empty space. */
+@media(min-width:801px){
+  .detail{align-self:start!important;min-height:430px!important;max-height:calc(100svh - 190px)!important}
+  .empty{min-height:370px!important;height:auto!important}
+}
+.pendingStats{display:grid!important;grid-template-columns:1fr auto!important;gap:8px 16px!important;padding:12px 0!important;border-bottom:1px solid #26394a!important}
+.pendingStats>span{font-size:14px!important;color:#aebdc7!important}
+.pendingStats>span:nth-child(2){color:#eef2f4!important;text-align:right!important}
+.pendingStats>small{grid-column:1/-1;color:#71838e!important;font-size:11px!important;letter-spacing:.04em!important}
