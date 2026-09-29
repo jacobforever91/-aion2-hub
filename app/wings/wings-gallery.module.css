@@ -30,3 +30,23 @@
   width:58px!important;height:58px!important;
   background-size:464px 406px!important;
 }
+
+
+/* 2026-09-29 inspector pass — fewer, larger wing cards for desktop readability. */
+@media(min-width:1051px){
+  .workspace{grid-template-columns:minmax(0,1fr) 400px!important;gap:22px!important}
+  .gallery{grid-template-columns:repeat(3,minmax(240px,1fr))!important;grid-auto-rows:230px!important;gap:14px!important}
+  .gallery button{gap:12px!important;padding:22px 16px!important}
+  .gallery i{transform:scale(1.55);margin:16px 0 14px!important}
+  .gallery strong{font-size:20px!important;line-height:1.15!important}
+  .gallery small{font-size:11px!important;letter-spacing:.12em!important}
+  .detail{padding:28px!important}
+  .title{gap:22px!important;padding:10px 0 24px!important}
+  .title i{transform:scale(1.25);margin:8px!important}
+  .title h2{font-size:28px!important}
+}
+@media(min-width:801px) and (max-width:1050px){
+  .gallery{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:190px!important}
+  .gallery i{transform:scale(1.25);margin:10px 0!important}
+  .gallery strong{font-size:17px!important}
+}
