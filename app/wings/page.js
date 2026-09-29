@@ -21,7 +21,7 @@ export default function WingsPage(){
  const visible=useMemo(()=>wings.filter(w=>(grade==="All"||w.grade===grade)&&(faction==="All"||w.faction===faction)&&(!query||w.name.toLowerCase().includes(query.toLowerCase()))),[query,grade,faction]);
  const choose=w=>{setSelected(w);setLevel(0)};
  const cap=selected?.enhancementCap??0;
- const canEnhance=!!selected&&!selected.cosmetic&&cap>0;
+ const canEnhance=!!selected&&!selected.cosmetic&&cap>0;\n const statNames=new Set(["HP","MP","Flight Power","Attack","Defense","Accuracy","Evasion","Crit","Critical Hit","Block","Parry"]);\n const hasMalformedStats=!!selected?.stats?.some(([k,v])=>statNames.has(String(k))&&statNames.has(String(v)));
  return <main className={styles.page}>
    <Link className={styles.back} href="/?menu=open" aria-label="Back to menu"><ArrowLeft/></Link>
    <header className={styles.header}><div><span>DAEVEXUS</span><h1>Wings</h1></div>
@@ -42,7 +42,7 @@ export default function WingsPage(){
          <div className={styles.title} style={{"--tier":colors[selected.grade],"--x":`${-selected.iconPosition[0]*58}px`,"--y":`${-selected.iconPosition[1]*58}px`}}><i/><div><small>{selected.faction} · {selected.grade}</small><h2>{selected.name}</h2></div></div>
          {canEnhance?<div className={styles.levelBox}><div className={styles.levelHead}><span>Enhancement level</span><strong>+{level}</strong></div><div className={styles.levelControls}><button onClick={()=>setLevel(v=>Math.max(0,v-1))} disabled={level===0}><Minus/></button><input type="range" min="0" max={cap} value={level} onChange={e=>setLevel(+e.target.value)}/><button onClick={()=>setLevel(v=>Math.min(cap,v+1))} disabled={level===cap}><Plus/></button></div><small>0 — {cap}</small></div>:<div className={styles.note}>This wing has no documented enhancement progression.</div>}
          <div className={styles.stats}><h3>Recorded stats {canEnhance&&<span>at +{level}</span>}</h3>
-           {selected.stats?.length?selected.stats.map(([k,v])=><div key={k}><span>{k}</span><strong>{v}</strong></div>):<p>No individual stats are documented for this wing.</p>}
+           {hasMalformedStats?<div className={styles.pendingStats}><span>Flight Power</span><span>{selected.stats.flat().filter((v,i,a)=>statNames.has(String(v))&&a.indexOf(v)===i&&v!=="Flight Power").join(" · ")}</span><small>Values pending verified Global data.</small></div>:selected.stats?.length?selected.stats.map(([k,v])=><div key={k}><span>{k}</span><strong>{v}</strong></div>):<p>No individual stats are documented for this wing.</p>}
          </div>
          {canEnhance&&level>0&&<div className={styles.note}>The source confirms an enhancement cap of +{cap}, but does not provide a verified stat breakdown for every step. DAEVEXUS will not invent level values.</div>}
        </>}
