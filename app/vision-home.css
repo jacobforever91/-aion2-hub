@@ -1662,3 +1662,43 @@ body:has(.classSkillExperiencePage){
   .classSkillRelatedItem>svg{width:27px!important;height:27px!important}
   .classSkillDataSource{font-size:18px!important;margin-top:4px!important}
 }
+
+
+/* 2026-09-29 Skills right panel XL readability — final extra step for 32-inch 4K. */
+@media(min-width:1400px){
+  .classSkillDetailsPanel{padding:40px 44px 38px!important;gap:32px!important}
+  .classSkillDetailsHead{grid-template-columns:190px minmax(0,1fr)!important;gap:35px!important;padding-bottom:32px!important}
+  .classSkillIconBox.islarge{width:190px!important;height:190px!important}
+  .classSkillDetailsTitle>span{font-size:22px!important}
+  .classSkillDetailsTitle h2{font-size:74px!important;line-height:1!important}
+  .classSkillBadges span{font-size:20px!important;padding:11px 16px!important}
+
+  .classSkillDescription{min-height:156px!important;padding:30px 32px!important}
+  .classSkillDescription p{font-size:27px!important;line-height:1.7!important}
+
+  .classSkillLevelControl{padding:26px 28px!important}
+  .classSkillLevelHeading{font-size:26px!important}
+  .classSkillLevelHeading output{font-size:28px!important}
+  .classSkillLevelRow{grid-template-columns:66px minmax(0,1fr) 66px!important}
+  .classSkillLevelRow>button{width:66px!important;height:66px!important;font-size:34px!important}
+
+  .classSkillStatRow{min-height:96px!important;padding:20px 24px!important}
+  .classSkillStatRow>svg{width:34px!important;height:34px!important}
+  .classSkillStatRow>span{font-size:26px!important}
+  .classSkillStatRow>strong{font-size:27px!important}
+
+  .classSkillProperties{min-height:76px!important;font-size:25px!important;padding:20px 24px!important}
+  .classSkillSupplement h3{font-size:24px!important}
+  .classSkillSpecialties li{grid-template-columns:108px minmax(0,1fr)!important;min-height:64px!important}
+  .classSkillSpecialties li>span{font-size:22px!important}
+  .classSkillSpecialties p{font-size:26px!important}
+
+  .classSkillDetailsList>div{min-height:78px!important;padding:19px 21px!important}
+  .classSkillDetailsList dt,.classSkillDetailsList dd{font-size:25px!important}
+
+  .classSkillRelatedItem{grid-template-columns:112px minmax(0,1fr) 32px!important;min-height:140px!important;padding:18px 21px!important}
+  .classSkillIconBox.isrelated{width:104px!important;height:104px!important}
+  .classSkillRelatedItem strong{font-size:27px!important}
+  .classSkillRelatedItem small{font-size:22px!important}
+  .classSkillDataSource{font-size:19px!important}
+}
