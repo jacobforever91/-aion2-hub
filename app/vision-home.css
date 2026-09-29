@@ -1702,3 +1702,64 @@ body:has(.classSkillExperiencePage){
   .classSkillRelatedItem small{font-size:22px!important}
   .classSkillDataSource{font-size:19px!important}
 }
+
+
+/* 2026-09-29 Skills lower-detail XXL pass — fill the remaining lower panel space. */
+@media(min-width:1400px){
+  .classSkillSupplement{padding-top:32px!important}
+  .classSkillSupplement h3{
+    margin-bottom:24px!important;
+    font-size:28px!important;
+    letter-spacing:1.8px!important
+  }
+
+  .classSkillDetailsList{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:18px!important
+  }
+  .classSkillDetailsList>div{
+    min-height:104px!important;
+    padding:24px 26px!important;
+    align-items:center!important
+  }
+  .classSkillDetailsList dt{
+    font-size:29px!important;
+    line-height:1.25!important
+  }
+  .classSkillDetailsList dd{
+    font-size:29px!important;
+    line-height:1.25!important
+  }
+
+  .classSkillRelatedList{gap:20px!important}
+  .classSkillRelatedItem{
+    grid-template-columns:138px minmax(0,1fr) 38px!important;
+    min-height:180px!important;
+    padding:24px 28px!important;
+    gap:25px!important
+  }
+  .classSkillIconBox.isrelated{
+    width:126px!important;
+    height:126px!important;
+    border-radius:10px!important
+  }
+  .classSkillRelatedItem strong{
+    font-size:32px!important;
+    line-height:1.2!important
+  }
+  .classSkillRelatedItem small{
+    margin-top:7px!important;
+    font-size:25px!important;
+    line-height:1.25!important
+  }
+  .classSkillRelatedItem>svg{
+    width:32px!important;
+    height:32px!important
+  }
+  .classSkillDataSource{
+    display:block!important;
+    margin-top:16px!important;
+    font-size:22px!important;
+    line-height:1.5!important
+  }
+}
