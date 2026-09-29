@@ -454,3 +454,33 @@ body:has(.homeV2.cinematicHome){
   .cinematicNext{right:4px!important}
   .cinematicPrev{left:4px!important}
 }
+
+
+/* Make Side Line navigation visible while keeping it discreet */
+.cinematicPageArrow{
+  width:34px!important;
+  height:150px!important;
+  opacity:.92!important;
+}
+.cinematicPageArrow::after{
+  top:4px!important;
+  bottom:4px!important;
+  width:2px!important;
+  background:linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(224,189,112,.45) 12%,
+    #e0bd70 35%,
+    #e0bd70 65%,
+    rgba(224,189,112,.45) 88%,
+    transparent 100%
+  )!important;
+  box-shadow:0 0 8px rgba(224,189,112,.32)!important;
+}
+.cinematicPageArrow::before{
+  width:11px!important;
+  height:11px!important;
+  border-width:2px!important;
+}
+.cinematicNext::after{right:auto!important}
+.cinematicPrev::after{left:50%!important}
