@@ -5,10 +5,10 @@
     height:100%;margin:0;overflow:hidden;overscroll-behavior:none;scroll-snap-type:none;
   }
   .generalEquipmentPage.equipmentBrowsePage {
-    --eq-text:clamp(16px,1vw,48px);
+    --eq-text:clamp(16px,.9vw,43.2px);
     --eq-gap:clamp(14px,1vw,40px);
-    --eq-icon:clamp(64px,3.5vw,168px);
-    --eq-slot:clamp(42px,2.6vw,124px);
+    --eq-icon:clamp(58px,3.15vw,151.2px);
+    --eq-slot:clamp(38px,2.34vw,111.6px);
     display:block;box-sizing:border-box;width:100%;max-width:none;margin:0;height:100dvh;max-height:100dvh;min-height:0!important;
     padding:clamp(14px,1.1vh,28px) clamp(48px,2.5vw,128px) clamp(14px,1.2vh,32px)!important;
     overflow:hidden!important;font-size:var(--eq-text);
@@ -46,7 +46,7 @@
   }
   .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls svg {width:1em;height:1em;}
   .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasLayout {
-    display:grid;grid-template-columns:minmax(0,1.1fr) minmax(130px,.9fr) minmax(0,1fr);
+    display:grid;grid-template-columns:minmax(0,.99fr) minmax(130px,1.11fr) minmax(0,.9fr);
     grid-template-areas:"catalog atlas totals";gap:var(--eq-gap);align-items:stretch;
     min-height:0;height:100%;min-width:0;margin:0;
   }
