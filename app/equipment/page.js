@@ -1,4 +1,5 @@
 import EquipmentBrowser from "./EquipmentBrowser";
+import "./equipment-desktop.css";
 
 export const metadata = {
   title: "Equipment Encyclopedia | DAEVEXUS",
