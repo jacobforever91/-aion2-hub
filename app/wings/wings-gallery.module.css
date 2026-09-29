@@ -81,3 +81,17 @@
   .stats h3{font-size:21px!important}
   .stats p,.note{font-size:14px!important}
 }
+
+
+/* 2026-09-29 4K balance pass — three readable cards per row without wasted space. */
+@media(min-width:1400px){
+  .workspace{grid-template-columns:minmax(0,1fr) 440px!important;gap:20px!important}
+  .gallery{grid-template-columns:repeat(3,minmax(300px,1fr))!important;grid-auto-rows:205px!important;gap:12px!important}
+  .gallery button{gap:11px!important;padding:18px 16px!important}
+  .gallery i{transform:scale(1.85)!important;margin:23px 0 20px!important}
+  .gallery strong{font-size:23px!important;line-height:1.15!important}
+  .gallery small{font-size:13px!important;line-height:1.25!important;letter-spacing:.12em!important}
+  .detail{padding:30px!important}
+  .empty b{font-size:31px!important}
+  .empty span{font-size:15px!important}
+}
