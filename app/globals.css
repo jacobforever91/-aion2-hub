@@ -1149,3 +1149,46 @@ body:has(.cinematicHome) {
   background-size:cover!important;
   background-repeat:no-repeat!important;
 }
+
+
+/* 2026-09-29 — DAEVEXUS menu consistency pass.
+   One Crystal UI language for every navigation card: same silhouette, border, fill and glow. */
+.daevexusAquaMenu .forgeSecondary a.crystalPure,
+.daevexusAquaMenu .forgeSecondary a.crystalGold,
+.daevexusAquaMenu .forgeSecondary a.crystalFloating,
+.daevexusAquaMenu .forgeSecondary a.crystalEtched,
+.daevexusAquaMenu .forgeSecondary a.crystalWater,
+.daevexusAquaMenu .forgeSecondary a.crystalFrosted,
+.daevexusAquaMenu .forgeSecondary a.crystalMinimal,
+.daevexusAquaMenu .forgeSecondary a.crystalOrnate,
+.daevexusAquaMenu .forgeSecondary a.crystalLiquid,
+.daevexusAquaMenu .forgeSecondary a.crystalPremium{
+  clip-path:polygon(3% 0,97% 0,100% 18%,100% 82%,97% 100%,3% 100%,0 82%,0 18%)!important;
+  border-radius:14px!important;
+  border-color:rgba(156,220,255,.88)!important;
+  background:
+    linear-gradient(112deg,rgba(255,255,255,.11),transparent 19% 72%,rgba(75,177,231,.12)),
+    linear-gradient(180deg,rgba(11,63,105,.78),rgba(3,36,72,.82))!important;
+  box-shadow:0 0 13px rgba(38,165,235,.24),inset 0 1px rgba(255,255,255,.18),inset 0 -10px 20px rgba(0,20,50,.16)!important;
+}
+.daevexusAquaMenu .forgeSecondary a.crystalPure::after,
+.daevexusAquaMenu .forgeSecondary a.crystalGold::after,
+.daevexusAquaMenu .forgeSecondary a.crystalFloating::after,
+.daevexusAquaMenu .forgeSecondary a.crystalEtched::after,
+.daevexusAquaMenu .forgeSecondary a.crystalWater::after,
+.daevexusAquaMenu .forgeSecondary a.crystalFrosted::after,
+.daevexusAquaMenu .forgeSecondary a.crystalMinimal::after,
+.daevexusAquaMenu .forgeSecondary a.crystalOrnate::after,
+.daevexusAquaMenu .forgeSecondary a.crystalLiquid::after,
+.daevexusAquaMenu .forgeSecondary a.crystalPremium::after{
+  height:1px!important;
+  background:linear-gradient(90deg,transparent,#63c9f4,#d9f3ff,#63c9f4,transparent)!important;
+  box-shadow:0 0 8px rgba(67,190,245,.7)!important;
+}
+.daevexusAquaMenu .forgeSecondary a:hover{
+  border-color:#c8efff!important;
+  background:
+    linear-gradient(112deg,rgba(255,255,255,.15),transparent 19% 72%,rgba(85,194,245,.16)),
+    linear-gradient(180deg,rgba(15,78,126,.84),rgba(4,44,84,.86))!important;
+  box-shadow:0 0 19px rgba(47,177,242,.34),inset 0 1px rgba(255,255,255,.24)!important;
+}
