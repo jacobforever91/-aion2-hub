@@ -9,7 +9,7 @@ import {classList} from "../classes/classData";
 
 const equipmentScenes = [
   {name: "Crystal Citadel", src: "/daevexus/equipment-wallpaper.webp"},
-  {name: "Moonlit Sanctuary", src: "/daevexus/scenes/moon.webp"},
+  {name: "Moonlit Sanctuary", src: "/daevexus/12.png"},
   {name: "Celestial Garden", src: "/daevexus/scenes/garden.webp"},
   {name: "Aurora Palace", src: "/daevexus/scenes/aurora.webp"},
   {name: "Divine Forge", src: "/daevexus/scenes/forge.webp"},
@@ -410,7 +410,18 @@ export default function EquipmentBrowser() {
     <div>{stats.map(({label, value, suffix}) => <div key={`${label}|${suffix}`}><span>{label}</span><strong>{formatStatValue(value)}{suffix}</strong></div>)}</div>
   </section>);
 
-  return <main className="classPage equipmentBrowsePage generalEquipmentPage">
+  return <main className="classPage equipmentBrowsePage generalEquipmentPage" style={{"--equipment-scene": `url("${scene.src}")`}}>
+    {/* Keep the desktop wallpaper and the existing scenery selector in sync. */}
+    <style>{`
+      @media (min-width:1280px) {
+        .generalEquipmentPage.equipmentBrowsePage.classPage::before {
+          background-image:
+            linear-gradient(rgba(3,8,18,.18),rgba(3,8,18,.18)),
+            radial-gradient(ellipse 86% 92% at 50% 44%,transparent 38%,rgba(3,8,18,.12) 70%,rgba(3,8,18,.5) 100%),
+            var(--equipment-scene);
+        }
+      }
+    `}</style>
     <Link className="classBack" href="/?menu=open" aria-label="Back to the menu panel"><ArrowLeft aria-hidden="true" /></Link>
     <section className="equipmentGeneralContent">
       <div className="equipmentTopline">
