@@ -852,9 +852,9 @@ body:has(.cinematicHome) {
   visibility: hidden;
   transform: translate3d(0, 8%, 0) scale(1.035);
   transition:
-    transform 1550ms cubic-bezier(.22,.75,.16,1),
-    opacity 1050ms ease,
-    visibility 0s linear 1550ms;
+    transform 220ms ease-out,
+    opacity 180ms ease-out,
+    visibility 0s linear 220ms;
   will-change: transform, opacity;
   scroll-snap-align: none;
 }
@@ -864,8 +864,8 @@ body:has(.cinematicHome) {
   visibility: visible;
   transform: translate3d(0,0,0) scale(1);
   transition:
-    transform 1550ms cubic-bezier(.22,.75,.16,1),
-    opacity 1050ms ease,
+    transform 220ms ease-out,
+    opacity 180ms ease-out,
     visibility 0s;
 }
 .cinematicHome > .cinematicScreen.isLeaving {
@@ -874,12 +874,12 @@ body:has(.cinematicHome) {
   visibility: visible;
   transform: translate3d(0,-4%,0) scale(1.06);
   transition:
-    transform 1550ms cubic-bezier(.22,.75,.16,1),
-    opacity 1150ms ease;
+    transform 220ms ease-out,
+    opacity 180ms ease-out;
 }
 .cinematicHome > .cinematicScreen > img {
   transform: scale(1.025);
-  transition: transform 1900ms cubic-bezier(.2,.7,.2,1);
+  transition: transform 220ms ease-out;
   will-change: transform;
 }
 .cinematicHome > .cinematicScreen.isActive > img {
