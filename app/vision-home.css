@@ -1246,3 +1246,45 @@
     max-height:calc(100svh - 82px)!important;
   }
 }
+
+
+/* 2026-09-29 Skills readability-first layout — background is decorative, UI gets priority. */
+@media(min-width:1400px){
+  .classSkillExperiencePage{padding:16px 1.4vw 20px!important}
+  .classSkillExperience{width:100%!important;max-width:none!important}
+  .classSkillTopbar{grid-template-columns:minmax(390px,500px) minmax(0,1fr)!important}
+  .classSkillPanels{
+    grid-template-columns:minmax(780px,1fr) minmax(70px,.08fr) minmax(820px,1.05fr)!important;
+    gap:clamp(16px,1vw,26px)!important;
+    min-height:calc(100svh - 120px)!important
+  }
+  .classSkillCatalog{
+    width:100%!important;
+    margin-left:0!important;
+    height:calc(100svh - 120px)!important;
+    min-height:880px!important
+  }
+  .classSkillDetailsPanel{
+    width:100%!important;
+    height:calc(100svh - 88px)!important;
+    min-height:900px!important;
+    max-height:calc(100svh - 88px)!important
+  }
+  .classSkillCatalogTitle h2{font-size:46px!important}
+  .classSkillSearch{height:68px!important}
+  .classSkillSearch input{font-size:19px!important}
+  .classSkillFilter{min-height:70px!important;font-size:18px!important}
+  .classSkillGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+  .classSkillTile{min-height:198px!important}
+  .classSkillIconBox{width:100px!important;height:100px!important}
+  .classSkillTileName{font-size:18px!important}
+  .classSkillTile>small{font-size:13px!important}
+  .classSkillIconBox.islarge{width:124px!important;height:124px!important}
+  .classSkillDetailsHead{grid-template-columns:124px minmax(0,1fr)!important}
+  .classSkillDetailsTitle h2{font-size:48px!important}
+  .classSkillDescription p{font-size:18px!important}
+  .classSkillStatRow>span{font-size:17px!important}
+  .classSkillStatRow>strong{font-size:18px!important}
+  .classSkillProperties,.classSkillNoStats,.classSkillSpecialties p{font-size:17px!important}
+  .classSkillDetailsList dt,.classSkillDetailsList dd{font-size:15px!important}
+}
