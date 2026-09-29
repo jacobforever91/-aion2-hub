@@ -615,3 +615,77 @@ body:has(.homeV2.cinematicHome){
 .cinematicPrev::before{
   transform:translate(-58%,-50%) rotate(-135deg)!important;
 }
+
+
+/* Single fixed vertical navigator for all cinematic Home screens */
+.cinematicPageNavigator{
+  position:fixed;
+  right:18px;
+  top:50%;
+  z-index:45;
+  width:42px;
+  height:210px;
+  transform:translateY(-50%);
+  display:grid;
+  grid-template-rows:42px 1fr 42px;
+  align-items:center;
+  justify-items:center;
+  pointer-events:none;
+}
+.cinematicNavLine{
+  width:2px;
+  height:100%;
+  background:linear-gradient(180deg,transparent 0,#8f733d 18%,#e0bd70 50%,#8f733d 82%,transparent 100%);
+  box-shadow:0 0 8px rgba(224,189,112,.28);
+}
+.cinematicNavStep{
+  position:relative;
+  width:34px;
+  height:34px;
+  border:0;
+  background:transparent;
+  color:#e0bd70;
+  cursor:pointer;
+  pointer-events:auto;
+  opacity:.86;
+}
+.cinematicNavStep::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:12px;
+  height:12px;
+  border-top:2px solid currentColor;
+  border-right:2px solid currentColor;
+  filter:drop-shadow(0 0 5px rgba(224,189,112,.45));
+}
+.cinematicNavPrev::before{
+  transform:translate(-50%,-35%) rotate(-45deg);
+}
+.cinematicNavNext::before{
+  transform:translate(-50%,-65%) rotate(135deg);
+}
+.cinematicNavStep:hover{
+  opacity:1;
+  color:#f0d48a;
+}
+.cinematicNavStep:focus,
+.cinematicNavStep:focus-visible{
+  outline:0;
+  box-shadow:none;
+}
+.cinematicNavStep:disabled{
+  opacity:.16;
+  cursor:default;
+  pointer-events:none;
+}
+@media(max-width:900px){
+  .cinematicPageNavigator{
+    right:8px;
+    width:36px;
+    height:170px;
+    grid-template-rows:36px 1fr 36px;
+  }
+  .cinematicNavStep{width:30px;height:30px}
+}
