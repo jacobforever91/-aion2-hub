@@ -937,3 +937,36 @@ body:has(.cinematicHome) {
 .updatesArchiveEmpty b{color:#e2c986;letter-spacing:.12em}
 .updatesArchiveEmpty span{color:#a9bdc6}
 .updatesOfficialLink{display:inline-block;padding:14px 20px;border:1px solid #c8aa67;color:#ead8a6;text-decoration:none;letter-spacing:.08em}
+
+
+/* DAEVEXUS aquatic grouped menu concept — 2026-09-29 */
+.a2MobileMenu.forgeMenu.daevexusAquaMenu{
+  background:
+    linear-gradient(90deg,rgba(2,20,43,.97) 0%,rgba(3,31,60,.94) 42%,rgba(4,42,72,.70) 70%,rgba(4,29,51,.42) 100%),
+    url('/home/daevexus-elyos-scene.webp') center/cover no-repeat!important;
+  color:#f6f3e8!important;
+}
+.a2MobileMenu.forgeMenu.daevexusAquaMenu::before{
+  content:"";position:fixed;z-index:0;inset:0;border:0;border-radius:0;
+  width:auto;height:auto;right:0;top:0;
+  background:linear-gradient(90deg,rgba(7,36,66,.42),transparent 72%);
+  box-shadow:inset 0 0 80px rgba(71,190,255,.10);pointer-events:none;
+}
+.a2MobileMenu.forgeMenu.daevexusAquaMenu::after{
+  content:"";position:fixed;z-index:0;inset:0;
+  background:linear-gradient(180deg,rgba(94,203,255,.08),transparent 28%,rgba(0,11,26,.30));
+  pointer-events:none;
+}
+.daevexusAquaMenu .forgeMenuContent{width:min(520px,calc(100% - 34px));margin:24px 0 34px 22px;padding:22px 22px 26px;border:1px solid rgba(135,211,255,.55);border-radius:20px;background:linear-gradient(180deg,rgba(5,35,67,.88),rgba(3,25,52,.82));box-shadow:0 0 30px rgba(33,155,229,.20),inset 0 0 36px rgba(69,178,242,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.daevexusAquaMenu .forgeMenuHeader{display:block;margin:0 0 24px;padding:4px 4px 18px;border-bottom:1px solid rgba(111,203,255,.38)}
+.daevexusAquaMenu .forgeMenuHeader span{display:block;color:#f3e2bd;font-size:32px;letter-spacing:5px;text-shadow:0 0 18px rgba(87,188,255,.24)}
+.daevexusAquaMenu .forgeMenuHeader small{display:block;margin-top:7px;color:#9ddcff;font-size:9px;letter-spacing:4px}
+.daevexusAquaMenu .forgeSecondary{display:block}
+.daevexusAquaMenu .forgeSecondary section{margin:0 0 20px}
+.daevexusAquaMenu .forgeSecondary h3{margin:0 0 8px;color:#f0e7d2;font-size:13px;letter-spacing:3px}
+.daevexusAquaMenu .forgeSecondary h3:after{background:linear-gradient(90deg,rgba(121,207,255,.7),transparent)}
+.daevexusAquaMenu .forgeSecondary a{min-height:54px;margin:7px 0;padding:10px 16px;border:1px solid rgba(125,207,255,.55);border-radius:18px;background:linear-gradient(90deg,rgba(6,45,80,.82),rgba(5,55,91,.58));box-shadow:inset 0 0 20px rgba(54,166,232,.07);color:#f7f3e8;font-size:17px}
+.daevexusAquaMenu .forgeSecondary a:hover{border-color:#b6e7ff;background:linear-gradient(90deg,rgba(9,68,113,.92),rgba(8,76,121,.70));box-shadow:0 0 18px rgba(65,181,255,.22),inset 0 0 20px rgba(65,181,255,.10);color:#fff}
+.daevexusAquaMenu .forgeSecondary a b{color:#e7c57e;font-size:24px}
+.a2Close.forgeClose{z-index:10002!important}
+@media(max-width:800px){.daevexusAquaMenu .forgeMenuContent{width:calc(100% - 22px);margin:12px 11px 24px;padding:18px 14px 22px}.daevexusAquaMenu .forgeMenuHeader span{font-size:27px}.daevexusAquaMenu .forgeSecondary a{min-height:50px;font-size:16px}}
