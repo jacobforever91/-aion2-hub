@@ -66,7 +66,6 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
       <section><h3>CHARACTER</h3>
         <a className="crystalPure" href="/classes"><i><BookOpen/></i><span>Skills<small>MASTER YOUR POWER</small></span><b>›</b></a>
         <a className="crystalGold" href="/equipment"><i><Shield/></i><span>Equipment<small>GEAR YOUR LEGEND</small></span><b>›</b></a>
-        <a className="crystalEtched" href="/daevanion"><i><Trees/></i><span>Daevanion<small>FORGE YOUR PATH</small></span><b>›</b></a>
       </section>
       <section><h3>COLLECTIONS</h3>
         <a className="crystalWater" href="/wings"><i><Feather/></i><span>Wings<small>SOAR HIGHER</small></span><b>›</b></a>
