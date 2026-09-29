@@ -970,3 +970,12 @@ body:has(.cinematicHome) {
 .daevexusAquaMenu .forgeSecondary a b{color:#e7c57e;font-size:24px}
 .a2Close.forgeClose{z-index:10002!important}
 @media(max-width:800px){.daevexusAquaMenu .forgeMenuContent{width:calc(100% - 22px);margin:12px 11px 24px;padding:18px 14px 22px}.daevexusAquaMenu .forgeMenuHeader span{font-size:27px}.daevexusAquaMenu .forgeSecondary a{min-height:50px;font-size:16px}}
+
+
+/* Aqua menu cleanup: remove the legacy floating artwork panel that overlaps the right side. */
+.a2MobileMenu.forgeMenu.daevexusAquaMenu .overlayRegion,
+.a2MobileMenu.forgeMenu.daevexusAquaMenu .mobileMenuV3,
+.a2MobileMenu.forgeMenu.daevexusAquaMenu .menuPreview,
+.a2MobileMenu.forgeMenu.daevexusAquaMenu .menuArtwork{display:none!important}
+.a2MobileMenu.forgeMenu.daevexusAquaMenu{overflow-y:auto!important}
+.a2MobileMenu.forgeMenu.daevexusAquaMenu .forgeMenuContent{position:relative!important;z-index:3!important}
