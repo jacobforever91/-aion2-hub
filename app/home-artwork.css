@@ -689,3 +689,61 @@ body:has(.homeV2.cinematicHome){
   }
   .cinematicNavStep{width:30px;height:30px}
 }
+
+
+/* Fixed global Home/menu controls across all cinematic screens */
+.globalCinematicControl{
+  position:fixed;
+  top:18px;
+  z-index:70;
+  width:46px;
+  height:46px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(211,174,95,.78);
+  background:rgba(7,9,11,.82);
+  color:#e3c67f;
+  text-decoration:none;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(0,0,0,.35),inset 0 0 12px rgba(211,174,95,.06);
+  backdrop-filter:blur(6px);
+}
+.globalCinematicControl:hover{
+  border-color:#f0d48a;
+  color:#f0d48a;
+  background:rgba(19,15,10,.9);
+}
+.globalCinematicControl:focus,
+.globalCinematicControl:focus-visible{
+  outline:0;
+  box-shadow:0 0 0 1px #f0d48a,0 0 14px rgba(240,212,138,.2);
+}
+.globalMenuControl{left:18px}
+.globalHomeControl{right:18px}
+
+.menuGlyph{
+  width:21px;
+  height:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.menuGlyph i{
+  display:block;
+  width:100%;
+  height:2px;
+  background:currentColor;
+  box-shadow:0 0 4px rgba(227,198,127,.24);
+}
+.homeGlyph{
+  font:400 27px/1 Georgia,serif;
+  transform:translateY(-1px);
+}
+
+@media(max-width:900px){
+  .globalCinematicControl{top:10px;width:40px;height:40px}
+  .globalMenuControl{left:10px}
+  .globalHomeControl{right:10px}
+  .menuGlyph{width:18px;height:13px}
+  .homeGlyph{font-size:24px}
+}
