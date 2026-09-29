@@ -484,3 +484,33 @@ body:has(.homeV2.cinematicHome){
 }
 .cinematicNext::after{right:auto!important}
 .cinematicPrev::after{left:50%!important}
+
+
+/* Enlarge Side Line navigation without turning it into a box */
+.cinematicPageArrow{
+  width:42px!important;
+  height:240px!important;
+}
+.cinematicPageArrow::after{
+  top:10px!important;
+  bottom:10px!important;
+  width:2px!important;
+  box-shadow:0 0 10px rgba(224,189,112,.4)!important;
+}
+.cinematicPageArrow::before{
+  width:14px!important;
+  height:14px!important;
+  border-width:2px!important;
+}
+.cinematicNext::before{top:54px!important}
+.cinematicPrev::before{bottom:54px!important}
+.cinematicNext{right:10px!important}
+.cinematicPrev{left:10px!important}
+@media(max-width:900px){
+  .cinematicPageArrow{
+    width:34px!important;
+    height:180px!important;
+  }
+  .cinematicNext::before{top:42px!important}
+  .cinematicPrev::before{bottom:42px!important}
+}
