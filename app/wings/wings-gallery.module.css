@@ -201,3 +201,74 @@
   .gallery small{font-size:12px!important}
   .detail{width:420px!important;height:682px!important;min-height:682px!important;max-height:682px!important}
 }
+
+
+/* 2026-09-29 viewport-scale pass — preserve approved layout, scale it to large 4K displays. */
+@media(min-width:1201px){
+  .page{padding:3.2vh 2.2vw 2.6vh!important}
+  .header{height:13vh!important;min-height:120px!important;max-height:175px!important;padding-bottom:2vh!important}
+  .header span{font-size:clamp(12px,.72vw,18px)!important}
+  .header h1{font-size:clamp(46px,3vw,72px)!important}
+  .header small{font-size:clamp(10px,.58vw,15px)!important}
+  .filters label{width:clamp(320px,19vw,460px)!important;height:clamp(50px,4.7vh,66px)!important}
+  .filters input{font-size:clamp(15px,.82vw,20px)!important}
+  .filters select{height:clamp(50px,4.7vh,66px)!important;font-size:clamp(13px,.72vw,18px)!important}
+
+  .workspace{
+    height:75vh!important;
+    min-height:690px!important;
+    max-height:1120px!important;
+    grid-template-columns:clamp(210px,11.5vw,300px) minmax(0,1fr) clamp(390px,21vw,520px)!important;
+    gap:clamp(18px,1vw,28px)!important;
+    padding-top:2vh!important
+  }
+  .side{
+    width:100%!important;
+    min-width:0!important;
+    height:max-content!important
+  }
+  .side button{
+    height:clamp(54px,6.2vh,82px)!important;
+    flex:0 0 clamp(54px,6.2vh,82px)!important;
+    padding:0 clamp(17px,1vw,26px)!important;
+    font-size:clamp(14px,.82vw,20px)!important
+  }
+
+  .center{height:75vh!important}
+  .gallery{
+    height:calc(75vh - 64px)!important;
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    grid-template-rows:repeat(3,minmax(0,1fr))!important;
+    gap:clamp(12px,.75vw,20px)!important
+  }
+  .gallery>button{
+    height:auto!important;
+    min-height:0!important;
+    padding:clamp(14px,1.2vh,22px)!important;
+    gap:clamp(9px,1vh,14px)!important
+  }
+  .gallery i{
+    transform:scale(clamp(1.75,1.15vw,2.5))!important;
+    margin:clamp(18px,2.2vh,32px) 0!important
+  }
+  .gallery strong{font-size:clamp(20px,1.15vw,28px)!important}
+  .gallery small{font-size:clamp(11px,.68vw,16px)!important}
+  .pagination{height:64px!important;font-size:clamp(12px,.68vw,16px)!important}
+
+  .detail{
+    width:100%!important;
+    height:75vh!important;
+    min-height:690px!important;
+    max-height:1120px!important;
+    padding:clamp(26px,1.7vw,40px)!important
+  }
+  .empty b{font-size:clamp(28px,1.7vw,40px)!important}
+  .empty span{font-size:clamp(12px,.76vw,18px)!important;max-width:360px!important}
+  .title{grid-template-columns:1fr clamp(100px,6vw,145px)!important}
+  .title i{transform:scale(clamp(1.55,1.05vw,2.15))!important}
+  .title small{font-size:clamp(10px,.65vw,15px)!important}
+  .title h2{font-size:clamp(27px,1.65vw,40px)!important}
+  .levelHead span,.stats>div{font-size:clamp(12px,.75vw,18px)!important}
+  .stats h3{font-size:clamp(17px,1vw,24px)!important}
+  .stats p,.note{font-size:clamp(11px,.7vw,16px)!important}
+}
