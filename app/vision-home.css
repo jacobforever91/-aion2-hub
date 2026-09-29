@@ -1128,3 +1128,44 @@
   .classSkillRelatedItem strong{font-size:14px!important}
   .classSkillRelatedItem small,.classSkillDataSource{font-size:11px!important}
 }
+
+
+/* 2026-09-29 Skills 4K readability pass 2 — one more measured size increase. */
+@media(min-width:1400px){
+  .classSkillExperiencePage{padding-left:3vw!important;padding-right:3vw!important}
+  .classSkillExperience{width:min(100%,2700px)!important}
+  .classSkillTopbar{grid-template-columns:minmax(330px,420px) minmax(0,1fr)!important}
+  .classSkillPageTitle h1{font-size:50px!important}
+  .classSkillClassTab{min-height:58px!important;font-size:15px!important}
+
+  .classSkillPanels{
+    grid-template-columns:minmax(690px,1.08fr) minmax(300px,.48fr) minmax(690px,1.08fr)!important;
+    gap:clamp(24px,1.7vw,38px)!important
+  }
+  .classSkillCatalog,.classSkillDetailsPanel{
+    height:min(1040px,calc(100svh - 138px))!important;
+    min-height:800px!important
+  }
+  .classSkillCatalog{padding:27px 26px 20px!important}
+  .classSkillCatalogTitle h2{font-size:40px!important}
+  .classSkillSearch{height:59px!important}
+  .classSkillSearch input{font-size:17px!important}
+  .classSkillFilter{min-height:62px!important;font-size:16px!important}
+
+  .classSkillTile{min-height:176px!important;padding:15px 10px 12px!important}
+  .classSkillIconBox{width:86px!important;height:86px!important}
+  .classSkillTileName{font-size:16px!important}
+  .classSkillTile>small{font-size:12px!important}
+
+  .classSkillDetailsPanel{padding:28px 28px 24px!important}
+  .classSkillDetailsHead{grid-template-columns:106px minmax(0,1fr)!important}
+  .classSkillIconBox.islarge{width:106px!important;height:106px!important}
+  .classSkillDetailsTitle h2{font-size:42px!important}
+  .classSkillDescription p{font-size:16px!important}
+  .classSkillLevelHeading{font-size:15px!important}
+  .classSkillLevelHeading output{font-size:17px!important}
+  .classSkillStatRow{min-height:53px!important}
+  .classSkillStatRow>span{font-size:15px!important}
+  .classSkillStatRow>strong{font-size:16px!important}
+  .classSkillProperties,.classSkillNoStats,.classSkillSpecialties p{font-size:15px!important}
+}
