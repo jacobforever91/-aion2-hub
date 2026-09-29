@@ -1308,3 +1308,47 @@
     margin-right:0!important;
   }
 }
+
+
+/* 2026-09-29 Skills single-window desktop shell — page never needs vertical scrolling. */
+@media(min-width:1400px){
+  .classSkillExperiencePage{
+    height:100svh!important;
+    min-height:100svh!important;
+    max-height:100svh!important;
+    overflow:hidden!important;
+    padding:14px 1.4vw 14px!important;
+  }
+  .classSkillExperience{
+    height:100%!important;
+    min-height:0!important;
+    max-height:100%!important;
+    display:grid!important;
+    grid-template-rows:auto minmax(0,1fr)!important;
+    gap:12px!important;
+    overflow:hidden!important;
+  }
+  .classSkillTopbar{
+    min-height:0!important;
+    height:auto!important;
+    flex:none!important;
+  }
+  .classSkillPanels{
+    height:100%!important;
+    min-height:0!important;
+    max-height:100%!important;
+    align-items:stretch!important;
+    overflow:hidden!important;
+  }
+  .classSkillCatalog,
+  .classSkillDetailsPanel{
+    height:100%!important;
+    min-height:0!important;
+    max-height:100%!important;
+    align-self:stretch!important;
+    overflow:hidden!important;
+  }
+  .classSkillCatalogBody{min-height:0!important;overflow:hidden!important}
+  .classSkillGrid{min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+  .classSkillDetailsPanel{overflow-y:auto!important;overscroll-behavior:contain!important}
+}
