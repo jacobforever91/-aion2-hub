@@ -1,0 +1,174 @@
+/* Equipment-only desktop sizing. Preserve the approved scenery and other routes. */
+@media (min-width:1280px) {
+  html:has(.generalEquipmentPage.equipmentBrowsePage),
+  body:has(.generalEquipmentPage.equipmentBrowsePage) {
+    height:100%;margin:0;overflow:hidden;overscroll-behavior:none;scroll-snap-type:none;
+  }
+  .generalEquipmentPage.equipmentBrowsePage {
+    --eq-text:clamp(16px,1vw,48px);
+    --eq-gap:clamp(14px,1vw,40px);
+    --eq-icon:clamp(64px,3.5vw,168px);
+    --eq-slot:clamp(42px,2.6vw,124px);
+    display:block;box-sizing:border-box;width:100%;max-width:none;margin:0;height:100dvh;max-height:100dvh;min-height:0!important;
+    padding:clamp(14px,1.1vh,28px) clamp(48px,2.5vw,128px) clamp(14px,1.2vh,32px)!important;
+    overflow:hidden!important;font-size:var(--eq-text);
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentGeneralContent {
+    width:100%!important;max-width:none!important;min-width:0;height:100%;min-height:0;
+    margin:0!important;padding:0!important;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:var(--eq-gap);
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentTopline {
+    display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,3fr);
+    align-items:center;gap:var(--eq-gap);margin:0!important;min-width:0;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentVisionIdentity span {
+    font-size:clamp(12px,.7vw,32px)!important;letter-spacing:.12em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentTopline .equipmentClassChoices {
+    position:static!important;transform:none!important;width:100%!important;max-width:none!important;
+    display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:.35em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentClassChoices button {
+    min-width:0;min-height:44px!important;padding:.65em .25em!important;
+    font-size:clamp(13px,.8vw,38px)!important;line-height:1.25;white-space:normal;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls {
+    margin:0 0 0 auto!important;padding:.18em;gap:.45em;max-width:100%;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls>span {
+    min-width:0;font-size:calc(var(--eq-text) * .8);line-height:1.2;padding:0 .5em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls small {
+    font-size:calc(var(--eq-text) * .62);letter-spacing:.1em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls>button {
+    width:1.85em;height:1.85em;min-width:38px;min-height:38px;font-size:inherit;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSceneControls svg {width:1em;height:1em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasLayout {
+    display:grid;grid-template-columns:minmax(0,1.1fr) minmax(130px,.9fr) minmax(0,1fr);
+    grid-template-areas:"catalog atlas totals";gap:var(--eq-gap);align-items:stretch;
+    min-height:0;height:100%;min-width:0;margin:0;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog,
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadout {
+    position:relative!important;inset:auto!important;box-sizing:border-box;width:100%!important;
+    height:100%!important;min-height:0!important;max-height:100%!important;min-width:0;
+    align-self:stretch!important;margin:0!important;padding:.85em!important;
+    overflow:auto!important;overscroll-behavior:contain;scrollbar-width:thin;
+    scrollbar-color:#547789 transparent;border:1px solid rgba(202,166,91,.72)!important;
+    border-radius:7px!important;font-size:var(--eq-text);
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog {grid-area:catalog;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadout {grid-area:totals;display:flex;flex-direction:column;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlas {
+    grid-area:atlas;position:relative!important;top:auto!important;width:100%;height:100%!important;
+    min-width:0;min-height:0!important;max-height:100%;margin:0;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide {
+    top:0!important;bottom:0!important;width:auto;display:flex;flex-direction:column;
+    justify-content:space-around;gap:.35em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide.isLeft {left:0!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide.isRight {right:0!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlot {
+    width:calc(var(--eq-slot) + 1em)!important;min-height:0!important;height:auto;
+    padding:.15em 0;gap:.25em;flex:none;font-size:calc(var(--eq-text) * .68);
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlot::after {display:none;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlotIcon {
+    width:var(--eq-slot)!important;height:var(--eq-slot)!important;min-width:0!important;min-height:0!important;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlotIcon svg {width:58%;height:58%;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlotIcon img {width:90%;height:90%;object-fit:contain;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasSide .equipmentAtlasSlot>span:nth-child(2) {
+    font-size:calc(var(--eq-text) * 1)!important;line-height:1.2;letter-spacing:.02em;max-width:100%;white-space:normal;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSearch {
+    display:flex;align-items:center;min-height:2.8em!important;padding:.2em .45em!important;gap:.4em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSearch>svg {width:1.1em;height:1.1em;flex:none;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSearch input {
+    min-width:0;flex:1;height:2.2em!important;font-size:calc(var(--eq-text) * 1)!important;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentSearch button {
+    min-height:2.2em!important;padding:.45em .6em;font-size:calc(var(--eq-text) * .78)!important;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentGradeFilters {display:flex;flex-wrap:wrap;gap:.35em;margin-top:.55em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentGradeFilters button {
+    min-height:2.25em!important;padding:.5em .7em!important;font-size:calc(var(--eq-text) * .78)!important;line-height:1.25;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentResultsHeader {
+    display:flex;flex-wrap:wrap;gap:.4em;margin:.8em 0 .5em;font-size:calc(var(--eq-text) * .8)!important;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentWeaponMenuHead {
+    margin:.5em 0;padding-top:.65em;font-size:calc(var(--eq-text) * .78)!important;letter-spacing:.04em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentWeaponMenuHead small {font-size:calc(var(--eq-text) * .9)!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentWeaponSectionToggle {
+    min-height:2.5em!important;padding:.55em .5em!important;gap:.5em;font-size:calc(var(--eq-text) * .92)!important;letter-spacing:.04em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentWeaponSectionToggle svg {width:1em;height:1em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentWeaponSectionToggle small {font-size:calc(var(--eq-text) * .75)!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .generalEquipmentGrid {
+    display:grid;grid-template-columns:minmax(0,1fr)!important;gap:.55em;margin:.5em 0 .75em!important;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemCard {
+    display:block;min-height:0!important;padding:0;overflow:hidden;font-size:var(--eq-text);
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemEquip {
+    display:grid;grid-template-columns:var(--eq-icon) minmax(0,1fr)!important;
+    grid-template-rows:auto auto auto;min-height:calc(var(--eq-icon) + 1.25em);
+    gap:.2em .7em!important;padding:.6em!important;font-size:inherit;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemIcon {
+    width:var(--eq-icon)!important;height:var(--eq-icon)!important;min-width:0;grid-column:1!important;grid-row:1/4!important;
+    display:grid;place-items:center;align-self:center;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemIcon img {width:100%!important;height:100%!important;object-fit:contain;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemName {
+    grid-column:2!important;font-size:calc(var(--eq-text) * 1.08)!important;line-height:1.25;white-space:normal;overflow-wrap:anywhere;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemGrade {
+    grid-column:2;font-size:calc(var(--eq-text) * .7)!important;line-height:1.25;padding:.2em .4em;justify-self:start;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentAtlasCatalog .equipmentItemEquipState {
+    grid-column:2;font-size:calc(var(--eq-text) * .68)!important;line-height:1.3;letter-spacing:.07em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentItemDetailsButton {
+    min-height:2.3em;padding:.5em .75em;font-size:calc(var(--eq-text) * .72)!important;line-height:1.2;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentItemDetailsButton svg {width:1em;height:1em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutHead {
+    display:flex;flex-wrap:wrap;flex:none;align-items:center;gap:.55em;padding-bottom:.65em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutHead span {font-size:calc(var(--eq-text) * .6)!important;letter-spacing:.13em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutHead h2 {font-size:calc(var(--eq-text) * 1.8)!important;line-height:1.1;margin:.2em 0 0;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutControls {gap:.55em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutControls>b {font-size:calc(var(--eq-text) * 1)!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutControls>b small {font-size:calc(var(--eq-text) * .6)!important;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopClear {font-size:calc(var(--eq-text) * .72)!important;padding:.65em .75em;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals {
+    display:flex;flex-direction:column;flex:none;font-size:var(--eq-text);gap:.65em;margin-top:.65em;background:transparent;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotalsGroup {flex:none;min-width:0;font-size:var(--eq-text);}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotalsGroup h3 {
+    margin:0 0 .4em;padding:.4em 0;font-size:calc(var(--eq-text) * .8)!important;line-height:1.25;letter-spacing:.08em;color:#dfc689;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals .equipmentDesktopTotalRow {
+    display:flex;align-items:center;justify-content:space-between;gap:.65em;font-size:var(--eq-text);
+    min-height:2.1em;padding:.4em .5em;margin-bottom:.15em;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals span {font-size:calc(var(--eq-text) * 1)!important;line-height:1.4;color:#d2e1e8;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals strong {font-size:calc(var(--eq-text) * 1.05)!important;line-height:1.3;color:#f2f6f8;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals>div,
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals>p {
+    flex:none!important;padding:.7em!important;font-size:calc(var(--eq-text) * .78)!important;line-height:1.5;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentLoading,
+  .generalEquipmentPage.equipmentBrowsePage .equipmentRegionNote,
+  .generalEquipmentPage.equipmentBrowsePage .equipmentPagination {font-size:calc(var(--eq-text) * .85)!important;line-height:1.5;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentPagination {gap:.4em;flex-wrap:wrap;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentPagination button {padding:.5em .65em;font-size:inherit;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentPagination svg {width:1em;height:1em;}
+}
