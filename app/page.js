@@ -64,20 +64,20 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
     <div className="forgeMenuHeader"><span>DAEVEXUS</span><small>AION 2 DATABASE &amp; TOOLS</small></div>
     <div className="forgeSecondary">
       <section><h3>CHARACTER</h3>
-        <a href="/classes"><i><BookOpen/></i><span>Skills<small>MASTER YOUR POWER</small></span><b>›</b></a>
-        <a href="/equipment"><i><Shield/></i><span>Equipment<small>GEAR YOUR LEGEND</small></span><b>›</b></a>
-        <a href="/stigmas"><i><Gem/></i><span>Stigmas<small>AWAKEN POTENTIAL</small></span><b>›</b></a>
-        <a href="/daevanion"><i><Trees/></i><span>Daevanion<small>FORGE YOUR PATH</small></span><b>›</b></a>
+        <a className="crystalPure" href="/classes"><i><BookOpen/></i><span>Skills<small>MASTER YOUR POWER</small></span><b>›</b></a>
+        <a className="crystalGold" href="/equipment"><i><Shield/></i><span>Equipment<small>GEAR YOUR LEGEND</small></span><b>›</b></a>
+        <a className="crystalFloating" href="/stigmas"><i><Gem/></i><span>Stigmas<small>AWAKEN POTENTIAL</small></span><b>›</b></a>
+        <a className="crystalEtched" href="/daevanion"><i><Trees/></i><span>Daevanion<small>FORGE YOUR PATH</small></span><b>›</b></a>
       </section>
       <section><h3>COLLECTIONS</h3>
-        <a href="/wings"><i><Feather/></i><span>Wings<small>SOAR HIGHER</small></span><b>›</b></a>
-        <a href="/pets"><i><PawPrint/></i><span>Pets<small>FAITHFUL COMPANIONS</small></span><b>›</b></a>
-        <a href="/arcana"><i><Sparkles/></i><span>Arcana<small>UNLOCK MYSTERIES</small></span><b>›</b></a>
+        <a className="crystalWater" href="/wings"><i><Feather/></i><span>Wings<small>SOAR HIGHER</small></span><b>›</b></a>
+        <a className="crystalFrosted" href="/pets"><i><PawPrint/></i><span>Pets<small>FAITHFUL COMPANIONS</small></span><b>›</b></a>
+        <a className="crystalMinimal" href="/arcana"><i><Sparkles/></i><span>Arcana<small>UNLOCK MYSTERIES</small></span><b>›</b></a>
       </section>
-      <section><h3>TOOLS</h3><a href="/builds"><i><Swords/></i><span>Build Creator<small>PLAN · COMPARE · OPTIMIZE</small></span><b>›</b></a></section>
+      <section><h3>TOOLS</h3><a className="crystalOrnate" href="/builds"><i><Swords/></i><span>Build Creator<small>PLAN · COMPARE · OPTIMIZE</small></span><b>›</b></a></section>
       <section><h3>GAME</h3>
-        <a href="/database"><i><Sparkles/></i><span>Game<small>EXPLORE AION 2</small></span><b>›</b></a>
-        <a href="/updates"><i><ScrollText/></i><span>Updates<small>STAY INFORMED</small></span><b>›</b></a>
+        <a className="crystalLiquid" href="/database"><i><Sparkles/></i><span>Game<small>EXPLORE AION 2</small></span><b>›</b></a>
+        <a className="crystalPremium" href="/updates"><i><ScrollText/></i><span>Updates<small>STAY INFORMED</small></span><b>›</b></a>
       </section>
     </div>
   </div>
