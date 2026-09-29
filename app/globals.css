@@ -1130,3 +1130,22 @@ body:has(.cinematicHome) {
   box-shadow:0 0 22px #28b8ff55,inset 0 0 18px #9ee8ff22!important
 }
 .daevexusAquaMenu .forgeSecondary a.crystalPremium::after{height:2px!important;box-shadow:0 0 13px #42c7ff!important}
+
+
+/* 2026-09-29 — remove the full-screen translucent overlay/tile visible over the Elyos artwork.
+   Keep the Crystal UI on the navigation cards only; the scenery must remain clean. */
+.a2MobileMenu.forgeMenu.daevexusAquaMenu::before,
+.a2MobileMenu.forgeMenu.daevexusAquaMenu::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.a2MobileMenu.forgeMenu.daevexusAquaMenu{
+  background-image:url('/home/daevexus-elyos-scene.webp')!important;
+  background-position:center center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
