@@ -149,18 +149,30 @@
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopLoadoutControls>b small {font-size:calc(var(--eq-text) * .6)!important;}
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopClear {font-size:calc(var(--eq-text) * .72)!important;padding:.65em .75em;}
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals {
-    display:flex;flex-direction:column;flex:none;font-size:var(--eq-text);gap:.65em;margin-top:.65em;background:transparent;
+    display:flex;flex-direction:column;flex:none;font-size:var(--eq-text);gap:.55em;margin-top:.45em;background:transparent;
   }
-  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotalsGroup {flex:none;min-width:0;font-size:var(--eq-text);}
+  /* Two readable columns per group keep all three stat blocks in the panel.
+     Rows can grow for long labels; retain overflow as an accessibility fallback. */
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotalsGroup {
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    align-content:start;gap:.22em .4em;flex:none;min-width:0;font-size:var(--eq-text);
+  }
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotalsGroup h3 {
-    margin:0 0 .4em;padding:.4em 0;font-size:calc(var(--eq-text) * .8)!important;line-height:1.25;letter-spacing:.08em;color:#dfc689;
+    grid-column:1/-1;margin:0 0 .12em;padding:.3em 0;font-size:calc(var(--eq-text) * .8)!important;line-height:1.25;letter-spacing:.08em;color:#dfc689;
   }
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals .equipmentDesktopTotalRow {
-    display:flex;align-items:center;justify-content:space-between;gap:.65em;font-size:var(--eq-text);
-    min-height:2.1em;padding:.4em .5em;margin-bottom:.15em;
+    display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+    gap:.4em;font-size:var(--eq-text);min-width:0;
+    min-height:2.25em;padding:.35em .45em;margin:0;
   }
-  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals span {font-size:calc(var(--eq-text) * 1)!important;line-height:1.4;color:#d2e1e8;}
-  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals strong {font-size:calc(var(--eq-text) * 1.05)!important;line-height:1.3;color:#f2f6f8;}
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals span {
+    min-width:0;white-space:normal;overflow-wrap:anywhere;
+    font-size:calc(var(--eq-text) * 1)!important;line-height:1.35;color:#d2e1e8;
+  }
+  .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals strong {
+    white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums;
+    font-size:calc(var(--eq-text) * 1.05)!important;line-height:1.3;color:#f2f6f8;
+  }
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals>div,
   .generalEquipmentPage.equipmentBrowsePage .equipmentDesktopTotals>p {
     flex:none!important;padding:.7em!important;font-size:calc(var(--eq-text) * .78)!important;line-height:1.5;
