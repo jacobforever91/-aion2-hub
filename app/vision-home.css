@@ -1352,3 +1352,24 @@
   .classSkillGrid{min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important}
   .classSkillDetailsPanel{overflow-y:auto!important;overscroll-behavior:contain!important}
 }
+
+
+/* 2026-09-29 Skills shell: remove the outer browser/page scrollbar entirely. */
+html:has(.classSkillExperiencePage),
+body:has(.classSkillExperiencePage){
+  width:100%!important;
+  height:100svh!important;
+  min-height:100svh!important;
+  max-height:100svh!important;
+  margin:0!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+@media(min-width:1400px){
+  .classSkillExperiencePage{
+    width:100vw!important;
+    height:100svh!important;
+    max-height:100svh!important;
+    overflow:hidden!important;
+  }
+}
