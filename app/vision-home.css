@@ -1232,3 +1232,17 @@
   .classSkillRelatedItem small{font-size:12px!important}
   .classSkillDataSource{font-size:12px!important}
 }
+
+
+/* 2026-09-29 Skills directional expansion — left catalog outward, right details downward. */
+@media(min-width:1400px){
+  .classSkillCatalog{
+    width:calc(100% + clamp(90px,4.8vw,185px))!important;
+    margin-left:calc(clamp(90px,4.8vw,185px) * -1)!important;
+  }
+  .classSkillDetailsPanel{
+    height:min(1240px,calc(100svh - 82px))!important;
+    min-height:900px!important;
+    max-height:calc(100svh - 82px)!important;
+  }
+}
