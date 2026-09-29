@@ -24,8 +24,8 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
 
 <section id="home-screen" className="approvedHomeHero cinematicScreen" aria-label="DAEVEXUS Elyos and Asmodians Home">
   <img src="/home/3.png" alt="DAEVEXUS AION 2 Companion with Elyos and Asmodians"/>
-  <a className="heroExploreButton heroExploreElyos" href="#elyos-screen" aria-label="Explore Elyos">Explore Elyos <span aria-hidden="true">→</span></a>
-  <a className="heroExploreButton heroExploreAsmo" href="#asmodians-screen" aria-label="Explore Asmodians">Explore Asmodians <span aria-hidden="true">→</span></a>
+  <a className="heroHotspot heroElyosHotspot" href="#elyos-screen" aria-label="Explore Elyos"><span className="srOnly">Explore Elyos</span></a>
+  <a className="heroHotspot heroAsmoHotspot" href="#asmodians-screen" aria-label="Explore Asmodians"><span className="srOnly">Explore Asmodians</span></a>
 
 </section>
 
