@@ -1024,3 +1024,54 @@ body:has(.cinematicHome) {
 @media(max-width:520px){
   .daevexusAquaMenu .forgeMenuContent{width:72vw!important;min-width:0!important}
 }
+
+
+/* Crystal UI — exact approved visual direction, applied to the live menu. */
+.daevexusAquaMenu .forgeSecondary a{
+  position:relative!important;overflow:hidden!important;
+  border:1px solid rgba(175,225,255,.82)!important;
+  border-radius:18px!important;
+  background:
+    linear-gradient(112deg,rgba(255,255,255,.13),transparent 18% 72%,rgba(91,196,255,.15)),
+    linear-gradient(180deg,rgba(14,67,111,.72),rgba(3,36,72,.76))!important;
+  box-shadow:
+    0 0 0 1px rgba(48,155,226,.18),
+    0 0 14px rgba(30,155,240,.20),
+    inset 0 1px rgba(255,255,255,.20),
+    inset 0 -10px 22px rgba(0,22,55,.18)!important;
+}
+.daevexusAquaMenu .forgeSecondary a::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(125deg,transparent 0 12%,rgba(157,224,255,.20) 12.4% 12.8%,transparent 13.2% 72%,rgba(112,208,255,.14) 72.5% 73%,transparent 73.5%),
+    radial-gradient(circle at 8% 16%,rgba(205,242,255,.24),transparent 18%);
+  opacity:.8;
+}
+.daevexusAquaMenu .forgeSecondary a::after{
+  content:"";position:absolute;left:7%;right:7%;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,#64cfff,#e7f8ff,#64cfff,transparent);
+  box-shadow:0 0 9px #3bbdff;
+}
+.daevexusAquaMenu .forgeSecondary a:hover{
+  border-color:#c9efff!important;
+  background:
+    linear-gradient(112deg,rgba(255,255,255,.17),transparent 18% 70%,rgba(92,204,255,.22)),
+    linear-gradient(180deg,rgba(16,82,135,.82),rgba(4,47,91,.84))!important;
+  box-shadow:0 0 22px rgba(46,177,255,.38),inset 0 1px rgba(255,255,255,.30)!important;
+}
+.daevexusAquaMenu .forgeSecondary a i{
+  position:relative;z-index:1;color:#f3d8a0!important;
+  background:radial-gradient(circle at 50% 38%,rgba(38,112,169,.66),rgba(3,30,62,.30) 70%)!important;
+  filter:drop-shadow(0 0 5px rgba(79,191,255,.28));
+}
+.daevexusAquaMenu .forgeSecondary a span,.daevexusAquaMenu .forgeSecondary a b{position:relative;z-index:1}
+.daevexusAquaMenu .forgeSecondary a b{color:#f2d18b!important;text-shadow:0 0 7px rgba(255,202,92,.26)}
+.daevexusAquaMenu .forgeSecondary section:nth-of-type(1) a:nth-of-type(2),
+.daevexusAquaMenu .forgeSecondary section:nth-of-type(3) a{
+  border-color:rgba(232,199,128,.78)!important;
+  box-shadow:0 0 13px rgba(225,177,79,.16),inset 0 1px rgba(255,255,255,.18)!important;
+}
+.daevexusAquaMenu .forgeSecondary section:nth-of-type(4) a:last-child{
+  border-color:#62cfff!important;
+  box-shadow:0 0 20px rgba(40,169,255,.34),inset 0 1px rgba(255,255,255,.24)!important;
+}
