@@ -1192,3 +1192,14 @@ body:has(.cinematicHome) {
     linear-gradient(180deg,rgba(15,78,126,.84),rgba(4,44,84,.86))!important;
   box-shadow:0 0 19px rgba(47,177,242,.34),inset 0 1px rgba(255,255,255,.24)!important;
 }
+
+
+/* 2026-09-29 — remove legacy gold outlines from individual menu variants.
+   Gold remains on icons/arrows only; every card outline is the same crystal blue. */
+.daevexusAquaMenu .forgeSecondary section:nth-of-type(1) a:nth-of-type(2),
+.daevexusAquaMenu .forgeSecondary section:nth-of-type(3) a,
+.daevexusAquaMenu .forgeSecondary a.crystalGold,
+.daevexusAquaMenu .forgeSecondary a.crystalOrnate{
+  border-color:rgba(156,220,255,.88)!important;
+  box-shadow:0 0 13px rgba(38,165,235,.24),inset 0 1px rgba(255,255,255,.18),inset 0 -10px 20px rgba(0,20,50,.16)!important;
+}
