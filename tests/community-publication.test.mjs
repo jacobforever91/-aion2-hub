@@ -17,3 +17,5 @@ test('counts selections, not game stats or DPS',()=>assert.deepEqual(selectionCo
 test('real UUID document and variant IDs produce a valid savable preview',()=>{const d=draft();d.id='7a0f0f20-16be-451c-90e0-935609837953';d.variants[0].id='c1f14c5a-08eb-4f0c-bf91-9538a1497b2b';d.activeId=d.variants[0].id;const s=memory();savePreview(s,makePreview(d,{title:'Full UUID test'}));assert.equal(readPreviews(s).length,1);});
 test('preparing the same source variant updates its private preview',()=>{const s=memory();savePreview(s,makePreview(draft(),{title:'First'}));savePreview(s,makePreview(draft(),{title:'Second'}));assert.equal(readPreviews(s).length,1);assert.equal(readPreviews(s)[0].title,'Second');});
 test('invalid React-rendered values in storage are rejected',()=>{const d=draft();d.title={bad:'object'};const s=memory({[LIBRARY_KEY]:JSON.stringify([d])});assert.equal(readDrafts(s).documents.length,0);assert.equal(readDrafts(s).warnings.length,1);});
+
+test('community reads the current Global Build Lab storage keys',()=>{assert.equal(WORKSPACE_KEY,'daevexus.build-lab.global.workspace.v1');assert.equal(LIBRARY_KEY,'daevexus.build-lab.global.library.v1');});
