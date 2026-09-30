@@ -1,7 +1,7 @@
 /** Publication preparation only. Never writes to either creator's storage. */
 export const PREVIEWS_KEY = 'daevexus.community.previews.v1';
-export const WORKSPACE_KEY = 'daevexus.build-lab.workspace.v1';
-export const LIBRARY_KEY = 'daevexus.build-lab.library.v1';
+export const WORKSPACE_KEY = 'daevexus.build-lab.global.workspace.v1';
+export const LIBRARY_KEY = 'daevexus.build-lab.global.library.v1';
 export const CLASSES = ['Gladiator','Templar','Assassin','Ranger','Sorcerer','Spiritmaster','Cleric','Chanter'];
 export const MODES = ['PvE','PvP','Solo','Support'];
 const MAX_DOCUMENT = 262144;
