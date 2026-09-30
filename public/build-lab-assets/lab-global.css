@@ -1,0 +1,8 @@
+/* Global-only Lab: reclaim the retired region field without shrinking the interface. */
+.contextbar > .field:has([data-field="region"]) {display:none!important}
+@media (min-width:1000px) {
+  .contextbar > .context-field {flex:1.35 1 16em;max-width:30em}
+  .contextbar > .field {flex:1 1 12em;max-width:24em}
+  .contextbar > .character-button {flex:0 1 auto;white-space:normal}
+  .contextbar > .history-actions {margin-left:auto}
+}
