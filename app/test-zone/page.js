@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {testZoneResearch, testZoneRules} from "./researchData";
+import {testZoneModules, testZoneResearch, testZoneRules} from "./researchData";
 
 const statusStyle={
   VERIFIED:{border:"1px solid rgba(118,224,170,.48)",color:"#9cf2c5",background:"rgba(35,105,72,.2)"},
@@ -28,6 +28,31 @@ export default function TestZonePage(){
           <div style={{fontSize:13,letterSpacing:2,color:"#d6b566",marginBottom:14}}>SAFETY RULES</div>
           <div style={{display:"grid",gap:9}}>
             {testZoneRules.map((rule,index)=><div key={rule} style={{display:"flex",gap:11,color:"#c8d3dc",lineHeight:1.5}}><b style={{color:"#d6b566"}}>{String(index+1).padStart(2,"0")}</b><span>{rule}</span></div>)}
+          </div>
+        </section>
+
+        <section style={{marginBottom:28}}>
+          <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",gap:16,marginBottom:14}}>
+            <h2 style={{margin:0,fontSize:22}}>Integration Board</h2>
+            <span style={{fontSize:12,color:"#718390",letterSpacing:1.4}}>LAB ONLY · NOT PRODUCTION</span>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:12}}>
+            {testZoneModules.map(module=>(
+              <article key={module.id} style={{border:"1px solid rgba(136,162,181,.2)",background:"rgba(8,14,20,.82)",borderRadius:12,padding:17}}>
+                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:10,marginBottom:10}}>
+                  <h3 style={{fontSize:18,margin:0}}>{module.title}</h3>
+                  <span style={{fontSize:10,letterSpacing:1.2,padding:"5px 8px",borderRadius:999,...(statusStyle[module.status]||statusStyle.RESEARCH)}}>{module.status}</span>
+                </div>
+                <div style={{fontSize:11,letterSpacing:1.4,color:"#d6b566",marginBottom:8}}>MOUNTED IN LAB</div>
+                <ul style={{margin:"0 0 12px",paddingLeft:18,color:"#c7d2da",lineHeight:1.5,fontSize:13}}>
+                  {module.mounted.map(item=><li key={item} style={{marginBottom:6}}>{item}</li>)}
+                </ul>
+                <div style={{borderTop:"1px solid rgba(255,255,255,.07)",paddingTop:10}}>
+                  <div style={{fontSize:10,letterSpacing:1.2,color:"#718390",marginBottom:4}}>NEXT MECHANICAL STEP</div>
+                  <div style={{color:"#e3c778",fontSize:13,lineHeight:1.45}}>{module.next}</div>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
