@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 9 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "data-agent/**"
+      - "scripts/aion2-*-agent*.mjs"
+      - ".github/workflows/aion2-source-agent.yml"
 
 permissions:
   contents: read
@@ -15,7 +20,7 @@ concurrency:
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - name: Check out the project
         uses: actions/checkout@v4
@@ -28,29 +33,41 @@ jobs:
       - name: Restore agent history
         uses: actions/cache/restore@v4
         with:
-          path: .agent-state/state.json
+          path: .agent-state
           key: aion2-source-agent-${{ runner.os }}-${{ github.run_id }}
           restore-keys: |
             aion2-source-agent-${{ runner.os }}-
 
-      - name: Run tests
-        run: node --test scripts/aion2-source-agent.test.mjs
+      - name: Run agent tests
+        run: node --test scripts/aion2-source-agent.test.mjs scripts/aion2-research-agent.test.mjs
 
       - name: Check official sources
         run: node scripts/aion2-source-agent.mjs
+
+      - name: Scout public research metadata
+        run: node scripts/aion2-research-agent.mjs
 
       - name: Save agent history
         if: always()
         uses: actions/cache/save@v4
         with:
-          path: .agent-state/state.json
+          path: .agent-state
           key: aion2-source-agent-${{ runner.os }}-${{ github.run_id }}
 
-      - name: Keep report for review
+      - name: Keep official-source report
         if: always() && hashFiles('data-agent/review/latest.json') != ''
         uses: actions/upload-artifact@v4
         with:
           name: aion2-source-agent-report
           path: data-agent/review/latest.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Keep research-scout report
+        if: always() && hashFiles('data-agent/review/research-latest.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: aion2-research-scout-report
+          path: data-agent/review/research-latest.json
           if-no-files-found: error
           retention-days: 30
