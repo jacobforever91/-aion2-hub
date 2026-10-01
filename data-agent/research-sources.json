@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "policy": "Metadata-only watch of selected public research repositories. Never copy game catalogs or write production data automatically.",
+  "sources": [
+    {
+      "id": "waffle-meter",
+      "repository": "Waffle-ens/waffle_meter",
+      "region": "UNVERIFIED",
+      "mode": "metadata-only",
+      "focus": ["skills", "skill-levels", "cooldown", "packet-protocol"]
+    },
+    {
+      "id": "a2meter",
+      "repository": "a2meter/Aion2Meter",
+      "region": "UNVERIFIED",
+      "mode": "metadata-only",
+      "focus": ["skills", "stigmas", "skill-levels", "packet-protocol"]
+    },
+    {
+      "id": "noia2",
+      "repository": "ZDYoung0519/NOIA2",
+      "region": "UNVERIFIED",
+      "mode": "metadata-only",
+      "focus": ["skills", "equipment", "arcana", "daevanion", "wings", "pets"]
+    },
+    {
+      "id": "kinojo-config",
+      "repository": "losnah513/aion2-updater-config",
+      "region": "UNVERIFIED",
+      "mode": "metadata-only",
+      "focus": ["equipment", "arcana", "daevanion", "official-api"]
+    }
+  ]
+}
