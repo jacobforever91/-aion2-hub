@@ -79,3 +79,78 @@ export const testZoneRules = [
   "The internal helper finds leads; ChatGPT verifies them before production promotion.",
   "Once a finding is verified, it can be promoted from Test Zone into the production dataset."
 ];
+
+export const testZoneModules = [
+  {
+    id: "skills",
+    status: "VERIFIED",
+    title: "Skills",
+    mounted: [
+      "0x5100 effective/original/additional level model.",
+      "Gladiator skill 11340000 retained as a golden runtime sample.",
+      "Runtime suffix is preserved separately from base skill identity."
+    ],
+    next: "Map each additional-level source without guessing its system."
+  },
+  {
+    id: "stigmas",
+    status: "VERIFIED",
+    title: "Stigmas",
+    mounted: [
+      "BaseSkillLevel and EffectiveLevel are stored as separate concepts.",
+      "Stigma level experiments remain isolated from the production catalog."
+    ],
+    next: "Correlate Stigma runtime level changes with the source that caused them."
+  },
+  {
+    id: "equipment",
+    status: "RESEARCH",
+    title: "Equipment",
+    mounted: [
+      "Research Scout watches equipment/gear/item-detail changes.",
+      "No new runtime equipment-to-skill-level mapping has been promoted yet."
+    ],
+    next: "Capture a controlled equipment swap and compare skill/stat deltas."
+  },
+  {
+    id: "arcana",
+    status: "RESEARCH",
+    title: "Arcana",
+    mounted: [
+      "Tracked as a possible contributor to skill-level changes.",
+      "No individual 0x5100 additional field is labeled Arcana yet."
+    ],
+    next: "Test one Arcana change while holding gear and Daevanion constant."
+  },
+  {
+    id: "daevanion",
+    status: "RESEARCH",
+    title: "Daevanion",
+    mounted: [
+      "Known as a candidate source for specific skill-level bonuses.",
+      "Its exact 0x5100 additional-field position is still unassigned."
+    ],
+    next: "Toggle one +skill node and compare the five additional-level fields."
+  },
+  {
+    id: "pets",
+    status: "RESEARCH",
+    title: "Pets",
+    mounted: [
+      "Research Scout monitors Pet-related repository metadata.",
+      "No newly verified mechanical Pet data has been mounted yet."
+    ],
+    next: "Promote only a Pet finding that has independent evidence."
+  },
+  {
+    id: "wings",
+    status: "RESEARCH",
+    title: "Wings",
+    mounted: [
+      "Research Scout monitors Wings-related repository metadata.",
+      "No newly verified mechanical Wings data has been mounted yet."
+    ],
+    next: "Promote only a Wings finding that has independent evidence."
+  }
+];
+
