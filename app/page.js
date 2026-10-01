@@ -1,6 +1,6 @@
 "use client";
 import {useEffect, useRef, useState} from "react";
-import {Home as HomeIcon, Menu, MessageCircle, BookOpen, Shield, Gem, Feather, PawPrint, Sparkles, Trees, Swords, ScrollText} from "lucide-react";
+import {Home as HomeIcon, Menu, MessageCircle, BookOpen, Shield, Gem, Feather, PawPrint, Sparkles, Trees, Swords, ScrollText, FlaskConical} from "lucide-react";
 // Full-bleed framing for Elyos and Asmodians only. Keep the other scenes and fixed controls unchanged.
 const factionArtworkStyle={position:"absolute",inset:0,display:"block",width:"100%",height:"100%",maxWidth:"none",maxHeight:"none",minWidth:0,minHeight:0,margin:0,padding:0,aspectRatio:"auto",objectFit:"cover",objectPosition:"center center"};
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
@@ -72,7 +72,7 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
         <a className="crystalFrosted" href="/pets"><i><PawPrint/></i><span>Pets<small>FAITHFUL COMPANIONS</small></span><b>›</b></a>
         <a className="crystalMinimal" href="/arcana"><i><Sparkles/></i><span>Arcana<small>UNLOCK MYSTERIES</small></span><b>›</b></a>
       </section>
-      <section><h3>TOOLS</h3><a className="crystalOrnate" href="/builds"><i><Swords/></i><span>Build Creator<small>PLAN · COMPARE · OPTIMIZE</small></span><b>›</b></a></section>
+      <section><h3>TOOLS</h3><a className="crystalOrnate" href="/builds"><i><Swords/></i><span>Build Creator<small>PLAN · COMPARE · OPTIMIZE</small></span><b>›</b></a><a className="crystalPure" href="/test-zone"><i><FlaskConical/></i><span>Zona de Prueba<small>RESEARCH · TEST · PRESERVE</small></span><b>›</b></a></section>
       <section><h3>GAME</h3>
         <a className="crystalLiquid" href="/database"><i><Sparkles/></i><span>Game<small>EXPLORE AION 2</small></span><b>›</b></a>
         <a className="crystalPremium" href="/updates"><i><ScrollText/></i><span>Updates<small>STAY INFORMED</small></span><b>›</b></a>
