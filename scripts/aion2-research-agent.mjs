@@ -117,7 +117,7 @@ export async function runResearchAgent({ registry, state = { seenBySource: {} },
   const newCommits = results.flatMap((result) => result.newCommits || []);
   const reviewCandidates = newCommits
     .filter((item) => item.priority !== "low")
-    .sort((a, b) => ({high:0,medium:1,low:2}[a.priority] - ({high:0,medium:1,low:2}[b.priority]));
+    .sort((a, b) => ({high:0,medium:1,low:2}[a.priority] - ({high:0,medium:1,low:2}[b.priority])));
 
   const nextSeenBySource = {...(state.seenBySource || {})};
   for (const result of results) {
