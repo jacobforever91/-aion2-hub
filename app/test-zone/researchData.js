@@ -56,6 +56,18 @@ export const testZoneResearch = [
       "Arcana and other systems can also affect skill levels.",
       "Do not label individual bytes as Daevanion, Arcana, gear or another source until correlation proves it."
     ]
+  },
+  {
+    id: "internal-research-scout",
+    status: "RESEARCH",
+    title: "Internal Research Scout",
+    summary: "The DAEVEXUS helper now works as a second research scout alongside ChatGPT.",
+    facts: [
+      "Monitors official NC/PLAYNC announcements separately from public research-repository metadata.",
+      "Flags Skills, skill levels/effects, Stigmas, Equipment, Arcana, Daevanion, Wings, Pets, cooldown and packet/protocol changes.",
+      "Skill-level / SkillEffect leads receive the highest review priority.",
+      "The helper never promotes experimental values into production by itself; ChatGPT validates the lead first."
+    ]
   }
 ];
 
@@ -64,5 +76,6 @@ export const testZoneRules = [
   "Stable Skills, Stigmas, Equipment and Build Creator data is not overwritten by an experiment.",
   "Raw IDs and raw packet observations are preserved alongside normalized IDs.",
   "Unverified assumptions must be marked RESEARCH, not presented as game facts.",
+  "The internal helper finds leads; ChatGPT verifies them before production promotion.",
   "Once a finding is verified, it can be promoted from Test Zone into the production dataset."
 ];
