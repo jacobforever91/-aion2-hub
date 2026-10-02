@@ -1,0 +1,142 @@
+const source = {
+  region: "GLOBAL",
+  clientVersion: "1.0.21.0",
+  capturedAt: "2026-09-30",
+  official: false,
+  status: "GLOBAL_CLIENT_CROSSCHECKED",
+  primary: "AION 2 Global Database (gaming.tools)",
+  crossCheck: "Gamers4Life AION 2 gear-family browser",
+  note: "IDs, names, grade, level and slot family were cross-checked between independent client-derived Global references. Base stats come from the Global 1.0.21.0 item records. Keep separate from first-party VERIFIED data."
+};
+
+const commonImprints = [
+  ["Combat Speed", "10.63 ~ 12.29"],
+  ["Damage Boost", "5.95 ~ 6.91"],
+  ["Multi-hit Chance", "7.87 ~ 9.12"],
+  ["Weapon Damage Boost", "7.87 ~ 9.12"],
+  ["Status Effect Chance", "21 ~ 24.22"],
+  ["Might", "21 ~ 31"],
+  ["Precision", "21 ~ 31"],
+  ["Attack", "36 ~ 48"],
+  ["Critical Hit", "56 ~ 71"],
+  ["Critical Attack", "78 ~ 97"],
+  ["Back Attack", "78 ~ 97"],
+  ["Front Attack", "78 ~ 97"],
+  ["Accuracy", "75 ~ 93"],
+  ["Block", "45 ~ 59"],
+  ["MP", "168 ~ 200"],
+  ["HP", "337 ~ 395"],
+];
+
+const guardImprints = [
+  ["Combat Speed", "8.26 ~ 9.57"],
+  ["Damage Boost", "4.76 ~ 5.54"],
+  ["Multi-hit Chance", "6.30 ~ 7.32"],
+  ["Weapon Damage Boost", "6.30 ~ 7.32"],
+  ["Status Effect Chance", "16.80 ~ 19.39"],
+  ["Might", "16 ~ 25"],
+  ["Precision", "16 ~ 25"],
+  ["Attack", "29 ~ 40"],
+  ["Critical Hit", "44 ~ 58"],
+  ["Critical Attack", "63 ~ 79"],
+  ["Back Attack", "63 ~ 79"],
+  ["Front Attack", "63 ~ 79"],
+  ["Accuracy", "60 ~ 76"],
+  ["Block", "36 ~ 48"],
+  ["MP", "134 ~ 161"],
+  ["HP", "270 ~ 318"],
+];
+
+const pairs = (rows) => rows.map(([label, value]) => ({label, value}));
+const icon = (id) => `https://aion2hub.com/api/icon/items/${id}`;
+
+const main = (id, name, category, range, stats) => ({
+  id,
+  name,
+  region: "GLOBAL",
+  grade: "Unique",
+  rarityColor: "Yellow",
+  group: "Weapon",
+  category,
+  itemType: category,
+  equipType: "MainHand",
+  itemLevel: "86",
+  requiredLevel: "45",
+  tier: "2",
+  icon: icon(id),
+  stats: pairs(stats),
+  imprints: pairs(commonImprints),
+  details: [
+    {label: "Weapon range", value: range},
+    {label: "Manastone slots", value: "4"},
+    {label: "Godstone slots", value: "1"},
+    {label: "Binding", value: "Bind on pickup"},
+    {label: "Sell price", value: "55,000 Kina (Bound)"},
+    {label: "Region/version", value: "AION 2 Global 1.0.21.0"},
+  ],
+  verificationStatus: "GLOBAL_CLIENT_CROSSCHECKED",
+  source,
+});
+
+export default [
+  main("110130060", "Abyssal Claymore", "Greatsword", "1.5 m", [
+    ["Min Attack", "376"], ["Max Attack", "508"], ["Accuracy", "100"], ["Critical Hit", "150"], ["Block", "150"],
+    ["Parry Damage Reduction Rate", "33%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  main("110230060", "Abyssal Longsword", "Longsword", "1.3 m", [
+    ["Min Attack", "354"], ["Max Attack", "442"], ["Accuracy", "150"], ["Critical Hit", "50"], ["Block", "200"],
+    ["Parry Damage Reduction Rate", "27%"], ["Shield Block Damage Reduction Rate", "40%"],
+    ["Parry Damage Reduction Amount", "100000"], ["Shield Block Damage Reduction Amount", "100000"],
+  ]),
+  main("110330060", "Abyssal Dagger", "Dagger", "1 m", [
+    ["Min Attack", "309"], ["Max Attack", "398"], ["Accuracy", "50"], ["Critical Hit", "200"], ["Block", "50"],
+    ["Parry Damage Reduction Rate", "24%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  main("110430060", "Abyssal Bow", "Bow", "20 m", [
+    ["Min Attack", "343"], ["Max Attack", "431"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"],
+    ["Parry Damage Reduction Rate", "24%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  main("110530060", "Abyssal Spellbook", "Spellbook", "20 m", [
+    ["Min Attack", "398"], ["Max Attack", "442"], ["Accuracy", "100"], ["Critical Hit", "100"], ["Block", "0"],
+    ["Parry Damage Reduction Rate", "21%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  main("110630060", "Abyssal Orb", "Orb", "20 m", [
+    ["Min Attack", "265"], ["Max Attack", "530"], ["Accuracy", "50"], ["Critical Hit", "150"], ["Block", "0"],
+    ["Parry Damage Reduction Rate", "21%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  main("110730060", "Abyssal Mace", "Mace", "20 m", [
+    ["Min Attack", "309"], ["Max Attack", "398"], ["Accuracy", "100"], ["Critical Hit", "50"], ["Block", "50"],
+    ["Parry Damage Reduction Rate", "27%"], ["Shield Block Damage Reduction Rate", "40%"],
+    ["Parry Damage Reduction Amount", "100000"], ["Shield Block Damage Reduction Amount", "100000"],
+  ]),
+  main("110830060", "Abyssal Staff", "Staff", "1.3 m", [
+    ["Min Attack", "354"], ["Max Attack", "486"], ["Accuracy", "75"], ["Critical Hit", "100"], ["Block", "125"],
+    ["Parry Damage Reduction Rate", "30%"], ["Parry Damage Reduction Amount", "100000"],
+  ]),
+  {
+    id: "115030058",
+    name: "Abyssal Guard",
+    region: "GLOBAL",
+    grade: "Unique",
+    rarityColor: "Yellow",
+    group: "Weapon",
+    category: "Guard",
+    itemType: "Guard",
+    equipType: "SubHand",
+    itemLevel: "86",
+    requiredLevel: "45",
+    tier: "2",
+    icon: icon("115030058"),
+    stats: pairs([["Attack", "177"], ["Accuracy", "50"], ["Critical Hit", "50"]]),
+    imprints: pairs(guardImprints),
+    details: [
+      {label: "Manastone slots", value: "4"},
+      {label: "Godstone slots", value: "1"},
+      {label: "Binding", value: "Bind on pickup"},
+      {label: "Sell price", value: "55,000 Kina (Bound)"},
+      {label: "Region/version", value: "AION 2 Global 1.0.21.0"},
+    ],
+    verificationStatus: "GLOBAL_CLIENT_CROSSCHECKED",
+    source,
+  },
+];
