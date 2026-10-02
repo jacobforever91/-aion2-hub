@@ -99,9 +99,9 @@ export const testZoneModules = [
     status: "VERIFIED",
     title: "Skills",
     mounted: [
-      "0x5100 effective/original/additional level model.",
-      "Gladiator skill 11340000 retained as a golden runtime sample.",
-      "Runtime suffix is preserved separately from base skill identity."
+      "Canonical original-class catalog is separated into 12 Active, 10 Passive and 13 Stigma skills.",
+      "Shared/system Dodge is no longer counted as a class Active skill.",
+      "0x5100 effective/original/additional level model remains preserved for runtime research."
     ],
     next: "Map each additional-level source without guessing its system."
   },
@@ -110,8 +110,9 @@ export const testZoneModules = [
     status: "VERIFIED",
     title: "Stigmas",
     mounted: [
-      "BaseSkillLevel and EffectiveLevel are stored as separate concepts.",
-      "Stigma level experiments remain isolated from the production catalog."
+      "NC public character category Dp is normalized as Stigma.",
+      "Original classes now expose 13 canonical Stigma IDs each.",
+      "BaseSkillLevel and EffectiveLevel remain stored as separate runtime concepts."
     ],
     next: "Correlate Stigma runtime level changes with the source that caused them."
   },
