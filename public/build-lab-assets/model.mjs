@@ -4,10 +4,14 @@ export const LIBRARY='daevexus.build-lab.library.v1';
 export const VERSION=1;
 export const LIMIT=262144;
 export const SLOTS=[
- ['mainHand','Main hand','Weapons',null],['offHand','Off hand','Weapons',null],
- ['helmet','Helmet','Armor','Helmet'],['chest','Chest','Armor','Torso'],['shoulders','Shoulders','Armor','Shoulder'],['gloves','Gloves','Armor','Gloves'],['pants','Legs','Armor','Pants'],['boots','Boots','Armor','Boots'],['cloak','Cloak','Armor','Cape'],['belt','Belt','Armor','Belt'],
- ['necklace','Necklace','Accessories','Necklace'],['earring1','Earring 1','Accessories','Earring'],['earring2','Earring 2','Accessories','Earring'],['ring1','Ring 1','Accessories','Ring'],['ring2','Ring 2','Accessories','Ring'],['bracelet','Bracelet','Accessories','Bracelet'],['brooch','Brooch','Accessories','Brooch']
+ ['mainHand','Weapon','Weapons',null],['offHand','Guard','Weapons',null],
+ ['helmet','Helmet','Armor','Helmet'],['shoulders','Pauldrons','Armor','Shoulder'],['chest','Top','Armor','Torso'],['belt','Belt','Armor','Belt'],['pants','Legs','Armor','Pants'],['gloves','Gloves','Armor','Gloves'],['cloak','Cloak','Armor','Cape'],['boots','Shoes','Armor','Boots'],
+ ['earring1','Earring 1','Accessories','Earring'],['earring2','Earring 2','Accessories','Earring'],['necklace','Necklace','Accessories','Necklace'],['amulet','Amulet','Accessories','Amulet'],['bracelet','Bracelet 1','Accessories','Bracelet'],['bracelet2','Bracelet 2','Accessories','Bracelet'],['ring1','Ring 1','Accessories','Ring'],['ring2','Ring 2','Accessories','Ring'],['rune1','Rune 1','Accessories','Rune'],['rune2','Rune 2','Accessories','Rune'],
+ // Retained only for backward compatibility with old KR/TW Lab drafts.
+ ['brooch','Brooch','Accessories','Brooch']
 ].map(([id,label,family,slot])=>({id,label,family,slot}));
+const globalHiddenSlots=new Set(['brooch']);
+const krTwHiddenSlots=new Set(['amulet','bracelet2','rune1','rune2']);
 const slotAliases={Torso:['torso','breastplate','chest'],Shoulder:['shoulder','pauldrons'],Pants:['pants','greaves','leggings'],Cape:['cape','cloak'],Earring:['earring','earrings'],Ring:['ring','rings']};
 const obj=x=>x&&typeof x==='object'&&!Array.isArray(x)?x:{};
 const text=(x,n=120)=>typeof x==='string'?x.slice(0,n):'';
@@ -34,7 +38,10 @@ export function normalize(input){
  });
  return {schema:1,id:id(input.id)||uid(),title:text(input.title)||'Untitled build',dataVersion:text(input.dataVersion,100),activeId:variants.some(v=>v.id===input.activeId)?input.activeId:variants[0].id,variants,updatedAt:Date.now()};
 }
-export function slotsFor(v,c){return SLOTS.filter(s=>s.id!=='offHand'||c.classes.find(x=>x.slug===v.classSlug)?.offTypes?.length);}
+export function slotsFor(v,c){
+ const hidden=v.region==='GLOBAL'?globalHiddenSlots:krTwHiddenSlots;
+ return SLOTS.filter(s=>!hidden.has(s.id)&&(s.id!=='offHand'||c.classes.find(x=>x.slug===v.classSlug)?.offTypes?.length));
+}
 export function compatible(item,slot,v,c){
  if(!item||item.region!==v.region)return false;
  const cl=c.classes.find(x=>x.slug===v.classSlug);if(!cl)return false;
