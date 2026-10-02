@@ -156,3 +156,11 @@ export function weaponDamageFromEquipment(equipment){
   }
   return null;
 }
+
+
+export function classifyCharacterSkill(category){
+  const value=String(category||"").normalize("NFKC").trim().toLowerCase();
+  if(value.includes("stigma"))return "stigma";
+  if(value.includes("passive"))return "passive";
+  return "active";
+}
