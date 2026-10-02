@@ -22,6 +22,24 @@ export function detailForSkill(info,level){
  if(!rows.length)rows.push(...pairs(info?.stats));
  return {...base,rows,details:pairs(info?.details).filter(r=>!/^(max level|required level)$/i.test(r.label)),chain:(Array.isArray(info?.chain)?info.chain:[]).filter(r=>r?.name)};
 }
+const normalizeSkillLinkName=value=>String(value||'').normalize('NFKD').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+export function daevanionSkillLinks(v,c){
+ const classInfo=c.classes.find(x=>x.slug===v.classSlug),skills=classInfo?.skills||[];
+ const byName=new Map(skills.map(skill=>[normalizeSkillLinkName(skill.name),skill]));
+ const links=[];
+ for(const [board,path] of Object.entries(v.paths||{})){
+  const selected=new Set(path||[]);
+  for(const node of boardNodes(v,c,board)){
+   if(!selected.has(node.id))continue;
+   const match=String(node.label||'').match(/^Skill Level Up\s*-\s*(.+)$/i);
+   if(!match)continue;
+   const skillName=match[1].trim(),skill=byName.get(normalizeSkillLinkName(skillName));
+   links.push({board,nodeId:node.id,nodeLabel:node.label,skillName,skillId:skill?.id||'',matched:Boolean(skill),selectedInBuild:Boolean(skill&&v.skills?.[skill.id]),cost:node.cost});
+  }
+ }
+ return links;
+}
+
 export function buildChecks(v,c,cache={}){
  const notes=[], validSlots=slotsFor(v,c),classInfo=c.classes.find(x=>x.slug===v.classSlug);
  const add=(label,kind='warning')=>notes.push({label,kind});
