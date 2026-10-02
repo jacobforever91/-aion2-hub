@@ -160,7 +160,32 @@ export function weaponDamageFromEquipment(equipment){
 
 export function classifyCharacterSkill(category){
   const value=String(category||"").normalize("NFKC").trim().toLowerCase();
-  if(value.includes("stigma"))return "stigma";
+  const compact=value.replace(/[^a-z0-9]+/g,"");
+  if(value.includes("stigma")||compact==="dp")return "stigma";
   if(value.includes("passive"))return "passive";
   return "active";
+}
+
+export function buildCharacterResearchSample(character,syncedAt=""){
+  const skills=Array.isArray(character?.skills)?character.skills:[];
+  const equipment=Array.isArray(character?.equipment)?character.equipment:[];
+  const boards=Array.isArray(character?.daevanion)?character.daevanion:[];
+  const categories={active:0,passive:0,stigma:0};
+  skills.forEach(skill=>{const key=classifyCharacterSkill(skill?.category);categories[key]=(categories[key]||0)+1;});
+  return {
+    schemaVersion:1,
+    source:"NC public character API",
+    syncedAt:String(syncedAt||""),
+    region:String(character?.region||""),
+    serverId:Number(character?.serverId)||0,
+    characterId:String(character?.characterId||""),
+    className:String(character?.profile?.className||""),
+    level:Number(character?.profile?.level)||0,
+    equipmentSlots:equipment.map(item=>({slotPos:Number(item?.slotPos)||0,slotName:String(item?.slotName||""),id:Number(item?.id)||0,grade:String(item?.grade||"")})),
+    skillCategories:categories,
+    skills:skills.map(skill=>({id:Number(skill?.id)||0,category:String(skill?.category||""),normalizedCategory:classifyCharacterSkill(skill?.category),level:Number(skill?.level)||0,needLevel:Number(skill?.needLevel)||0,acquired:skill?.acquired===true,equipped:skill?.equipped===true})),
+    pet:character?.pet?{id:Number(character.pet.id)||0,level:Number(character.pet.level)||0}:null,
+    wing:character?.wing?{id:Number(character.wing.id)||0,grade:String(character.wing.grade||""),enchantLevel:Number(character.wing.enchantLevel)||0}:null,
+    daevanion:boards.map(board=>({id:Number(board?.id)||0,name:String(board?.name||""),openNodes:Number(board?.openNodes)||0,totalNodes:Number(board?.totalNodes)||0,detailNodes:Array.isArray(board?.detail?.nodes)?board.detail.nodes.length:0})),
+  };
 }
