@@ -12,7 +12,7 @@ The existing skill-description endpoint is read on demand, with a timeout, retry
 
 - Up to ten independent variants; duplicate, rename, delete, switch, undo/redo.
 - Class, faction, region, intended level and content goal per variant.
-- Seventeen equipment planning slots where supported by the reference class configuration, including separate repeated accessories and a belt. Alternate main weapons are not double-counted as off-hand equipment.
+- Twenty visible Global equipment planning slots matching the current 2 × 10 loadout model, including Belt, Amulet, two Bracelets and two Rune slots. Legacy KR/TW Brooch planning remains backward-compatible but is not shown in a Global loadout. Alternate main weapons are not double-counted as off-hand equipment.
 - Search, rarity and compatibility filtering; item preview; before/after numeric differences; equip/remove.
 - Saved enhancement, imprint and socket targets as planning annotations, explicitly not simulated bonuses.
 - Skills and Stigmas, recorded level ranges, Min/Max and step controls, specialization choices, locked-tier handling.
