@@ -9,6 +9,7 @@ import catalogData from "../progression/catalogData.json";
 import arcanaCatalog from "../arcana/arcana-data.json";
 import petIcons from "../progression/petIcons.json";
 import daevanionBoardData from "./daevanion-boards.json";
+import {createBuildFromCharacter} from "./character-import.mjs";
 import styles from "./builds.module.css";
 
 const goals=["Solo progression","PvE · Group","PvP · Abyss","Support / Healer"];
@@ -66,7 +67,8 @@ const daevanionBoards=[
 ];
 const daevanionClassNames={templar:"Templar",gladiator:"Gladiator",assassin:"Assassin",ranger:"Ranger",sorcerer:"Sorcerer",spiritmaster:"Elementalist",cleric:"Cleric",chanter:"Chanter"};
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""});
-const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced()});
+const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced(),imported:null});
+const CHARACTER_STORAGE="daevexus.character-link.v1";
 const currentClasses=classList;
 function skillIconUrl(id){
   if(id==="18790000")return "https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp";
@@ -235,6 +237,22 @@ export default function BuildCreator(){
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search);
+    if(params.get("import")==="character"){
+      try{
+        const raw=window.localStorage.getItem(CHARACTER_STORAGE);
+        if(!raw)throw new Error("Sync a character first in Character Lab.");
+        const payload=JSON.parse(raw);
+        const imported=createBuildFromCharacter(payload?.character);
+        setBuild({...emptyBuild(),...imported,advanced:{...emptyAdvanced(),...(imported.advanced||{})}});
+        setTab("overview");
+        setSavedAt("");
+        setNotice("Official character imported · "+imported.imported.counts.equipment+" gear · "+imported.imported.counts.acquiredSkills+" acquired skills · "+imported.imported.counts.equippedStigmas+" equipped Stigmas.");
+        const cleanUrl=new URL(window.location.href);
+        cleanUrl.searchParams.delete("import");
+        window.history.replaceState(null,"",cleanUrl.pathname+(cleanUrl.search||""));
+        return;
+      }catch(error){setNotice(error?.message||"The synced character could not be imported.");}
+    }
     const shared=params.get("share");
     if(shared){
       try{
@@ -306,11 +324,15 @@ export default function BuildCreator(){
   const classInfo=classData[build.classSlug];
   const skills=useMemo(()=>classSkillGroups(build.classSlug,build.region),[build.classSlug,build.region]);
   const visibleSkillGroups=useMemo(()=>skills.map((group)=>({...group,items:group.items.filter((item)=>item.name.toLowerCase().includes(skillSearch.trim().toLowerCase()))})).filter((group)=>group.items.length),[skills,skillSearch]);
-  const selectedWing=catalogData.wings.find((item)=>item.id===build.wingId);
-  const wingDetails=selectedWing?catalogData.wingDetails[selectedWing.id]:null;
+  const catalogWing=catalogData.wings.find((item)=>String(item.id)===String(build.wingId));
+  const importedWing=build.imported?.wing&&String(build.imported.wing.id)===String(build.wingId)?{...build.imported.wing,faction:"Official sync",source:"NC public character API"}:null;
+  const selectedWing=catalogWing||importedWing;
+  const wingDetails=catalogWing?catalogData.wingDetails[catalogWing.id]:null;
   const wingStats=(Array.isArray(wingDetails?.stats)?wingDetails.stats:[]).filter(([label,value])=>label&&value&&/\d/.test(String(value)));
-  const selectedPet=catalogData.pets.find((item)=>item.id===build.petId);
-  const petDetails=selectedPet?catalogData.petDetails[selectedPet.id]:null;
+  const catalogPet=catalogData.pets.find((item)=>String(item.id)===String(build.petId));
+  const importedPet=build.imported?.pet&&String(build.imported.pet.id)===String(build.petId)?{...build.imported.pet,genus:"Official sync",source:"NC public character API"}:null;
+  const selectedPet=catalogPet||importedPet;
+  const petDetails=catalogPet?catalogData.petDetails[catalogPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
   const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
   const selectedArcana=useMemo(()=>build.advanced.arcana.map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana]);
@@ -373,7 +395,7 @@ export default function BuildCreator(){
     setSkillSearch("");
     const filteredGear=filterWeaponGear(build.gear,slug,build.region);
     const removedWeapon=Object.keys(build.gear).some((slotId)=>["mainHand","offHand"].includes(slotId)&&build.gear[slotId]&&!filteredGear[slotId]);
-    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},skillSpecializations:{},gear:filterWeaponGear(current.gear,slug,current.region)}));
+    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},skillSpecializations:{},gear:filterWeaponGear(current.gear,slug,current.region),imported:null}));
     if(removedWeapon)setNotice("Incompatible weapon slots were cleared for the selected class.");
   };
   const loadSkillLevelRange=async(key,id)=>{
@@ -578,7 +600,7 @@ export default function BuildCreator(){
             <div className={styles.formGrid}>
               <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{changeClass(event.target.value);setEditingSkillKey("")}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
-              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{patch("region",event.target.value);patch("skills",[]);patch("skillLevels",{});patch("skillSpecializations",{});setSkillSearch("");setEditingSkillKey("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
+              <label className={styles.field}><span>REGION DATA</span><select value={build.region} onChange={(event)=>{setBuild((current)=>({...current,region:event.target.value,skills:[],skillLevels:{},skillSpecializations:{},imported:null}));setSkillSearch("");setEditingSkillKey("")}}><option value="GLOBAL">Global</option><option value="KR_TW">Korea / Taiwan</option></select></label>
               <label className={styles.field}><span>BUILD GOAL</span><select value={build.goal} onChange={(event)=>patch("goal",event.target.value)}>{goals.map((goal)=><option key={goal}>{goal}</option>)}</select></label>
             </div>
             <div className={styles.classBanner}><div className={styles.classMark}>{classInfo?.name?.slice(0,1)||"A"}</div><div><span>{classInfo?.role||"Choose a class"}</span><strong>{classInfo?.name||"Class data is not available"}</strong><small>{classInfo?.weapon?("Recommended weapon: "+classInfo.weapon):"The current local class catalog has no Brawler skills yet."}</small></div></div>
