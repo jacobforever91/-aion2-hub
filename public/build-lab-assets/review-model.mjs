@@ -84,3 +84,20 @@ export function compareSystems(a,b,c){
  if(a.notes!==b.notes)rows.push({system:'Guide',label:'Build notes',a:a.notes?'Notes saved ('+a.notes.length+' characters)':'No notes',b:b.notes?'Notes saved ('+b.notes.length+' characters)':'No notes'});
  return rows;
 }
+
+
+const statGroupOrder=['Offense','Defense','Vitals & Recovery','Attributes','Speed & Utility','Other'];
+export function statGroupFor(label=''){
+ const s=String(label).toLowerCase();
+ if(/\b(pve|pvp) damage boost\b|\battack\b|damage boost|weapon damage|critical attack|critical hit|back attack|front attack|multi-hit|perfect chance|penetration|power shard/.test(s))return 'Offense';
+ if(/damage tolerance|defense|resist|block|evasion|parry|shield block|endurance|perfect resist/.test(s))return 'Defense';
+ if(/\b(max )?(hp|mp)\b|regen|recovery|incoming heal|healing/.test(s))return 'Vitals & Recovery';
+ if(/\b(might|precision|intelligence|dexterity|constitution|willpower)\b/.test(s))return 'Attributes';
+ if(/speed|flight power|cooldown|status effect chance|range|casting/.test(s))return 'Speed & Utility';
+ return 'Other';
+}
+export function groupSummaryRows(rows=[]){
+ const map=new Map(statGroupOrder.map(name=>[name,[]]));
+ for(const row of rows)map.get(statGroupFor(row?.label))?.push(row);
+ return statGroupOrder.map(name=>({name,rows:map.get(name)})).filter(group=>group.rows.length);
+}
