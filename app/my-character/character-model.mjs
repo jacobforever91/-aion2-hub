@@ -74,7 +74,7 @@ export function normalizeCharacter(info,equipment,ref){
   const titles=info?.title||{};
   return {
     source:"NC public character API",region:ref.region,serverId:ref.serverId,characterId:ref.characterId,profileUrl:buildProfileUrl(ref.region,ref.serverId,ref.characterId),
-    profile:{name:cleanString(p?.characterName,120),level:number(p?.characterLevel),className:cleanString(p?.className,120),gender:cleanString(p?.genderName,80),raceId:number(p?.raceId),serverName:cleanString(p?.serverName,120),guildName:cleanString(p?.regionName,120),combatPower:number(p?.combatPower),titleName:cleanString(p?.titleName,180),image:portrait(p?.profileImage)},
+    profile:{name:cleanString(p?.characterName||p?.name,120),level:number(p?.characterLevel??p?.level),className:cleanString(p?.className,120),gender:cleanString(p?.genderName,80),raceId:number(p?.raceId),serverName:cleanString(p?.serverName,120),guildName:cleanString(p?.regionName,120),combatPower:number(p?.combatPower),titleName:cleanString(p?.titleName,180),image:portrait(p?.profileImage)},
     stats,equipment:equipmentList,skins:list(equipment?.equipment?.skinList).map(x=>({slotPos:number(x?.slotPos),slotName:cleanString(x?.slotPosName,80),id:number(x?.id),name:cleanString(x?.name,180),grade:cleanString(x?.grade,60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)})),
     skills,pet,wing,wingSkin,daevanion:boards,
     titles:{owned:number(titles?.ownedCount),total:number(titles?.totalCount)},
@@ -86,4 +86,73 @@ export function normalizeCharacter(info,equipment,ref){
 export function exactCharacterName(candidate, keyword){
   const norm=value=>String(value||"").normalize("NFKC").trim().toLocaleLowerCase("en-US");
   return !!norm(candidate)&&norm(candidate)===norm(keyword);
+}
+
+
+const lineDescriptions=value=>list(value).map(row=>cleanString(typeof row==="string"?row:row?.desc,500)).filter(Boolean);
+const statRows=value=>list(value).map(row=>({
+  id:cleanString(row?.id,120),
+  name:cleanString(row?.name,160),
+  value:cleanString(row?.value,120),
+  minValue:cleanString(row?.minValue,120),
+  extra:cleanString(row?.extra,120),
+  exceed:bool(row?.exceed)
+})).filter(row=>row.id||row.name);
+
+export function resolveOfficialLevel(profileLevel,searchLevel){
+  const profile=number(profileLevel),search=number(searchLevel);
+  const readings=[profile,search].filter(value=>value>0);
+  return {
+    level:readings.length?Math.max(...readings):0,
+    profile:profile||null,
+    search:search||null,
+    mismatch:profile>0&&search>0&&profile!==search,
+    resolution:profile>0&&search>0?(profile===search?"official-agreement":"highest-official-reading"):(search>0?"search-only":profile>0?"profile-only":"missing")
+  };
+}
+
+export function normalizeEquippedItemDetail(raw){
+  if(!raw||typeof raw!=="object")return null;
+  return {
+    id:number(raw.id),name:cleanString(raw.name,180),grade:cleanString(raw.grade,60),gradeName:cleanString(raw.gradeName,80),
+    categoryName:cleanString(raw.categoryName,120),type:cleanString(raw.type,80),icon:asset(raw.icon),
+    itemLevel:number(raw.level),equipLevel:number(raw.equipLevel),enchantLevel:number(raw.enchantLevel),
+    maxEnchantLevel:number(raw.maxEnchantLevel),maxExceedLevel:number(raw.maxExceedEnchantLevel),
+    raceName:cleanString(raw.raceName,80),classNames:list(raw.classNames).map(v=>cleanString(v,100)).filter(Boolean),
+    tradable:bool(raw.tradable),soulBindRate:cleanString(raw.soulBindRate,80),
+    mainStats:statRows(raw.mainStats),subStats:statRows(raw.subStats),
+    subSkills:list(raw.subSkills).map(skill=>({id:number(skill?.id),name:cleanString(skill?.name,160),level:number(skill?.level),icon:asset(skill?.icon)})).filter(skill=>skill.id||skill.name),
+    magicStoneSlots:number(raw.magicStoneSlotCount),
+    magicStones:list(raw.magicStoneStat).map(stone=>({slotPos:number(stone?.slotPos),id:cleanString(stone?.id,120),name:cleanString(stone?.name,120),value:cleanString(stone?.value,120),grade:cleanString(stone?.grade,60),icon:asset(stone?.icon)})),
+    godStoneSlots:number(raw.godStoneSlotCount),
+    godStones:list(raw.godStoneStat).map(stone=>({slotPos:number(stone?.slotPos),name:cleanString(stone?.name,120),desc:cleanString(stone?.desc,500),grade:cleanString(stone?.grade,60),icon:asset(stone?.icon)})),
+    costumes:list(raw.costumes).map(v=>cleanString(v,200)).filter(Boolean),
+    sources:list(raw.sources).map(v=>cleanString(v,200)).filter(Boolean)
+  };
+}
+
+export function normalizeDaevanionDetail(raw,summary={}){
+  if(!raw||typeof raw!=="object")return null;
+  return {
+    id:number(summary.id),
+    name:cleanString(summary.name,120),
+    nodes:list(raw.nodeList).map(node=>({
+      id:number(node?.nodeId),name:cleanString(node?.name,160),grade:cleanString(node?.grade,60),type:cleanString(node?.type,80),
+      row:number(node?.row),col:number(node?.col),open:bool(node?.open),icon:asset(node?.icon),effects:lineDescriptions(node?.effectList)
+    })).filter(node=>node.id),
+    openSkillEffects:lineDescriptions(raw.openSkillEffectList),
+    openStatEffects:lineDescriptions(raw.openStatEffectList)
+  };
+}
+
+export function weaponDamageFromEquipment(equipment){
+  for(const item of list(equipment)){
+    for(const stat of list(item?.detail?.mainStats)){
+      const key=(stat.id+" "+stat.name).toLowerCase();
+      if(key.includes("weaponfixingdamage")||key.includes("weapon damage")||stat.name.toLowerCase()==="attack"){
+        return {itemId:item.id,itemName:item.name,min:cleanString(stat.minValue,120),max:cleanString(stat.value,120),extra:cleanString(stat.extra,120)};
+      }
+    }
+  }
+  return null;
 }
