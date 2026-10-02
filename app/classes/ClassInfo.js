@@ -3,9 +3,8 @@
 import Link from "next/link";
 import {useEffect, useMemo, useState} from "react";
 import {Activity, ArrowRight, Clock3, Droplet, Flame, Heart, Search, Shield, Sparkles, Swords, Timer} from "lucide-react";
-import {classData, classList, skillIconIds} from "./classData";
+import {classData, classList, skillCatalogIds} from "./classData";
 
-const regularSkillCount = 13;
 const skillClassOrder = ["gladiator", "templar", "assassin", "ranger", "sorcerer", "spiritmaster", "cleric", "chanter"];
 const skillClasses = skillClassOrder.map((slug) => classList.find((entry) => entry.slug === slug)).filter(Boolean);
 const skillFilters = [
@@ -22,18 +21,18 @@ function skillIconUrl(id) {
 
 function getClassSkills(slug) {
   const detail = classData[slug];
-  const icons = skillIconIds[slug] || [];
+  const ids = skillCatalogIds[slug] || {active:[],stigma:[],passive:[]};
   if (!detail) return [];
 
   const groups = [
-    {type: "active", names: detail.active.slice(0, regularSkillCount), offset: 0},
-    {type: "stigma", names: detail.active.slice(regularSkillCount), offset: regularSkillCount},
-    {type: "passive", names: detail.passive, offset: detail.active.length},
+    {type: "active", names: detail.active || [], ids: ids.active || []},
+    {type: "stigma", names: detail.stigmas || [], ids: ids.stigma || []},
+    {type: "passive", names: detail.passive || [], ids: ids.passive || []},
   ];
 
-  return groups.flatMap(({type, names, offset}) =>
+  return groups.flatMap(({type, names, ids}) =>
     names.map((name, index) => {
-      const id = icons[offset + index] || "";
+      const id = ids[index] || "";
       return {name, id, type, key: [type, id, name].join(":")};
     })
   );

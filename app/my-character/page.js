@@ -2,8 +2,9 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database} from "lucide-react";
 import styles from "./character.module.css";
-import {classifyCharacterSkill} from "./character-model.mjs";
+import {buildCharacterResearchSample,classifyCharacterSkill} from "./character-model.mjs";
 const STORAGE="daevexus.character-link.v1";
+const RESEARCH_STORAGE="daevexus.character-research.v1";
 const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Global · Europe"],["sa","Global · South America"],["asia","Global · Asia"],["tw","Taiwan · Lab"]];
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
@@ -14,7 +15,18 @@ export default function MyCharacter(){
  const itemLevel=useMemo(()=>linked?.stats?.find(s=>String(s.type).toLowerCase()==="itemlevel")?.value||0,[linked]);
  const acquired=useMemo(()=>[...(linked?.skills||[])].filter(s=>s.acquired===true&&Number(s.level)>0).sort((a,b)=>Number(b.equipped)-Number(a.equipped)||String(a.category||"").localeCompare(String(b.category||""))||String(a.name||"").localeCompare(String(b.name||""))),[linked]);
  const skillGroups=useMemo(()=>({active:acquired.filter(s=>classifyCharacterSkill(s.category)==="active"),passive:acquired.filter(s=>classifyCharacterSkill(s.category)==="passive"),stigma:acquired.filter(s=>classifyCharacterSkill(s.category)==="stigma")}),[acquired]);
- const persist=(character,time)=>{setLinked(character);setSyncedAt(time||"");try{localStorage.setItem(STORAGE,JSON.stringify({character,syncedAt:time}));}catch{}};
+ const persist=(character,time)=>{
+   setLinked(character);setSyncedAt(time||"");
+   try{
+     localStorage.setItem(STORAGE,JSON.stringify({character,syncedAt:time}));
+     const sample=buildCharacterResearchSample(character,time);
+     const raw=localStorage.getItem(RESEARCH_STORAGE);
+     const previous=raw?JSON.parse(raw):[];
+     const key=[sample.region,sample.serverId,sample.characterId].join(":");
+     const next=[sample,...(Array.isArray(previous)?previous:[]).filter(entry=>[entry?.region,entry?.serverId,entry?.characterId].join(":")!==key)].slice(0,24);
+     localStorage.setItem(RESEARCH_STORAGE,JSON.stringify(next));
+   }catch{}
+ };
  async function search(event){event?.preventDefault();setBusy(true);setMessage("");setResults([]);try{const q=new URLSearchParams({region,keyword:name.trim()});const res=await fetch("/api/character-search?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);const matches=data.results||[];if(matches.length===1){await syncRef(matches[0]);return;}setResults(matches);if(!matches.length)setMessage(`No character named "${name.trim()}" was found. Check the region and spelling.`);else setMessage("We found more than one exact match. Choose your character.");}catch(e){setMessage(e.message||"Search failed.");}finally{setBusy(false);}}
  async function syncRef(ref){setBusy(true);setMessage("");try{const q=new URLSearchParams({region:ref.region,serverId:String(ref.serverId),characterId:ref.characterId});const res=await fetch("/api/character-sync?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");setView("info");}catch(e){setMessage(e.message||"Sync failed.");}finally{setBusy(false);}}
  useEffect(()=>{if(view==="sync"&&linked&&!autoSyncAttempted.current){autoSyncAttempted.current=true;syncRef(linked);}},[view,linked]);
@@ -45,6 +57,7 @@ export default function MyCharacter(){
      <aside className={styles.profile}>
        <div className={styles.portrait}>{linked.profile.image?<img src={linked.profile.image} alt=""/>:<Shield/>}</div><span className={styles.region}>{regions.find(x=>x[0]===linked.region)?.[1]||linked.region}</span><h2>{linked.profile.name}</h2><p>{linked.profile.className||"Class pending"} · Lv. {linked.profile.level} · {race(linked.profile.raceId)}</p><small>{linked.profile.serverName||("Server "+linked.serverId)}{linked.profile.guildName?" · "+linked.profile.guildName:""}</small>
        <a className={styles.official} href={linked.profileUrl} target="_blank" rel="noreferrer">Official profile <ExternalLink/></a>
+       <a className={styles.buildImport} href="/builds?import=character"><Swords/> Use in Build Creator</a>
        <button className={styles.infoBack} onClick={()=>{autoSyncAttempted.current=false;setMessage("");setView("sync");}}><RefreshCw/> Refresh character</button>
        <div className={styles.syncTime}>Last sync<br/><b>{syncedAt?new Date(syncedAt).toLocaleString():"—"}</b></div>
      </aside>
