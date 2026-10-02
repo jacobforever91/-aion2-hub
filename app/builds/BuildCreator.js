@@ -3,7 +3,7 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import Link from "next/link";
 import {ArrowLeft, Copy, Feather, PawPrint, Save, Search, Shield, Sparkles, Sword, X} from "lucide-react";
-import {classData, classList, classWeapons, skillIconIds} from "../classes/classData";
+import {classData, classList, classWeapons, skillCatalogIds} from "../classes/classData";
 import {stigmaCatalog, stigmaCatalogSource} from "../stigmas/stigmaData";
 import catalogData from "../progression/catalogData.json";
 import arcanaCatalog from "../arcana/arcana-data.json";
@@ -136,12 +136,12 @@ function statSummary(gear){
 function classSkillGroups(slug,region){
   const data=classData[slug];
   if(!data)return [];
-  const icons=skillIconIds[slug]||[];
-  const stigma=(region==="KR_TW"?(stigmaCatalog[slug]||[]):data.active.slice(13).map((name,index)=>({name,id:icons[13+index]})))
-    .map((item,index)=>({...item,id:item.id||icons[13+index]}));
+  const ids=skillCatalogIds[slug]||{active:[],stigma:[],passive:[]};
+  const stigma=(region==="KR_TW"?(stigmaCatalog[slug]||[]):(data.stigmas||[]).map((name,index)=>({name,id:ids.stigma[index]})))
+    .map((item,index)=>({...item,id:item.id||ids.stigma[index]}));
   return [
-    {id:"active",label:"Active skills",items:data.active.slice(0,13).map((name,index)=>({name,id:icons[index]}))},
-    {id:"passive",label:"Passive skills",items:data.passive.map((name,index)=>({name,id:icons[data.active.length+index]}))},
+    {id:"active",label:"Active skills",items:(data.active||[]).map((name,index)=>({name,id:ids.active[index]}))},
+    {id:"passive",label:"Passive skills",items:(data.passive||[]).map((name,index)=>({name,id:ids.passive[index]}))},
     {id:"stigma",label:"Stigmas",items:stigma}
   ];
 }
