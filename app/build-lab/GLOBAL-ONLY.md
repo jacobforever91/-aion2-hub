@@ -11,3 +11,10 @@ Global drafts and Global variants in older libraries are copied to separate Glob
 The read-only Lab catalog now offers Global equipment and Arcana only. The existing wing/pet snapshots were KR/TW references; they are not promoted to Global. Those sections display Global data pending until actual Global entries are available. This does not turn the reference catalog into official or validated game data. Daevanion topology remains a planning reference and no unknown numeric bonuses are added.
 
 Validation: 15 pure policy/migration tests passed (`node --test tests/build-lab-global.test.mjs`). Node syntax checks passed for the new modules and changed routes. A targeted offline Chromium harness exercised native import-map bindings, old-draft preservation, Global migration, regional import/share rejection, repeated template renders, missing-data labels and header overflow at 1280x720, 1920x1080, 3840x2160 and 390x844. The harness used a synthetic catalog, a header fixture matching the reviewed template, a minimal base-model fixture and virtual local storage; it was not a full-site live visual test. Network navigation was blocked in the execution environment. Deployment is checked separately through GitHub/Vercel statuses.
+
+
+## Current equipment eligibility
+
+For the current Global phase, the Build Lab equipment picker is intentionally restricted to **Unique grade (yellow)** equipment. Lower grades and higher future grades remain outside the equipable Lab catalog until the Global rules/data are explicitly opened for them. This filter applies only to equipment; it does not relabel Arcana, Wings, Pets, or other systems.
+
+External Global databases are used only as cross-checks while the DAEVEXUS catalog is built from reviewed client-derived records. The yellow/Unique mapping is independently documented by current AION 2 gear guides, while NCSOFT first-party material confirms the Unique grade as an active equipment tier. No third-party catalog is copied wholesale into DAEVEXUS.
