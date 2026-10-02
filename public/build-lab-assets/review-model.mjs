@@ -58,6 +58,10 @@ export function compareSystems(a,b,c){
   const first=selectedItem(a,slot,c),second=selectedItem(b,slot,c);
   add('Equipment',slot.label,first?.name||'Empty',second?.name||'Empty');
   add('Equipment',slot.label+' · enhancement target',a.gear[slot.id]?'+'+(a.gear[slot.id].enchant||0):'',b.gear[slot.id]?'+'+(b.gear[slot.id].enchant||0):'');
+  add('Equipment',slot.label+' · potential target',a.gear[slot.id]?.potential||'',b.gear[slot.id]?.potential||'');
+  add('Equipment',slot.label+' · substat targets',a.gear[slot.id]?.substats||'',b.gear[slot.id]?.substats||'');
+  add('Equipment',slot.label+' · Philosopher Stone',a.gear[slot.id]?.philosopherStone||'',b.gear[slot.id]?.philosopherStone||'');
+  add('Equipment',slot.label+' · Magicstones',a.gear[slot.id]?.magicstones||'',b.gear[slot.id]?.magicstones||'');
   add('Equipment',slot.label+' · planning note',a.gear[slot.id]?.note||'',b.gear[slot.id]?.note||'');
  }
  const skillList=c.classes.flatMap(x=>x.skills||[]);
