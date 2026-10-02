@@ -1,4 +1,4 @@
-import {REGIONS,normalizeSearchRow} from "../../my-character/character-model.mjs";
+import {REGIONS,normalizeSearchRow,exactCharacterName} from "../../my-character/character-model.mjs";
 export const dynamic="force-dynamic";
 const json=(body,status=200)=>Response.json(body,{status,headers:{"Cache-Control":"no-store","X-Content-Type-Options":"nosniff"}});
 async function requestRows(cfg,params){
@@ -27,7 +27,7 @@ export async function GET(request){
       }
     }
     const seen=new Set(),results=[];
-    for(const row of rows){const item=normalizeSearchRow(row,region);if(!item)continue;const key=item.serverId+":"+item.characterId;if(seen.has(key))continue;seen.add(key);results.push(item);}
-    return json({ok:true,results:results.slice(0,30)});
+    for(const row of rows){const item=normalizeSearchRow(row,region);if(!item||!exactCharacterName(item.name,keyword))continue;const key=item.serverId+":"+item.characterId;if(seen.has(key))continue;seen.add(key);results.push(item);}
+    return json({ok:true,results:results.slice(0,10),exact:true});
   }catch(error){return json({ok:false,error:error?.name==="AbortError"?"Official character search timed out.":(error?.message||"Character search failed.")},502);}
 }
