@@ -1,0 +1,31 @@
+name: Character data tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "app/my-character/**"
+      - "app/builds/character-import.mjs"
+      - "app/builds/BuildCreator.js"
+      - "app/classes/classData.js"
+      - "app/classes/ClassInfo.js"
+      - "tests/character-*.test.mjs"
+      - "tests/canonical-skill-catalog.test.mjs"
+      - ".github/workflows/character-data-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run character and canonical skill tests
+        run: node --test tests/character-link.test.mjs tests/character-build-import.test.mjs tests/canonical-skill-catalog.test.mjs
