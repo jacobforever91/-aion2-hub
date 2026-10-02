@@ -8,19 +8,31 @@ const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Gl
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
 export default function MyCharacter(){
- const[region,setRegion]=useState("naw"),[name,setName]=useState(""),[serverId,setServerId]=useState(""),[profileUrl,setProfileUrl]=useState(""),[results,setResults]=useState([]),[linked,setLinked]=useState(null),[syncedAt,setSyncedAt]=useState(""),[tab,setTab]=useState("overview"),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
+ const[region,setRegion]=useState("naw"),[name,setName]=useState(""),[serverId,setServerId]=useState(""),[profileUrl,setProfileUrl]=useState(""),[results,setResults]=useState([]),[linked,setLinked]=useState(null),[syncedAt,setSyncedAt]=useState(""),[tab,setTab]=useState("overview"),[view,setView]=useState("sync"),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
  useEffect(()=>{try{const raw=localStorage.getItem(STORAGE);if(raw){const data=JSON.parse(raw);if(data?.character){setLinked(data.character);setSyncedAt(data.syncedAt||"");setRegion(data.character.region||"naw");}}}catch{}},[]);
  const itemLevel=useMemo(()=>linked?.stats?.find(s=>String(s.type).toLowerCase()==="itemlevel")?.value||0,[linked]);
  const acquired=useMemo(()=>[...(linked?.skills||[])].filter(s=>s.acquired===true&&Number(s.level)>0).sort((a,b)=>Number(b.equipped)-Number(a.equipped)||String(a.category||"").localeCompare(String(b.category||""))||String(a.name||"").localeCompare(String(b.name||""))),[linked]);
  const skillGroups=useMemo(()=>({active:acquired.filter(s=>classifyCharacterSkill(s.category)==="active"),passive:acquired.filter(s=>classifyCharacterSkill(s.category)==="passive"),stigma:acquired.filter(s=>classifyCharacterSkill(s.category)==="stigma")}),[acquired]);
  const persist=(character,time)=>{setLinked(character);setSyncedAt(time||"");try{localStorage.setItem(STORAGE,JSON.stringify({character,syncedAt:time}));}catch{}};
  async function search(event){event?.preventDefault();setBusy(true);setMessage("");setResults([]);try{const q=new URLSearchParams({region,keyword:name.trim()});if(serverId)q.set("serverId",serverId);const res=await fetch("/api/character-search?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);const matches=data.results||[];if(matches.length===1){await syncRef(matches[0]);return;}setResults(matches);if(!matches.length)setMessage(`No exact character named "${name.trim()}" was found in this region${serverId?` / server ${serverId}`:""}. Check the spelling or use the official profile URL.`);else setMessage("More than one character has this exact name. Choose the correct server.");}catch(e){setMessage(e.message||"Search failed.");}finally{setBusy(false);}}
- async function syncRef(ref){setBusy(true);setMessage("");try{const q=new URLSearchParams({region:ref.region,serverId:String(ref.serverId),characterId:ref.characterId});const res=await fetch("/api/character-sync?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");}catch(e){setMessage(e.message||"Sync failed.");}finally{setBusy(false);}}
- async function linkUrl(event){event?.preventDefault();setBusy(true);setMessage("");try{const res=await fetch("/api/character-sync?"+new URLSearchParams({profileUrl}),{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");}catch(e){setMessage(e.message||"Could not link this profile.");}finally{setBusy(false);}}
- const unlink=()=>{setLinked(null);setSyncedAt("");setTab("overview");try{localStorage.removeItem(STORAGE);}catch{}};
+ async function syncRef(ref){setBusy(true);setMessage("");try{const q=new URLSearchParams({region:ref.region,serverId:String(ref.serverId),characterId:ref.characterId});const res=await fetch("/api/character-sync?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");setView("info");}catch(e){setMessage(e.message||"Sync failed.");}finally{setBusy(false);}}
+ async function linkUrl(event){event?.preventDefault();setBusy(true);setMessage("");try{const res=await fetch("/api/character-sync?"+new URLSearchParams({profileUrl}),{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");setView("info");}catch(e){setMessage(e.message||"Could not link this profile.");}finally{setBusy(false);}}
+ const unlink=()=>{setLinked(null);setSyncedAt("");setTab("overview");setView("sync");setMessage("");try{localStorage.removeItem(STORAGE);}catch{}};
  return <main className={styles.page}>
-   <header className={styles.top}><a href="/?menu=open" aria-label="Open DAEVEXUS menu"><Menu/></a><div><small>DAEVEXUS · CHARACTER LAB</small><h1>My Character</h1></div><a href="/" aria-label="Home"><Home/></a></header>
-   {!linked?<section className={styles.connect}>
+   <header className={styles.top}><a href="/?menu=open" aria-label="Open DAEVEXUS menu"><Menu/></a><div><small>DAEVEXUS · CHARACTER LAB</small><h1>{view==="sync"?"Character Sync":"Character Info"}</h1></div><a href="/" aria-label="Home"><Home/></a></header>
+   {view==="sync"&&linked?<section className={styles.syncGate}>
+     <div className={styles.syncCard}>
+       <span className={styles.syncEyebrow}>CHARACTER SYNC</span>
+       <div className={styles.syncPortrait}>{linked.profile.image?<img src={linked.profile.image} alt=""/>:<Shield/>}</div>
+       <h2>{linked.profile.name}</h2>
+       <p>{linked.profile.className||"Class pending"} · Lv. {linked.profile.level} · {race(linked.profile.raceId)}</p>
+       <div className={styles.syncMeta}><span>{regions.find(x=>x[0]===linked.region)?.[1]||linked.region}</span><span>{linked.profile.serverName||("Server "+linked.serverId)}</span></div>
+       <button className={styles.syncPrimary} onClick={()=>syncRef(linked)} disabled={busy}><RefreshCw/>{busy?" Syncing character…":" Sync character"}</button>
+       {message&&<p className={styles.message}>{message}</p>}
+       <div className={styles.syncLast}>Last sync<br/><b>{syncedAt?new Date(syncedAt).toLocaleString():"Never"}</b></div>
+       <button className={styles.syncSecondary} onClick={unlink} disabled={busy}><Unlink/> Use another character</button>
+     </div>
+   </section>:view==="sync"?<section className={styles.connect}>
      <div className={styles.intro}><span>PUBLIC PROFILE LINK</span><h2>Bring your Daeva into DAEVEXUS.</h2><p>Link a public AION 2 character profile and sync the information NC exposes: level, class, combat power, stats, equipped gear, skills, Pet, Wings and progression.</p><div className={styles.safe}><LockKeyhole/><p><b>No NC/PURPLE password.</b> DAEVEXUS reads only the public character information already exposed by the official character service.</p></div></div>
      <div className={styles.forms}>
        <form onSubmit={search} className={styles.box}><div className={styles.boxTitle}><Search/><div><b>Search exact character</b><small>Exact name only · no similar-name list</small></div></div><label>Region<select value={region} onChange={e=>setRegion(e.target.value)}>{regions.map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><label>Character name<input value={name} onChange={e=>setName(e.target.value)} placeholder="Exact character name" minLength={2}/></label><label>Server ID <small>optional</small><input value={serverId} onChange={e=>setServerId(e.target.value.replace(/\D/g,""))} inputMode="numeric" placeholder="e.g. 1201"/></label><button disabled={busy||name.trim().length<2}>{busy?"Checking…":"Find exact character"}</button></form>
@@ -28,11 +40,11 @@ export default function MyCharacter(){
      </div>
      {message&&<p className={styles.message}>{message}</p>}
      {!!results.length&&<div className={styles.results}><div className={styles.resultsHead}><b>Exact-name matches</b><span>{results.length}</span></div>{results.map(r=><button key={r.serverId+":"+r.characterId} onClick={()=>syncRef(r)} disabled={busy}><span className={styles.avatar}>{r.profileImage?<img src={r.profileImage} alt=""/>:<Shield/>}</span><span><b>{r.name}</b><small>Lv. {r.level} · {r.serverName||("Server "+r.serverId)} · {race(r.race)}</small></span><strong>LINK</strong></button>)}</div>}
-   </section>:<section className={styles.dashboard}>
+   </section>:linked?<section className={styles.dashboard}>
      <aside className={styles.profile}>
        <div className={styles.portrait}>{linked.profile.image?<img src={linked.profile.image} alt=""/>:<Shield/>}</div><span className={styles.region}>{regions.find(x=>x[0]===linked.region)?.[1]||linked.region}</span><h2>{linked.profile.name}</h2><p>{linked.profile.className||"Class pending"} · Lv. {linked.profile.level} · {race(linked.profile.raceId)}</p><small>{linked.profile.serverName||("Server "+linked.serverId)}{linked.profile.guildName?" · "+linked.profile.guildName:""}</small>
-       <div className={styles.sync}><button onClick={()=>syncRef(linked)} disabled={busy}><RefreshCw/> {busy?"Syncing…":"Sync now"}</button><a href={linked.profileUrl} target="_blank" rel="noreferrer">Official <ExternalLink/></a></div>
-       <button className={styles.unlink} onClick={unlink}><Unlink/> Unlink this character</button>
+       <a className={styles.official} href={linked.profileUrl} target="_blank" rel="noreferrer">Official profile <ExternalLink/></a>
+       <button className={styles.infoBack} onClick={()=>{setMessage("");setView("sync");}}><RefreshCw/> Back to Character Sync</button>
        <div className={styles.syncTime}>Last sync<br/><b>{syncedAt?new Date(syncedAt).toLocaleString():"—"}</b></div>
      </aside>
      <div className={styles.content}>
@@ -47,6 +59,6 @@ export default function MyCharacter(){
        </div>
        <div className={styles.labNote}><b>LAB MODE</b><span>Character sync is read-only. Automatic import into Build Lab stays disabled until we finish verified slot/data mapping, so this test cannot corrupt your creator drafts.</span><a href="/build-lab">Open Build Lab →</a></div>
      </div>
-   </section>}
+   </section>:null}
  </main>;
 }
