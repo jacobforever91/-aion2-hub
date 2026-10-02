@@ -81,3 +81,9 @@ export function normalizeCharacter(info,equipment,ref){
     rankings:list(info?.ranking?.rankingList).map(x=>({content:cleanString(x?.rankingContentsName,120),rank:number(x?.rank),point:Number(x?.point)||0,grade:cleanString(x?.gradeName,80)}))
   };
 }
+
+
+export function exactCharacterName(candidate, keyword){
+  const norm=value=>String(value||"").normalize("NFKC").trim().toLocaleLowerCase("en-US");
+  return !!norm(candidate)&&norm(candidate)===norm(keyword);
+}
