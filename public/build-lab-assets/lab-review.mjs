@@ -46,6 +46,10 @@ function resetView(){selectedSkill='';nodeFocus='';search='';}
 function openModal(m){lastFocus={id:document.activeElement?.id,data:{...(document.activeElement?.dataset||{})}};modal={...m,token:uid()};drawModal();if(!dialog.open)dialog.showModal();requestAnimationFrame(()=>dialog.querySelector('input:not([readonly]),button,select')?.focus());}
 function closeModal(){if(dialog.open)dialog.close();modal=null;let n=lastFocus?.id?document.getElementById(lastFocus.id):null;if(!n&&lastFocus?.data?.action)n=[...document.querySelectorAll('[data-action]')].find(x=>Object.keys(lastFocus.data).every(k=>x.dataset[k]===lastFocus.data[k]));n?.focus({preventScroll:true});}
 function heading(title,description='',actions=''){return `<div class="section-head"><div><h2>${e(title)}</h2>${description?`<p>${e(description)}</p>`:''}</div>${actions}</div>`;}
+function systemLinksHtml(links=[]){
+ if(!links.length)return '';
+ return `<section class="system-links"><div class="stat-group-head"><h3>Daevanion → Skills</h3><span>${links.length}</span></div><p class="system-links-note">Selected skill-level nodes are linked by recorded skill name. Their bonus amount is not added until the runtime source is verified.</p><div class="system-link-list">${links.map(link=>`<div class="system-link ${link.selectedInBuild?'active':''}"><span><b>${e(link.skillName)}</b><small>${e(link.board)} · node ${e(link.nodeId)}</small></span><strong>${link.matched?(link.selectedInBuild?'Linked':'Skill not selected'):'Name unmatched'}</strong></div>`).join('')}</div></section>`;
+}
 function render(){if(!catalog)return;retain(()=>{
  const a=v(),totals=summary(a,catalog),statGroups=groupSummaryRows(totals.rows),skillLinks=daevanionSkillLinks(a,catalog),checks=buildChecks(a,catalog,cache),slots=slotsFor(a,catalog),count=slots.filter(s=>selectedItem(a,s,catalog)).length,configured=slots.filter(s=>{const g=a.gear[s.id];return g&&[g.enchant,g.potential,g.substats,g.philosopherStone,g.magicstones,g.note].some(Boolean);}).length;
  root.innerHTML=`<div class="shell ${uiScale==='large'?'large':''}" data-view="${tab}">
