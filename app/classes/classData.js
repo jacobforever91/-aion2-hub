@@ -12,26 +12,365 @@ export const classList = [
 ];
 
 // Global client skill icon IDs, ordered to match each class's active then passive list below.
-export const skillIconIds = {
-  templar:["12010000","12040000","12130000","12100000","12240000","12340000","12270000","12350000","12430000","12300000","12090000","12260000","12000100","12310000","12320000","12110000","12120000","12200000","12190000","12070000","12230000","12250000","12220000","12700000","12450000","12710000","12720000","12730000","12740000","12750000","12760000","12770000","12780000","12790000","12800000"],
-  gladiator:["11020000","11010000","11190000","11290000","11170000","11280000","11200000","11050000","11360000","11300000","11100000","11260000","11000100","11240000","11400000","11250000","11110000","11130000","11080000","11380000","11340000","11390000","11410000","11430000","11700000","11450000","11710000","11720000","11730000","11740000","11750000","11760000","11770000","11780000","11790000","11800000"],
-  assassin:["13010000","13100000","13070000","13060000","13350000","13340000","13210000","13050000","13360000","13220000","13130000","13260000","13000100","13270000","13390000","13250000","13080000","13280000","13180000","13020000","13300000","13230000","13310000","13370000","13700000","13140000","13710000","13720000","13730000","13740000","13750000","13760000","13770000","13780000","13790000","13800000"],
-  ranger:["14020000","14340000","14130000","14090000","14050000","14330000","14110000","14170000","14080000","14070000","14010000","14260000","14000100","14270000","14310000","14220000","14120000","14180000","14150000","14190000","14160000","14350000","14060000","14360000","14700000","14380000","14710000","14720000","14730000","14740000","14750000","14760000","14770000","14780000","14790000","14800000"],
-  sorcerer:["15210000","15090000","15040000","15280000","15050000","15010000","15150000","15110000","15220000","15310000","15060000","15240000","15000100","15360000","15160000","15400000","15140000","15230000","15130000","15200000","15390000","15300000","15320000","15120000","15700000","15410000","15710000","15720000","15730000","15740000","15760000","15770000","15750000","15780000","15790000","15800000"],
-  spiritmaster:["16010000","16040000","16100000","16110000","16140000","16340000","16130000","16330000","16120000","16070000","16300000","16200000","16000100","16240000","16370000","16250000","16150000","16360000","16060000","16080000","16220000","16230000","16260000","16700000","16170000","16710000","16720000","16730000","16740000","16750000","16760000","16800000","16770000","16790000","16780000"],
-  cleric:["17010000","17040000","17080000","17150000","17070000","17370000","17090000","17350000","17100000","17120000","17060000","17240000","17000100","17280000","17290000","17160000","17430000","17390000","17400000","17270000","17190000","17410000","17420000","17300000","17700000","17440000","17710000","17720000","17730000","17740000","17750000","17760000","17770000","17780000","17790000","17800000"],
-  chanter:["18010000","18040000","18090000","18060000","18100000","18300000","18150000","18120000","18210000","18080000","18290000","18200000","18000100","18220000","18190000","18140000","18160000","18130000","18330000","18240000","18230000","18170000","18250000","18420000","18700000","18440000","18710000","18720000","18730000","18740000","18750000","18760000","18770000","18780000","18790000","18800000"],
+export const skillCatalogIds = {
+  "templar": {
+    "active": [
+      "12010000",
+      "12040000",
+      "12130000",
+      "12100000",
+      "12240000",
+      "12340000",
+      "12270000",
+      "12350000",
+      "12430000",
+      "12300000",
+      "12090000",
+      "12260000"
+    ],
+    "stigma": [
+      "12310000",
+      "12320000",
+      "12110000",
+      "12120000",
+      "12200000",
+      "12190000",
+      "12070000",
+      "12230000",
+      "12410000",
+      "12250000",
+      "12220000",
+      "12700000",
+      "12450000"
+    ],
+    "passive": [
+      "12710000",
+      "12720000",
+      "12730000",
+      "12740000",
+      "12750000",
+      "12760000",
+      "12770000",
+      "12780000",
+      "12790000",
+      "12800000"
+    ]
+  },
+  "gladiator": {
+    "active": [
+      "11020000",
+      "11010000",
+      "11190000",
+      "11290000",
+      "11170000",
+      "11280000",
+      "11200000",
+      "11050000",
+      "11360000",
+      "11300000",
+      "11100000",
+      "11260000"
+    ],
+    "stigma": [
+      "11240000",
+      "11400000",
+      "11250000",
+      "11110000",
+      "11130000",
+      "11080000",
+      "11380000",
+      "11340000",
+      "11390000",
+      "11410000",
+      "11430000",
+      "11700000",
+      "11450000"
+    ],
+    "passive": [
+      "11710000",
+      "11720000",
+      "11730000",
+      "11740000",
+      "11750000",
+      "11760000",
+      "11770000",
+      "11780000",
+      "11790000",
+      "11800000"
+    ]
+  },
+  "assassin": {
+    "active": [
+      "13010000",
+      "13100000",
+      "13070000",
+      "13060000",
+      "13350000",
+      "13340000",
+      "13210000",
+      "13050000",
+      "13360000",
+      "13220000",
+      "13130000",
+      "13260000"
+    ],
+    "stigma": [
+      "13270000",
+      "13390000",
+      "13250000",
+      "13080000",
+      "13280000",
+      "13180000",
+      "13020000",
+      "13300000",
+      "13230000",
+      "13310000",
+      "13370000",
+      "13700000",
+      "13140000"
+    ],
+    "passive": [
+      "13710000",
+      "13720000",
+      "13730000",
+      "13740000",
+      "13750000",
+      "13760000",
+      "13770000",
+      "13780000",
+      "13790000",
+      "13800000"
+    ]
+  },
+  "ranger": {
+    "active": [
+      "14020000",
+      "14340000",
+      "14130000",
+      "14090000",
+      "14050000",
+      "14330000",
+      "14110000",
+      "14170000",
+      "14080000",
+      "14070000",
+      "14010000",
+      "14260000"
+    ],
+    "stigma": [
+      "14270000",
+      "14310000",
+      "14220000",
+      "14120000",
+      "14180000",
+      "14150000",
+      "14190000",
+      "14160000",
+      "14350000",
+      "14060000",
+      "14360000",
+      "14700000",
+      "14380000"
+    ],
+    "passive": [
+      "14710000",
+      "14720000",
+      "14730000",
+      "14740000",
+      "14750000",
+      "14760000",
+      "14770000",
+      "14780000",
+      "14790000",
+      "14800000"
+    ]
+  },
+  "sorcerer": {
+    "active": [
+      "15210000",
+      "15090000",
+      "15040000",
+      "15280000",
+      "15050000",
+      "15010000",
+      "15150000",
+      "15110000",
+      "15220000",
+      "15310000",
+      "15060000",
+      "15240000"
+    ],
+    "stigma": [
+      "15360000",
+      "15160000",
+      "15400000",
+      "15140000",
+      "15230000",
+      "15130000",
+      "15200000",
+      "15390000",
+      "15300000",
+      "15320000",
+      "15120000",
+      "15700000",
+      "15410000"
+    ],
+    "passive": [
+      "15710000",
+      "15720000",
+      "15730000",
+      "15740000",
+      "15760000",
+      "15770000",
+      "15750000",
+      "15780000",
+      "15790000",
+      "15800000"
+    ]
+  },
+  "spiritmaster": {
+    "active": [
+      "16010000",
+      "16040000",
+      "16100000",
+      "16110000",
+      "16140000",
+      "16340000",
+      "16130000",
+      "16330000",
+      "16120000",
+      "16070000",
+      "16300000",
+      "16200000"
+    ],
+    "stigma": [
+      "16240000",
+      "16190000",
+      "16370000",
+      "16250000",
+      "16150000",
+      "16360000",
+      "16060000",
+      "16080000",
+      "16220000",
+      "16230000",
+      "16260000",
+      "16700000",
+      "16170000"
+    ],
+    "passive": [
+      "16710000",
+      "16720000",
+      "16730000",
+      "16740000",
+      "16750000",
+      "16760000",
+      "16800000",
+      "16770000",
+      "16790000",
+      "16780000"
+    ]
+  },
+  "cleric": {
+    "active": [
+      "17010000",
+      "17040000",
+      "17080000",
+      "17150000",
+      "17070000",
+      "17370000",
+      "17090000",
+      "17350000",
+      "17100000",
+      "17120000",
+      "17060000",
+      "17240000"
+    ],
+    "stigma": [
+      "17280000",
+      "17290000",
+      "17160000",
+      "17430000",
+      "17390000",
+      "17400000",
+      "17270000",
+      "17190000",
+      "17410000",
+      "17420000",
+      "17300000",
+      "17700000",
+      "17440000"
+    ],
+    "passive": [
+      "17710000",
+      "17720000",
+      "17730000",
+      "17740000",
+      "17750000",
+      "17760000",
+      "17770000",
+      "17780000",
+      "17790000",
+      "17800000"
+    ]
+  },
+  "chanter": {
+    "active": [
+      "18010000",
+      "18040000",
+      "18090000",
+      "18060000",
+      "18100000",
+      "18300000",
+      "18150000",
+      "18120000",
+      "18210000",
+      "18080000",
+      "18290000",
+      "18200000"
+    ],
+    "stigma": [
+      "18220000",
+      "18190000",
+      "18140000",
+      "18160000",
+      "18130000",
+      "18330000",
+      "18240000",
+      "18230000",
+      "18170000",
+      "18250000",
+      "18420000",
+      "18700000",
+      "18440000"
+    ],
+    "passive": [
+      "18710000",
+      "18720000",
+      "18730000",
+      "18740000",
+      "18750000",
+      "18760000",
+      "18770000",
+      "18780000",
+      "18790000",
+      "18800000"
+    ]
+  }
 };
 
+// Backward-compatible flattened order: Active, Stigma, Passive.
+export const skillIconIds = Object.fromEntries(Object.entries(skillCatalogIds).map(([slug,groups]) => [slug,[...groups.active,...groups.stigma,...groups.passive]]));
+
 export const classData = {
-  templar:{role:"Tank",weapon:"Longsword",summary:"The Templar protects the party from the front line, drawing enemy attention and absorbing damage so allies can attack safely.",playstyle:"Build threat with strikes and taunts, then save your defenses for heavy enemy attacks. The class rewards good timing and control of the fight.",active:["Vicious Strike","Pummel","Poach","Shield Smite","Judgment","Flash Rampage","Debilitating Smash","Warding Strike","Shield Rush","Annihilate","Punishment","Defiance","Dodge","Empyrean Lord’s Punishment","Nezekan’s Shield","Shield of Protection","Taunt","Armor of Balance","Second Skin","Doom Shield","Noble Armor","Comrade in Arms","Grapple","Assault Fury","Battlefield Banner"],passive:["Enhance Health","Warding Shield","Punishing Benediction","Ironclad Defense","Guarding Seal","Impact Hit","Insulting Roar","Fury","Survival Willpower","Block Pain"]},
-  gladiator:{role:"Tank / DPS",weapon:"Greatsword",summary:"The Gladiator is a frontline fighter who uses a greatsword to strike multiple enemies and stay in the fight while dealing damage.",playstyle:"Close in on enemy groups, chain wide attacks, and use defensive and recovery skills to endure. The Gladiator can shift between damage and off-tank support.",active:["Keen Strike","Rending Blow","Leaping Slam","Mocking Blade","Overhead Slam","Sword Aura Rampage","Ankle Slice","Crushing Wave","Rush Strike","Aerial Snare","Ruinous Blow","Defiance","Dodge","Wrath Wave","Lunge Stance","Zikel’s Blessing","Focused Block","Armor of Balance","Blade Toss","Tenaciousness","Lifestealing Blade","Rage Burst","Wave Armor","Forced Restraint","Assault Strike","Fracturing Rush"],passive:["Survival Stance","Protection Armor","Blood Absorption","Identify Weakness","Attack Preparation","Impact Hit","Destructive Impulse","Experienced Counterstrike","Survival Willpower","Murderous Burst"]},
-  assassin:{role:"DPS",weapon:"Daggers",summary:"The Assassin waits for the right moment to emerge from the shadows and unleash a burst of attacks on a vulnerable target.",playstyle:"Enter from stealth, take advantage of back attacks, and reposition before you get trapped. Precision, mobility, and timing your entry are key.",active:["Quick Slice","Savage Roar","Shadowstrike","Ambush","Heart Gore","Storm Rampage","Whirlwind Slice","Flash Slice","Infiltrate","Shadow Fall","Insignia Explosion","Defiance","Dodge","Savage Fang","Swift Contract","Smoke Bomb","Evasion Stance","Spiral Slice","Shadow Walk","Throw Shadowblade","Triniel’s Dagger","Aerial Bind","Illusive Clone","Evasion Contract","Assault Ambush","Shadowstep"],passive:["Heightened Sixth Sense","Exploit Weakness","Apply Poison","Rear Smite","Assault Stance","Impact Hit","Ambush Stance","Defense Break","Revitalization Contract","Determination"]},
-  ranger:{role:"DPS",weapon:"Bow",summary:"The Ranger fights at long range with powerful, precise attacks and uses mobility to maintain an advantage over enemies.",playstyle:"Open with high-impact shots and keep up the pressure with a volley of arrows. Positioning and controlling distance are essential to survival.",active:["Snipe","Tempest Shot","Snare Shot","Marking Shot","Drill Dart","Arrow Scattershot","Gale Arrow","Explosion Trap","Burst Arrow","Suppressing Arrow","Deadshot","Defiance","Dodge","Arrow Storm","Vaizel’s Authority","Bow of Blessing","Ambush Kick","Ensnaring Trap","Illusory Arrow","Stealth","Sealing Arrow","Mother Nature’s Breath","Griffon Arrow","Explosive Arrow","Assault Smite","Supporting Fire"],passive:["Vigilant Eye","Concentrated Fire","Wind Vigor","Focused Eye","Hunter’s Resolve","Unyielding Resolve","Rooting Eye","Melee Fire","Revitalization Contract","Hunter’s Soul"]},
-  sorcerer:{role:"DPS",weapon:"Spellbook",summary:"The Sorcerer controls ranged combat with fire and ice magic, combining burst damage with effects that slow and control targets.",playstyle:"Use fire to apply pressure and ice to slow or immobilize enemies. Your high damage depends on maintaining distance and choosing when to cast each skill.",active:["Flame Arrow","Ice Chain","Firestorm","Bittercold Wind","Blaze","Flame Scattershot","Frost","Winter’s Shackles","Frost Burst","Wish of Concentration","Hellfire","Defiance","Dodge","Divine Burst","Steel Barrier","Element Enhancement","Curse: Tree","Arctic Armor","Soul Freeze","Cold Storm","Fire Wall","Lumiel’s Space","Delayed Explosion","Glacial Smite","Assault Bombardment","Hibernation"],passive:["Fire Mark","Robe of Earth","Cold Snap","Robe of Flame","Absorb Essence","Grace of Resistance","Robe of Cold","Grace of Enhancement","Revitalization Contract","Vitality Evaporation"]},
-  spiritmaster:{role:"DPS",weapon:"Orb",summary:"The Spiritmaster summons elemental spirits to fight alongside them, wearing down enemies with damage, debuffs, and control.",playstyle:"Keep your spirits active and combine their attacks with elemental effects and control skills. Managing your summons sets the pace of the class.",active:["Cold Shock","Combustion","Summon: Fire Spirit","Summon: Water Spirit","Jointstrike: Curse","Rapid Scattershot","Summon: Earth Spirit","Dimensional Control","Summon: Wind Spirit","Soul’s Cry","Elemental Fusion","Defiance","Dodge","Jointstrike: Destructive Attack","Flame Blessing","Summon: Ancient Spirit","Jointstrike: Corrode","Kaisinel’s Power","Siphon","Cry of Terror","Cursed Cloud","Seize Magic","Magic Block","Assault Terror","Command: Proxy"],passive:["Spirit Strike","Spirit Protection","Spirit’s Descent","Corrode","Spirit Revitalization","Mental Focus","Consecutive Countercurrent","Spirit Communion","Revitalization Contract","Element Unification"]},
-  cleric:{role:"Healer",weapon:"Mace",summary:"The Cleric keeps the party alive with healing and protection and can revive fallen allies. The class can also deal ranged damage when the situation allows.",playstyle:"Watch party health, balance direct and sustained healing with shields, and stay in a safe position. Add attacks between heals when the party is stable.",active:["Earth’s Retribution","Judgment Thunder","Debilitating Mark","Divine Aura","Chain of Torment","Lightning Strike Scattershot","Light of Regeneration","Condemnation","Healing Light","Radiant Recovery","Bolt","Defiance","Dodge","Power Burst","Absolution","Benevolence","Prayer of Amplification","Summon Resurrection","Earth Punishment","Salvation","Root","Light of Protection","Yustiel’s Power","Voice of Doom","Assault Mark","Noble Aura"],passive:["Warm Benediction","Empyrean Lords’ Benediction","Empyrean Lord’s Grace","Healing Enhancement","Immortal Veil","Heal Block","Prayer of Concentration","Earth’s Grace","Survival Willpower","Radiant Benediction"]},
-  chanter:{role:"Healer / DPS",weapon:"Staff",summary:"The Chanter combines support with close-range combat, strengthening the party with mantras, providing healing, and fighting with a staff.",playstyle:"Keep party buffs active while weaving in strikes and healing as the fight demands. The Chanter brings durability and sustained damage as a hybrid support class.",active:["Onslaught","Incandescent Blow","Rushing Smash","Impactful Crush","Dark Crush","Gust Rampage","Heat Wave Blow","Recuperation","Tremor Crush","Wave Blow","Spinning Strike","Defiance","Dodge","Obliterate","Undefeated Mantra","Focused Defense","Sprint Mantra","Fracturing Blow","Marchutan’s Wrath","Impeding Authority","Ensnaring Mark","Healing Touch","Power of the Storm","Guardian Blessing","Assault Shock","Barrier Spell"],passive:["Blessing of Life","Crossguard","Protection Circle","Inspiring Spell","Attack Preparation","Impact Hit","Raging Spell","Earth’s Promise","Survival Willpower","Wind’s Promise"]},
+  templar:{role:"Tank",weapon:"Longsword",summary:"The Templar protects the party from the front line, drawing enemy attention and absorbing damage so allies can attack safely.",playstyle:"Build threat with strikes and taunts, then save your defenses for heavy enemy attacks. The class rewards good timing and control of the fight.",active:["Vicious Strike","Pummel","Poach","Shield Smite","Judgment","Flash Rampage","Debilitating Smash","Warding Strike","Shield Rush","Annihilate","Punishment","Defiance"],stigmas:["Empyrean Lord’s Punishment","Nezekan’s Shield","Shield of Protection","Taunt","Armor of Balance","Second Skin","Doom Shield","Noble Armor","Executing Blade","Comrade in Arms","Grapple","Assault Fury","Battlefield Banner"],passive:["Enhance Health","Warding Shield","Punishing Benediction","Ironclad Defense","Guarding Seal","Impact Hit","Insulting Roar","Fury","Survival Willpower","Block Pain"]},
+  gladiator:{role:"Tank / DPS",weapon:"Greatsword",summary:"The Gladiator is a frontline fighter who uses a greatsword to strike multiple enemies and stay in the fight while dealing damage.",playstyle:"Close in on enemy groups, chain wide attacks, and use defensive and recovery skills to endure. The Gladiator can shift between damage and off-tank support.",active:["Keen Strike","Rending Blow","Leaping Slam","Mocking Blade","Overhead Slam","Sword Aura Rampage","Ankle Slice","Crushing Wave","Rush Strike","Aerial Snare","Ruinous Blow","Defiance"],stigmas:["Wrath Wave","Lunge Stance","Zikel’s Blessing","Focused Block","Armor of Balance","Blade Toss","Tenaciousness","Lifestealing Blade","Rage Burst","Wave Armor","Forced Restraint","Assault Strike","Fracturing Rush"],passive:["Survival Stance","Protection Armor","Blood Absorption","Identify Weakness","Attack Preparation","Impact Hit","Destructive Impulse","Experienced Counterstrike","Survival Willpower","Murderous Burst"]},
+  assassin:{role:"DPS",weapon:"Daggers",summary:"The Assassin waits for the right moment to emerge from the shadows and unleash a burst of attacks on a vulnerable target.",playstyle:"Enter from stealth, take advantage of back attacks, and reposition before you get trapped. Precision, mobility, and timing your entry are key.",active:["Quick Slice","Savage Roar","Shadowstrike","Ambush","Heart Gore","Storm Rampage","Whirlwind Slice","Flash Slice","Infiltrate","Shadow Fall","Insignia Explosion","Defiance"],stigmas:["Savage Fang","Swift Contract","Smoke Bomb","Evasion Stance","Spiral Slice","Shadow Walk","Throw Shadowblade","Triniel’s Dagger","Aerial Bind","Illusive Clone","Evasion Contract","Assault Ambush","Shadowstep"],passive:["Heightened Sixth Sense","Exploit Weakness","Apply Poison","Rear Smite","Assault Stance","Impact Hit","Ambush Stance","Defense Break","Revitalization Contract","Determination"]},
+  ranger:{role:"DPS",weapon:"Bow",summary:"The Ranger fights at long range with powerful, precise attacks and uses mobility to maintain an advantage over enemies.",playstyle:"Open with high-impact shots and keep up the pressure with a volley of arrows. Positioning and controlling distance are essential to survival.",active:["Snipe","Tempest Shot","Snare Shot","Marking Shot","Drill Dart","Arrow Scattershot","Gale Arrow","Explosion Trap","Burst Arrow","Suppressing Arrow","Deadshot","Defiance"],stigmas:["Arrow Storm","Vaizel’s Authority","Bow of Blessing","Ambush Kick","Ensnaring Trap","Illusory Arrow","Stealth","Sealing Arrow","Mother Nature’s Breath","Griffon Arrow","Explosive Arrow","Assault Smite","Supporting Fire"],passive:["Vigilant Eye","Concentrated Fire","Wind Vigor","Focused Eye","Hunter’s Resolve","Unyielding Resolve","Rooting Eye","Melee Fire","Revitalization Contract","Hunter’s Soul"]},
+  sorcerer:{role:"DPS",weapon:"Spellbook",summary:"The Sorcerer controls ranged combat with fire and ice magic, combining burst damage with effects that slow and control targets.",playstyle:"Use fire to apply pressure and ice to slow or immobilize enemies. Your high damage depends on maintaining distance and choosing when to cast each skill.",active:["Flame Arrow","Ice Chain","Firestorm","Bittercold Wind","Blaze","Flame Scattershot","Frost","Winter’s Shackles","Frost Burst","Wish of Concentration","Hellfire","Defiance"],stigmas:["Divine Burst","Steel Barrier","Element Enhancement","Curse: Tree","Arctic Armor","Soul Freeze","Cold Storm","Fire Wall","Lumiel’s Space","Delayed Explosion","Glacial Smite","Assault Bombardment","Hibernation"],passive:["Fire Mark","Robe of Earth","Cold Snap","Robe of Flame","Absorb Essence","Grace of Resistance","Robe of Cold","Grace of Enhancement","Revitalization Contract","Vitality Evaporation"]},
+  spiritmaster:{role:"DPS",weapon:"Orb",summary:"The Spiritmaster summons elemental spirits to fight alongside them, wearing down enemies with damage, debuffs, and control.",playstyle:"Keep your spirits active and combine their attacks with elemental effects and control skills. Managing your summons sets the pace of the class.",active:["Cold Shock","Combustion","Summon: Fire Spirit","Summon: Water Spirit","Jointstrike: Curse","Rapid Scattershot","Summon: Earth Spirit","Dimensional Control","Summon: Wind Spirit","Soul’s Cry","Elemental Fusion","Defiance"],stigmas:["Jointstrike: Destructive Attack","Enhance: Spirit's Benediction","Flame Blessing","Summon: Ancient Spirit","Jointstrike: Corrode","Kaisinel’s Power","Siphon","Cry of Terror","Cursed Cloud","Seize Magic","Magic Block","Assault Terror","Command: Proxy"],passive:["Spirit Strike","Spirit Protection","Spirit’s Descent","Corrode","Spirit Revitalization","Mental Focus","Consecutive Countercurrent","Spirit Communion","Revitalization Contract","Element Unification"]},
+  cleric:{role:"Healer",weapon:"Mace",summary:"The Cleric keeps the party alive with healing and protection and can revive fallen allies. The class can also deal ranged damage when the situation allows.",playstyle:"Watch party health, balance direct and sustained healing with shields, and stay in a safe position. Add attacks between heals when the party is stable.",active:["Earth’s Retribution","Judgment Thunder","Debilitating Mark","Divine Aura","Chain of Torment","Lightning Strike Scattershot","Light of Regeneration","Condemnation","Healing Light","Radiant Recovery","Bolt","Defiance"],stigmas:["Power Burst","Absolution","Benevolence","Prayer of Amplification","Summon Resurrection","Earth Punishment","Salvation","Root","Light of Protection","Yustiel’s Power","Voice of Doom","Assault Mark","Noble Aura"],passive:["Warm Benediction","Empyrean Lords’ Benediction","Empyrean Lord’s Grace","Healing Enhancement","Immortal Veil","Heal Block","Prayer of Concentration","Earth’s Grace","Survival Willpower","Radiant Benediction"]},
+  chanter:{role:"Healer / DPS",weapon:"Staff",summary:"The Chanter combines support with close-range combat, strengthening the party with mantras, providing healing, and fighting with a staff.",playstyle:"Keep party buffs active while weaving in strikes and healing as the fight demands. The Chanter brings durability and sustained damage as a hybrid support class.",active:["Onslaught","Incandescent Blow","Rushing Smash","Impactful Crush","Dark Crush","Gust Rampage","Heat Wave Blow","Recuperation","Tremor Crush","Wave Blow","Spinning Strike","Defiance"],stigmas:["Obliterate","Undefeated Mantra","Focused Defense","Sprint Mantra","Fracturing Blow","Marchutan’s Wrath","Impeding Authority","Ensnaring Mark","Healing Touch","Power of the Storm","Guardian Blessing","Assault Shock","Barrier Spell"],passive:["Blessing of Life","Crossguard","Protection Circle","Inspiring Spell","Attack Preparation","Impact Hit","Raging Spell","Earth’s Promise","Survival Willpower","Wind’s Promise"]},
 };
 
 // Weapon slots are based on the KR/TW reference build and community equipment
