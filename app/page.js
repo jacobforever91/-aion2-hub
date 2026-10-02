@@ -1,6 +1,6 @@
 "use client";
 import {useEffect, useRef, useState} from "react";
-import {Home as HomeIcon, Menu, MessageCircle, BookOpen, Shield, Gem, Feather, PawPrint, Sparkles, Trees, Swords, ScrollText, FlaskConical} from "lucide-react";
+import {Home as HomeIcon, Menu, MessageCircle, BookOpen, Shield, Gem, Feather, PawPrint, Sparkles, Trees, Swords, ScrollText, FlaskConical, User} from "lucide-react";
 // Full-bleed framing for Elyos and Asmodians only. Keep the other scenes and fixed controls unchanged.
 const factionArtworkStyle={position:"absolute",inset:0,display:"block",width:"100%",height:"100%",maxWidth:"none",maxHeight:"none",minWidth:0,minHeight:0,margin:0,padding:0,aspectRatio:"auto",objectFit:"cover",objectPosition:"center center"};
 const menus={GAME:[["Skills","/classes"],["Equipment","/equipment"],["Stigmas","/stigmas"],["Daevanion","/daevanion"],["Wings","/wings"],["Pets","/pets"],["Arcana","/arcana"]],DATABASE:[["Items","/database"],["Skills","/database"],["NPCs","/database"],["Crafting","/database"]],BUILDS:[["Build Creator","/builds"],["Class Builds","/builds?mode=class"],["PvE Builds","/builds?mode=pve"],["PvP Builds","/builds?mode=pvp"]],WORLD:[["World Map","/database"],["Bosses","/database"],["Dungeons","/database"],["Quests","/database"]],GUIDES:[["Beginner","/database"],["Leveling","/database"],["Endgame","/database"]]};
@@ -64,6 +64,7 @@ export default function Home(){const[open,setOpen]=useState(false);const stageRe
     <div className="forgeMenuHeader"><span>DAEVEXUS</span><small>AION 2 DATABASE &amp; TOOLS</small></div>
     <div className="forgeSecondary">
       <section><h3>CHARACTER</h3>
+        <a className="crystalPure" href="/my-character"><i><User/></i><span>My Character<small>LINK · SYNC · REVIEW</small></span><b>›</b></a>
         <a className="crystalPure" href="/classes"><i><BookOpen/></i><span>Skills<small>MASTER YOUR POWER</small></span><b>›</b></a>
         <a className="crystalGold" href="/equipment"><i><Shield/></i><span>Equipment<small>GEAR YOUR LEGEND</small></span><b>›</b></a>
       </section>
