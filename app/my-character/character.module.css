@@ -99,6 +99,23 @@
   min-height:46px;
   background:transparent;
 }
+.buildImport{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:44px;
+  margin-top:9px;
+  border:1px solid #9a7b43;
+  background:linear-gradient(180deg,#242017,#111416);
+  color:#ead39a;
+  text-decoration:none;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+.buildImport:hover{border-color:#d3af62;background:#2d2619;color:#fff0c4}
+.buildImport svg{width:15px}
 .infoBack{
   margin-top:4px;
   color:#8998a2;
