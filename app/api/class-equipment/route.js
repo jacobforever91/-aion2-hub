@@ -6,6 +6,7 @@ import chestData from "../../equipment/chestData.js";
 import armorMoreData from "../../equipment/armorMoreData.js";
 import jewelryData from "../../equipment/jewelryData.js";
 import broochData from "../../equipment/broochData.js";
+import specialSlotData from "../../equipment/specialSlotData.js";
 
 const source = "https://aion2hub.com";
 const gradeOptions = new Set(["Common", "Rare", "Epic", "Unique", "Heroic", "Special", "Mythic"]);
@@ -67,7 +68,7 @@ function getClassCategories(html) {
     const count = bodyText.match(/([\d,]+)\s+items?/i)?.[1] || "0";
     const isWeapon = bodyText.includes("Your weapon");
     if (!category || !title) continue;
-    categories.push({code: category, name: title, count, icon: imageId ? `${source}/api/icon/items/${imageId}` : "", group: isWeapon ? "Weapon" : ["Amulet", "Belt", "Bracelet", "Brooch", "Earring", "Necklace", "Pendant", "Ring", "Seal"].includes(category) ? "Accessories" : "Armor"});
+    categories.push({code: category, name: title, count, icon: imageId ? `${source}/api/icon/items/${imageId}` : "", group: isWeapon ? "Weapon" : ["Amulet", "Belt", "Bracelet", "Brooch", "Earring", "Necklace", "Pendant", "Ring", "Rune", "Seal"].includes(category) ? "Accessories" : "Armor"});
   }
   return categories;
 }
@@ -138,23 +139,23 @@ function getItemInfo(html, id) {
   const requiredLevel = properties.find((value) => /^Requires Lv\s*\d+/i.test(value))?.match(/\d+/)?.[0] || "";
   const rarity = properties.find((value) => gradeOptions.has(value)) || "";
   const equipType = properties.find((value) => /^(MainHand|OffHand)$/i.test(value)) || "";
-  const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Torso|Breastplate|Shoulder|Pauldrons|Boots|Gloves|Pants|Cape|Cloak|Ring|Earring|Necklace|Bracelet|Brooch|Accessory|Armor)$/i.test(value)) || "";
+  const itemType = properties.find((value) => /^(Sword|Greatsword|Dagger|Bow|Spellbook|Orb|Mace|Staff|Shield|Helmet|Torso|Breastplate|Shoulder|Pauldrons|Boots|Gloves|Pants|Cape|Cloak|Belt|Ring|Earring|Necklace|Amulet|Bracelet|Brooch|Rune|Accessory|Armor)$/i.test(value)) || "";
   return {id, name, rarity, itemLevel, requiredLevel, equipType, itemType, stats, imprints, details, upgrades, obtain};
 }
 
 const equipmentFamilies = new Set(["Weapons", "Armor", "Accessories"]);
 const equipmentSlots = {
   Armor: new Set(["Helmet", "Torso", "Shoulder", "Gloves", "Pants", "Boots", "Cape", "Belt"]),
-  Accessories: new Set(["Necklace", "Earring", "Ring", "Bracelet", "Brooch"]),
+  Accessories: new Set(["Necklace", "Amulet", "Earring", "Ring", "Bracelet", "Brooch", "Rune"]),
 };
 const slotAliases = {
   Helmet: ["helmet"], Torso: ["torso", "breastplate", "chest"], Shoulder: ["shoulder", "pauldrons"],
   Gloves: ["gloves", "glove"], Pants: ["pants", "greaves", "leggings"], Boots: ["boots", "boot"], Cape: ["cape", "cloak"], Belt: ["belt"],
-  Necklace: ["necklace"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"],
+  Necklace: ["necklace"], Amulet: ["amulet"], Earring: ["earring", "earrings"], Ring: ["ring", "rings"], Bracelet: ["bracelet"], Brooch: ["brooch"], Rune: ["rune"],
 };
 const equipmentArt = {Weapons: "/equipment-art/weapon.webp", Armor: "/equipment-art/armor.webp", Accessories: "/equipment-art/accessory.webp"};
 const generalEquipmentItems = [...new Map(
-  [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData, ...broochData]
+  [...equipmentData.items, ...weaponsData, ...armorData, ...chestData, ...armorMoreData, ...jewelryData, ...broochData, ...specialSlotData]
     .map((item) => [`${item.region || "GLOBAL"}:${item.id}`, item])
 ).values()];
 
