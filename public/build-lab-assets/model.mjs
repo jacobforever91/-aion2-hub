@@ -29,7 +29,15 @@ export function normalize(input){
  for(const k of ['classSlug','wingId','petId'])v[k]=id(r[k])||(k==='classSlug'?'templar':'');
  v.region=r.region==='KR_TW'?'KR_TW':'GLOBAL';v.faction=r.faction==='Asmodians'?'Asmodians':'Elyos';v.goal=['PvE','PvP','Solo','Support'].includes(r.goal)?r.goal:'PvE';
  v.level=Math.max(1,Math.min(100,Number(r.level)||45));v.petLevel=Math.max(1,Math.min(100,Number(r.petLevel)||1));
- for(const slot of SLOTS){const g=obj(obj(r.gear)[slot.id]);if(id(g.id))v.gear[slot.id]={id:id(g.id),enchant:Math.max(0,Math.min(30,Number(g.enchant)||0)),note:text(g.note,600)};}
+ for(const slot of SLOTS){const g=obj(obj(r.gear)[slot.id]);if(id(g.id))v.gear[slot.id]={
+  id:id(g.id),
+  enchant:Math.max(0,Math.min(30,Number(g.enchant)||0)),
+  potential:text(g.potential,120),
+  substats:text(g.substats,300),
+  philosopherStone:text(g.philosopherStone,180),
+  magicstones:text(g.magicstones,300),
+  note:text(g.note,600)
+ };}
  for(const [key,s] of Object.entries(obj(r.skills)).slice(0,80)){if(!/^\d{6,12}$/.test(key))continue;v.skills[key]={level:Math.max(1,Math.min(100,Number(s?.level)||1)),spec:Object.fromEntries(Object.entries(obj(s?.spec)).filter(([t,n])=>/^\d+$/.test(t)&&Number.isInteger(n)&&n>=0&&n<12))};}
  v.arcana=Array.from({length:10},(_,i)=>id(r.arcana?.[i]));
  for(const [board,path] of Object.entries(obj(r.paths)).slice(0,8)){if(!/^[A-Za-z]{1,30}$/.test(board))continue;v.paths[board]=[...new Set((Array.isArray(path)?path:[]).filter(x=>/^\d{1,2},\d{1,2}$/.test(x)))].slice(0,300);}
@@ -66,7 +74,7 @@ export function summary(v,c){
  const normalized=({Defense:'Physical Defense',HP:'Max HP',MP:'Max MP'})[label]||label;const key=normalized+'|'+p.unit;
  const row=rows.get(key)||{key,label:normalized,unit:p.unit,value:0,sources:[]};row.value=Number((row.value+p.n).toFixed(4));row.sources.push({name:source,value:p.n});rows.set(key,row);
  }}
- for(const s of slotsFor(v,c)){const item=selectedItem(v,s,c);if(item)add(item,s.label+' · '+item.name);else if(v.gear[s.id])excluded.push(s.label+': incompatible or unavailable reference');if(v.gear[s.id]?.enchant)excluded.push(s.label+': enhancement target not calculated');}
+ for(const s of slotsFor(v,c)){const item=selectedItem(v,s,c),g=v.gear[s.id];if(item)add(item,s.label+' · '+item.name);else if(g)excluded.push(s.label+': incompatible or unavailable reference');if(g?.enchant)excluded.push(s.label+': enhancement target not calculated');if(g&&[g.potential,g.substats,g.philosopherStone,g.magicstones].some(Boolean))excluded.push(s.label+': potential, substat and stone targets are planning annotations; not calculated');}
  const w=c.wings.find(x=>x.id===v.wingId&&x.faction===v.faction);if(w){if(w.region===v.region)add(w,'Wings · '+w.name);else excluded.push('Wings: KR/TW reference excluded from Global totals');}
  const p=c.pets.find(x=>x.id===v.petId);if(p){if(p.region!==v.region)excluded.push('Pet: KR/TW reference excluded from Global totals');else{const table=p.detail?.baseStats;const row=table?.rows?.find(r=>Number(r[0])===Number(v.petLevel));if(row)add({stats:(table.columns||[]).slice(1).map((label,i)=>({label,value:row[i+1]}))},'Pet · '+p.name);else excluded.push('Pet: no recorded values at this level');}}
  v.arcana.forEach((id,i)=>{const a=c.arcana.find(x=>x.id===id);if(a){if(a.region===v.region)add(a,'Arcana '+(i+1)+' · '+a.name);else excluded.push('Arcana '+(i+1)+': region mismatch');}});
