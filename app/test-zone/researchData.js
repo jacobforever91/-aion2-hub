@@ -1,5 +1,18 @@
 export const testZoneResearch = [
   {
+    id: "official-character-build-pipeline",
+    status: "VERIFIED",
+    title: "Official Character → Build pipeline",
+    summary: "Public PLAYNC character snapshots can now be normalized into a reversible Build Creator baseline without guessing unknown slots.",
+    facts: [
+      "The public equipment payload preserves slotPos and slotPosName; DAEVEXUS maps known names and retains unknown mappings for review.",
+      "The public skill payload preserves id, category, skillLevel, needLevel, acquired and equip state.",
+      "NC category Dp is normalized as Stigma; imported Stigmas require the official equipped flag.",
+      "Pet, Wing and Daevanion summaries from the public snapshot are carried into the build as official-source context.",
+      "Daevanion node coordinates stay read-only after import until their coordinate basis is proven equivalent to the local planner grid."
+    ]
+  },
+  {
     id: "packet-0x5100",
     status: "VERIFIED",
     title: "0x5100 · MySkillList_NT",
@@ -107,10 +120,11 @@ export const testZoneModules = [
     status: "RESEARCH",
     title: "Equipment",
     mounted: [
-      "Research Scout watches equipment/gear/item-detail changes.",
-      "No new runtime equipment-to-skill-level mapping has been promoted yet."
+      "Character Sync preserves official slotPos, slot name, item ID and equipped-item detail.",
+      "Build Creator maps known Global slot names into the 20-slot layout and preserves unknown mappings instead of guessing.",
+      "No runtime equipment-to-skill-level source field has been labeled yet."
     ],
-    next: "Capture a controlled equipment swap and compare skill/stat deltas."
+    next: "Collect several Global character samples per class and compare raw slotPos values against the same 20 named slots."
   },
   {
     id: "arcana",
@@ -127,30 +141,33 @@ export const testZoneModules = [
     status: "RESEARCH",
     title: "Daevanion",
     mounted: [
-      "Known as a candidate source for specific skill-level bonuses.",
+      "Character Sync now keeps official board summaries plus public node detail when available.",
+      "Synced open-node data is visible read-only in Build Creator; it is not forced onto the local planner grid.",
       "Its exact 0x5100 additional-field position is still unassigned."
     ],
-    next: "Toggle one +skill node and compare the five additional-level fields."
+    next: "Prove the official row/column coordinate basis against one known board before enabling automatic path import."
   },
   {
     id: "pets",
     status: "RESEARCH",
     title: "Pets",
     mounted: [
-      "Research Scout monitors Pet-related repository metadata.",
-      "No newly verified mechanical Pet data has been mounted yet."
+      "Character Sync preserves the current public Pet ID, name, level and official asset when returned.",
+      "Build Creator can retain and display a synced Pet even when it is not yet present in the local catalog.",
+      "No new Pet combat formula is inferred from the snapshot."
     ],
-    next: "Promote only a Pet finding that has independent evidence."
+    next: "Cross-check repeated Pet IDs across public samples before promoting mechanical stats."
   },
   {
     id: "wings",
     status: "RESEARCH",
     title: "Wings",
     mounted: [
-      "Research Scout monitors Wings-related repository metadata.",
-      "No newly verified mechanical Wings data has been mounted yet."
+      "Character Sync preserves current Wing ID, name, grade, enchant level and official asset when returned.",
+      "Build Creator can retain and display a synced Wing even when it is not yet present in the local catalog.",
+      "No Wing stat is invented when the public snapshot does not expose it."
     ],
-    next: "Promote only a Wings finding that has independent evidence."
+    next: "Cross-check Wing IDs against the local Global catalog and promote exact matches."
   }
 ];
 
