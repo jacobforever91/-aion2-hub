@@ -597,6 +597,7 @@ export default function BuildCreator(){
 
           {tab==="overview"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Shield size={19}/></span><div><h2>Character setup</h2><p>Choose the class, region and kind of content this build is for.</p></div></div>
+            {build.imported&&<div className={styles.importedSnapshot}><div><strong>Official character snapshot</strong><span>{build.imported.character.name} · {build.imported.character.className} · {build.imported.character.serverName||build.imported.sourceRegion}</span></div><small>{build.imported.counts.equipment} mapped gear · {build.imported.counts.acquiredSkills} acquired skills · {build.imported.counts.equippedStigmas} equipped Stigmas</small></div>}
             <div className={styles.formGrid}>
               <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{changeClass(event.target.value);setEditingSkillKey("")}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
@@ -609,6 +610,7 @@ export default function BuildCreator(){
 
           {tab==="skills"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Skills &amp; Stigmas</h2><p>Select a skill to set its level. Only one level control stays open at a time.</p></div></div>
+            {build.imported&&<div className={styles.importedSnapshot}><div><strong>Synced skill state</strong><span>Active and Passive skills use the official acquired flag. Stigmas use the official equipped flag; the NC category Dp is normalized as Stigma.</span></div><small>{build.imported.counts.equippedStigmas} equipped Stigmas imported</small></div>}
             {!classInfo?<div className={styles.emptyState}>Skill data for this class has not been synced yet.</div>:<>
               <label className={styles.skillSearch}><Search size={16}/><input type="search" value={skillSearch} onChange={(event)=>setSkillSearch(event.target.value)} placeholder="Search skills by name…"/></label>
               {visibleSkillGroups.length?<div className={styles.skillGroups}>{visibleSkillGroups.map((group)=><section key={group.id} className={styles.skillGroup}><div className={styles.groupHeading}><h3>{group.label}</h3><span>{build.skills.filter((key)=>key.startsWith(group.id+":")).length} selected</span></div><div className={styles.skillList}>{group.items.map((item)=>{
@@ -666,6 +668,7 @@ export default function BuildCreator(){
 
           {tab==="equipment"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>{build.region==="GLOBAL"?"Current Global layout · 20 equipment slots.":"Pick items by slot. Repeated accessories have separate slots."}</p></div></div>
+            {build.imported&&<div className={styles.importedSnapshot}><div><strong>Official slot mapping</strong><span>Equipment was mapped from the public slot name and slotPos data. Unrecognized slots are preserved instead of guessed.</span></div><small>{build.imported.counts.equipment}/{visibleGearSlots.length} mapped{build.imported.unknownEquipmentSlots?.length?" · "+build.imported.unknownEquipmentSlots.length+" review":""}</small></div>}
             <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id,build.region);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}>{build.gear[slot.id]?<button type="button" className={styles.gearItemInfoButton} onClick={()=>setGearDetail({item:build.gear[slot.id],label:slotLabel})} aria-label={"View stats for "+build.gear[slot.id].name}><span className={styles.slotGlyph}>{build.gear[slot.id].icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id].name}</strong>{build.gear[slot.id].grade&&<em>{build.gear[slot.id].grade}</em>}<small className={styles.gearStatsHint}>View stats</small></span></button>:<div className={styles.gearItemInfoButton+" "+styles.gearItemEmpty}><span className={styles.slotGlyph}><Shield size={15}/></span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>Empty slot</strong></span></div>}<button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
@@ -706,25 +709,25 @@ export default function BuildCreator(){
               <div className={styles.companionPreview}>
                 {progressionKind==="wings"?<>
                   <div className={styles.companionPreviewArt}>
-                    {selectedWing?<span className={styles.companionWingHero} style={{"--companion-wing-hero-position":(-selectedWing.iconPosition[0]*180)+"px "+(-selectedWing.iconPosition[1]*180)+"px"}} aria-hidden="true"/>:<Feather size={84}/>}
+                    {selectedWing?.iconPosition?<span className={styles.companionWingHero} style={{"--companion-wing-hero-position":(-selectedWing.iconPosition[0]*180)+"px "+(-selectedWing.iconPosition[1]*180)+"px"}} aria-hidden="true"/>:selectedWing?.icon?<img className={styles.importedProgressionHero} src={selectedWing.icon} alt="" loading="lazy"/>:<Feather size={84}/>}
                   </div>
                   <div className={styles.companionPreviewCopy}>
                     <span>WINGS · {selectedWing?.faction||"NO SELECTION"}</span>
                     <h3>{selectedWing?.name||"Choose wings"}</h3>
                     <em>{selectedWing?.grade||"Select an item from the catalog"}</em>
-                    {selectedWing&&<p>Wing record from the DAEVEXUS catalog. Verified stats appear below when available.</p>}
+                    {selectedWing&&<p>{selectedWing.source==="NC public character API"?"Current wing from the official synced character snapshot.":"Wing record from the DAEVEXUS catalog. Verified stats appear below when available."}</p>}
                   </div>
                   {selectedWing&&<div className={styles.companionStats}>{wingStats.length?wingStats.map(([label,value],index)=><div key={label+index}><span>{label}</span><b>{value}</b></div>):<div><span>Stats</span><b>Reference data pending</b></div>}</div>}
                   <button type="button" className={styles.companionEquip} disabled={!selectedWing}>{selectedWing?"Equipped":"Choose wings"}</button>
                 </>:<>
                   <div className={styles.companionPreviewArt}>
-                    {selectedPet&&petIcons[selectedPet.id]?<img className={styles.companionPetHero} src={petIcons[selectedPet.id]} alt="" loading="lazy"/>:<PawPrint size={84}/>}
+                    {selectedPet&&(petIcons[selectedPet.id]||selectedPet.icon)?<img className={styles.companionPetHero} src={petIcons[selectedPet.id]||selectedPet.icon} alt="" loading="lazy"/>:<PawPrint size={84}/>}
                   </div>
                   <div className={styles.companionPreviewCopy}>
                     <span>COMPANION · {selectedPet?.genus||"NO SELECTION"}</span>
                     <h3>{selectedPet?.name||"Choose a companion"}</h3>
                     <em>{selectedPet?"Level "+build.petLevel:"Select a pet from the catalog"}</em>
-                    {selectedPet&&<p>Companion data from the DAEVEXUS progression catalog.</p>}
+                    {selectedPet&&<p>{selectedPet.source==="NC public character API"?"Current companion from the official synced character snapshot.":"Companion data from the DAEVEXUS progression catalog."}</p>}
                   </div>
                   {selectedPet&&petLevelStats.length>0&&<div className={styles.companionStats}>{petLevelStats.map(([label,value])=><div key={label}><span>{label}</span><b>{value}</b></div>)}</div>}
                   {selectedPet&&petDetails?.baseStats&&<label className={styles.companionLevel}><span>Pet level</span><select value={build.petLevel} onChange={(event)=>patch("petLevel",Number(event.target.value))}><option value="1">Level 1</option><option value="2">Level 2</option><option value="3">Level 3</option></select></label>}
@@ -736,7 +739,7 @@ export default function BuildCreator(){
             <div className={styles.selectedCompanionBar}>
               <div className={styles.selectedCompanionLabel}><PawPrint size={18}/><span>Selected companion</span></div>
               <div className={styles.selectedCompanionInfo}>
-                <span className={styles.selectedCompanionIcon}>{selectedPet&&petIcons[selectedPet.id]?<img src={petIcons[selectedPet.id]} alt="" loading="lazy"/>:<PawPrint size={22}/>}</span>
+                <span className={styles.selectedCompanionIcon}>{selectedPet&&(petIcons[selectedPet.id]||selectedPet.icon)?<img src={petIcons[selectedPet.id]||selectedPet.icon} alt="" loading="lazy"/>:<PawPrint size={22}/>}</span>
                 <span><strong>{selectedPet?.name||"No companion selected"}</strong><small>{selectedPet?.genus||"Choose one from the Pets tab"}</small></span>
               </div>
               <button type="button" onClick={()=>{setProgressionKind("pets");setProgressionSearch("")}}>Change companion →</button>
@@ -744,6 +747,7 @@ export default function BuildCreator(){
           </section>}
 
           {tab==="daevanion"&&<section id="daevanion-setup" className={styles.panel}>
+              {build.imported?.daevanion?.length>0&&<div className={styles.importedDaevanion}><div className={styles.importedSnapshot}><div><strong>Official synced Daevanion</strong><span>These boards and open-node counts come from the public character snapshot. They remain read-only until the official row/column coordinates are proven equivalent to the planner grid.</span></div><small>{build.imported.daevanion.length} boards</small></div><div className={styles.importedBoardList}>{build.imported.daevanion.map(board=><article key={board.id}><div><strong>{board.name||("Board "+board.id)}</strong><span>{board.openNodes}/{board.totalNodes||"—"} open nodes</span></div><small>{Array.isArray(board.detail?.nodes)?board.detail.nodes.filter(node=>node.open).length:0} detailed open nodes</small></article>)}</div></div>}
               {(()=>{
                 const boardIndex=daevanionBoards.findIndex((board)=>board.id===daevanionBoard);
                 const board=daevanionBoards[boardIndex]||daevanionBoards[0];
