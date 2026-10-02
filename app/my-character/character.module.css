@@ -26,3 +26,27 @@
 .skillEmpty{margin:0;padding:20px 12px;text-align:center;color:#70818c;font-size:11px;line-height:1.5}
 @media(max-width:1180px){.skillGroups{grid-template-columns:1fr}.skillGroup .skillGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.skillGroup .skillGrid{grid-template-columns:1fr}}
+
+
+/* Character Sync is a dedicated first step. Character data stays hidden until a successful sync. */
+.syncGate{min-height:calc(100svh - 84px);display:grid;place-items:center;padding:40px 20px}
+.syncCard{width:min(560px,94vw);padding:34px;border:1px solid #52606a;background:linear-gradient(160deg,#111923,#080d12);box-shadow:0 24px 80px #0008;text-align:center}
+.syncEyebrow{display:block;color:var(--gold);font-size:9px;letter-spacing:.22em;margin-bottom:20px}
+.syncPortrait{width:132px;height:132px;margin:0 auto 18px;border:1px solid #7b858c;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#070b10}
+.syncPortrait img{width:100%;height:100%;object-fit:cover}
+.syncPortrait svg{width:38px;color:#8999a4}
+.syncCard h2{font:400 36px Georgia,serif;margin:0 0 7px}
+.syncCard>p{margin:0;color:#bdc6cc;font-size:13px}
+.syncMeta{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:18px 0 24px}
+.syncMeta span{padding:6px 9px;border:1px solid #615740;color:#d8c287;background:#12130f;font-size:9px;letter-spacing:.08em}
+.syncPrimary{width:100%;min-height:54px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid #af965f;background:linear-gradient(180deg,#393126,#19191a);color:#f4e7c8;border-radius:6px;font-weight:700}
+.syncPrimary svg{width:18px}
+.syncPrimary:disabled{opacity:.55}
+.syncLast{margin:18px 0 8px;padding-top:16px;border-top:1px solid #303b44;color:#758590;font-size:10px;line-height:1.6}
+.syncLast b{color:#b8c2c8}
+.syncSecondary{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;background:none;color:#7f909b;padding:9px 12px;font-size:11px}
+.syncSecondary svg{width:14px}
+.official{display:flex;align-items:center;justify-content:center;gap:7px;min-height:42px;margin-top:20px;border:1px solid #45535e;border-radius:6px;color:#b9c5cc;font-size:12px}
+.official svg,.infoBack svg{width:15px}
+.infoBack{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:8px;padding:10px;border:0;background:none;color:#83939e;font-size:11px}
+@media(max-width:800px){.syncGate{min-height:calc(100svh - 74px);padding:22px 14px}.syncCard{padding:26px 20px}.syncCard h2{font-size:31px}.syncPortrait{width:118px;height:118px}}
