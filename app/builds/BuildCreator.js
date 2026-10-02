@@ -12,7 +12,30 @@ import daevanionBoardData from "./daevanion-boards.json";
 import styles from "./builds.module.css";
 
 const goals=["Solo progression","PvE · Group","PvP · Abyss","Support / Healer"];
-const slotDefs=[
+// Global 1.0.21.0: 20 visible equipment slots, ordered to match the in-game 2 x 10 panel.
+const globalSlotDefs=[
+  {id:"mainHand",label:"Weapon",family:"Weapons",role:"MainHand"},
+  {id:"offHand",label:"Guard",family:"Weapons",role:"SubHand"},
+  {id:"helmet",label:"Helmet",family:"Armor",slot:"Helmet"},
+  {id:"shoulders",label:"Pauldrons",family:"Armor",slot:"Shoulder"},
+  {id:"chest",label:"Top",family:"Armor",slot:"Torso"},
+  {id:"belt",label:"Belt",family:"Armor",slot:"Belt"},
+  {id:"pants",label:"Legs",family:"Armor",slot:"Pants"},
+  {id:"gloves",label:"Gloves",family:"Armor",slot:"Gloves"},
+  {id:"cloak",label:"Cloak",family:"Armor",slot:"Cape"},
+  {id:"boots",label:"Shoes",family:"Armor",slot:"Boots"},
+  {id:"earring1",label:"Earring 1",family:"Accessories",slot:"Earring"},
+  {id:"earring2",label:"Earring 2",family:"Accessories",slot:"Earring"},
+  {id:"necklace",label:"Necklace",family:"Accessories",slot:"Necklace"},
+  {id:"amulet",label:"Amulet",family:"Accessories",slot:"Amulet"},
+  {id:"bracelet",label:"Bracelet 1",family:"Accessories",slot:"Bracelet"},
+  {id:"bracelet2",label:"Bracelet 2",family:"Accessories",slot:"Bracelet"},
+  {id:"ring1",label:"Ring 1",family:"Accessories",slot:"Ring"},
+  {id:"ring2",label:"Ring 2",family:"Accessories",slot:"Ring"},
+  {id:"rune1",label:"Rune 1",family:"Accessories",slot:"Rune"},
+  {id:"rune2",label:"Rune 2",family:"Accessories",slot:"Rune"}
+];
+const krTwSlotDefs=[
   {id:"mainHand",label:"Main hand",family:"Weapons",role:"MainHand"},
   {id:"offHand",label:"Off hand / guard",family:"Weapons",role:"SubHand"},
   {id:"helmet",label:"Helmet",family:"Armor",slot:"Helmet"},
@@ -30,6 +53,7 @@ const slotDefs=[
   {id:"bracelet",label:"Bracelet",family:"Accessories",slot:"Bracelet"},
   {id:"brooch",label:"Brooch",family:"Accessories",slot:"Brooch"}
 ];
+function slotDefsForRegion(region){return region==="GLOBAL"?globalSlotDefs:krTwSlotDefs}
 const daevanionBoards=[
   {id:"nezekan",name:"Nezekan",level:12,type:"Daevanion Stone"},
   {id:"zikel",name:"Zikel",level:20,type:"Daevanion Stone"},
@@ -63,26 +87,28 @@ const weaponTypeAliases={
   Polearm:["polearm"]
 };
 function normalizeWeaponType(value){return String(value||"").trim().toLowerCase()}
-function weaponSlotConfig(classSlug,slotId){
+function weaponSlotConfig(classSlug,slotId,region="GLOBAL"){
   const weapons=classWeapons[classSlug];
   if(slotId==="mainHand"&&weapons?.main)return {weapon:weapons.main,role:"MainHand"};
+  if(slotId==="offHand"&&region==="GLOBAL")return {weapon:{name:"Guard",icon:"shield",kind:"Off-hand"},role:"SubHand"};
   if(slotId==="offHand"&&weapons?.secondary?.kind==="Off-hand")return {weapon:weapons.secondary,role:"SubHand"};
   if(slotId==="offHand"&&weapons?.secondary?.kind==="Alternate main weapon")return {weapon:weapons.secondary,role:"MainHand"};
   return null;
 }
-function compatibleWeaponTypes(classSlug,slotId){
-  const config=weaponSlotConfig(classSlug,slotId);
+function compatibleWeaponTypes(classSlug,slotId,region="GLOBAL"){
+  if(region==="GLOBAL"&&slotId==="offHand")return ["guard","guarder","shield"];
+  const config=weaponSlotConfig(classSlug,slotId,region);
   return config?(weaponTypeAliases[config.weapon.name]||[normalizeWeaponType(config.weapon.name)]):null;
 }
-function activeGearSlots(classSlug){
-  return slotDefs.filter((slot)=>slot.id!=="offHand"||Boolean(weaponSlotConfig(classSlug,slot.id)));
+function activeGearSlots(classSlug,region="GLOBAL"){
+  return slotDefsForRegion(region).filter((slot)=>slot.id!=="offHand"||Boolean(weaponSlotConfig(classSlug,slot.id,region)));
 }
-function filterWeaponGear(gear,classSlug){
+function filterWeaponGear(gear,classSlug,region="GLOBAL"){
   const next={...gear};
   for(const slotId of ["mainHand","offHand"]){
     const item=next[slotId];
     if(!item)continue;
-    const allowedTypes=compatibleWeaponTypes(classSlug,slotId);
+    const allowedTypes=compatibleWeaponTypes(classSlug,slotId,region);
     const itemTypes=[item.category,item.itemType].map(normalizeWeaponType);
     if(!allowedTypes||!itemTypes.some((type)=>allowedTypes.includes(type)))delete next[slotId];
   }
@@ -266,9 +292,9 @@ export default function BuildCreator(){
       })
       .then((data)=>{
         let items=data.items||[];
-        const slotConfig=weaponSlotConfig(build.classSlug,pickerSlot.id);
+        const slotConfig=weaponSlotConfig(build.classSlug,pickerSlot.id,build.region);
         if(slotConfig?.role)items=items.filter((item)=>item.equipType===slotConfig.role);
-        const allowedTypes=compatibleWeaponTypes(build.classSlug,pickerSlot.id);
+        const allowedTypes=compatibleWeaponTypes(build.classSlug,pickerSlot.id,build.region);
         if(allowedTypes)items=items.filter((item)=>allowedTypes.includes(normalizeWeaponType(item.category))||allowedTypes.includes(normalizeWeaponType(item.itemType)));
         setPickerItems(items);
         setPickerState(items.length?"ready":"empty");
@@ -292,10 +318,10 @@ export default function BuildCreator(){
   const daevanionPaths=build.advanced.daevanionPaths||Array.from({length:8},()=>[]);
   const daevanionPlanCount=daevanionPaths.filter((path)=>Array.isArray(path)&&path.length>0).length;
   const daevanionTotalNodes=daevanionPaths.reduce((total,path)=>total+(Array.isArray(path)?path.length:0),0);
-  const gearCount=Object.values(build.gear).filter(Boolean).length;
-  const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug),[build.classSlug]);
+  const visibleGearSlots=useMemo(()=>activeGearSlots(build.classSlug,build.region),[build.classSlug,build.region]);
+  const gearCount=visibleGearSlots.filter((slot)=>Boolean(build.gear[slot.id])).length;
   const selectedGearItems=visibleGearSlots.map((slot)=>{
-    const config=weaponSlotConfig(build.classSlug,slot.id);
+    const config=weaponSlotConfig(build.classSlug,slot.id,build.region);
     const label=slot.id==="offHand"&&config?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;
     return {...slot,label,item:build.gear[slot.id]};
   }).filter((slot)=>Boolean(slot.item));
@@ -316,8 +342,8 @@ export default function BuildCreator(){
   },[comparisonSlots]);
   const comparisonGearRows=useMemo(()=>{
     if(!comparisonSlots.A||!comparisonSlots.B)return [];
-    const entries=(snapshot)=>activeGearSlots(snapshot.classSlug).map((slot)=>{
-      const config=weaponSlotConfig(snapshot.classSlug,slot.id);
+    const entries=(snapshot)=>activeGearSlots(snapshot.classSlug,snapshot.region).map((slot)=>{
+      const config=weaponSlotConfig(snapshot.classSlug,slot.id,snapshot.region);
       const label=slot.id==="offHand"&&config?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;
       return {id:slot.id,label,item:snapshot.gear?.[slot.id]||null};
     });
@@ -345,9 +371,9 @@ export default function BuildCreator(){
   const patch=(key,value)=>setBuild((current)=>({...current,[key]:value}));
   const changeClass=(slug)=>{
     setSkillSearch("");
-    const filteredGear=filterWeaponGear(build.gear,slug);
+    const filteredGear=filterWeaponGear(build.gear,slug,build.region);
     const removedWeapon=Object.keys(build.gear).some((slotId)=>["mainHand","offHand"].includes(slotId)&&build.gear[slotId]&&!filteredGear[slotId]);
-    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},skillSpecializations:{},gear:filterWeaponGear(current.gear,slug)}));
+    setBuild((current)=>({...current,classSlug:slug,skills:[],skillLevels:{},skillSpecializations:{},gear:filterWeaponGear(current.gear,slug,current.region)}));
     if(removedWeapon)setNotice("Incompatible weapon slots were cleared for the selected class.");
   };
   const loadSkillLevelRange=async(key,id)=>{
@@ -617,8 +643,8 @@ export default function BuildCreator(){
           </section>}
 
           {tab==="equipment"&&<section className={styles.panel}>
-            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>Pick items by slot. Repeated accessories have separate slots.</p></div></div>
-            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}>{build.gear[slot.id]?<button type="button" className={styles.gearItemInfoButton} onClick={()=>setGearDetail({item:build.gear[slot.id],label:slotLabel})} aria-label={"View stats for "+build.gear[slot.id].name}><span className={styles.slotGlyph}>{build.gear[slot.id].icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id].name}</strong>{build.gear[slot.id].grade&&<em>{build.gear[slot.id].grade}</em>}<small className={styles.gearStatsHint}>View stats</small></span></button>:<div className={styles.gearItemInfoButton+" "+styles.gearItemEmpty}><span className={styles.slotGlyph}><Shield size={15}/></span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>Empty slot</strong></span></div>}<button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sword size={19}/></span><div><h2>Equipment</h2><p>{build.region==="GLOBAL"?"Current Global layout · 20 equipment slots.":"Pick items by slot. Repeated accessories have separate slots."}</p></div></div>
+            <div className={styles.gearGrid}>{visibleGearSlots.map((slot)=>{const slotConfig=weaponSlotConfig(build.classSlug,slot.id,build.region);const slotLabel=slot.id==="offHand"&&slotConfig?.weapon?.kind==="Alternate main weapon"?"Alternate weapon":slot.label;return <div key={slot.id} className={styles.gearSlot}>{build.gear[slot.id]?<button type="button" className={styles.gearItemInfoButton} onClick={()=>setGearDetail({item:build.gear[slot.id],label:slotLabel})} aria-label={"View stats for "+build.gear[slot.id].name}><span className={styles.slotGlyph}>{build.gear[slot.id].icon?<img className={styles.slotItemIcon} src={build.gear[slot.id].icon} alt="" loading="lazy"/>:<Shield size={15}/>}</span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>{build.gear[slot.id].name}</strong>{build.gear[slot.id].grade&&<em>{build.gear[slot.id].grade}</em>}<small className={styles.gearStatsHint}>View stats</small></span></button>:<div className={styles.gearItemInfoButton+" "+styles.gearItemEmpty}><span className={styles.slotGlyph}><Shield size={15}/></span><span className={styles.slotCopy}><small>{slotLabel.toUpperCase()}</small><strong>Empty slot</strong></span></div>}<button type="button" className={styles.pickButton} onClick={()=>setPickerSlot({...slot,label:slotLabel})}>{build.gear[slot.id]?"Change":"Choose"}</button>{build.gear[slot.id]&&<button type="button" className={styles.clearSlot} onClick={()=>setBuild((current)=>{const next={...current.gear};delete next[slot.id];return {...current,gear:next}})} aria-label={"Clear "+slotLabel}>×</button>}</div>})}</div>
             <div className={styles.noticeBox}><strong>What the totals include</strong><span>Only exact base-stat values from selected catalog items are summed. Enhancement, random sub-stats, manastones, buffs and advanced systems are not included yet.</span></div>
           </section>}
 
@@ -772,7 +798,7 @@ export default function BuildCreator(){
               {["A","B"].map((slot)=>{
                 const snapshot=comparisonSlots[slot];
                 const info=snapshot?classData[snapshot.classSlug]:null;
-                const savedGear=Object.values(snapshot?.gear||{}).filter(Boolean).length;
+                const savedGear=snapshot?activeGearSlots(snapshot.classSlug,snapshot.region).filter((gearSlot)=>Boolean(snapshot.gear?.[gearSlot.id])).length:0;
                 const savedArcana=(snapshot?.advanced?.arcana||[]).filter(Boolean).length;
                 return <article className={styles.compareBuildCard} key={slot}>
                   <div className={styles.compareCardLabel}>BUILD {slot}</div>
