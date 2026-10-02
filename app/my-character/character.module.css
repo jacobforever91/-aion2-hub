@@ -14,3 +14,15 @@
 @media(max-width:1250px){.metrics{grid-template-columns:repeat(3,1fr)}.gearGrid{grid-template-columns:1fr}}
 @media(max-width:800px){.metrics{grid-template-columns:repeat(2,1fr)}.skillNumbers{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.skillNumbers{grid-template-columns:1fr}.crosscheck{font-size:12px}}
+
+
+/* Skill type grouping panels */
+.skillGroups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.skillGroup{min-width:0;border:1px solid #34414b;background:linear-gradient(180deg,#0d141b,#090e14)}
+.skillGroup>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;border-bottom:1px solid #2d3942;background:#0b1118}
+.skillGroup>header>div{min-width:0}.skillGroup>header span{display:block;color:#8fa0aa;font-size:8px;letter-spacing:.16em}.skillGroup>header h4{margin:4px 0 0;font:400 18px Georgia,serif;color:#eef2f4}.skillGroup>header>b{display:grid;place-items:center;min-width:30px;height:30px;border:1px solid #64583d;background:#17150f;color:#dbc58c;font-size:12px}
+.skillGroup .skillGrid{grid-template-columns:1fr;gap:7px;padding:10px}
+.skillGroup .skillGrid article{min-height:66px}
+.skillEmpty{margin:0;padding:20px 12px;text-align:center;color:#70818c;font-size:11px;line-height:1.5}
+@media(max-width:1180px){.skillGroups{grid-template-columns:1fr}.skillGroup .skillGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.skillGroup .skillGrid{grid-template-columns:1fr}}
