@@ -1,5 +1,8 @@
 /** Global-only policy for the isolated Build Lab. Never relabel regional records. */
 export const GLOBAL = 'GLOBAL';
+export const GLOBAL_EQUIPMENT_GRADE = 'Unique';
+export const GLOBAL_EQUIPMENT_COLOR = 'Yellow';
+export function globalEquipmentEligible(item) {return item?.region === GLOBAL && item?.grade === GLOBAL_EQUIPMENT_GRADE;}
 export const STORAGE = 'daevexus.build-lab.global.workspace.v1';
 export const LIBRARY = 'daevexus.build-lab.global.library.v1';
 export const MIGRATED = 'daevexus.build-lab.global.migrated.v1';
@@ -12,7 +15,8 @@ export function requireGlobal(input) {
 }
 export function globalCatalog(catalog) {
   const filtered = {...catalog, region: GLOBAL};
-  for (const key of ['equipment', 'wings', 'pets', 'arcana']) {
+  filtered.equipment = (Array.isArray(catalog.equipment) ? catalog.equipment : []).filter(globalEquipmentEligible);
+  for (const key of ['wings', 'pets', 'arcana']) {
     filtered[key] = (Array.isArray(catalog[key]) ? catalog[key] : []).filter(item => item.region === GLOBAL);
   }
   return filtered;
