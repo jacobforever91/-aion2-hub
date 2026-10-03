@@ -69,12 +69,16 @@ export default function MyCharacter(){
        {tab==="equipment"&&<><div className={styles.sectionTitle}><Shield/><div><h3>Your gear</h3><p>What your character is wearing now.</p></div></div><div className={styles.gearGrid}>{linked.equipment.map((it,i)=><article key={it.slotPos+":"+it.id+":"+i}><span className={styles.itemIcon}>{it.icon?<img src={it.icon} alt=""/>:<Database/>}</span><div><small>{it.slotName||("Slot "+it.slotPos)} · {it.grade||"—"}</small><b>{it.name||("Item "+it.id)}</b><span>{it.exceedLevel?it.exceedLevel+"+":""}{it.enchantLevel?"+"+it.enchantLevel:""}</span></div></article>)}</div></>}
        {tab==="companions"&&<><div className={styles.sectionTitle}><PawPrint/><div><h3>Pet & Wings</h3><p>What your character is using right now.</p></div></div><div className={styles.companionGrid}>
          <article className={styles.companionItem}>
+           <small className={styles.companionType}>PET</small>
            <span className={styles.companionIcon}>{linked.pet?.icon?<img src={linked.pet.icon} alt=""/>:<PawPrint/>}</span>
-           <div><small>PET</small><h4>{linked.pet?.name||"No Pet equipped"}</h4>{linked.pet&&<strong>Lv. {linked.pet.level}</strong>}</div>
+           <h4>{linked.pet?.name||"No Pet equipped"}</h4>
+           {linked.pet&&<strong>Level {linked.pet.level}</strong>}
          </article>
          <article className={styles.companionItem}>
+           <small className={styles.companionType}>WINGS</small>
            <span className={styles.companionIcon}>{linked.wing?.icon?<img src={linked.wing.icon} alt=""/>:<Feather/>}</span>
-           <div><small>WINGS</small><h4>{linked.wing?.name||"No Wings equipped"}</h4>{linked.wing&&<strong>{linked.wing.enchantLevel?("+"+linked.wing.enchantLevel):(linked.wing.grade||"—")}</strong>}</div>
+           <h4>{linked.wing?.name||"No Wings equipped"}</h4>
+           {linked.wing&&<strong>{linked.wing.enchantLevel?("Enhancement +"+linked.wing.enchantLevel):(linked.wing.grade?("Grade: "+linked.wing.grade):"—")}</strong>}
          </article>
        </div></>}
        {tab==="skills"&&<><div className={styles.sectionTitle}><Swords/><div><h3>Your skills</h3><p>Everything you have unlocked, separated by type.</p></div></div><div className={styles.skillGroups}>{[["active","Active"],["passive","Passive"],["stigma","Stigma"]].map(([key,label])=><section className={styles.skillGroup} key={key}><header><div><span>{label.toUpperCase()}</span><h4>{label}</h4></div><b>{skillGroups[key].length}</b></header><div className={styles.skillGrid}>{skillGroups[key].map(s=><article key={s.id}><span className={styles.itemIcon}>{s.icon?<img src={s.icon} alt=""/>:<Sparkles/>}</span><div><small>{s.category||label}{s.equipped?" · EQUIPPED":""}</small><b>{s.name||("Skill "+s.id)}</b><span>Lv. {s.level}</span></div></article>)}{!skillGroups[key].length&&<p className={styles.skillEmpty}>No {label.toLowerCase()} skills acquired.</p>}</div></section>)}</div>{!acquired.length&&<p className={styles.message}>No acquired skills were returned for this character.</p>}</>}
