@@ -836,3 +836,49 @@
   .sectionTitle h3{font-size:20px}
   .sectionTitle p{margin-top:3px;font-size:10px}
 }
+
+
+/* Mobile Summary stats — dense two-column readout, no card wall */
+@media(max-width:800px){
+  .statGrid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:22px;
+    row-gap:0;
+    border-bottom:1px solid #26323b;
+  }
+  .statGrid article,
+  .statGrid article:nth-last-child(-n+2),
+  .statGrid article:nth-last-child(-n+3){
+    min-height:72px;
+    padding:10px 0 9px;
+    border:0;
+    border-bottom:1px solid #202a31;
+    background:transparent;
+  }
+  .statGrid article:nth-last-child(-n+2){
+    border-bottom:0;
+  }
+  .statGrid span{
+    font-size:10px;
+    line-height:1.15;
+    color:#83939d;
+  }
+  .statGrid strong{
+    margin:4px 0 2px;
+    font-size:23px;
+    line-height:1;
+  }
+  .statGrid small{
+    display:block;
+    max-width:none;
+    margin-top:4px;
+    font-size:8px;
+    line-height:1.25;
+    color:#71838e;
+  }
+  .collectionRow{
+    margin-top:16px;
+    padding-top:0;
+  }
+}
