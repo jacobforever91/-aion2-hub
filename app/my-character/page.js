@@ -1,31 +1,65 @@
 "use client";
 import {useEffect,useMemo,useRef,useState} from "react";
-import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database,ArrowLeft} from "lucide-react";
+import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database,ArrowLeft,Heart,ShieldCheck,Target,Clock3,Gauge,Zap} from "lucide-react";
 import styles from "./character.module.css";
 import {buildCharacterResearchSample,classifyCharacterSkill} from "./character-model.mjs";
+import boardData from "../builds/daevanion-boards.json";
 const STORAGE="daevexus.character-link.v1";
 const RESEARCH_STORAGE="daevexus.character-research.v1";
 const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Global · Europe"],["sa","Global · South America"],["asia","Global · Asia"],["tw","Taiwan · Lab"]];
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
-function SyncedDaevanionBoard({board,onBack}){
+function daevanionGlyph(label){
+ const t=String(label||"").toLowerCase();
+ if(t.includes("max hp"))return Heart;
+ if(t.includes("defense")||t.includes("tolerance")||t.includes("resist"))return ShieldCheck;
+ if(t.includes("critical"))return Target;
+ if(t.includes("cooldown"))return Clock3;
+ if(t.includes("speed"))return Gauge;
+ if(t.includes("attack")||t.includes("damage"))return Swords;
+ return Zap;
+}
+function SyncedBoardConnections({nodes}){
+ const cells=new Set(nodes.map(n=>n.row+":"+n.col));
+ const lines=[];
+ for(const node of nodes){
+   const r=node.row,c=node.col;
+   if(cells.has(r+":"+(c+1)))lines.push(<i key={"h-"+r+"-"+c} className={styles.syncedHLine} style={{"--r":r,"--c":c}}/>);
+   if(cells.has((r+1)+":"+c))lines.push(<i key={"v-"+r+"-"+c} className={styles.syncedVLine} style={{"--r":r,"--c":c}}/>);
+ }
+ return lines;
+}
+function SyncedDaevanionBoard({board,className,skills,onBack}){
  const raw=Array.isArray(board?.detail?.nodes)?board.detail.nodes:[];
  const minRow=raw.length?Math.min(...raw.map(n=>Number(n.row)||0)):1;
  const minCol=raw.length?Math.min(...raw.map(n=>Number(n.col)||0)):1;
  const offsetRow=minRow===0?1:0,offsetCol=minCol===0?1:0;
- const nodes=raw.map(n=>({...n,gridRow:(Number(n.row)||0)+offsetRow,gridCol:(Number(n.col)||0)+offsetCol})).filter(n=>n.gridRow>0&&n.gridCol>0&&n.gridRow<=15&&n.gridCol<=15);
- const openNodes=nodes.filter(n=>n.open);
+ const rawByCell=new Map(raw.map(n=>[((Number(n.row)||0)+offsetRow)+":"+((Number(n.col)||0)+offsetCol),n]));
+ const catalog=boardData?.[className]?.[board?.name]||[];
+ const visualNodes=catalog.length?catalog.map(([row,col,label,grade,cost,start])=>{
+   const synced=rawByCell.get(row+":"+col);
+   const skillName=String(label||"").replace(/^Skill Level Up - /,"").trim().toLowerCase();
+   const skillIcon=String(label||"").startsWith("Skill Level Up - ")
+     ? (Array.isArray(skills)?skills:[]).find(sk=>String(sk.name||"").toLowerCase()===skillName)?.icon
+     : "";
+   return {row,col,label,grade,cost,start,open:!!synced?.open,icon:synced?.icon||skillIcon||"",synced};
+ }):raw.map(n=>({
+   row:(Number(n.row)||0)+offsetRow,col:(Number(n.col)||0)+offsetCol,label:n.name||"Daevanion Node",
+   grade:n.grade||"Common",cost:0,start:false,open:!!n.open,icon:n.icon||"",synced:n
+ })).filter(n=>n.row>0&&n.col>0&&n.row<=15&&n.col<=15&&(n.icon||n.open||n.label!=="Daevanion Node"));
+ const openNodes=visualNodes.filter(n=>n.open);
  return <section className={styles.syncedBoardView}>
-   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||nodes.length||"—"}</strong></header>
+   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||visualNodes.length||"—"}</strong></header>
    <div className={styles.syncedBoardShell}>
      <div className={styles.syncedBoardBackdrop}/>
      <div className={styles.syncedBoardFrame}>
        <div className={styles.syncedGridGlow}/>
-       {nodes.map((node,i)=><span key={(node.id||i)+":"+node.gridRow+":"+node.gridCol} title={node.name||"Daevanion Node"} className={styles.syncedNode+" "+(node.open?styles.syncedNodeOpen:styles.syncedNodeClosed)} style={{"--r":node.gridRow,"--c":node.gridCol}}><i>{node.icon?<img src={node.icon} alt=""/>:<Sparkles/>}</i></span>)}
+       <SyncedBoardConnections nodes={visualNodes}/>
+       {visualNodes.map((node,i)=>{const Glyph=daevanionGlyph(node.label);const tone=String(node.grade||"common").toLowerCase();return <span key={(node.synced?.id||i)+":"+node.row+":"+node.col} title={node.label+(node.open?" · Active":"")} className={styles.syncedNode+" "+(styles["syncedGrade"+tone[0].toUpperCase()+tone.slice(1)]||"")+" "+(node.open?styles.syncedNodeOpen:styles.syncedNodeClosed)} style={{"--r":node.row,"--c":node.col}}><i>{node.icon?<img src={node.icon} alt=""/>:<Glyph/>}</i>{node.cost>0&&<em>{node.cost}</em>}</span>})}
      </div>
-     <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Inactive nodes</span></div>
+     <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Available nodes</span></div>
    </div>
-   <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{nodes.length} synced positions</span></div>
+   <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{visualNodes.length} board nodes</span></div>
  </section>;
 }
 export default function MyCharacter(){
@@ -103,7 +137,7 @@ export default function MyCharacter(){
          </article>
        </div></>}
        {tab==="skills"&&<><div className={styles.sectionTitle}><Swords/><div><h3>Your skills</h3><p>Everything you have unlocked, separated by type.</p></div></div><div className={styles.skillGroups}>{[["active","Active"],["passive","Passive"],["stigma","Stigma"]].map(([key,label])=><section className={styles.skillGroup} key={key}><header><div><span>{label.toUpperCase()}</span><h4>{label}</h4></div><b>{skillGroups[key].length}</b></header><div className={styles.skillGrid}>{skillGroups[key].map(s=><article key={s.id}><span className={styles.itemIcon}>{s.icon?<img src={s.icon} alt=""/>:<Sparkles/>}</span><div><small>{s.category||label}{s.equipped?" · EQUIPPED":""}</small><b>{s.name||("Skill "+s.id)}</b><span>Lv. {s.level}</span></div></article>)}{!skillGroups[key].length&&<p className={styles.skillEmpty}>No {label.toLowerCase()} skills acquired.</p>}</div></section>)}</div>{!acquired.length&&<p className={styles.message}>No acquired skills were returned for this character.</p>}</>}
-       {tab==="progression"&&(boardView?<SyncedDaevanionBoard board={boardView} onBack={()=>setBoardView(null)}/>:<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>Your titles, active Daevanion boards and rankings.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardList}>{daevanionBoards.map((b,i)=><button type="button" key={b.id||i} onClick={()=>setBoardView(b)}><span>{b.icon&&<img src={b.icon} alt=""/>}</span><div><b>{b.name||("Daevanion Board "+(i+1))}</b><small>{b.openNodes}/{b.totalNodes||"—"} nodes</small></div><strong>{b.openPercent?b.openPercent+"%":"VIEW"}</strong></button>)}{!daevanionBoards.length&&<p className={styles.skillEmpty}>No active Daevanion boards were returned by the current character sync.</p>}</div></>)}
+       {tab==="progression"&&(boardView?<SyncedDaevanionBoard board={boardView} className={linked.profile.className} skills={linked.skills} onBack={()=>setBoardView(null)}/>:<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>Your titles, active Daevanion boards and rankings.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardList}>{daevanionBoards.map((b,i)=><button type="button" key={b.id||i} onClick={()=>setBoardView(b)}><span>{b.icon&&<img src={b.icon} alt=""/>}</span><div><b>{b.name||("Daevanion Board "+(i+1))}</b><small>{b.openNodes}/{b.totalNodes||"—"} nodes</small></div><strong>{b.openPercent?b.openPercent+"%":"VIEW"}</strong></button>)}{!daevanionBoards.length&&<p className={styles.skillEmpty}>No active Daevanion boards were returned by the current character sync.</p>}</div></>)}
        </div>
        
      </div>
