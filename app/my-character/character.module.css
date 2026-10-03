@@ -1306,3 +1306,94 @@
 .syncedBoardFoot span:last-child{
   color:#b7c2c9;
 }
+
+
+/* Exact Daevanion board bonus summary */
+.boardBonusSummary{
+  margin-top:22px;
+  padding:18px 0 4px;
+  border-top:1px solid #303a42;
+}
+.boardBonusHead{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.boardBonusHead>svg{
+  width:19px;
+  color:#d4bb78;
+}
+.boardBonusHead small{
+  display:block;
+  color:#7f8d96;
+  font-size:8px;
+  letter-spacing:.16em;
+}
+.boardBonusHead h4{
+  margin:3px 0 0;
+  font:400 21px Georgia,serif;
+  color:#f0e8d6;
+}
+.boardBonusGroups{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px 28px;
+}
+.boardBonusGroup{
+  min-width:0;
+}
+.boardBonusGroup h5{
+  margin:0 0 8px;
+  color:#d6bf84;
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.boardBonusGroup p{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:0;
+  padding:7px 0;
+  border-bottom:1px solid #222c33;
+  color:#aeb9c0;
+  font-size:11px;
+  line-height:1.45;
+}
+.boardBonusGroup p>span{
+  flex:none;
+  color:#d7bb72;
+}
+.boardBonusGroup p>b{
+  color:#e6ecef;
+  font-weight:600;
+}
+.boardBonusGroup:last-child:nth-child(3){
+  grid-column:1/-1;
+}
+.boardBonusEmpty{
+  margin:0;
+  color:#74848e;
+  font-size:11px;
+}
+
+@media(max-width:800px){
+  .boardBonusSummary{
+    margin-top:16px;
+    padding-top:14px;
+  }
+  .boardBonusHead h4{
+    font-size:18px;
+  }
+  .boardBonusGroups{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .boardBonusGroup:last-child:nth-child(3){
+    grid-column:auto;
+  }
+  .boardBonusGroup p{
+    font-size:10px;
+  }
+}
