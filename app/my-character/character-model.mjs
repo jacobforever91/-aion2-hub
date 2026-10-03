@@ -9,6 +9,12 @@ export const REGIONS = {
 };
 const safeDecode=value=>{try{return decodeURIComponent(String(value||""));}catch{return String(value||"");}};
 const cleanString=(value,max=300)=>typeof value==="string"?value.slice(0,max):"";
+const hasCjk=value=>/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uac00-\ud7af]/u.test(String(value||""));
+const englishText=(value,fallback="",max=300)=>{
+  const text=cleanString(value,max).trim();
+  return text&&!hasCjk(text)?text:fallback;
+};
+const englishList=value=>list(value).map(v=>englishText(typeof v==="string"?v:v?.desc,"",500)).filter(Boolean);
 const number=value=>Number.isFinite(Number(value))?Number(value):0;
 const bool=value=>value===true||value===1||value==="1";
 export function regionFromServerId(serverId){
@@ -64,21 +70,30 @@ export function normalizeSearchRow(row,region){
 }
 export function normalizeCharacter(info,equipment,ref){
   const p=info?.profile||{};
-  const stats=list(info?.stat?.statList).map(x=>({type:cleanString(x?.type,80),name:cleanString(x?.name,120),value:number(x?.value),effects:list(x?.statSecondList).map(v=>cleanString(v,300)).filter(Boolean)}));
-  const equipmentList=list(equipment?.equipment?.equipmentList).map(x=>({slotPos:number(x?.slotPos),slotName:cleanString(x?.slotPosName,80),id:number(x?.id),name:cleanString(x?.name,180),grade:cleanString(x?.grade,60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)})).filter(x=>x.id||x.name);
-  const skills=list(equipment?.skill?.skillList).map(x=>({id:number(x?.id),name:cleanString(x?.name,160),category:cleanString(x?.category,80),level:number(x?.skillLevel),needLevel:number(x?.needLevel),acquired:bool(x?.acquired),equipped:bool(x?.equip),icon:asset(x?.icon)})).filter(x=>x.id||x.name);
-  const pet=equipment?.petwing?.pet?{id:number(equipment.petwing.pet.id),name:cleanString(equipment.petwing.pet.name,160),level:number(equipment.petwing.pet.level),icon:asset(equipment.petwing.pet.icon)}:null;
-  const wing=equipment?.petwing?.wing?{id:number(equipment.petwing.wing.id),name:cleanString(equipment.petwing.wing.name,160),grade:cleanString(equipment.petwing.wing.grade,60),enchantLevel:number(equipment.petwing.wing.enchantLevel),icon:asset(equipment.petwing.wing.icon)}:null;
-  const wingSkin=equipment?.petwing?.wingSkin?{id:number(equipment.petwing.wingSkin.id),name:cleanString(equipment.petwing.wingSkin.name,160),grade:cleanString(equipment.petwing.wingSkin.grade,60),enchantLevel:number(equipment.petwing.wingSkin.enchantLevel),icon:asset(equipment.petwing.wingSkin.icon)}:null;
-  const boards=list(info?.daevanion?.boardList).map(x=>({id:number(x?.id),name:cleanString(x?.name,120),open:bool(x?.open),openNodes:number(x?.openNodeCount),totalNodes:number(x?.totalNodeCount),openPercent:number(x?.openPercent),icon:asset(x?.icon)}));
+  const stats=list(info?.stat?.statList).map(x=>{
+    const type=englishText(x?.type,"Stat",80);
+    return {type,name:englishText(x?.name,type,120),value:number(x?.value),effects:englishList(x?.statSecondList)};
+  });
+  const equipmentList=list(equipment?.equipment?.equipmentList).map(x=>{
+    const id=number(x?.id),slotPos=number(x?.slotPos);
+    return {slotPos,slotName:englishText(x?.slotPosName,slotPos?("Slot "+slotPos):"Equipment",80),id,name:englishText(x?.name,id?("Item "+id):"Equipment",180),grade:englishText(x?.grade,"",60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)};
+  }).filter(x=>x.id||x.name);
+  const skills=list(equipment?.skill?.skillList).map(x=>{
+    const id=number(x?.id),category=englishText(x?.category,"Skill",80);
+    return {id,name:englishText(x?.name,id?("Skill "+id):"Skill",160),category,level:number(x?.skillLevel),needLevel:number(x?.needLevel),acquired:bool(x?.acquired),equipped:bool(x?.equip),icon:asset(x?.icon)};
+  }).filter(x=>x.id||x.name);
+  const pet=equipment?.petwing?.pet?{id:number(equipment.petwing.pet.id),name:englishText(equipment.petwing.pet.name,"Pet",160),level:number(equipment.petwing.pet.level),icon:asset(equipment.petwing.pet.icon)}:null;
+  const wing=equipment?.petwing?.wing?{id:number(equipment.petwing.wing.id),name:englishText(equipment.petwing.wing.name,"Wings",160),grade:englishText(equipment.petwing.wing.grade,"",60),enchantLevel:number(equipment.petwing.wing.enchantLevel),icon:asset(equipment.petwing.wing.icon)}:null;
+  const wingSkin=equipment?.petwing?.wingSkin?{id:number(equipment.petwing.wingSkin.id),name:englishText(equipment.petwing.wingSkin.name,"Wing Skin",160),grade:englishText(equipment.petwing.wingSkin.grade,"",60),enchantLevel:number(equipment.petwing.wingSkin.enchantLevel),icon:asset(equipment.petwing.wingSkin.icon)}:null;
+  const boards=list(info?.daevanion?.boardList).map(x=>({id:number(x?.id),name:englishText(x?.name,"Daevanion Board",120),open:bool(x?.open),openNodes:number(x?.openNodeCount),totalNodes:number(x?.totalNodeCount),openPercent:number(x?.openPercent),icon:asset(x?.icon)}));
   const titles=info?.title||{};
   return {
     source:"NC public character API",region:ref.region,serverId:ref.serverId,characterId:ref.characterId,profileUrl:buildProfileUrl(ref.region,ref.serverId,ref.characterId),
-    profile:{name:cleanString(p?.characterName||p?.name,120),level:number(p?.characterLevel??p?.level),className:cleanString(p?.className,120),gender:cleanString(p?.genderName,80),raceId:number(p?.raceId),serverName:cleanString(p?.serverName,120),guildName:cleanString(p?.regionName,120),combatPower:number(p?.combatPower),titleName:cleanString(p?.titleName,180),image:portrait(p?.profileImage)},
-    stats,equipment:equipmentList,skins:list(equipment?.equipment?.skinList).map(x=>({slotPos:number(x?.slotPos),slotName:cleanString(x?.slotPosName,80),id:number(x?.id),name:cleanString(x?.name,180),grade:cleanString(x?.grade,60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)})),
+    profile:{name:cleanString(p?.characterName||p?.name,120),level:number(p?.characterLevel??p?.level),className:englishText(p?.className,"Class",120),gender:englishText(p?.genderName,"",80),raceId:number(p?.raceId),serverName:englishText(p?.serverName,ref.serverId?("Server "+ref.serverId):"Server",120),guildName:englishText(p?.regionName,"",120),combatPower:number(p?.combatPower),titleName:englishText(p?.titleName,"",180),image:portrait(p?.profileImage)},
+    stats,equipment:equipmentList,skins:list(equipment?.equipment?.skinList).map(x=>({slotPos:number(x?.slotPos),slotName:englishText(x?.slotPosName,"Equipment",80),id:number(x?.id),name:englishText(x?.name,number(x?.id)?("Item "+number(x?.id)):"Equipment",180),grade:englishText(x?.grade,"",60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)})),
     skills,pet,wing,wingSkin,daevanion:boards,
     titles:{owned:number(titles?.ownedCount),total:number(titles?.totalCount)},
-    rankings:list(info?.ranking?.rankingList).map(x=>({content:cleanString(x?.rankingContentsName,120),rank:number(x?.rank),point:Number(x?.point)||0,grade:cleanString(x?.gradeName,80)}))
+    rankings:list(info?.ranking?.rankingList).map(x=>({content:englishText(x?.rankingContentsName,"Ranking",120),rank:number(x?.rank),point:Number(x?.point)||0,grade:englishText(x?.gradeName,"",80)}))
   };
 }
 
@@ -89,10 +104,10 @@ export function exactCharacterName(candidate, keyword){
 }
 
 
-const lineDescriptions=value=>list(value).map(row=>cleanString(typeof row==="string"?row:row?.desc,500)).filter(Boolean);
+const lineDescriptions=value=>englishList(value);
 const statRows=value=>list(value).map(row=>({
   id:cleanString(row?.id,120),
-  name:cleanString(row?.name,160),
+  name:englishText(row?.name,englishText(row?.id,"Stat",120),160),
   value:cleanString(row?.value,120),
   minValue:cleanString(row?.minValue,120),
   extra:cleanString(row?.extra,120),
@@ -114,20 +129,20 @@ export function resolveOfficialLevel(profileLevel,searchLevel){
 export function normalizeEquippedItemDetail(raw){
   if(!raw||typeof raw!=="object")return null;
   return {
-    id:number(raw.id),name:cleanString(raw.name,180),grade:cleanString(raw.grade,60),gradeName:cleanString(raw.gradeName,80),
-    categoryName:cleanString(raw.categoryName,120),type:cleanString(raw.type,80),icon:asset(raw.icon),
+    id:number(raw.id),name:englishText(raw.name,number(raw.id)?("Item "+number(raw.id)):"Equipment",180),grade:englishText(raw.grade,"",60),gradeName:englishText(raw.gradeName,"",80),
+    categoryName:englishText(raw.categoryName,"Equipment",120),type:englishText(raw.type,"",80),icon:asset(raw.icon),
     itemLevel:number(raw.level),equipLevel:number(raw.equipLevel),enchantLevel:number(raw.enchantLevel),
     maxEnchantLevel:number(raw.maxEnchantLevel),maxExceedLevel:number(raw.maxExceedEnchantLevel),
-    raceName:cleanString(raw.raceName,80),classNames:list(raw.classNames).map(v=>cleanString(v,100)).filter(Boolean),
+    raceName:englishText(raw.raceName,"",80),classNames:list(raw.classNames).map(v=>englishText(v,"",100)).filter(Boolean),
     tradable:bool(raw.tradable),soulBindRate:cleanString(raw.soulBindRate,80),
     mainStats:statRows(raw.mainStats),subStats:statRows(raw.subStats),
-    subSkills:list(raw.subSkills).map(skill=>({id:number(skill?.id),name:cleanString(skill?.name,160),level:number(skill?.level),icon:asset(skill?.icon)})).filter(skill=>skill.id||skill.name),
+    subSkills:list(raw.subSkills).map(skill=>({id:number(skill?.id),name:englishText(skill?.name,number(skill?.id)?("Skill "+number(skill?.id)):"Skill",160),level:number(skill?.level),icon:asset(skill?.icon)})).filter(skill=>skill.id||skill.name),
     magicStoneSlots:number(raw.magicStoneSlotCount),
-    magicStones:list(raw.magicStoneStat).map(stone=>({slotPos:number(stone?.slotPos),id:cleanString(stone?.id,120),name:cleanString(stone?.name,120),value:cleanString(stone?.value,120),grade:cleanString(stone?.grade,60),icon:asset(stone?.icon)})),
+    magicStones:list(raw.magicStoneStat).map(stone=>({slotPos:number(stone?.slotPos),id:cleanString(stone?.id,120),name:englishText(stone?.name,"Magic Stone",120),value:cleanString(stone?.value,120),grade:englishText(stone?.grade,"",60),icon:asset(stone?.icon)})),
     godStoneSlots:number(raw.godStoneSlotCount),
-    godStones:list(raw.godStoneStat).map(stone=>({slotPos:number(stone?.slotPos),name:cleanString(stone?.name,120),desc:cleanString(stone?.desc,500),grade:cleanString(stone?.grade,60),icon:asset(stone?.icon)})),
-    costumes:list(raw.costumes).map(v=>cleanString(v,200)).filter(Boolean),
-    sources:list(raw.sources).map(v=>cleanString(v,200)).filter(Boolean)
+    godStones:list(raw.godStoneStat).map(stone=>({slotPos:number(stone?.slotPos),name:englishText(stone?.name,"Godstone",120),desc:englishText(stone?.desc,"",500),grade:englishText(stone?.grade,"",60),icon:asset(stone?.icon)})),
+    costumes:list(raw.costumes).map(v=>englishText(v,"",200)).filter(Boolean),
+    sources:list(raw.sources).map(v=>englishText(v,"",200)).filter(Boolean)
   };
 }
 
@@ -135,9 +150,9 @@ export function normalizeDaevanionDetail(raw,summary={}){
   if(!raw||typeof raw!=="object")return null;
   return {
     id:number(summary.id),
-    name:cleanString(summary.name,120),
+    name:englishText(summary.name,"Daevanion Board",120),
     nodes:list(raw.nodeList).map(node=>({
-      id:number(node?.nodeId),name:cleanString(node?.name,160),grade:cleanString(node?.grade,60),type:cleanString(node?.type,80),
+      id:number(node?.nodeId),name:englishText(node?.name,"Daevanion Node",160),grade:englishText(node?.grade,"",60),type:englishText(node?.type,"",80),
       row:number(node?.row),col:number(node?.col),open:bool(node?.open),icon:asset(node?.icon),effects:lineDescriptions(node?.effectList)
     })).filter(node=>node.id),
     openSkillEffects:lineDescriptions(raw.openSkillEffectList),
