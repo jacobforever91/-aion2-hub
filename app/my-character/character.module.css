@@ -969,3 +969,86 @@
     font-size:17px;
   }
 }
+
+
+/* Centered Pet & Wings presentation */
+.companionGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:36px;
+  align-items:start;
+}
+.companionItem{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:center;
+  padding:20px 10px 26px;
+  border-bottom:1px solid #27323a;
+}
+.companionType{
+  display:block;
+  margin-bottom:14px;
+  color:#76d9ea;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.2em;
+}
+.companionIcon{
+  width:min(240px,80%);
+  aspect-ratio:1/1;
+  height:auto;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.companionIcon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.companionIcon svg{
+  width:42px;
+  height:42px;
+  color:#cdb675;
+}
+.companionItem h4{
+  margin:16px 0 6px;
+  font:400 26px Georgia,serif;
+  color:#eef2f4;
+}
+.companionItem strong{
+  color:#d9c184;
+  font:600 14px Arial,sans-serif;
+  letter-spacing:.04em;
+}
+
+@media(max-width:800px){
+  .companionGrid{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  .companionItem{
+    padding:16px 0 24px;
+  }
+  .companionType{
+    margin-bottom:10px;
+    font-size:10px;
+  }
+  .companionIcon{
+    width:min(280px,74vw);
+    max-height:300px;
+  }
+  .companionItem h4{
+    margin-top:12px;
+    font-size:23px;
+  }
+  .companionItem strong{
+    font-size:13px;
+  }
+}
