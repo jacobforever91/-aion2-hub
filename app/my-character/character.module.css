@@ -1690,3 +1690,235 @@
     font-size:7px;
   }
 }
+
+
+/* Original-style Daevanion board pass */
+.originalBoardTabs{
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:6px;
+  margin:14px 0 0;
+}
+.originalBoardTabs button{
+  min-width:0;
+  min-height:54px;
+  padding:7px 5px;
+  border:1px solid #313940;
+  background:#0b1015;
+  color:#7d8991;
+  text-align:center;
+}
+.originalBoardTabs button small{
+  display:block;
+  color:#56626a;
+  font-size:6px;
+  letter-spacing:.12em;
+}
+.originalBoardTabs button b{
+  display:block;
+  margin-top:3px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#aeb8be;
+  font:400 11px Georgia,serif;
+}
+.originalBoardTabs button span{
+  display:block;
+  margin-top:3px;
+  color:#65727a;
+  font-size:7px;
+}
+.originalBoardTabs .originalBoardTabActive{
+  border-color:#7f704b;
+  background:linear-gradient(180deg,#17150f,#0b1014);
+  box-shadow:inset 0 -2px 0 #c3a965;
+}
+.originalBoardTabs .originalBoardTabActive b{
+  color:#ead8ab;
+}
+.originalBoardTabs .originalBoardTabActive span{
+  color:#a99667;
+}
+
+.syncedBoardShell{
+  background:#090d11;
+}
+.syncedBoardBackdrop{
+  background:
+    radial-gradient(circle at 50% 50%,
+      transparent 0 18%,
+      rgba(180,168,138,.055) 18.2% 18.45%,
+      transparent 18.7% 36%,
+      rgba(180,168,138,.05) 36.2% 36.45%,
+      transparent 36.7% 54%,
+      rgba(180,168,138,.04) 54.2% 54.45%,
+      transparent 54.7% 72%,
+      rgba(180,168,138,.035) 72.2% 72.45%,
+      transparent 72.7% 100%),
+    linear-gradient(90deg,transparent 49.9%,rgba(160,150,126,.035) 50%,transparent 50.1%),
+    linear-gradient(transparent 49.9%,rgba(160,150,126,.035) 50%,transparent 50.1%);
+  opacity:1;
+}
+.syncedGridGlow{
+  inset:-2%;
+  clip-path:none;
+  border:0;
+  background:radial-gradient(circle at 50% 50%,rgba(202,187,150,.035),transparent 62%);
+}
+
+/* Original nodes are upright square tiles, not diamonds */
+.syncedNode{
+  width:5.25%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border-radius:2px;
+  border:1px solid #454d52;
+  background:linear-gradient(180deg,#252a2d,#15191c);
+  box-shadow:inset 0 0 0 1px #0c0f11,0 2px 5px #0008;
+}
+.syncedNode>i{
+  inset:9%;
+  transform:none;
+  border-radius:1px;
+  background:transparent;
+}
+.syncedNode img{
+  object-fit:contain;
+}
+.syncedNode svg{
+  width:72%;
+  height:72%;
+  stroke-width:1.6;
+  color:#a39b84;
+}
+.syncedGradeCommon{
+  border-color:#5d5b52;
+  background:linear-gradient(180deg,#34332e,#1c1d1b);
+}
+.syncedGradeRare{
+  border-color:#39784b;
+  background:linear-gradient(180deg,#21472c,#13281a);
+}
+.syncedGradeLegend{
+  border-color:#426e9c;
+  background:linear-gradient(180deg,#244a72,#14283d);
+}
+.syncedGradeUnique{
+  border-color:#a75f25;
+  background:linear-gradient(180deg,#6f3c18,#321b0c);
+}
+.syncedGradeStart{
+  border-color:#b89d5f;
+  background:linear-gradient(180deg,#403922,#1b1912);
+}
+.syncedStartNode{
+  width:6.2%;
+  z-index:5;
+  border-width:2px;
+  box-shadow:inset 0 0 0 1px #17140d,0 0 10px #b89d5f2e;
+}
+.syncedStartNode svg{
+  color:#e8d49a;
+}
+.syncedNodeClosed{
+  opacity:.34;
+  filter:saturate(.45) brightness(.72);
+}
+.syncedNodeOpen{
+  opacity:1;
+  filter:none;
+  outline:0;
+  box-shadow:inset 0 0 0 1px #111416,0 0 7px rgba(216,188,112,.2);
+}
+.syncedNodeOpen::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border:1px solid rgba(222,199,137,.62);
+  border-radius:3px;
+  pointer-events:none;
+}
+.syncedNodeSelected{
+  z-index:7;
+  outline:2px solid #f3dda3;
+  outline-offset:3px;
+}
+.syncedNodeSelected::after{
+  inset:-18%;
+  border:1px solid rgba(238,210,139,.34);
+  box-shadow:0 0 12px rgba(226,195,109,.28);
+  border-radius:3px;
+}
+.syncedNodeButton em{
+  display:none;
+}
+
+/* Remove the chain-like connector look; the original reads as a board of tiles */
+.syncedHLine,.syncedVLine{
+  display:none;
+}
+
+.legendOpen,.legendClosed{
+  transform:none;
+  border-radius:1px;
+}
+.legendOpen{
+  background:#d1b66c;
+}
+.legendClosed{
+  background:#434b50;
+}
+
+/* Inspector also uses upright square icon */
+.nodeInspectorIcon{
+  transform:none;
+  border-radius:2px;
+}
+.nodeInspectorIcon>*{
+  transform:none;
+}
+
+/* A little more like the original board proportions */
+@media(min-width:801px){
+  .syncedBoardFrame{
+    width:min(66vh,60vw);
+  }
+}
+
+@media(max-width:800px){
+  .originalBoardTabs{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:4px;
+    margin-top:10px;
+  }
+  .originalBoardTabs button{
+    min-height:46px;
+    padding:6px 3px;
+  }
+  .originalBoardTabs button b{
+    font-size:9px;
+  }
+  .originalBoardTabs button span{
+    font-size:6px;
+  }
+  .syncedBoardShell{
+    height:auto;
+    min-height:0;
+    aspect-ratio:1/1;
+    margin-left:-2vw;
+    margin-right:-2vw;
+  }
+  .syncedBoardFrame{
+    width:92vw;
+  }
+  .syncedNode{
+    width:5.7%;
+  }
+  .syncedStartNode{
+    width:6.8%;
+  }
+  .syncedBoardLegend{
+    bottom:8px;
+  }
+}
