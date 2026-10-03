@@ -1231,3 +1231,78 @@
     font-size:9px;
   }
 }
+
+
+/* Daevanion real-node pass: no fake 15x15 cell wall */
+.syncedGridGlow{
+  background:radial-gradient(circle at 50% 50%,#d7d2ba0b,transparent 62%);
+  border:1px solid #77735e24;
+}
+.syncedHLine,.syncedVLine{
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+  background:#6f74743a;
+}
+.syncedHLine{
+  left:calc((var(--c) - .5) * 6.666666%);
+  top:calc((var(--r) - .5) * 6.666666%);
+  width:6.666666%;
+  height:2px;
+  transform:translateY(-1px);
+}
+.syncedVLine{
+  left:calc((var(--c) - .5) * 6.666666%);
+  top:calc((var(--r) - .5) * 6.666666%);
+  height:6.666666%;
+  width:2px;
+  transform:translateX(-1px);
+}
+.syncedNode{
+  z-index:3;
+  width:4.6%;
+}
+.syncedNode>i{
+  background:#151a1e;
+}
+.syncedNode em{
+  position:absolute;
+  right:-7px;
+  bottom:-7px;
+  width:17px;
+  height:17px;
+  display:grid;
+  place-items:center;
+  border:1px solid #74633e;
+  border-radius:50%;
+  background:#111418;
+  color:#e7ce8d;
+  font:700 8px Arial,sans-serif;
+  transform:rotate(-45deg);
+  font-style:normal;
+}
+.syncedGradeCommon{border-color:#77828a;background:linear-gradient(135deg,#394147,#1b2024)}
+.syncedGradeRare{border-color:#5ca96f;background:linear-gradient(135deg,#2b5a36,#14291a)}
+.syncedGradeLegend{border-color:#609bdd;background:linear-gradient(135deg,#265b91,#122944)}
+.syncedGradeUnique{border-color:#d58a38;background:linear-gradient(135deg,#8a4d17,#3a210d)}
+.syncedGradeStart{border-color:#d6c084;background:linear-gradient(135deg,#766846,#292419)}
+.syncedNodeClosed{
+  opacity:.36;
+  filter:saturate(.35) brightness(.75);
+}
+.syncedNodeOpen{
+  opacity:1;
+  filter:none;
+  outline:1px solid #f2deb0;
+  outline-offset:3px;
+  box-shadow:0 0 0 2px #07090b,0 0 14px #d6b45a6e,0 0 30px #d6b45a2e;
+}
+.syncedNodeOpen>i{
+  background:transparent;
+}
+.syncedNodeOpen img{
+  filter:saturate(1.08) brightness(1.08);
+}
+.syncedBoardFoot span:last-child{
+  color:#b7c2c9;
+}
