@@ -1052,3 +1052,182 @@
     font-size:13px;
   }
 }
+
+
+/* Synced Daevanion board — game-guided visual */
+.boardList>button{
+  width:100%;
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr) auto;
+  align-items:center;
+  gap:13px;
+  padding:14px 2px;
+  border:0;
+  border-bottom:1px solid #27323a;
+  background:transparent;
+  color:#eef2f4;
+  text-align:left;
+  cursor:pointer;
+}
+.boardList>button:hover{background:linear-gradient(90deg,#11192388,transparent)}
+.boardList>button>span{width:40px;height:40px;display:grid;place-items:center}
+.boardList>button img{max-width:100%;max-height:100%;object-fit:contain}
+.boardList>button>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.boardList>button small{color:#80909b}
+.boardList>button>strong{color:#d0b97e;font:400 18px Georgia,serif}
+
+.syncedBoardView{min-width:0}
+.syncedBoardHeader{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid #303b44;
+}
+.syncedBoardHeader>button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:38px;
+  padding:7px 10px;
+  border:1px solid #3d4952;
+  background:#0b1117;
+  color:#aeb9c0;
+}
+.syncedBoardHeader>button svg{width:15px}
+.syncedBoardHeader small{color:#8b969e;font-size:8px;letter-spacing:.18em}
+.syncedBoardHeader h3{margin:4px 0 0;font:400 25px Georgia,serif;color:#f0e7d2}
+.syncedBoardHeader>strong{color:#d9c284;font:400 24px Georgia,serif}
+
+.syncedBoardShell{
+  position:relative;
+  margin-top:16px;
+  height:min(70vh,760px);
+  min-height:560px;
+  overflow:hidden;
+  border:1px solid #343e46;
+  background:radial-gradient(circle at 50% 50%,#21262a 0,#12161a 48%,#080b0e 84%);
+}
+.syncedBoardBackdrop{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(45deg,#ffffff04 0 1px,transparent 1px 18px),
+    radial-gradient(circle at 50% 50%,#d7d2ba0a,transparent 55%);
+  pointer-events:none;
+}
+.syncedBoardFrame{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(74vh,72vw);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 20px 45px #0008);
+}
+.syncedGridGlow{
+  position:absolute;
+  inset:-4%;
+  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
+  border:1px solid #77735e24;
+  background:
+    linear-gradient(#ffffff04 1px,transparent 1px),
+    linear-gradient(90deg,#ffffff04 1px,transparent 1px),
+    radial-gradient(circle at 50% 50%,#d7d2ba0a,transparent 62%);
+  background-size:6.6667% 6.6667%,6.6667% 6.6667%,auto;
+}
+.syncedNode{
+  position:absolute;
+  left:calc((var(--c) - .5) * 6.666666%);
+  top:calc((var(--r) - .5) * 6.666666%);
+  width:4.2%;
+  aspect-ratio:1;
+  transform:translate(-50%,-50%) rotate(45deg);
+  display:grid;
+  place-items:center;
+  border:1px solid #4f585e;
+  background:#20262b;
+  box-shadow:0 0 0 2px #07090b;
+}
+.syncedNode>i{
+  position:absolute;
+  inset:12%;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  transform:rotate(-45deg);
+  font-style:normal;
+}
+.syncedNode img{width:100%;height:100%;object-fit:cover}
+.syncedNode svg{width:65%;height:65%;color:#768087}
+.syncedNodeClosed{opacity:.22;filter:saturate(.15)}
+.syncedNodeOpen{
+  opacity:1;
+  border-color:#d5b96d;
+  background:linear-gradient(135deg,#6f5b28,#282214);
+  box-shadow:0 0 0 2px #07090b,0 0 14px #d6b45a66,0 0 28px #d6b45a26;
+}
+.syncedNodeOpen svg{color:#f0daa2}
+.syncedBoardLegend{
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:14px;
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  color:#7d8991;
+  font-size:9px;
+}
+.syncedBoardLegend span{display:flex;align-items:center;gap:6px}
+.legendOpen,.legendClosed{
+  width:9px;
+  height:9px;
+  display:inline-block;
+  transform:rotate(45deg);
+}
+.legendOpen{background:#d3b565;box-shadow:0 0 8px #d3b56566}
+.legendClosed{background:#555f65;opacity:.45}
+.syncedBoardFoot{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  padding:12px 0 0;
+  color:#7e8b94;
+  font-size:10px;
+}
+
+@media(max-width:800px){
+  .syncedBoardHeader{
+    grid-template-columns:auto minmax(0,1fr);
+    gap:10px;
+  }
+  .syncedBoardHeader>strong{
+    grid-column:2;
+    font-size:18px;
+    margin-top:-6px;
+  }
+  .syncedBoardHeader h3{font-size:20px}
+  .syncedBoardShell{
+    height:62svh;
+    min-height:500px;
+    margin-left:-2vw;
+    margin-right:-2vw;
+  }
+  .syncedBoardFrame{
+    width:min(88vw,58svh);
+  }
+  .syncedNode{
+    width:4.8%;
+  }
+  .syncedBoardLegend{
+    font-size:8px;
+    bottom:10px;
+  }
+  .syncedBoardFoot{
+    gap:10px;
+    font-size:9px;
+  }
+}
