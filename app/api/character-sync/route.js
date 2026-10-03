@@ -74,11 +74,13 @@ export async function GET(request){
     if(!character.profile.name)return json({ok:false,error:"The official service returned no character profile."},404);
 
     const rawSlots=Array.isArray(equipment?.equipment?.equipmentList)?equipment.equipment.equipmentList:[];
-    const rawBoards=Array.isArray(info?.daevanion?.boardList)?info.daevanion.boardList:[];
+    const rawBoards=Array.isArray(character.daevanion)?character.daevanion:[];
+    const unlockedBoards=rawBoards.filter(board=>board.unlocked||board.open||Number(board.openNodes)>0||Number(board.openPercent)>0);
+    const detailBoards=unlockedBoards.length?unlockedBoards:rawBoards;
     const [searchReading,itemPack,boardPack]=await Promise.all([
       exactSearchReading(cfg,character),
       equipmentDetails(cfg,ref,rawSlots),
-      boardDetails(cfg,ref,rawBoards)
+      boardDetails(cfg,ref,detailBoards)
     ]);
 
     const level=resolveOfficialLevel(character.profile.level,searchReading.row?.level);
@@ -94,7 +96,8 @@ export async function GET(request){
       official:true,
       levelCrossChecked:!!searchReading.row,
       equipmentDetails:{loaded:character.equipment.filter(item=>item.detail).length,total:character.equipment.length},
-      daevanionDetails:{loaded:character.daevanion.filter(board=>board.detail).length,total:character.daevanion.length},
+      daevanionBoards:{known:rawBoards.length,unlocked:unlockedBoards.length||rawBoards.length},
+      daevanionDetails:{loaded:detailBoards.filter(board=>boardPack.map.get(Number(board.id))).length,total:detailBoards.length},
       warnings
     };
     return json({ok:true,character,syncedAt:new Date().toISOString()});
