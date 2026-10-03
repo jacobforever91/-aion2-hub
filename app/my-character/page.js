@@ -56,6 +56,8 @@ function BoardBonusSummary({board}){
  </section>;
 }
 function SyncedDaevanionBoard({board,className,skills,onBack}){
+ const[selectedNode,setSelectedNode]=useState(null);
+ useEffect(()=>setSelectedNode(null),[board?.id]);
  const raw=Array.isArray(board?.detail?.nodes)?board.detail.nodes:[];
  const minRow=raw.length?Math.min(...raw.map(n=>Number(n.row)||0)):1;
  const minCol=raw.length?Math.min(...raw.map(n=>Number(n.col)||0)):1;
@@ -83,11 +85,16 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
      <div className={styles.syncedBoardFrame}>
        <div className={styles.syncedGridGlow}/>
        <SyncedBoardConnections nodes={visualNodes}/>
-       {visualNodes.map((node,i)=>{const Glyph=daevanionGlyph(node.label);const tone=String(node.grade||"common").toLowerCase();return <span key={(node.synced?.id||i)+":"+node.row+":"+node.col} title={node.label+(node.open?" · Active":"")} className={styles.syncedNode+" "+(styles["syncedGrade"+tone[0].toUpperCase()+tone.slice(1)]||"")+" "+(node.open?styles.syncedNodeOpen:styles.syncedNodeClosed)} style={{"--r":node.row,"--c":node.col}}><i>{node.icon?<img src={node.icon} alt=""/>:<Glyph/>}</i>{node.cost>0&&<em>{node.cost}</em>}</span>})}
+       {visualNodes.map((node,i)=>{const Glyph=daevanionGlyph(node.label);const tone=String(node.grade||"common").toLowerCase();const selected=selectedNode?.row===node.row&&selectedNode?.col===node.col;return <button type="button" key={(node.synced?.id||i)+":"+node.row+":"+node.col} title={node.label+(node.open?" · Active":" · Available")} onClick={()=>setSelectedNode(node)} className={styles.syncedNode+" "+styles.syncedNodeButton+" "+(styles["syncedGrade"+tone[0].toUpperCase()+tone.slice(1)]||"")+" "+(node.open?styles.syncedNodeOpen:styles.syncedNodeClosed)+" "+(selected?styles.syncedNodeSelected:"")} style={{"--r":node.row,"--c":node.col}}><i>{node.icon?<img src={node.icon} alt=""/>:<Glyph/>}</i>{node.cost>0&&<em>{node.cost}</em>}</button>})}
      </div>
      <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Available nodes</span></div>
    </div>
    <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{selectableNodes.length} board nodes</span></div>
+   {selectedNode&&(()=>{const Glyph=daevanionGlyph(selectedNode.label);const effects=Array.isArray(selectedNode.synced?.effects)?selectedNode.synced.effects.filter(Boolean):[];const isSkill=String(selectedNode.label||"").startsWith("Skill Level Up - ");const nodeType=selectedNode.start?"Start node":isSkill?"Skill node":"Stat node";return <section className={styles.nodeInspector}>
+     <div className={styles.nodeInspectorHead}><span className={styles.nodeInspectorIcon}>{selectedNode.icon?<img src={selectedNode.icon} alt=""/>:<Glyph/>}</span><div><small>NODE DETAILS</small><h4>{isSkill?String(selectedNode.label).replace(/^Skill Level Up - /,""):selectedNode.label}</h4><p>{nodeType} · {selectedNode.grade||"Common"}</p></div><b className={selectedNode.open?styles.nodeStatusActive:styles.nodeStatusAvailable}>{selectedNode.open?"ACTIVE":"AVAILABLE"}</b></div>
+     <div className={styles.nodeInspectorFacts}><span><small>STATUS</small><strong>{selectedNode.open?"Active":"Available"}</strong></span><span><small>COST</small><strong>{selectedNode.cost||0}</strong></span><span><small>POSITION</small><strong>{selectedNode.row}:{selectedNode.col}</strong></span></div>
+     <div className={styles.nodeInspectorEffects}><h5>What this node gives</h5>{effects.length?effects.map((effect,i)=><p key={i}><Sparkles/>{effect}</p>):isSkill?<p><Swords/>Skill Level Up · {String(selectedNode.label).replace(/^Skill Level Up - /,"")}</p>:<p><Sparkles/>{selectedNode.label}<small>Official numeric effect text was not returned for this node.</small></p>}</div>
+   </section>})()}
    <BoardBonusSummary board={board}/>
  </section>;
 }
