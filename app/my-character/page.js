@@ -9,6 +9,7 @@ const RESEARCH_STORAGE="daevexus.character-research.v1";
 const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Global · Europe"],["sa","Global · South America"],["asia","Global · Asia"],["tw","Taiwan · Lab"]];
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
+const boardClassAlias={Spiritmaster:"Elementalist"};
 function daevanionGlyph(label){
  const t=String(label||"").toLowerCase();
  if(t.includes("max hp"))return Heart;
@@ -60,7 +61,8 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
  const minCol=raw.length?Math.min(...raw.map(n=>Number(n.col)||0)):1;
  const offsetRow=minRow===0?1:0,offsetCol=minCol===0?1:0;
  const rawByCell=new Map(raw.map(n=>[((Number(n.row)||0)+offsetRow)+":"+((Number(n.col)||0)+offsetCol),n]));
- const catalog=boardData?.[className]?.[board?.name]||[];
+ const catalogClass=boardClassAlias[className]||className;
+ const catalog=boardData?.[catalogClass]?.[board?.name]||[];
  const visualNodes=catalog.length?catalog.map(([row,col,label,grade,cost,start])=>{
    const synced=rawByCell.get(row+":"+col);
    const skillName=String(label||"").replace(/^Skill Level Up - /,"").trim().toLowerCase();
@@ -72,9 +74,10 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
    row:(Number(n.row)||0)+offsetRow,col:(Number(n.col)||0)+offsetCol,label:n.name||"Daevanion Node",
    grade:n.grade||"Common",cost:0,start:false,open:!!n.open,icon:n.icon||"",synced:n
  })).filter(n=>n.row>0&&n.col>0&&n.row<=15&&n.col<=15&&(n.icon||n.open||n.label!=="Daevanion Node"));
- const openNodes=visualNodes.filter(n=>n.open);
+ const selectableNodes=visualNodes.filter(n=>!n.start);
+ const openNodes=selectableNodes.filter(n=>n.open);
  return <section className={styles.syncedBoardView}>
-   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||visualNodes.length||"—"}</strong></header>
+   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||selectableNodes.length||"—"}</strong></header>
    <div className={styles.syncedBoardShell}>
      <div className={styles.syncedBoardBackdrop}/>
      <div className={styles.syncedBoardFrame}>
@@ -84,7 +87,7 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
      </div>
      <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Available nodes</span></div>
    </div>
-   <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{visualNodes.length} board nodes</span></div>
+   <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{selectableNodes.length} board nodes</span></div>
    <BoardBonusSummary board={board}/>
  </section>;
 }
