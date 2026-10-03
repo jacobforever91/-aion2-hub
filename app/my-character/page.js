@@ -3,6 +3,7 @@ import {useEffect,useMemo,useRef,useState} from "react";
 import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database,ArrowLeft,Heart,ShieldCheck,Target,Clock3,Gauge,Zap} from "lucide-react";
 import styles from "./character.module.css";
 import {buildCharacterResearchSample,classifyCharacterSkill} from "./character-model.mjs";
+import {classList,emblemBase} from "../classes/classData.js";
 import boardData from "../builds/daevanion-boards.json";
 const STORAGE="daevexus.character-link.v1";
 const RESEARCH_STORAGE="daevexus.character-research.v1";
@@ -66,13 +67,17 @@ function SyncedDaevanionBoard({board,boards,className,skills,onBack,onBoardChang
  const rawByCell=new Map(raw.map(n=>[((Number(n.row)||0)+offsetRow)+":"+((Number(n.col)||0)+offsetCol),n]));
  const catalogClass=boardClassAlias[className]||className;
  const catalog=boardData?.[catalogClass]?.[board?.name]||[];
+ const classInfo=classList.find(c=>c.name===className);
+ const classEmblem=classInfo?.emblem?(emblemBase+"/"+classInfo.emblem+".webp"):"";
  const visualNodes=catalog.length?catalog.map(([row,col,label,grade,cost,start])=>{
    const synced=rawByCell.get(row+":"+col);
+   const isSkill=String(label||"").startsWith("Skill Level Up - ");
    const skillName=String(label||"").replace(/^Skill Level Up - /,"").trim().toLowerCase();
-   const skillIcon=String(label||"").startsWith("Skill Level Up - ")
+   const skillIcon=isSkill
      ? (Array.isArray(skills)?skills:[]).find(sk=>String(sk.name||"").toLowerCase()===skillName)?.icon
      : "";
-   return {row,col,label,grade,cost,start,open:!!synced?.open,icon:synced?.icon||skillIcon||"",synced};
+   const icon=start?classEmblem:(isSkill?(skillIcon||synced?.icon||""):"");
+   return {row,col,label,grade,cost,start,open:!!synced?.open,icon,synced};
  }):raw.map(n=>({
    row:(Number(n.row)||0)+offsetRow,col:(Number(n.col)||0)+offsetCol,label:n.name||"Daevanion Node",
    grade:n.grade||"Common",cost:0,start:false,open:!!n.open,icon:n.icon||"",synced:n
