@@ -119,6 +119,39 @@ export function extractDaevanionBoards(info){
   return out;
 }
 
+function extractArcana(info,equipment){
+  const candidates=[
+    equipment?.arcana?.arcanaList,
+    equipment?.arcana?.cardList,
+    equipment?.arcana?.equipmentList,
+    equipment?.arcanaList,
+    info?.arcana?.arcanaList,
+    info?.arcana?.cardList,
+    info?.arcana?.equipmentList,
+    info?.arcanaList
+  ];
+  const rows=candidates.find(Array.isArray)||[];
+  const seen=new Set(),out=[];
+  for(const row of rows){
+    if(!row||typeof row!=="object")continue;
+    const rawId=row.id??row.itemId??row.arcanaId??row.cardId;
+    const id=String(rawId??"").trim();
+    const key=id||String(row.name??row.itemName??row.arcanaName??"").trim();
+    if(!key||seen.has(key))continue;
+    seen.add(key);
+    out.push({
+      id,
+      name:englishText(row.name??row.itemName??row.arcanaName,id?("Arcana "+id):"Arcana",180),
+      grade:englishText(row.grade??row.gradeName??row.rarity,"",60),
+      level:number(row.level??row.itemLevel??row.arcanaLevel),
+      slotPos:number(row.slotPos??row.slot??row.position),
+      equipped:flag(row.equipped??row.equip??row.isEquipped??row.active),
+      icon:asset(row.icon??row.iconPath??row.image)
+    });
+  }
+  return out;
+}
+
 export function normalizeCharacter(info,equipment,ref){
   const p=info?.profile||{};
   const stats=list(info?.stat?.statList).map(x=>{
@@ -137,12 +170,13 @@ export function normalizeCharacter(info,equipment,ref){
   const wing=equipment?.petwing?.wing?{id:number(equipment.petwing.wing.id),name:englishText(equipment.petwing.wing.name,"Wings",160),grade:englishText(equipment.petwing.wing.grade,"",60),enchantLevel:number(equipment.petwing.wing.enchantLevel),icon:asset(equipment.petwing.wing.icon)}:null;
   const wingSkin=equipment?.petwing?.wingSkin?{id:number(equipment.petwing.wingSkin.id),name:englishText(equipment.petwing.wingSkin.name,"Wing Skin",160),grade:englishText(equipment.petwing.wingSkin.grade,"",60),enchantLevel:number(equipment.petwing.wingSkin.enchantLevel),icon:asset(equipment.petwing.wingSkin.icon)}:null;
   const boards=extractDaevanionBoards(info);
+  const arcana=extractArcana(info,equipment);
   const titles=info?.title||{};
   return {
     source:"NC public character API",region:ref.region,serverId:ref.serverId,characterId:ref.characterId,profileUrl:buildProfileUrl(ref.region,ref.serverId,ref.characterId),
     profile:{name:cleanString(p?.characterName||p?.name,120),level:number(p?.characterLevel??p?.level),className:englishText(p?.className,"Class",120),gender:englishText(p?.genderName,"",80),raceId:number(p?.raceId),serverName:englishText(p?.serverName,ref.serverId?("Server "+ref.serverId):"Server",120),guildName:englishText(p?.regionName,"",120),combatPower:number(p?.combatPower),titleName:englishText(p?.titleName,"",180),image:portrait(p?.profileImage)},
     stats,equipment:equipmentList,skins:list(equipment?.equipment?.skinList).map(x=>({slotPos:number(x?.slotPos),slotName:englishText(x?.slotPosName,"Equipment",80),id:number(x?.id),name:englishText(x?.name,number(x?.id)?("Item "+number(x?.id)):"Equipment",180),grade:englishText(x?.grade,"",60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)})),
-    skills,pet,wing,wingSkin,daevanion:boards,
+    skills,pet,wing,wingSkin,arcana,daevanion:boards,
     titles:{owned:number(titles?.ownedCount),total:number(titles?.totalCount)},
     rankings:list(info?.ranking?.rankingList).map(x=>({content:englishText(x?.rankingContentsName,"Ranking",120),rank:number(x?.rank),point:Number(x?.point)||0,grade:englishText(x?.gradeName,"",80)}))
   };
@@ -252,6 +286,7 @@ export function buildCharacterResearchSample(character,syncedAt=""){
     skills:skills.map(skill=>({id:Number(skill?.id)||0,category:String(skill?.category||""),normalizedCategory:classifyCharacterSkill(skill?.category),level:Number(skill?.level)||0,needLevel:Number(skill?.needLevel)||0,acquired:skill?.acquired===true,equipped:skill?.equipped===true})),
     pet:character?.pet?{id:Number(character.pet.id)||0,level:Number(character.pet.level)||0}:null,
     wing:character?.wing?{id:Number(character.wing.id)||0,grade:String(character.wing.grade||""),enchantLevel:Number(character.wing.enchantLevel)||0}:null,
+    arcana:(Array.isArray(character?.arcana)?character.arcana:[]).map(card=>({id:String(card?.id||""),grade:String(card?.grade||""),level:Number(card?.level)||0,equipped:card?.equipped===true})),
     daevanion:boards.map(board=>({id:Number(board?.id)||0,name:String(board?.name||""),openNodes:Number(board?.openNodes)||0,totalNodes:Number(board?.totalNodes)||0,detailNodes:Array.isArray(board?.detail?.nodes)?board.detail.nodes.length:0})),
   };
 }
