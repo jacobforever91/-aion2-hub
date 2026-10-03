@@ -1,6 +1,6 @@
 "use client";
 import {useEffect,useMemo,useRef,useState} from "react";
-import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database} from "lucide-react";
+import {Home,Menu,Search,RefreshCw,Shield,Swords,Sparkles,Feather,PawPrint,ExternalLink,Unlink,Database,ArrowLeft} from "lucide-react";
 import styles from "./character.module.css";
 import {buildCharacterResearchSample,classifyCharacterSkill} from "./character-model.mjs";
 const STORAGE="daevexus.character-link.v1";
@@ -8,8 +8,28 @@ const RESEARCH_STORAGE="daevexus.character-research.v1";
 const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Global · Europe"],["sa","Global · South America"],["asia","Global · Asia"],["tw","Taiwan · Lab"]];
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
+function SyncedDaevanionBoard({board,onBack}){
+ const raw=Array.isArray(board?.detail?.nodes)?board.detail.nodes:[];
+ const minRow=raw.length?Math.min(...raw.map(n=>Number(n.row)||0)):1;
+ const minCol=raw.length?Math.min(...raw.map(n=>Number(n.col)||0)):1;
+ const offsetRow=minRow===0?1:0,offsetCol=minCol===0?1:0;
+ const nodes=raw.map(n=>({...n,gridRow:(Number(n.row)||0)+offsetRow,gridCol:(Number(n.col)||0)+offsetCol})).filter(n=>n.gridRow>0&&n.gridCol>0&&n.gridRow<=15&&n.gridCol<=15);
+ const openNodes=nodes.filter(n=>n.open);
+ return <section className={styles.syncedBoardView}>
+   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||nodes.length||"—"}</strong></header>
+   <div className={styles.syncedBoardShell}>
+     <div className={styles.syncedBoardBackdrop}/>
+     <div className={styles.syncedBoardFrame}>
+       <div className={styles.syncedGridGlow}/>
+       {nodes.map((node,i)=><span key={(node.id||i)+":"+node.gridRow+":"+node.gridCol} title={node.name||"Daevanion Node"} className={styles.syncedNode+" "+(node.open?styles.syncedNodeOpen:styles.syncedNodeClosed)} style={{"--r":node.gridRow,"--c":node.gridCol}}><i>{node.icon?<img src={node.icon} alt=""/>:<Sparkles/>}</i></span>)}
+     </div>
+     <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Inactive nodes</span></div>
+   </div>
+   <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{nodes.length} synced positions</span></div>
+ </section>;
+}
 export default function MyCharacter(){
- const[region,setRegion]=useState("naw"),[name,setName]=useState(""),[results,setResults]=useState([]),[linked,setLinked]=useState(null),[syncedAt,setSyncedAt]=useState(""),[tab,setTab]=useState("overview"),[view,setView]=useState("sync"),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
+ const[region,setRegion]=useState("naw"),[name,setName]=useState(""),[results,setResults]=useState([]),[linked,setLinked]=useState(null),[syncedAt,setSyncedAt]=useState(""),[tab,setTab]=useState("overview"),[view,setView]=useState("sync"),[boardView,setBoardView]=useState(null),[busy,setBusy]=useState(false),[message,setMessage]=useState("");
  const autoSyncAttempted=useRef(false);
  useEffect(()=>{try{const raw=localStorage.getItem(STORAGE);if(raw){const data=JSON.parse(raw);if(data?.character){setLinked(data.character);setSyncedAt(data.syncedAt||"");setRegion(data.character.region||"naw");}}}catch{}},[]);
  const itemLevel=useMemo(()=>linked?.stats?.find(s=>String(s.type).toLowerCase()==="itemlevel")?.value||0,[linked]);
@@ -29,7 +49,7 @@ export default function MyCharacter(){
    }catch{}
  };
  async function search(event){event?.preventDefault();setBusy(true);setMessage("");setResults([]);try{const q=new URLSearchParams({region,keyword:name.trim()});const res=await fetch("/api/character-search?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);const matches=data.results||[];if(matches.length===1){await syncRef(matches[0]);return;}setResults(matches);if(!matches.length)setMessage(`No character named "${name.trim()}" was found. Check the region and spelling.`);else setMessage("We found more than one exact match. Choose your character.");}catch(e){setMessage(e.message||"Search failed.");}finally{setBusy(false);}}
- async function syncRef(ref){setBusy(true);setMessage("");try{const q=new URLSearchParams({region:ref.region,serverId:String(ref.serverId),characterId:ref.characterId});const res=await fetch("/api/character-sync?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setTab("overview");setView("info");}catch(e){setMessage(e.message||"Sync failed.");}finally{setBusy(false);}}
+ async function syncRef(ref){setBusy(true);setMessage("");try{const q=new URLSearchParams({region:ref.region,serverId:String(ref.serverId),characterId:ref.characterId});const res=await fetch("/api/character-sync?"+q,{cache:"no-store"}),data=await res.json();if(!data.ok)throw new Error(data.error);persist(data.character,data.syncedAt);setResults([]);setBoardView(null);setTab("overview");setView("info");}catch(e){setMessage(e.message||"Sync failed.");}finally{setBusy(false);}}
  useEffect(()=>{if(view==="sync"&&linked&&!autoSyncAttempted.current){autoSyncAttempted.current=true;syncRef(linked);}},[view,linked]);
  const unlink=()=>{autoSyncAttempted.current=false;setLinked(null);setSyncedAt("");setTab("overview");setView("sync");setMessage("");try{localStorage.removeItem(STORAGE);}catch{}};
  return <main className={styles.page}>
@@ -83,7 +103,7 @@ export default function MyCharacter(){
          </article>
        </div></>}
        {tab==="skills"&&<><div className={styles.sectionTitle}><Swords/><div><h3>Your skills</h3><p>Everything you have unlocked, separated by type.</p></div></div><div className={styles.skillGroups}>{[["active","Active"],["passive","Passive"],["stigma","Stigma"]].map(([key,label])=><section className={styles.skillGroup} key={key}><header><div><span>{label.toUpperCase()}</span><h4>{label}</h4></div><b>{skillGroups[key].length}</b></header><div className={styles.skillGrid}>{skillGroups[key].map(s=><article key={s.id}><span className={styles.itemIcon}>{s.icon?<img src={s.icon} alt=""/>:<Sparkles/>}</span><div><small>{s.category||label}{s.equipped?" · EQUIPPED":""}</small><b>{s.name||("Skill "+s.id)}</b><span>Lv. {s.level}</span></div></article>)}{!skillGroups[key].length&&<p className={styles.skillEmpty}>No {label.toLowerCase()} skills acquired.</p>}</div></section>)}</div>{!acquired.length&&<p className={styles.message}>No acquired skills were returned for this character.</p>}</>}
-       {tab==="progression"&&<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>Your titles, active Daevanion boards and rankings.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardList}>{daevanionBoards.map((b,i)=><article key={b.id||i}><span>{b.icon&&<img src={b.icon} alt=""/>}</span><div><b>{b.name||("Daevanion Board "+(i+1))}</b><small>{b.openNodes}/{b.totalNodes||"—"} nodes{b.detail?.nodes?.length?(" · "+b.detail.nodes.length+" synced"):""}</small></div><strong>{b.openPercent?b.openPercent+"%":"ACTIVE"}</strong></article>)}{!daevanionBoards.length&&<p className={styles.skillEmpty}>No active Daevanion boards were returned by the current character sync.</p>}</div></>}
+       {tab==="progression"&&(boardView?<SyncedDaevanionBoard board={boardView} onBack={()=>setBoardView(null)}/>:<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>Your titles, active Daevanion boards and rankings.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardList}>{daevanionBoards.map((b,i)=><button type="button" key={b.id||i} onClick={()=>setBoardView(b)}><span>{b.icon&&<img src={b.icon} alt=""/>}</span><div><b>{b.name||("Daevanion Board "+(i+1))}</b><small>{b.openNodes}/{b.totalNodes||"—"} nodes</small></div><strong>{b.openPercent?b.openPercent+"%":"VIEW"}</strong></button>)}{!daevanionBoards.length&&<p className={styles.skillEmpty}>No active Daevanion boards were returned by the current character sync.</p>}</div></>)}
        </div>
        
      </div>
