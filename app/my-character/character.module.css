@@ -2184,3 +2184,205 @@
     font-size:22px;
   }
 }
+
+
+/* =========================================================
+   RESPONSIVE FIREWALL — Character Sync
+   Desktop and mobile are intentionally sized independently.
+   ========================================================= */
+
+/* Desktop / laptop */
+@media(min-width:801px){
+  .simpleConnect{
+    width:min(1180px,90vw);
+    min-height:calc(100svh - 84px);
+    margin:0 auto;
+    padding:clamp(36px,5vh,72px) 0 clamp(50px,7vh,90px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+  }
+
+  .simpleIntro{
+    width:min(900px,100%);
+    margin:0 auto;
+  }
+
+  .simpleIntro>span{
+    font-size:11px;
+    letter-spacing:.24em;
+  }
+
+  .simpleIntro h2{
+    margin:16px 0 14px;
+    font:400 clamp(54px,3.5vw,78px)/1 Georgia,serif;
+  }
+
+  .simpleIntro p{
+    max-width:760px;
+    font-size:15px;
+    line-height:1.65;
+  }
+
+  .simpleForm{
+    width:min(820px,100%);
+    margin:32px auto 0;
+    padding:32px 38px 30px;
+    border:1px solid #394650;
+    border-top-color:#8e7747;
+    border-bottom-color:#4a5660;
+    background:linear-gradient(160deg,#101821cc,#090e14dd);
+    box-shadow:0 24px 70px #0005;
+  }
+
+  .simpleForm label{
+    grid-template-columns:44px minmax(0,1fr);
+    gap:16px;
+    padding:18px 0;
+    font-size:14px;
+  }
+
+  .simpleForm label>span{
+    width:34px;
+    height:34px;
+    font-size:16px;
+  }
+
+  .simpleForm label>div{
+    gap:9px;
+  }
+
+  .simpleForm input,
+  .simpleForm select{
+    min-height:56px;
+    padding:0 16px;
+    font-size:14px;
+  }
+
+  .simpleSyncButton{
+    min-height:58px;
+    margin-top:26px;
+    font-size:14px;
+  }
+
+  .simpleSyncButton svg{
+    width:19px;
+    height:19px;
+  }
+
+  .simpleForm>small{
+    margin-top:14px;
+    font-size:11px;
+  }
+}
+
+/* Large desktop / 4K */
+@media(min-width:1600px){
+  .simpleConnect{
+    width:min(1320px,88vw);
+  }
+
+  .simpleIntro{
+    width:min(980px,100%);
+  }
+
+  .simpleIntro h2{
+    font-size:clamp(64px,3vw,86px);
+  }
+
+  .simpleIntro p{
+    max-width:820px;
+    font-size:16px;
+  }
+
+  .simpleForm{
+    width:min(920px,100%);
+    padding:36px 44px 34px;
+  }
+
+  .simpleForm label{
+    padding:20px 0;
+    font-size:15px;
+  }
+
+  .simpleForm input,
+  .simpleForm select{
+    min-height:60px;
+    font-size:15px;
+  }
+
+  .simpleSyncButton{
+    min-height:62px;
+    font-size:15px;
+  }
+}
+
+/* Mobile only — never inherit desktop scaling */
+@media(max-width:800px){
+  .simpleConnect{
+    width:92vw;
+    min-height:auto;
+    display:block;
+    margin:0 auto;
+    padding:34px 0 54px;
+  }
+
+  .simpleIntro{
+    width:100%;
+  }
+
+  .simpleIntro>span{
+    font-size:9px;
+    letter-spacing:.2em;
+  }
+
+  .simpleIntro h2{
+    margin:12px 0 10px;
+    font-size:40px;
+    line-height:1.02;
+  }
+
+  .simpleIntro p{
+    max-width:92%;
+    font-size:12px;
+    line-height:1.55;
+  }
+
+  .simpleForm{
+    width:100%;
+    margin:26px auto 0;
+    padding:19px 18px;
+    box-shadow:none;
+  }
+
+  .simpleForm label{
+    grid-template-columns:34px minmax(0,1fr);
+    gap:11px;
+    padding:14px 0;
+    font-size:12px;
+  }
+
+  .simpleForm label>span{
+    width:28px;
+    height:28px;
+    font-size:13px;
+  }
+
+  .simpleForm input,
+  .simpleForm select{
+    min-height:48px;
+    padding:0 12px;
+    font-size:13px;
+  }
+
+  .simpleSyncButton{
+    min-height:52px;
+    margin-top:20px;
+    font-size:13px;
+  }
+
+  .simpleForm>small{
+    font-size:9px;
+  }
+}
