@@ -882,3 +882,90 @@
     padding-top:0;
   }
 }
+
+
+/* Dedicated Pet & Wings tab */
+.companionGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+}
+.companionItem{
+  display:grid;
+  grid-template-columns:96px minmax(0,1fr);
+  gap:18px;
+  align-items:center;
+  padding:18px 0;
+  border-bottom:1px solid #27323a;
+}
+.companionIcon{
+  width:96px;
+  height:96px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid #5a6871;
+  border-radius:10px;
+  background:#0b1117;
+}
+.companionIcon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.companionIcon svg{
+  width:34px;
+  height:34px;
+  color:#cdb675;
+}
+.companionItem>div{
+  min-width:0;
+}
+.companionItem small{
+  display:block;
+  color:#8b99a3;
+  font-size:9px;
+  letter-spacing:.16em;
+}
+.companionItem h4{
+  margin:7px 0 6px;
+  font:400 24px Georgia,serif;
+  color:#eef2f4;
+}
+.companionItem strong{
+  color:#e2ca90;
+  font:400 20px Georgia,serif;
+}
+
+@media(max-width:800px){
+  .tabs{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+  }
+  .tabs button{
+    font-size:9px;
+  }
+  .tabs button span{
+    white-space:nowrap;
+  }
+  .companionGrid{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  .companionItem{
+    grid-template-columns:72px minmax(0,1fr);
+    gap:14px;
+    padding:14px 0;
+  }
+  .companionIcon{
+    width:72px;
+    height:72px;
+    border-radius:8px;
+  }
+  .companionItem h4{
+    margin:5px 0 4px;
+    font-size:20px;
+  }
+  .companionItem strong{
+    font-size:17px;
+  }
+}
