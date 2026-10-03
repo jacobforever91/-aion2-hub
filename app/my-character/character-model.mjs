@@ -17,6 +17,7 @@ const englishText=(value,fallback="",max=300)=>{
 const englishList=value=>list(value).map(v=>englishText(typeof v==="string"?v:v?.desc,"",500)).filter(Boolean);
 const number=value=>Number.isFinite(Number(value))?Number(value):0;
 const bool=value=>value===true||value===1||value==="1";
+const flag=value=>bool(value)||String(value||"").toLowerCase()==="true"||String(value||"").toLowerCase()==="y"||String(value||"").toLowerCase()==="yes";
 export function regionFromServerId(serverId){
   const n=number(serverId);
   if(n>=1100&&n<1200)return "nae";
@@ -68,6 +69,56 @@ export function normalizeSearchRow(row,region){
   if(!serverId||!characterId)return null;
   return {region,serverId,characterId,name:cleanString(row?.name||row?.characterName,120).replace(/<[^>]*>/g,""),serverName:cleanString(row?.serverName,120),race:number(row?.race??row?.raceId),level:number(row?.level??row?.characterLevel),profileImage:portrait(row?.profileImageUrl||row?.profileImage),profileUrl:buildProfileUrl(region,serverId,characterId)};
 }
+export function extractDaevanionBoards(info){
+  const root=info?.daevanion;
+  if(!root||typeof root!=="object")return [];
+  const rows=[],seenObjects=new Set();
+  const looksLikeBoard=row=>{
+    if(!row||typeof row!=="object"||Array.isArray(row))return false;
+    const id=number(row.id??row.boardId??row.boardNo??row.boardSeq);
+    if(!id)return false;
+    return row.boardId!=null||row.boardName!=null||row.openNodeCount!=null||row.totalNodeCount!=null||row.openPercent!=null||row.open!=null||row.isOpen!=null||row.unlocked!=null||row.isUnlocked!=null;
+  };
+  const walk=(value,depth=0,keyHint="")=>{
+    if(value==null||depth>5)return;
+    if(Array.isArray(value)){
+      for(const row of value){
+        if(looksLikeBoard(row))rows.push(row);
+        if(row&&typeof row==="object")walk(row,depth+1,keyHint);
+      }
+      return;
+    }
+    if(typeof value!=="object"||seenObjects.has(value))return;
+    seenObjects.add(value);
+    for(const [key,child] of Object.entries(value)){
+      if(/board|group|list/i.test(key)||depth===0)walk(child,depth+1,key);
+    }
+  };
+  walk(root);
+  const out=[],seenIds=new Set();
+  for(const row of rows){
+    const id=number(row.id??row.boardId??row.boardNo??row.boardSeq);
+    if(!id||seenIds.has(id))continue;
+    seenIds.add(id);
+    const openNodes=number(row.openNodeCount??row.openNodes??row.activeNodeCount??row.unlockedNodeCount);
+    const totalNodes=number(row.totalNodeCount??row.totalNodes??row.nodeCount);
+    const rawPercent=number(row.openPercent??row.progressPercent??row.percent);
+    const openPercent=rawPercent||((openNodes>0&&totalNodes>0)?Math.round(openNodes/totalNodes*1000)/10:0);
+    const open=flag(row.open??row.isOpen??row.unlocked??row.isUnlocked??row.enabled);
+    out.push({
+      id,
+      name:englishText(row.name??row.boardName??row.title,"Daevanion Board",120),
+      open,
+      unlocked:open||openNodes>0||openPercent>0,
+      openNodes,
+      totalNodes,
+      openPercent,
+      icon:asset(row.icon??row.iconPath??row.boardIcon)
+    });
+  }
+  return out;
+}
+
 export function normalizeCharacter(info,equipment,ref){
   const p=info?.profile||{};
   const stats=list(info?.stat?.statList).map(x=>{
@@ -85,7 +136,7 @@ export function normalizeCharacter(info,equipment,ref){
   const pet=equipment?.petwing?.pet?{id:number(equipment.petwing.pet.id),name:englishText(equipment.petwing.pet.name,"Pet",160),level:number(equipment.petwing.pet.level),icon:asset(equipment.petwing.pet.icon)}:null;
   const wing=equipment?.petwing?.wing?{id:number(equipment.petwing.wing.id),name:englishText(equipment.petwing.wing.name,"Wings",160),grade:englishText(equipment.petwing.wing.grade,"",60),enchantLevel:number(equipment.petwing.wing.enchantLevel),icon:asset(equipment.petwing.wing.icon)}:null;
   const wingSkin=equipment?.petwing?.wingSkin?{id:number(equipment.petwing.wingSkin.id),name:englishText(equipment.petwing.wingSkin.name,"Wing Skin",160),grade:englishText(equipment.petwing.wingSkin.grade,"",60),enchantLevel:number(equipment.petwing.wingSkin.enchantLevel),icon:asset(equipment.petwing.wingSkin.icon)}:null;
-  const boards=list(info?.daevanion?.boardList).map(x=>({id:number(x?.id),name:englishText(x?.name,"Daevanion Board",120),open:bool(x?.open),openNodes:number(x?.openNodeCount),totalNodes:number(x?.totalNodeCount),openPercent:number(x?.openPercent),icon:asset(x?.icon)}));
+  const boards=extractDaevanionBoards(info);
   const titles=info?.title||{};
   return {
     source:"NC public character API",region:ref.region,serverId:ref.serverId,characterId:ref.characterId,profileUrl:buildProfileUrl(ref.region,ref.serverId,ref.characterId),
