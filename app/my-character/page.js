@@ -10,6 +10,7 @@ const regions=[["naw","Global · NA West"],["nae","Global · NA East"],["eu","Gl
 const fmt=n=>new Intl.NumberFormat("en-US").format(Number(n)||0);
 const race=id=>Number(id)===1?"Elyos":Number(id)===2?"Asmodian":"Unknown";
 const boardClassAlias={Spiritmaster:"Elementalist"};
+const BOARD_ORDER=["Nezekan","Zikel","Vaizel","Triniel","Ariel","Azphel","Marchutan","Yustiel"];
 function daevanionGlyph(label){
  const t=String(label||"").toLowerCase();
  if(t.includes("max hp"))return Heart;
@@ -79,7 +80,7 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
  const selectableNodes=visualNodes.filter(n=>!n.start);
  const openNodes=selectableNodes.filter(n=>n.open);
  return <section className={styles.syncedBoardView}>
-   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>ACTIVE DAEVANION BOARD</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{openNodes.length}/{board?.totalNodes||selectableNodes.length||"—"}</strong></header>
+   <header className={styles.syncedBoardHeader}><button type="button" onClick={onBack}><ArrowLeft/> Progress</button><div><small>{board?.reference?"DAEVANION BOARD REFERENCE":"ACTIVE DAEVANION BOARD"}</small><h3>{board?.name||"Daevanion Board"}</h3></div><strong>{board?.reference?selectableNodes.length:(openNodes.length+"/"+(board?.totalNodes||selectableNodes.length||"—"))}</strong></header>
    <div className={styles.syncedBoardShell}>
      <div className={styles.syncedBoardBackdrop}/>
      <div className={styles.syncedBoardFrame}>
@@ -106,6 +107,17 @@ export default function MyCharacter(){
  const acquired=useMemo(()=>[...(linked?.skills||[])].filter(s=>s.acquired===true&&Number(s.level)>0).sort((a,b)=>Number(b.equipped)-Number(a.equipped)||String(a.category||"").localeCompare(String(b.category||""))||String(a.name||"").localeCompare(String(b.name||""))),[linked]);
  const skillGroups=useMemo(()=>({active:acquired.filter(s=>classifyCharacterSkill(s.category)==="active"),passive:acquired.filter(s=>classifyCharacterSkill(s.category)==="passive"),stigma:acquired.filter(s=>classifyCharacterSkill(s.category)==="stigma")}),[acquired]);
  const daevanionBoards=useMemo(()=>{const all=Array.isArray(linked?.daevanion)?linked.daevanion:[];const unlocked=all.filter(b=>b.unlocked||b.open||Number(b.openNodes)>0||Number(b.openPercent)>0);return unlocked.length?unlocked:all;},[linked]);
+ const allDaevanionBoards=useMemo(()=>{
+   const synced=Array.isArray(linked?.daevanion)?linked.daevanion:[];
+   const byName=new Map(synced.map(board=>[String(board?.name||"").toLowerCase(),board]));
+   const catalogClass=boardClassAlias[linked?.profile?.className]||linked?.profile?.className;
+   return BOARD_ORDER.map(name=>{
+     const found=byName.get(name.toLowerCase());
+     const catalog=boardData?.[catalogClass]?.[name]||[];
+     const total=catalog.filter(node=>!node?.[5]).length;
+     return found?{...found,totalNodes:found.totalNodes||total,reference:false}:{id:"reference-"+name,name,open:false,unlocked:false,openNodes:0,totalNodes:total,openPercent:0,icon:"",detail:null,reference:true};
+   });
+ },[linked]);
  const persist=(character,time)=>{
    setLinked(character);setSyncedAt(time||"");
    try{
@@ -173,7 +185,7 @@ export default function MyCharacter(){
          </article>
        </div></>}
        {tab==="skills"&&<><div className={styles.sectionTitle}><Swords/><div><h3>Your skills</h3><p>Everything you have unlocked, separated by type.</p></div></div><div className={styles.skillGroups}>{[["active","Active"],["passive","Passive"],["stigma","Stigma"]].map(([key,label])=><section className={styles.skillGroup} key={key}><header><div><span>{label.toUpperCase()}</span><h4>{label}</h4></div><b>{skillGroups[key].length}</b></header><div className={styles.skillGrid}>{skillGroups[key].map(s=><article key={s.id}><span className={styles.itemIcon}>{s.icon?<img src={s.icon} alt=""/>:<Sparkles/>}</span><div><small>{s.category||label}{s.equipped?" · EQUIPPED":""}</small><b>{s.name||("Skill "+s.id)}</b><span>Lv. {s.level}</span></div></article>)}{!skillGroups[key].length&&<p className={styles.skillEmpty}>No {label.toLowerCase()} skills acquired.</p>}</div></section>)}</div>{!acquired.length&&<p className={styles.message}>No acquired skills were returned for this character.</p>}</>}
-       {tab==="progression"&&(boardView?<SyncedDaevanionBoard board={boardView} className={linked.profile.className} skills={linked.skills} onBack={()=>setBoardView(null)}/>:<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>Your titles, active Daevanion boards and rankings.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardList}>{daevanionBoards.map((b,i)=><button type="button" key={b.id||i} onClick={()=>setBoardView(b)}><span>{b.icon&&<img src={b.icon} alt=""/>}</span><div><b>{b.name||("Daevanion Board "+(i+1))}</b><small>{b.openNodes}/{b.totalNodes||"—"} nodes</small></div><strong>{b.openPercent?b.openPercent+"%":"VIEW"}</strong></button>)}{!daevanionBoards.length&&<p className={styles.skillEmpty}>No active Daevanion boards were returned by the current character sync.</p>}</div></>)}
+       {tab==="progression"&&(boardView?<SyncedDaevanionBoard board={boardView} className={linked.profile.className} skills={linked.skills} onBack={()=>setBoardView(null)}/>:<><div className={styles.sectionTitle}><Database/><div><h3>Your progress</h3><p>All eight original Daevanion boards. Synced boards show your current points.</p></div></div><div className={styles.progressTop}><article><small>TITLES</small><strong>{linked.titles.owned}/{linked.titles.total||"—"}</strong></article><article><small>ACTIVE DAEVANION</small><strong>{daevanionBoards.length}</strong></article><article><small>RANKINGS</small><strong>{linked.rankings.length}</strong></article></div><div className={styles.boardSelector8}>{allDaevanionBoards.map((b,i)=><button type="button" key={b.name} className={b.reference?styles.boardReference:styles.boardSynced} onClick={()=>setBoardView(b)}><small>BOARD {i+1}</small><b>{b.name}</b><span>{b.reference?(b.totalNodes+" nodes"):(b.openNodes+"/"+b.totalNodes+" · "+(b.openPercent||0)+"%")}</span></button>)}</div></>)}
        </div>
        
      </div>
