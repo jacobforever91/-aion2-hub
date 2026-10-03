@@ -2037,3 +2037,150 @@
     width:6.4%;
   }
 }
+
+
+/* Character Arcana tab — always present, even when empty */
+.arcanaSyncGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 32px;
+}
+.arcanaSyncGrid article{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  gap:12px;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #27323a;
+}
+.arcanaSyncIcon{
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid #5d6870;
+  border-radius:5px;
+  background:#0b1117;
+}
+.arcanaSyncIcon img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.arcanaSyncIcon svg{
+  width:24px;
+  color:#d5bb78;
+}
+.arcanaSyncGrid article>div{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.arcanaSyncGrid small{
+  color:#8b99a3;
+  font-size:8px;
+  letter-spacing:.12em;
+}
+.arcanaSyncGrid b{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#eef2f4;
+  font-size:13px;
+}
+.arcanaSyncGrid article span{
+  color:#c8ad70;
+  font-size:10px;
+}
+
+.arcanaEmpty{
+  min-height:260px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  padding:36px 20px;
+  border-top:1px solid #28333b;
+  border-bottom:1px solid #28333b;
+  text-align:left;
+}
+.arcanaEmpty>span{
+  width:72px;
+  height:72px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border:1px solid #6d5f3f;
+  border-radius:50%;
+  background:radial-gradient(circle,#1d1a12,#0b1015 70%);
+}
+.arcanaEmpty>span svg{
+  width:30px;
+  color:#d8bf7a;
+}
+.arcanaEmpty>div{
+  max-width:520px;
+}
+.arcanaEmpty small{
+  color:#d1b66f;
+  font-size:8px;
+  font-weight:700;
+  letter-spacing:.18em;
+}
+.arcanaEmpty h4{
+  margin:6px 0 7px;
+  font:400 26px Georgia,serif;
+  color:#eef2f4;
+}
+.arcanaEmpty p{
+  margin:0;
+  color:#84949e;
+  font-size:11px;
+  line-height:1.55;
+}
+.arcanaEmpty a{
+  display:inline-flex;
+  align-items:center;
+  min-height:36px;
+  margin-top:14px;
+  padding:0 12px;
+  border:1px solid #75633d;
+  border-radius:4px;
+  background:#17140e;
+  color:#e4ce94;
+  font-size:10px;
+  font-weight:700;
+}
+
+@media(max-width:800px){
+  .tabs{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+  }
+  .tabs button{
+    gap:3px;
+    font-size:8px;
+  }
+  .tabs button svg{
+    width:12px;
+    height:12px;
+  }
+  .arcanaSyncGrid{
+    grid-template-columns:1fr;
+  }
+  .arcanaEmpty{
+    min-height:220px;
+    display:block;
+    padding:28px 14px;
+    text-align:center;
+  }
+  .arcanaEmpty>span{
+    width:62px;
+    height:62px;
+    margin:0 auto 14px;
+  }
+  .arcanaEmpty h4{
+    font-size:22px;
+  }
+}
