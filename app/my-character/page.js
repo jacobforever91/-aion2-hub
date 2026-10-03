@@ -29,6 +29,31 @@ function SyncedBoardConnections({nodes}){
  }
  return lines;
 }
+function BoardBonusSummary({board}){
+ const detail=board?.detail||{};
+ const statEffects=[...new Set(Array.isArray(detail.openStatEffects)?detail.openStatEffects.filter(Boolean):[])];
+ const skillEffects=[...new Set(Array.isArray(detail.openSkillEffects)?detail.openSkillEffects.filter(Boolean):[])];
+ const activeNodes=(Array.isArray(detail.nodes)?detail.nodes:[]).filter(node=>node?.open);
+ const nodeEffects=[];
+ const seen=new Set();
+ for(const node of activeNodes){
+   for(const effect of (Array.isArray(node?.effects)?node.effects:[])){
+     const key=String(effect||"").trim();
+     if(!key||seen.has(key)||statEffects.includes(key)||skillEffects.includes(key))continue;
+     seen.add(key);
+     nodeEffects.push({node:node.name||"Active node",effect:key});
+   }
+ }
+ const hasAny=statEffects.length||skillEffects.length||nodeEffects.length;
+ return <section className={styles.boardBonusSummary}>
+   <div className={styles.boardBonusHead}><Sparkles/><div><small>BOARD SUMMARY</small><h4>What this board gives you</h4></div></div>
+   {hasAny?<div className={styles.boardBonusGroups}>
+     {!!statEffects.length&&<div className={styles.boardBonusGroup}><h5>Stat bonuses</h5>{statEffects.map((effect,i)=><p key={"stat-"+i}><span>+</span>{effect}</p>)}</div>}
+     {!!skillEffects.length&&<div className={styles.boardBonusGroup}><h5>Skill bonuses</h5>{skillEffects.map((effect,i)=><p key={"skill-"+i}><span>◆</span>{effect}</p>)}</div>}
+     {!!nodeEffects.length&&<div className={styles.boardBonusGroup}><h5>Active node effects</h5>{nodeEffects.map((row,i)=><p key={"node-"+i}><span>•</span><b>{row.node}</b> · {row.effect}</p>)}</div>}
+   </div>:<p className={styles.boardBonusEmpty}>The official sync did not return readable English effect text for this board yet.</p>}
+ </section>;
+}
 function SyncedDaevanionBoard({board,className,skills,onBack}){
  const raw=Array.isArray(board?.detail?.nodes)?board.detail.nodes:[];
  const minRow=raw.length?Math.min(...raw.map(n=>Number(n.row)||0)):1;
@@ -60,6 +85,7 @@ function SyncedDaevanionBoard({board,className,skills,onBack}){
      <div className={styles.syncedBoardLegend}><span><i className={styles.legendOpen}/>Your active nodes</span><span><i className={styles.legendClosed}/>Available nodes</span></div>
    </div>
    <div className={styles.syncedBoardFoot}><span>{board?.openPercent||0}% complete</span><span>{openNodes.length} active nodes</span><span>{visualNodes.length} board nodes</span></div>
+   <BoardBonusSummary board={board}/>
  </section>;
 }
 export default function MyCharacter(){
