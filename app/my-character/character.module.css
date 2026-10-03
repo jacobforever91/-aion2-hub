@@ -1922,3 +1922,118 @@
     bottom:8px;
   }
 }
+
+
+/* Refine original board look: compact tabs, real symbols, blue active state */
+.originalBoardTabs{
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+  padding:0 0 4px;
+  scrollbar-width:thin;
+}
+.originalBoardTabs button{
+  flex:0 0 82px;
+  min-height:44px;
+  padding:6px 5px;
+}
+.originalBoardTabs button small{
+  font-size:6px;
+}
+.originalBoardTabs button b{
+  margin-top:2px;
+  font-size:10px;
+}
+.originalBoardTabs button span{
+  margin-top:2px;
+  font-size:6px;
+}
+.originalBoardTabs .originalBoardTabActive{
+  border-color:#4d89b2;
+  background:linear-gradient(180deg,#101923,#0a0f14);
+  box-shadow:inset 0 -2px 0 #57a7d8;
+}
+.originalBoardTabs .originalBoardTabActive b{
+  color:#dcecf6;
+}
+.originalBoardTabs .originalBoardTabActive span{
+  color:#75b9e1;
+}
+
+.syncedNodeClosed{
+  opacity:.28;
+  filter:saturate(.28) brightness(.62);
+}
+.syncedNodeOpen{
+  opacity:1;
+  filter:none;
+  box-shadow:inset 0 0 0 1px #101417,0 0 8px rgba(68,167,224,.22);
+}
+.syncedNodeOpen::before{
+  border-color:rgba(83,177,231,.78);
+  box-shadow:0 0 8px rgba(64,164,224,.3);
+}
+.syncedNodeOpen svg{
+  color:#d8e8f1;
+}
+.syncedNodeSelected{
+  outline:2px solid #f0d48c;
+  outline-offset:3px;
+}
+.legendOpen{
+  background:#55aee0;
+  box-shadow:0 0 6px rgba(85,174,224,.45);
+}
+.syncedBoardLegend{
+  color:#84919a;
+}
+
+.syncedStartNode{
+  width:6.6%;
+  border-color:#bda56a;
+  background:linear-gradient(180deg,#27241b,#121310);
+  box-shadow:inset 0 0 0 1px #17140d,0 0 12px rgba(194,167,99,.24);
+}
+.syncedStartNode>i{
+  inset:7%;
+}
+.syncedStartNode img{
+  border-radius:50%;
+  object-fit:cover;
+  filter:saturate(1.05) brightness(1.05);
+}
+
+/* Stat nodes use readable symbols instead of unknown placeholder art */
+.syncedNode:not(.syncedStartNode)>i>svg{
+  color:#c6c0a9;
+}
+.syncedGradeRare>i>svg{color:#8ec79a}
+.syncedGradeLegend>i>svg{color:#83b7e5}
+.syncedGradeUnique>i>svg{color:#e0a066}
+
+@media(max-width:800px){
+  .originalBoardTabs{
+    display:flex;
+    gap:4px;
+    overflow-x:auto;
+    margin-top:8px;
+    padding-bottom:4px;
+  }
+  .originalBoardTabs button{
+    flex:0 0 74px;
+    min-height:40px;
+    padding:5px 3px;
+  }
+  .originalBoardTabs button b{
+    font-size:8px;
+  }
+  .originalBoardTabs button span{
+    font-size:6px;
+  }
+  .syncedNode{
+    width:5.3%;
+  }
+  .syncedStartNode{
+    width:6.4%;
+  }
+}
