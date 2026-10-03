@@ -2386,3 +2386,112 @@
     font-size:9px;
   }
 }
+
+
+/* =========================================================
+   4K / LARGE DESKTOP FIX
+   Scale Character Sync from viewport width, never from mobile.
+   ========================================================= */
+@media(min-width:1400px){
+  .simpleConnect{
+    width:72vw;
+    max-width:1680px;
+    min-height:calc(100svh - 84px);
+    padding:3vh 0 5vh;
+  }
+
+  .simpleIntro{
+    width:100%;
+    max-width:none;
+  }
+
+  .simpleIntro>span{
+    font-size:clamp(11px,.72vw,17px);
+    letter-spacing:.24em;
+  }
+
+  .simpleIntro h2{
+    margin:18px 0 14px;
+    font-size:clamp(68px,4.6vw,118px);
+    line-height:.98;
+  }
+
+  .simpleIntro p{
+    max-width:1000px;
+    font-size:clamp(15px,1vw,23px);
+    line-height:1.55;
+  }
+
+  .simpleForm{
+    width:54vw;
+    max-width:1280px;
+    min-width:820px;
+    margin:clamp(28px,3vh,48px) auto 0;
+    padding:clamp(34px,2.4vw,58px) clamp(40px,3vw,72px);
+    border-width:1px;
+    box-shadow:0 28px 90px #0007;
+  }
+
+  .simpleForm label{
+    grid-template-columns:clamp(44px,2.7vw,64px) minmax(0,1fr);
+    gap:clamp(16px,1.2vw,26px);
+    padding:clamp(18px,1.35vw,30px) 0;
+    font-size:clamp(14px,.92vw,21px);
+  }
+
+  .simpleForm label>span{
+    width:clamp(36px,2.3vw,52px);
+    height:clamp(36px,2.3vw,52px);
+    font-size:clamp(16px,1.05vw,24px);
+  }
+
+  .simpleForm label>div{
+    gap:clamp(9px,.7vw,15px);
+  }
+
+  .simpleForm input,
+  .simpleForm select{
+    min-height:clamp(58px,3.8vw,86px);
+    padding:0 clamp(16px,1.2vw,26px);
+    font-size:clamp(14px,1vw,23px);
+    border-radius:7px;
+  }
+
+  .simpleSyncButton{
+    min-height:clamp(62px,4.1vw,92px);
+    margin-top:clamp(24px,1.8vw,38px);
+    font-size:clamp(15px,1.05vw,24px);
+  }
+
+  .simpleSyncButton svg{
+    width:clamp(19px,1.25vw,28px);
+    height:clamp(19px,1.25vw,28px);
+  }
+
+  .simpleForm>small{
+    margin-top:clamp(14px,1vw,22px);
+    font-size:clamp(10px,.72vw,16px);
+  }
+}
+
+/* Extra-large / 4K desktop */
+@media(min-width:2200px){
+  .simpleConnect{
+    width:76vw;
+    max-width:2100px;
+  }
+
+  .simpleIntro h2{
+    font-size:clamp(88px,4.4vw,138px);
+  }
+
+  .simpleIntro p{
+    max-width:1200px;
+  }
+
+  .simpleForm{
+    width:58vw;
+    max-width:1550px;
+    min-width:1100px;
+  }
+}
