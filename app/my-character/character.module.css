@@ -2495,3 +2495,97 @@
     min-width:1100px;
   }
 }
+
+
+/* =========================================================
+   FINAL LARGE-DESKTOP CHARACTER SYNC SCALE
+   No desktop max-width caps: size follows the actual monitor.
+   Mobile rules remain untouched.
+   ========================================================= */
+@media(min-width:1400px){
+  .simpleConnect{
+    width:84vw !important;
+    max-width:none !important;
+    min-height:calc(100svh - 84px);
+    padding:3vh 0 5vh !important;
+  }
+
+  .simpleIntro{
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .simpleIntro>span{
+    font-size:clamp(12px,.7vw,22px) !important;
+  }
+
+  .simpleIntro h2{
+    font-size:clamp(76px,5vw,170px) !important;
+    margin:18px 0 16px !important;
+  }
+
+  .simpleIntro p{
+    max-width:62vw !important;
+    font-size:clamp(17px,1.05vw,30px) !important;
+    line-height:1.55 !important;
+  }
+
+  .simpleForm{
+    width:62vw !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:clamp(30px,3.2vh,58px) auto 0 !important;
+    padding:clamp(38px,2.7vw,86px) clamp(44px,3.2vw,100px) !important;
+  }
+
+  .simpleForm label{
+    grid-template-columns:clamp(48px,2.8vw,82px) minmax(0,1fr) !important;
+    gap:clamp(18px,1.3vw,34px) !important;
+    padding:clamp(20px,1.45vw,38px) 0 !important;
+    font-size:clamp(16px,1vw,30px) !important;
+  }
+
+  .simpleForm label>span{
+    width:clamp(38px,2.35vw,70px) !important;
+    height:clamp(38px,2.35vw,70px) !important;
+    font-size:clamp(17px,1.05vw,30px) !important;
+  }
+
+  .simpleForm input,
+  .simpleForm select{
+    min-height:clamp(64px,4vw,112px) !important;
+    padding:0 clamp(18px,1.25vw,34px) !important;
+    font-size:clamp(16px,1vw,30px) !important;
+  }
+
+  .simpleSyncButton{
+    min-height:clamp(68px,4.3vw,120px) !important;
+    margin-top:clamp(28px,2vw,48px) !important;
+    font-size:clamp(17px,1.05vw,30px) !important;
+  }
+
+  .simpleSyncButton svg{
+    width:clamp(21px,1.3vw,36px) !important;
+    height:clamp(21px,1.3vw,36px) !important;
+  }
+
+  .simpleForm>small{
+    margin-top:clamp(16px,1.1vw,28px) !important;
+    font-size:clamp(11px,.75vw,20px) !important;
+  }
+}
+
+/* Very wide / 4K monitors */
+@media(min-width:2400px){
+  .simpleConnect{
+    width:88vw !important;
+  }
+
+  .simpleForm{
+    width:66vw !important;
+  }
+
+  .simpleIntro p{
+    max-width:68vw !important;
+  }
+}
