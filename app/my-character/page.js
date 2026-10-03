@@ -58,7 +58,7 @@ export default function MyCharacter(){
        <div className={styles.portrait}>{linked.profile.image?<img src={linked.profile.image} alt=""/>:<Shield/>}</div>
        <div className={styles.profileIdentity}><span className={styles.region}>{regions.find(x=>x[0]===linked.region)?.[1]||linked.region}</span><h2>{linked.profile.name}</h2><p>{linked.profile.className||"Class pending"} · Lv. {linked.profile.level} · {race(linked.profile.raceId)}</p><small>{linked.profile.serverName||("Server "+linked.serverId)}{linked.profile.guildName?" · "+linked.profile.guildName:""}</small></div>
        <div className={styles.profileActions}><a className={styles.official} href={linked.profileUrl} target="_blank" rel="noreferrer"><ExternalLink/> Official</a><a className={styles.buildImport} href="/builds?import=character"><Swords/> Build</a><button className={styles.infoBack} onClick={()=>{autoSyncAttempted.current=false;setMessage("");setView("sync");}}><RefreshCw/> Refresh</button></div>
-       <div className={styles.syncTime}>Updated <b>{syncedAt?new Date(syncedAt).toLocaleString():"—"}</b></div>
+       <div className={styles.syncTime}>Updated <b>{syncedAt?new Date(syncedAt).toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit",hour12:true}):"—"}</b></div>
      </aside>
      <div className={styles.content}>
        <div className={styles.metrics}><article><small>COMBAT POWER</small><strong>{fmt(linked.profile.combatPower)}</strong></article><article><small>LEVEL</small><strong>{linked.profile.level||"—"}</strong></article><article><small>ITEM LEVEL</small><strong>{itemLevel?fmt(itemLevel):"—"}</strong></article></div>
