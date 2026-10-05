@@ -35,14 +35,14 @@ export function parseFixed(raw){
   if(!m)return null;
   const n=Number(m[1])+Number(m[2]||0);
   if(!Number.isFinite(n)||Math.abs(n)>=1e12)return null;
-  return {n,unit:m[3]||""};
+  return {n,unit:(m[2]||m[4])?"%":""};
 }
 
 export function parseRange(raw,mode="max"){
   const s=String(raw??"").replace(/,/g,"").trim();
-  const m=s.match(/^([+-]?\d+(?:\.\d+)?)\s*(?:~|–|—|-)\s*([+-]?\d+(?:\.\d+)?)\s*(%)?$/);
+  const m=s.match(/^([+-]?\d+(?:\.\d+)?)\s*(%)?\s*(?:~|–|—|-)\s*([+-]?\d+(?:\.\d+)?)\s*(%)?$/);
   if(!m)return null;
-  const a=Number(m[1]),b=Number(m[2]);
+  const a=Number(m[1]),b=Number(m[3]);
   if(!Number.isFinite(a)||!Number.isFinite(b))return null;
   const lo=Math.min(a,b),hi=Math.max(a,b);
   const n=mode==="mid"?(lo+hi)/2:mode==="min"?lo:hi;
@@ -52,6 +52,7 @@ export function parseRange(raw,mode="max"){
 export function normalizeStatLabel(label){
   const s=String(label||"").trim();
   if(/pvp|jcj/i.test(s))return null;
+  if(/resist|tolerance|defen[cs]e|resistencia|tolerancia/i.test(s))return null;
   const tests=[
     [/weapon\s*damage\s*boost|amplificaci[oó]n.*da[nñ]o.*arma/i,"Weapon Damage Boost"],
     [/boss\s*(damage|dmg)|da[nñ]o.*jefe/i,"Boss Damage"],
