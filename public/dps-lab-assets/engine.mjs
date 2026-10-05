@@ -2,7 +2,6 @@ export const RANGER_WEIGHTS = Object.freeze({
   "Attack": 1,
   "Attack Bonus": 1.35,
   "Attack Increase": 12,
-  "Might": 11,
   "Accuracy": 0.18,
   "Critical Hit": 0.16,
   "Critical Damage": 6.5,
@@ -52,10 +51,11 @@ export function parseRange(raw,mode="max"){
 
 export function normalizeStatLabel(label){
   const s=String(label||"").trim();
+  if(/pvp|jcj/i.test(s))return null;
   const tests=[
-    [/weapon\s*damage\s*boost/i,"Weapon Damage Boost"],
-    [/boss\s*(damage|dmg)/i,"Boss Damage"],
-    [/pve\s*(damage|dmg)/i,"PvE Damage"],
+    [/weapon\s*damage\s*boost|amplificaci[oó]n.*da[nñ]o.*arma/i,"Weapon Damage Boost"],
+    [/boss\s*(damage|dmg)|da[nñ]o.*jefe/i,"Boss Damage"],
+    [/pve\s*(damage|dmg)|jce.*da[nñ]o/i,"PvE Damage"],
     [/critical\s*damage|crit\s*damage/i,"Critical Damage"],
     [/critical\s*hit|crit\s*hit/i,"Critical Hit"],
     [/combat\s*speed|attack\s*speed/i,"Combat Speed"],
@@ -68,6 +68,7 @@ export function normalizeStatLabel(label){
     [/damage\s*boost/i,"Damage Boost"],
     [/accuracy/i,"Accuracy"],
     [/\bmight\b/i,"Might"],
+    [/\bprecision\b/i,"Precision"],
     [/max\s*attack|min\s*attack|physical\s*attack|\battack\b/i,"Attack"]
   ];
   for(const [re,name] of tests)if(re.test(s))return name;
@@ -86,10 +87,31 @@ function addRows(out,rows,{ranges=false,rangeMode="max"}={}){
   return out;
 }
 
-export function statsFromSource(source,options={}){
-  const out={};
-  addRows(out,source?.stats||[]);
-  if(options.includeImprints)addRows(out,source?.imprints||[],{ranges:true,rangeMode:options.rangeMode||"max"});
+export function baseStatsFromSource(source){
+  return addRows({},source?.stats||[]);
+}
+
+export function imprintLineCount(source){
+  const explicit=Number(source?.imprintSlots||source?.soulBindLines);
+  if(Number.isFinite(explicit)&&explicit>0)return Math.max(1,Math.min(5,Math.floor(explicit)));
+  const name=String(source?.name||"");
+  if(/Ludra/i.test(name)&&String(source?.group||"").toLowerCase()==="weapon")return 3;
+  if(/Dragon Lord/i.test(name))return 5;
+  if(String(source?.grade||"").toLowerCase()==="unique")return 4;
+  return 0;
+}
+
+export function imprintCandidates(source,mode="max"){
+  const seen=new Set(),out=[];
+  for(const entry of source?.imprints||[]){
+    const label=Array.isArray(entry)?entry[0]:entry?.label;
+    const raw=Array.isArray(entry)?entry[1]:entry?.value;
+    const key=normalizeStatLabel(label);
+    const parsed=parseFixed(raw)||parseRange(raw,mode);
+    if(!key||!parsed||seen.has(key))continue;
+    seen.add(key);
+    out.push({key,value:parsed.n,label:String(label||key)});
+  }
   return out;
 }
 
@@ -107,16 +129,23 @@ function progress(value,target){
 
 export function scoreStats(stats,profile={},weights=RANGER_WEIGHTS){
   const p={...DEFAULT_PROFILE,...profile};
+  const might=Number(stats?.Might)||0;
+  const precision=Number(stats?.Precision)||0;
+  const effective={...stats};
+  effective["Attack Increase"]=(Number(effective["Attack Increase"])||0)+(might*0.1);
+
   let raw=0;
   for(const [key,weight] of Object.entries(weights)){
-    let value=Number(stats?.[key])||0;
+    let value=Number(effective?.[key])||0;
     if(key==="Boss Damage"&&p.goal!=="boss")value*=0.45;
     raw+=value*weight;
   }
-  const accuracy=(Number(p.baseAccuracy)||0)+(Number(stats?.["Accuracy"])||0);
-  const crit=(Number(p.baseCrit)||0)+(Number(stats?.["Critical Hit"])||0);
-  const speed=(Number(p.baseSpeed)||0)+(Number(stats?.["Combat Speed"])||0);
-  const cdr=(Number(p.baseCdr)||0)+(Number(stats?.["Cooldown Reduction"])||0);
+
+  const precisionMult=1+(precision*0.001);
+  const accuracy=((Number(p.baseAccuracy)||0)+(Number(effective?.Accuracy)||0))*precisionMult;
+  const crit=((Number(p.baseCrit)||0)+(Number(effective?.["Critical Hit"])||0))*precisionMult;
+  const speed=(Number(p.baseSpeed)||0)+(Number(effective?.["Combat Speed"])||0);
+  const cdr=(Number(p.baseCdr)||0)+(Number(effective?.["Cooldown Reduction"])||0);
   const caps={
     accuracy:progress(accuracy,p.targetAccuracy),
     crit:progress(crit,p.targetCrit),
@@ -128,9 +157,38 @@ export function scoreStats(stats,profile={},weights=RANGER_WEIGHTS){
     score:raw+breakpointScore,
     rawScore:raw,
     breakpointScore,
-    totals:{accuracy,crit,speed,cdr},
+    totals:{accuracy,crit,speed,cdr,might,precision},
     caps
   };
+}
+
+export function bestImprintStats(source,currentStats={},profile={}){
+  const p={...DEFAULT_PROFILE,...profile};
+  if(p.potentialMode==="base")return {};
+  const slots=imprintLineCount(source);
+  if(!slots)return {};
+  const candidates=imprintCandidates(source,p.potentialMode==="mid"?"mid":"max");
+  let chosen={},remaining=[...candidates];
+  for(let i=0;i<slots&&remaining.length;i++){
+    let bestIndex=-1,bestGain=-Infinity;
+    const before=scoreStats(mergeStats(currentStats,chosen),p).score;
+    for(let j=0;j<remaining.length;j++){
+      const line=remaining[j];
+      const trial=mergeStats(currentStats,chosen,{[line.key]:line.value});
+      const gain=scoreStats(trial,p).score-before;
+      if(gain>bestGain){bestGain=gain;bestIndex=j;}
+    }
+    if(bestIndex<0)break;
+    const line=remaining.splice(bestIndex,1)[0];
+    chosen[line.key]=(chosen[line.key]||0)+line.value;
+  }
+  return chosen;
+}
+
+export function statsFromSource(source,options={},currentStats={},profile={}){
+  const base=baseStatsFromSource(source);
+  if(!options.includeImprints)return base;
+  return mergeStats(base,bestImprintStats(source,mergeStats(currentStats,base),profile));
 }
 
 export function sourceOptions(profile={}){
@@ -141,7 +199,7 @@ export function sourceOptions(profile={}){
 export function scoreSources(sources,profile,weights=RANGER_WEIGHTS){
   const opts=sourceOptions(profile);
   let stats={};
-  for(const source of sources||[])stats=mergeStats(stats,statsFromSource(source,opts));
+  for(const source of sources||[])stats=mergeStats(stats,statsFromSource(source,opts,stats,profile));
   return {stats,...scoreStats(stats,profile,weights)};
 }
 
@@ -153,8 +211,9 @@ export function rankSources(sources,profile,limit=10,weights=RANGER_WEIGHTS){
 
 export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250,topK=5,extraSources=[]}){
   const opts=sourceOptions(profile);
-  const baseStats=mergeStats(...extraSources.map(s=>statsFromSource(s,opts)));
-  let beam=[{gear:{},sources:[...extraSources],stats:baseStats,score:scoreStats(baseStats,profile).score}];
+  let seedStats={};
+  for(const source of extraSources)seedStats=mergeStats(seedStats,statsFromSource(source,opts,seedStats,profile));
+  let beam=[{gear:{},sources:[...extraSources],stats:seedStats,score:scoreStats(seedStats,profile).score}];
   const width=Math.max(10,Math.min(1000,Number(beamWidth)||250));
   for(const slot of slots||[]){
     const locked=locks[slot.id];
@@ -163,7 +222,7 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
     const next=[];
     for(const current of beam){
       for(const item of candidates){
-        const itemStats=statsFromSource(item,opts);
+        const itemStats=statsFromSource(item,opts,current.stats,profile);
         const stats=mergeStats(current.stats,itemStats);
         const evaluated=scoreStats(stats,profile);
         next.push({
