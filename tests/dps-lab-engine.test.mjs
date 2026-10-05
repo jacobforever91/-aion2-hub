@@ -8,7 +8,8 @@ import {
   scoreStats,
   optimizeEquipment,
   imprintLineCount,
-  bestImprintStats
+  bestImprintStats,
+  pureAttackFromStats
 } from '../public/dps-lab-assets/engine.mjs';
 
 test('parses fixed numeric, percent and theoretical range values',()=>{
@@ -100,4 +101,17 @@ test('defensive lines never masquerade as offensive DPS stats',()=>{
 
 test('percent ranges parse when both bounds carry percent signs',()=>{
   assert.deepEqual(parseRange('7.5% ~ 8.7%','max'),{n:8.7,unit:'%'});
+});
+
+test('weapon min and max attack use their average instead of being summed',()=>{
+  assert.equal(normalizeStatLabel('Min Attack'),'Min Attack');
+  assert.equal(normalizeStatLabel('Max Attack'),'Max Attack');
+  assert.equal(pureAttackFromStats({Attack:100,'Min Attack':470,'Max Attack':590}),630);
+});
+
+test('Perfect chance only adds the expected weapon-range bonus to pure attack',()=>{
+  const base=pureAttackFromStats({Attack:100,'Min Attack':400,'Max Attack':600,Perfect:0});
+  const withPerfect=pureAttackFromStats({Attack:100,'Min Attack':400,'Max Attack':600,Perfect:20});
+  assert.equal(base,600);
+  assert.equal(withPerfect,620);
 });
