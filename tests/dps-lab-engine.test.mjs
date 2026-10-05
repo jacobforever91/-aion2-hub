@@ -16,7 +16,7 @@ test('parses fixed numeric, percent and theoretical range values',()=>{
   assert.deepEqual(parseFixed('3.5%'),{n:3.5,unit:'%'});
   assert.equal(parseFixed('10-20'),null);
   assert.deepEqual(parseRange('11.23 ~ 12.98','max'),{n:12.98,unit:''});
-  assert.deepEqual(parseRange('10% - 20%','mid'),null);
+  assert.deepEqual(parseRange('10% - 20%','mid'),{n:15,unit:'%'});
   assert.deepEqual(parseRange('10 - 20','mid'),{n:15,unit:''});
 });
 
