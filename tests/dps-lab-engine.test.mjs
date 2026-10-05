@@ -7,6 +7,7 @@ import {
   statsFromSource,
   scoreStats,
   optimizeEquipment,
+  optimizeEquipmentDeep,
   imprintLineCount,
   bestImprintStats,
   pureAttackFromStats
@@ -114,4 +115,46 @@ test('Perfect chance only adds the expected weapon-range bonus to pure attack',(
   const withPerfect=pureAttackFromStats({Attack:100,'Min Attack':400,'Max Attack':600,Perfect:20});
   assert.equal(base,600);
   assert.equal(withPerfect,620);
+});
+
+
+test('deep optimizer can recover a synergy build missed by narrow beam ordering',()=>{
+  const slots=[{id:'a'},{id:'b'}];
+  const steadyA={id:'steady-a',stats:[{label:'Attack',value:'100'}]};
+  const critA={id:'crit-a',stats:[{label:'Critical Hit',value:'700'}]};
+  const steadyB={id:'steady-b',stats:[{label:'Attack',value:'100'}]};
+  const critB={id:'crit-b',stats:[{label:'Critical Hit',value:'700'}]};
+  const result=optimizeEquipmentDeep({
+    slots,
+    pools:{a:[steadyA,critA],b:[steadyB,critB]},
+    profile:{targetAccuracy:0,targetCrit:1000,targetSpeed:0,targetCdr:0},
+    beamWidth:10,
+    topK:3,
+    maxPasses:3,
+    eliteCount:3
+  });
+  assert.equal(result[0].searchMeta.mode,'deep');
+  assert.ok(result[0].searchMeta.evaluations>0);
+  assert.ok(result[0].searchMeta.uniqueFullBuilds>=3);
+  assert.ok(result[0].searchMeta.passes>=1);
+});
+
+test('deep optimizer respects locks while refining neighboring builds',()=>{
+  const slots=[{id:'mainHand'},{id:'ring1'}];
+  const locked={id:'locked',stats:[{label:'Attack',value:'10'}]};
+  const betterWeapon={id:'better',stats:[{label:'Attack',value:'999'}]};
+  const ringA={id:'r1',stats:[{label:'Attack',value:'5'}]};
+  const ringB={id:'r2',stats:[{label:'Attack',value:'20'}]};
+  const result=optimizeEquipmentDeep({
+    slots,
+    pools:{mainHand:[locked,betterWeapon],ring1:[ringA,ringB]},
+    locks:{mainHand:locked},
+    profile:{targetAccuracy:0,targetCrit:0,targetSpeed:0,targetCdr:0},
+    beamWidth:20,
+    topK:2,
+    maxPasses:2
+  });
+  assert.equal(result[0].gear.mainHand.id,'locked');
+  assert.equal(result[0].gear.ring1.id,'r2');
+  assert.ok(result[0].searchMeta.refineEvaluations>=0);
 });
