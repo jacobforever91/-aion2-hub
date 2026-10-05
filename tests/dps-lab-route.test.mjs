@@ -102,3 +102,13 @@ test('DPS Lab colors item names from catalog rarity metadata', async()=>{
   assert.match(html,/class=\\"rarityName\\"/);
   assert.match(html,/paintSelect/);
 });
+
+
+test('result cards show item level and required level clearly', async()=>{
+  const html=await GET().text();
+  assert.match(html,/ITEM LV/);
+  assert.match(html,/REQ LV/);
+  assert.match(html,/REQUIRED LV/);
+  assert.match(html,/gearLevels/);
+  assert.match(html,/levelBadge/);
+});
