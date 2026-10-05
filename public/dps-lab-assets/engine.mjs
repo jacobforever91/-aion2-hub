@@ -217,17 +217,29 @@ export function scoreSources(sources,profile,weights=RANGER_WEIGHTS){
   return {stats,...scoreStats(stats,profile,weights)};
 }
 
+function objectiveScore(entry,objective){
+  if(typeof objective!=="function")return Number(entry?.evaluation?.score)||0;
+  try{
+    const value=Number(objective(entry));
+    if(Number.isFinite(value))return value;
+  }catch{}
+  return Number(entry?.evaluation?.score)||0;
+}
+
 export function rankSources(sources,profile,limit=10,weights=RANGER_WEIGHTS){
   return [...(sources||[])].map(source=>({source,...scoreSources([source],profile,weights)}))
     .sort((a,b)=>b.score-a.score)
     .slice(0,Math.max(0,limit));
 }
 
-export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250,topK=5,extraSources=[]}){
+export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250,topK=5,extraSources=[],objective=null}){
   const opts=sourceOptions(profile);
   let seedStats={};
   for(const source of extraSources)seedStats=mergeStats(seedStats,statsFromSource(source,opts,seedStats,profile));
-  let beam=[{gear:{},sources:[...extraSources],stats:seedStats,score:scoreStats(seedStats,profile).score}];
+  const seedEvaluation=scoreStats(seedStats,profile);
+  const seed={gear:{},sources:[...extraSources],stats:seedStats,evaluation:seedEvaluation,score:seedEvaluation.score};
+  seed.score=objectiveScore(seed,objective);
+  let beam=[seed];
   const width=Math.max(10,Math.min(1000,Number(beamWidth)||250));
   let evaluations=0;
   for(const slot of slots||[]){
@@ -241,13 +253,15 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
         const stats=mergeStats(current.stats,itemStats);
         const evaluated=scoreStats(stats,profile);
         evaluations++;
-        next.push({
+        const entry={
           gear:{...current.gear,[slot.id]:item},
           sources:[...current.sources,item],
           stats,
           score:evaluated.score,
           evaluation:evaluated
-        });
+        };
+        entry.score=objectiveScore(entry,objective);
+        next.push(entry);
       }
     }
     next.sort((a,b)=>b.score-a.score);
@@ -261,7 +275,7 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
     rank:index+1,
     index:best>0?100*entry.score/best:100,
     evaluation:entry.evaluation||scoreStats(entry.stats,profile),
-    searchMeta:{mode:"beam",evaluations,beamWidth:width}
+    searchMeta:{mode:"beam",evaluations,beamWidth:width,objective:typeof objective==="function"?"custom":"heuristic"}
   }));
 }
 
@@ -269,7 +283,7 @@ function gearSignature(gear,slots=[]){
   return slots.map(slot=>String(gear?.[slot.id]?.id||"-")).join("|");
 }
 
-export function evaluateEquipmentGear({slots,gear,profile={},extraSources=[]}){
+export function evaluateEquipmentGear({slots,gear,profile={},extraSources=[],objective=null}){
   const opts=sourceOptions(profile);
   let stats={},sources=[];
   for(const source of extraSources||[]){
@@ -283,16 +297,18 @@ export function evaluateEquipmentGear({slots,gear,profile={},extraSources=[]}){
     sources.push(item);
   }
   const evaluation=scoreStats(stats,profile);
-  return {gear:{...gear},sources,stats,score:evaluation.score,evaluation};
+  const entry={gear:{...gear},sources,stats,score:evaluation.score,evaluation};
+  entry.score=objectiveScore(entry,objective);
+  return entry;
 }
 
 export function optimizeEquipmentDeep({
   slots,pools,locks={},profile={},beamWidth=500,topK=5,extraSources=[],
-  maxPasses=3,eliteCount=8
+  maxPasses=3,eliteCount=8,objective=null
 }){
   const eliteLimit=Math.max(topK,Math.min(20,Number(eliteCount)||8));
   const initial=optimizeEquipment({
-    slots,pools,locks,profile,beamWidth,topK:eliteLimit,extraSources
+    slots,pools,locks,profile,beamWidth,topK:eliteLimit,extraSources,objective
   });
   let beamEvaluations=initial[0]?.searchMeta?.evaluations||0;
   let refineEvaluations=0;
@@ -321,7 +337,7 @@ export function optimizeEquipmentDeep({
           const gear={...current.gear,[slot.id]:item};
           const sig=gearSignature(gear,slots);
           if(seen.has(sig))continue;
-          const evaluated=evaluateEquipmentGear({slots,gear,profile,extraSources});
+          const evaluated=evaluateEquipmentGear({slots,gear,profile,extraSources,objective});
           refineEvaluations++;
           remember(evaluated);
         }
@@ -343,7 +359,8 @@ export function optimizeEquipmentDeep({
     evaluations:beamEvaluations+refineEvaluations,
     uniqueFullBuilds:seen.size,
     passes,
-    beamWidth:Math.max(10,Math.min(1000,Number(beamWidth)||500))
+    beamWidth:Math.max(10,Math.min(1000,Number(beamWidth)||500)),
+    objective:typeof objective==="function"?"custom":"heuristic"
   };
   return ranked.map((entry,index)=>({
     ...entry,
