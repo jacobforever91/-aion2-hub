@@ -1,6 +1,7 @@
 export const RANGER_WEIGHTS = Object.freeze({
   "Attack": 1,
   "Attack Bonus": 1.35,
+  "Attack Increase": 12,
   "Might": 11,
   "Accuracy": 0.18,
   "Critical Hit": 0.16,
@@ -25,7 +26,8 @@ export const DEFAULT_PROFILE = Object.freeze({
   targetCrit: 1600,
   targetSpeed: 88.1,
   targetCdr: 33,
-  goal: "boss"
+  goal: "boss",
+  potentialMode: "max"
 });
 
 export function parseFixed(raw){
@@ -34,6 +36,17 @@ export function parseFixed(raw){
   if(!m)return null;
   const n=Number(m[1])+Number(m[2]||0);
   if(!Number.isFinite(n)||Math.abs(n)>=1e12)return null;
+  return {n,unit:m[3]||""};
+}
+
+export function parseRange(raw,mode="max"){
+  const s=String(raw??"").replace(/,/g,"").trim();
+  const m=s.match(/^([+-]?\d+(?:\.\d+)?)\s*(?:~|–|—|-)\s*([+-]?\d+(?:\.\d+)?)\s*(%)?$/);
+  if(!m)return null;
+  const a=Number(m[1]),b=Number(m[2]);
+  if(!Number.isFinite(a)||!Number.isFinite(b))return null;
+  const lo=Math.min(a,b),hi=Math.max(a,b);
+  const n=mode==="mid"?(lo+hi)/2:mode==="min"?lo:hi;
   return {n,unit:m[3]||""};
 }
 
@@ -50,26 +63,33 @@ export function normalizeStatLabel(label){
     [/multi[-\s]*hit/i,"Multi-Hit"],
     [/perfect/i,"Perfect"],
     [/double\s*chance|smite/i,"Double Chance"],
+    [/attack\s*increase/i,"Attack Increase"],
     [/attack\s*bonus/i,"Attack Bonus"],
     [/damage\s*boost/i,"Damage Boost"],
     [/accuracy/i,"Accuracy"],
     [/\bmight\b/i,"Might"],
-    [/max\s*attack|physical\s*attack|\battack\b/i,"Attack"]
+    [/max\s*attack|min\s*attack|physical\s*attack|\battack\b/i,"Attack"]
   ];
   for(const [re,name] of tests)if(re.test(s))return name;
   return null;
 }
 
-export function statsFromSource(source){
-  const out={};
-  for(const entry of source?.stats||[]){
+function addRows(out,rows,{ranges=false,rangeMode="max"}={}){
+  for(const entry of rows||[]){
     const label=Array.isArray(entry)?entry[0]:entry?.label;
     const raw=Array.isArray(entry)?entry[1]:entry?.value;
     const key=normalizeStatLabel(label);
-    const parsed=parseFixed(raw);
+    const parsed=parseFixed(raw)||(ranges?parseRange(raw,rangeMode):null);
     if(!key||!parsed)continue;
     out[key]=(out[key]||0)+parsed.n;
   }
+  return out;
+}
+
+export function statsFromSource(source,options={}){
+  const out={};
+  addRows(out,source?.stats||[]);
+  if(options.includeImprints)addRows(out,source?.imprints||[],{ranges:true,rangeMode:options.rangeMode||"max"});
   return out;
 }
 
@@ -113,9 +133,15 @@ export function scoreStats(stats,profile={},weights=RANGER_WEIGHTS){
   };
 }
 
+export function sourceOptions(profile={}){
+  const p={...DEFAULT_PROFILE,...profile};
+  return {includeImprints:p.potentialMode!=="base",rangeMode:p.potentialMode==="mid"?"mid":"max"};
+}
+
 export function scoreSources(sources,profile,weights=RANGER_WEIGHTS){
+  const opts=sourceOptions(profile);
   let stats={};
-  for(const source of sources||[])stats=mergeStats(stats,statsFromSource(source));
+  for(const source of sources||[])stats=mergeStats(stats,statsFromSource(source,opts));
   return {stats,...scoreStats(stats,profile,weights)};
 }
 
@@ -126,7 +152,9 @@ export function rankSources(sources,profile,limit=10,weights=RANGER_WEIGHTS){
 }
 
 export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250,topK=5,extraSources=[]}){
-  let beam=[{gear:{},sources:[...extraSources],stats:mergeStats(...extraSources.map(statsFromSource)),score:0}];
+  const opts=sourceOptions(profile);
+  const baseStats=mergeStats(...extraSources.map(s=>statsFromSource(s,opts)));
+  let beam=[{gear:{},sources:[...extraSources],stats:baseStats,score:scoreStats(baseStats,profile).score}];
   const width=Math.max(10,Math.min(1000,Number(beamWidth)||250));
   for(const slot of slots||[]){
     const locked=locks[slot.id];
@@ -135,7 +163,7 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
     const next=[];
     for(const current of beam){
       for(const item of candidates){
-        const itemStats=statsFromSource(item);
+        const itemStats=statsFromSource(item,opts);
         const stats=mergeStats(current.stats,itemStats);
         const evaluated=scoreStats(stats,profile);
         next.push({
