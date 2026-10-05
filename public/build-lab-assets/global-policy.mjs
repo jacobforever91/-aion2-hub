@@ -2,7 +2,7 @@
 export const GLOBAL = 'GLOBAL';
 export const GLOBAL_EQUIPMENT_GRADE = 'Unique';
 export const GLOBAL_EQUIPMENT_COLOR = 'Yellow';
-export function globalEquipmentEligible(item) {return item?.region === GLOBAL && item?.grade === GLOBAL_EQUIPMENT_GRADE;}
+export function globalEquipmentEligible(item) {return item?.region === GLOBAL && (item?.grade === GLOBAL_EQUIPMENT_GRADE || (item?.category === 'Rune' && item?.grade === 'Special'));}
 export const STORAGE = 'daevexus.build-lab.global.workspace.v1';
 export const LIBRARY = 'daevexus.build-lab.global.library.v1';
 export const MIGRATED = 'daevexus.build-lab.global.migrated.v1';
