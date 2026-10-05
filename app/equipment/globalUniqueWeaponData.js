@@ -138,7 +138,7 @@ export default [
     ],
     verificationStatus: "GLOBAL_CLIENT_CROSSCHECKED",
     source,
-  },,
+  },
   {
     id: "110420003",
     name: "Ludra's Fatal Bow",
