@@ -42,8 +42,8 @@ export function simulateRangerDps(entry,options={}){
   const weaponDamageBoost=Number(s["Weapon Damage Boost"])||0;
   const might=Number(s.Might)||0;
   const baseAttackIncrease=(Number(s["Attack Increase"])||0)+(might*.1);
-  const attackBonus=Number(options.attackBonus)||0;
-  const cdrBonus=Number(options.cdrBonus)||0;
+  const attackBonus=options.attackBonus==null?60:Number(options.attackBonus)||0;
+  const cdrBonus=options.cdrBonus==null?4:Number(options.cdrBonus)||0;
   const markingCrit=300,bowCrit=200;
   const avgCrit=(Number(t.crit)||0)+markingCrit+(bowCrit*bowUptime);
   const avgBowAttack=((Number(t.crit)||0)+markingCrit+bowCrit)*.10*bowUptime;
@@ -109,6 +109,77 @@ export function simulateRangerDps(entry,options={}){
     dps:damage60/60,burst:damage10/10,damage60,pureAttack,attackPower,
     counts:{marking:markingCasts,deadshot:deadCasts,gale:galeCasts,drill:drillCasts,griffon:griffonCasts,supporting:1,tempest:tempestCount,snipe:snipeCount},
     confidence:"BETA v0.4"
+  };
+}
+
+export const SORCERER_SIM_PRESET=Object.freeze({
+  // v0.1 uses client-visible level-1 skill potencies plus the documented Lv16 specialty breakpoints
+  // as a normalized benchmark. It is useful for ranking gear, but is not combat-log calibrated.
+  active:{firestorm:16,blaze:16,hellfire:16,iceChain:16,winter:16,frost:16,frostBurst:16,bittercold:16,wish:16},
+  skills:{
+    firestorm:{flat:114,cd:5,mult:1.75},
+    blaze:{flat:198,cd:5,mult:1},
+    hellfire:{flat:3412,cd:30,mult:1},
+    iceChain:{flat:79,cd:0,mult:1.12},
+    winter:{flat:275,cd:30,mult:1},
+    frost:{flat:178,cd:25,mult:1},
+    frostBurst:{flat:395,cd:10,mult:1},
+    bittercold:{flat:238,cd:15,mult:1},
+    flameArrow:{flat:62,cd:0,mult:1}
+  }
+});
+
+export function simulateSorcererDps(entry){
+  const s=entry?.stats||{},t=entry?.evaluation?.totals||{},P=SORCERER_SIM_PRESET.skills;
+  const pureAttack=Number(t.pureAttack)||pureAttackFromStats(s)||0;
+  const weaponDamageBoost=Number(s["Weapon Damage Boost"])||0;
+  const might=Number(s.Might)||0;
+  const attackIncrease=(Number(s["Attack Increase"])||0)+(might*.1);
+  const attackPower=pureAttack*(1+weaponDamageBoost/100)*(1+attackIncrease/100);
+  const gearScale=Math.max(.25,1+(attackPower/1000));
+  const wishUptime=10/60;
+  const wishAttack=1+(.20*wishUptime);
+  const winterPveUptime=5/30;
+  const damageBucket=1+((Number(s["Damage Boost"])||0)+(Number(s["PvE Damage"])||0)+(Number(s["Boss Damage"])||0)+(20*winterPveUptime))/100;
+  const critFactor=expectedCritFactor(Number(t.crit)||0,Number(s["Critical Damage"])||0);
+  const multiFactor=expectedMultiFactor(Number(s["Multi-Hit"])||0,0);
+  const common=gearScale*wishAttack*damageBucket*critFactor*multiFactor;
+  const cdr=Number(t.cdr)||0;
+  const hit=(skill,count=1)=>skill.flat*skill.mult*common*count;
+
+  const firestormCasts=castsInWindow(P.firestorm.cd,60,cdr);
+  const blazeCasts=castsInWindow(P.blaze.cd,60,cdr);
+  const hellfireCasts=castsInWindow(P.hellfire.cd,60,cdr);
+  const winterCasts=castsInWindow(P.winter.cd,60,cdr);
+  const frostCasts=castsInWindow(P.frost.cd,60,cdr);
+  const bittercoldCasts=castsInWindow(P.bittercold.cd,60,cdr);
+  const frostBurstBase=castsInWindow(P.frostBurst.cd,60,cdr);
+  // NPC Frost is guaranteed; each Frost cast can reset Frost Burst once in this benchmark.
+  const frostBurstCasts=frostBurstBase+frostCasts;
+
+  const effectiveSpeed=(Number(t.speed)||0)+(10*wishUptime);
+  const actionBudget=Math.max(0,Math.floor(60*(1+effectiveSpeed/100)));
+  const fixedActions=firestormCasts+blazeCasts+hellfireCasts+winterCasts+frostCasts+bittercoldCasts+frostBurstCasts+1; // Wish
+  const filler=Math.max(0,actionBudget-fixedActions);
+  const flameFill=Math.ceil(filler*.6),iceFill=Math.max(0,filler-flameFill);
+
+  const damage60=
+    hit(P.firestorm,firestormCasts)+
+    hit(P.blaze,blazeCasts)+
+    hit(P.hellfire,hellfireCasts)+
+    hit(P.winter,winterCasts)+
+    hit(P.frost,frostCasts)+
+    hit(P.bittercold,bittercoldCasts)+
+    hit(P.frostBurst,frostBurstCasts)+
+    hit(P.flameArrow,flameFill)+
+    hit(P.iceChain,iceFill);
+
+  return {
+    dps:damage60/60,
+    damage60,
+    attackPower,
+    counts:{firestorm:firestormCasts,blaze:blazeCasts,hellfire:hellfireCasts,winter:winterCasts,frost:frostCasts,bittercold:bittercoldCasts,frostBurst:frostBurstCasts,flameArrow:flameFill,iceChain:iceFill},
+    confidence:"BETA v0.1 · normalized client-skill benchmark"
   };
 }
 
