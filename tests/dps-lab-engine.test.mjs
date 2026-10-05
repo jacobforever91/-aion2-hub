@@ -2,16 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseFixed,
+  parseRange,
   normalizeStatLabel,
   statsFromSource,
   scoreStats,
   optimizeEquipment
 } from '../public/dps-lab-assets/engine.mjs';
 
-test('parses fixed numeric and percent values',()=>{
+test('parses fixed numeric, percent and theoretical range values',()=>{
   assert.deepEqual(parseFixed('100 + 20'),{n:120,unit:''});
   assert.deepEqual(parseFixed('3.5%'),{n:3.5,unit:'%'});
   assert.equal(parseFixed('10-20'),null);
+  assert.deepEqual(parseRange('11.23 ~ 12.98','max'),{n:12.98,unit:''});
+  assert.deepEqual(parseRange('10% - 20%','mid'),null);
+  assert.deepEqual(parseRange('10 - 20','mid'),{n:15,unit:''});
 });
 
 test('normalizes Ranger offensive stat labels without swallowing specific boosts',()=>{
