@@ -89,3 +89,15 @@ test('theoretical imprint optimizer selects only the allowed number of lines',()
   const out=bestImprintStats(source,{}, {targetAccuracy:1500,targetCrit:1600,targetSpeed:88.1,targetCdr:33,potentialMode:'max'});
   assert.ok(Object.keys(out).length<=4);
 });
+
+test('defensive lines never masquerade as offensive DPS stats',()=>{
+  assert.equal(normalizeStatLabel('Critical Damage Defense'),null);
+  assert.equal(normalizeStatLabel('Critical Damage Tolerance'),null);
+  assert.equal(normalizeStatLabel('Perfect Resist'),null);
+  assert.equal(normalizeStatLabel('Multi-hit Resist'),null);
+  assert.equal(normalizeStatLabel('Weapon Damage Tolerance'),null);
+});
+
+test('percent ranges parse when both bounds carry percent signs',()=>{
+  assert.deepEqual(parseRange('7.5% ~ 8.7%','max'),{n:8.7,unit:'%'});
+});
