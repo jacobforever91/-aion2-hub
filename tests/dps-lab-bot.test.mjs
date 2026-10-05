@@ -11,9 +11,11 @@ test('hourly bot rotates all eight classes then starts again',()=>{
   assert.equal(classForRun(9),'ranger');
 });
 
-test('Ranger uses a simulated DPS objective while unfinished class models are clearly proxy-labeled',()=>{
-  assert.equal(objectiveForClass('ranger').kind,'DPS');
+test('Ranger and Sorcerer use beta DPS objectives while unfinished class models stay proxy-labeled',()=>{
+  assert.equal(objectiveForClass('ranger').kind,'DPS BETA');
   assert.match(objectiveForClass('ranger').confidence,/BETA/);
+  assert.equal(objectiveForClass('sorcerer').kind,'DPS BETA');
+  assert.match(objectiveForClass('sorcerer').confidence,/BETA/);
   assert.equal(objectiveForClass('templar').kind,'DPS PROXY');
   assert.match(objectiveForClass('templar').confidence,/PROXY/);
 });
@@ -44,4 +46,16 @@ test('hourly report never presents proxy classes as validated DPS',()=>{
   assert.match(md,/experimental DPS proxy/);
   assert.match(md,/does not have a validated rotation simulator yet/);
   assert.doesNotMatch(md,/Best simulated 60s DPS:/);
+});
+
+test('beta DPS reports are separated from both calibrated DPS and proxy scores',()=>{
+  const md=reportMarkdown({
+    className:'Sorcerer',classSlug:'sorcerer',goal:'boss',kind:'DPS BETA',confidence:'BETA v0.1',
+    durationMs:55*60*1000,evaluations:250,iterations:4,improvements:3,filledSlots:20,slotCount:20,
+    weapon:'Test Spellbook',missingSlots:[],bestScore:43210
+  });
+  assert.match(md,/Best beta simulated 60s DPS/);
+  assert.match(md,/\/s/);
+  assert.match(md,/not a guaranteed combat-meter parse/);
+  assert.doesNotMatch(md,/experimental DPS proxy/);
 });
