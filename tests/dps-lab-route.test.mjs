@@ -72,7 +72,7 @@ test('Ranger simulation preset matches the displayed target levels', async()=>{
   assert.match(html,/Drill Dart<\/strong><span class="stigmaLevel">Lv\.16/);
   assert.match(html,/Tempest Shot<\/strong><span class="stigmaLevel">Lv\.16/);
   assert.match(html,/Snipe<\/strong><span class="stigmaLevel">Lv\.16/);
-  assert.match(html,/BETA v0\.2/);
+  assert.match(html,/BETA v0\.3/);
   assert.match(html,/rotationCounts/);
   assert.match(html,/pureAttackFromStats/);
 });
@@ -111,4 +111,21 @@ test('result cards show item level and required level clearly', async()=>{
   assert.match(html,/REQUIRED LV/);
   assert.match(html,/gearLevels/);
   assert.match(html,/levelBadge/);
+});
+
+
+test('Ranger simulation exposes exact active passive and stigma levels used', async()=>{
+  const html=await GET().text();
+  assert.match(html,/SIMULATION SKILL LEVELS/);
+  assert.match(html,/Active skills/);
+  assert.match(html,/Passive skills/);
+  assert.match(html,/Stigmas/);
+  assert.match(html,/passive:\{focusedEye:33,huntersResolve:29\}/);
+  assert.match(html,/Focused Eye<\/b><em>Accuracy \+ PvE Damage · included<\/em><\/div><span>Lv33/);
+  assert.match(html,/Hunter's Resolve<\/b><em>Critical Damage · included<\/em><\/div><span>Lv29/);
+  assert.match(html,/Concentrated Fire<\/b><em>Proc damage pending exact level curve<\/em><\/div><span>NOT MODELED/);
+  assert.match(html,/Hunter's Soul<\/b><em>Crit proc pending exact level curve<\/em><\/div><span>NOT MODELED/);
+  assert.match(html,/focusedPveAverage/);
+  assert.match(html,/huntersResolveCrit/);
+  assert.match(html,/BETA v0\.3/);
 });
