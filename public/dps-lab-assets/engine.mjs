@@ -35,7 +35,7 @@ export function parseFixed(raw){
   if(!m)return null;
   const n=Number(m[1])+Number(m[2]||0);
   if(!Number.isFinite(n)||Math.abs(n)>=1e12)return null;
-  return {n,unit:(m[2]||m[4])?"%":""};
+  return {n,unit:m[3]||""};
 }
 
 export function parseRange(raw,mode="max"){
@@ -46,7 +46,7 @@ export function parseRange(raw,mode="max"){
   if(!Number.isFinite(a)||!Number.isFinite(b))return null;
   const lo=Math.min(a,b),hi=Math.max(a,b);
   const n=mode==="mid"?(lo+hi)/2:mode==="min"?lo:hi;
-  return {n,unit:m[3]||""};
+  return {n,unit:(m[2]||m[4])?"%":""};
 }
 
 export function normalizeStatLabel(label){
