@@ -379,7 +379,7 @@ export const classWeapons = {
   templar: {main: {name: "Longsword", icon: "longsword"}, secondary: {name: "Shield", icon: "shield", kind: "Off-hand"}},
   gladiator: {main: {name: "Greatsword", icon: "greatsword"}, secondary: {name: "Polearm", icon: "polearm", kind: "Alternate main weapon"}},
   assassin: {main: {name: "Dagger", icon: "daggers"}},
-  ranger: {main: {name: "Bow", icon: "bow"}},
+  ranger: {main: {name: "Bow", icon: "bow"}, secondary: {name: "Guard", icon: "shield", kind: "Off-hand"}},
   sorcerer: {main: {name: "Spellbook", icon: "spellbook"}},
   spiritmaster: {main: {name: "Orb", icon: "orb"}},
   cleric: {main: {name: "Mace", icon: "mace"}, secondary: {name: "Guard", icon: "shield", kind: "Off-hand"}},
