@@ -10,7 +10,7 @@ test('Best Build Finder ships its current-candidate filter before the optimizer 
   const use=html.indexOf('currentCandidate(i)');
   assert.ok(definition>=0,'currentCandidate definition is missing');
   assert.ok(use>definition,'currentCandidate must be defined before buildPools uses it');
-  assert.match(html,/engine\.mjs\?v=6/);
+  assert.match(html,/engine\.mjs\?v=7/);
 });
 
 test('Best Build Finder keeps the simple mobile action and 20-slot summary UI', async()=>{
@@ -45,7 +45,7 @@ test('visual Ranger build ships the expected skill stigma and Arcana icons', asy
   }
   assert.match(html,/function renderDaevanion\(\)/);
   assert.match(html,/function wireVisualPicks\(\)/);
-  assert.match(html,/engine\.mjs\?v=6/);
+  assert.match(html,/engine\.mjs\?v=7/);
 });
 
 test('Ranger prebuilt shows simulated DPS, exact rotation and stigma target levels', async()=>{
@@ -75,4 +75,18 @@ test('Ranger simulation preset matches the displayed target levels', async()=>{
   assert.match(html,/BETA v0\.2/);
   assert.match(html,/rotationCounts/);
   assert.match(html,/pureAttackFromStats/);
+});
+
+
+test('Best Build Finder automatically deepens the search instead of stopping at one beam pass', async()=>{
+  const html=await GET().text();
+  assert.match(html,/const SEARCH_STAGES=/);
+  assert.match(html,/label:"Scout"/);
+  assert.match(html,/label:"Deep"/);
+  assert.match(html,/label:"Hunter"/);
+  assert.match(html,/label:"Max"/);
+  assert.match(html,/optimizeEquipmentDeep/);
+  assert.match(html,/Beam Search up to 1000/);
+  assert.match(html,/Deep Search:/);
+  assert.match(html,/SEARCH COMPLETE/);
 });
