@@ -229,6 +229,7 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
   for(const source of extraSources)seedStats=mergeStats(seedStats,statsFromSource(source,opts,seedStats,profile));
   let beam=[{gear:{},sources:[...extraSources],stats:seedStats,score:scoreStats(seedStats,profile).score}];
   const width=Math.max(10,Math.min(1000,Number(beamWidth)||250));
+  let evaluations=0;
   for(const slot of slots||[]){
     const locked=locks[slot.id];
     const candidates=locked?[locked]:(pools[slot.id]||[]);
@@ -239,6 +240,7 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
         const itemStats=statsFromSource(item,opts,current.stats,profile);
         const stats=mergeStats(current.stats,itemStats);
         const evaluated=scoreStats(stats,profile);
+        evaluations++;
         next.push({
           gear:{...current.gear,[slot.id]:item},
           sources:[...current.sources,item],
@@ -258,6 +260,96 @@ export function optimizeEquipment({slots,pools,locks={},profile={},beamWidth=250
     ...entry,
     rank:index+1,
     index:best>0?100*entry.score/best:100,
-    evaluation:entry.evaluation||scoreStats(entry.stats,profile)
+    evaluation:entry.evaluation||scoreStats(entry.stats,profile),
+    searchMeta:{mode:"beam",evaluations,beamWidth:width}
+  }));
+}
+
+function gearSignature(gear,slots=[]){
+  return slots.map(slot=>String(gear?.[slot.id]?.id||"-")).join("|");
+}
+
+export function evaluateEquipmentGear({slots,gear,profile={},extraSources=[]}){
+  const opts=sourceOptions(profile);
+  let stats={},sources=[];
+  for(const source of extraSources||[]){
+    stats=mergeStats(stats,statsFromSource(source,opts,stats,profile));
+    sources.push(source);
+  }
+  for(const slot of slots||[]){
+    const item=gear?.[slot.id];
+    if(!item)continue;
+    stats=mergeStats(stats,statsFromSource(item,opts,stats,profile));
+    sources.push(item);
+  }
+  const evaluation=scoreStats(stats,profile);
+  return {gear:{...gear},sources,stats,score:evaluation.score,evaluation};
+}
+
+export function optimizeEquipmentDeep({
+  slots,pools,locks={},profile={},beamWidth=500,topK=5,extraSources=[],
+  maxPasses=3,eliteCount=8
+}){
+  const eliteLimit=Math.max(topK,Math.min(20,Number(eliteCount)||8));
+  const initial=optimizeEquipment({
+    slots,pools,locks,profile,beamWidth,topK:eliteLimit,extraSources
+  });
+  let beamEvaluations=initial[0]?.searchMeta?.evaluations||0;
+  let refineEvaluations=0;
+  let passes=0;
+  const lockedIds=new Set(Object.keys(locks||{}));
+  const seen=new Map();
+
+  const remember=entry=>{
+    const sig=gearSignature(entry.gear,slots);
+    const previous=seen.get(sig);
+    if(!previous||entry.score>previous.score)seen.set(sig,entry);
+  };
+  initial.forEach(remember);
+
+  let elites=[...seen.values()].sort((a,b)=>b.score-a.score).slice(0,eliteLimit);
+  let previousEliteKey=elites.map(x=>gearSignature(x.gear,slots)).join("\n");
+
+  for(let pass=0;pass<Math.max(0,Math.min(8,Number(maxPasses)||0));pass++){
+    const frontier=[...elites];
+    for(const current of frontier){
+      for(const slot of slots||[]){
+        if(lockedIds.has(slot.id))continue;
+        const candidates=pools?.[slot.id]||[];
+        for(const item of candidates){
+          if(current.gear?.[slot.id]?.id===item?.id)continue;
+          const gear={...current.gear,[slot.id]:item};
+          const sig=gearSignature(gear,slots);
+          if(seen.has(sig))continue;
+          const evaluated=evaluateEquipmentGear({slots,gear,profile,extraSources});
+          refineEvaluations++;
+          remember(evaluated);
+        }
+      }
+    }
+    passes++;
+    elites=[...seen.values()].sort((a,b)=>b.score-a.score).slice(0,eliteLimit);
+    const nextEliteKey=elites.map(x=>gearSignature(x.gear,slots)).join("\n");
+    if(nextEliteKey===previousEliteKey)break;
+    previousEliteKey=nextEliteKey;
+  }
+
+  const ranked=[...seen.values()].sort((a,b)=>b.score-a.score).slice(0,Math.max(1,topK));
+  const best=ranked[0]?.score||1;
+  const searchMeta={
+    mode:"deep",
+    beamEvaluations,
+    refineEvaluations,
+    evaluations:beamEvaluations+refineEvaluations,
+    uniqueFullBuilds:seen.size,
+    passes,
+    beamWidth:Math.max(10,Math.min(1000,Number(beamWidth)||500))
+  };
+  return ranked.map((entry,index)=>({
+    ...entry,
+    rank:index+1,
+    index:best>0?100*entry.score/best:100,
+    evaluation:entry.evaluation||scoreStats(entry.stats,profile),
+    searchMeta
   }));
 }
