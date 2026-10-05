@@ -5,8 +5,11 @@ on:
   push:
     paths:
       - "app/build-lab/**"
+      - "app/test-zone/dps-lab/**"
       - "public/build-lab-assets/**"
+      - "public/dps-lab-assets/**"
       - "tests/build-lab-*.test.mjs"
+      - "tests/dps-lab-*.test.mjs"
       - ".github/workflows/build-lab-tests.yml"
 
 permissions:
@@ -25,5 +28,5 @@ jobs:
         with:
           node-version: 20
 
-      - name: Run Build Lab tests
-        run: node --test tests/build-lab-*.test.mjs
+      - name: Run Build and DPS Lab tests
+        run: node --test tests/build-lab-*.test.mjs tests/dps-lab-*.test.mjs
