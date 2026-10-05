@@ -215,6 +215,135 @@ export function simulateSpiritmasterDps(entry){
   return {dps:damage60/60,damage60,attackPower,counts:{soulCry:soulCasts,elementalFusion:fusionCasts,fireSpiritSkill:spiritUses,combustion,coldShock},confidence:"BETA v0.1 · Global client skill benchmark"};
 }
 
+
+function betaClassContext(entry,bonuses={}){
+  const s=entry?.stats||{},t=entry?.evaluation?.totals||{};
+  const pureAttack=Number(t.pureAttack)||pureAttackFromStats(s)||0;
+  const weaponDamageBoost=Number(s["Weapon Damage Boost"])||0;
+  const might=Number(s.Might)||0;
+  const attackIncrease=(Number(s["Attack Increase"])||0)+(might*.1)+(Number(bonuses.attackPct)||0);
+  const attackPower=pureAttack*(1+weaponDamageBoost/100)*(1+attackIncrease/100);
+  const gearScale=Math.max(.25,1+(attackPower/1000));
+  const baseDamagePct=(Number(s["Damage Boost"])||0)+(Number(s["PvE Damage"])||0)+(Number(s["Boss Damage"])||0)+(Number(bonuses.pvePct)||0);
+  const critStat=(Number(t.crit)||0)+(Number(bonuses.critStat)||0);
+  const critDamage=(Number(s["Critical Damage"])||0)+(Number(bonuses.critDamage)||0);
+  const critChance=clamp(critStat/2000,0,.8);
+  const critExpected=expectedCritFactor(critStat,critDamage);
+  const critGuaranteed=Math.max(1,1.5+critDamage/100-.25);
+  const baseMulti=Number(s["Multi-Hit"])||0;
+  const hit=(flat,{count=1,mult=1,crit=false,multi=false,multiBonus=0,extraPve=0}={})=>{
+    const damage=gearScale*(1+(baseDamagePct+extraPve)/100);
+    const critFactor=crit?critGuaranteed:critExpected;
+    const multiFactor=multi?1.125:expectedMultiFactor(baseMulti+multiBonus,0);
+    return Number(flat||0)*Number(mult||1)*Number(count||1)*damage*critFactor*multiFactor;
+  };
+  const dot=(flat,{count=1,mult=1,extraPve=0}={})=>Number(flat||0)*Number(mult||1)*Number(count||1)*gearScale*(1+(baseDamagePct+extraPve)/100);
+  return {s,t,pureAttack,attackPower,critChance,cdr:Number(t.cdr)||0,actionBudget:Math.max(0,Math.floor(60*(1+(Number(t.speed)||0)/100))),hit,dot};
+}
+
+export const CLERIC_SIM_PRESET=Object.freeze({
+  skills:{
+    earth:{flat:50},judgment:{flat:81},mark:{flat:59,dot:74,cd:10,ticks:20},
+    torment:{flat:138,dot:173,cd:20,ticks:26},condemnation:{flat:325,cd:3},
+    bolt:{flat:2963,cd:45,mult:1.20}
+  }
+});
+
+export function simulateClericDps(entry){
+  const P=CLERIC_SIM_PRESET.skills,ctx=betaClassContext(entry);
+  const mark=castsInWindow(P.mark.cd,60,ctx.cdr),torment=castsInWindow(P.torment.cd,60,ctx.cdr);
+  const condemnation=castsInWindow(P.condemnation.cd,60,ctx.cdr),bolt=castsInWindow(P.bolt.cd,60,ctx.cdr);
+  const fixed=mark+torment+condemnation+bolt;
+  const filler=Math.max(0,ctx.actionBudget-fixed),judgment=Math.ceil(filler*.6),earth=filler-judgment;
+  const damage60=ctx.hit(P.mark.flat,{count:mark})+ctx.dot(P.mark.dot,{count:P.mark.ticks*mark})+
+    ctx.hit(P.torment.flat,{count:torment})+ctx.dot(P.torment.dot,{count:P.torment.ticks*torment})+
+    ctx.hit(P.condemnation.flat,{count:condemnation,multi:true})+
+    ctx.hit(P.bolt.flat,{count:bolt,mult:P.bolt.mult,crit:true})+
+    ctx.hit(P.judgment.flat,{count:judgment})+ctx.hit(P.earth.flat,{count:earth});
+  return {dps:damage60/60,damage60,attackPower:ctx.attackPower,counts:{mark,torment,condemnation,bolt,judgment,earth},confidence:"BETA v0.1 · Global client skill benchmark"};
+}
+
+export const CHANTER_SIM_PRESET=Object.freeze({
+  skills:{
+    spinning:{flat:2347,cd:22},wave:{flat:538,cd:15},rushing:{flat:112,cd:15,chargeMult:3},
+    dark:{flat:215},onslaught:{flat:74}
+  }
+});
+
+export function simulateChanterDps(entry){
+  const P=CHANTER_SIM_PRESET.skills;
+  const prelim=betaClassContext(entry);
+  const spinning=castsInWindow(P.spinning.cd,60,prelim.cdr);
+  const ctx=betaClassContext(entry,{critDamage:Math.min(30,15*Math.min(2,spinning))*0.70});
+  const wave=castsInWindow(P.wave.cd,60,ctx.cdr),rushing=castsInWindow(P.rushing.cd,60,ctx.cdr);
+  const fixed=spinning+wave+rushing;
+  const filler=Math.max(0,ctx.actionBudget-fixed),onslaught=Math.ceil(filler*.3),dark=filler-onslaught;
+  const damage60=ctx.hit(P.spinning.flat,{count:spinning,crit:true})+
+    ctx.hit(P.wave.flat,{count:wave,multi:true})+
+    ctx.hit(P.rushing.flat,{count:rushing,mult:P.rushing.chargeMult,multi:true})+
+    ctx.hit(P.dark.flat,{count:dark,crit:true})+
+    ctx.hit(P.onslaught.flat,{count:onslaught,multiBonus:50});
+  return {dps:damage60/60,damage60,attackPower:ctx.attackPower,counts:{spinning,wave,rushing,dark,onslaught},confidence:"BETA v0.1 · Global client skill benchmark"};
+}
+
+export const TEMPLAR_SIM_PRESET=Object.freeze({
+  skills:{judgment:{flat:227},annihilate:{flat:719,cd:10,bossMult:2},warding:{flat:353,cd:25},vicious:{flat:79}}
+});
+
+export function simulateTemplarDps(entry){
+  const P=TEMPLAR_SIM_PRESET.skills,ctx=betaClassContext(entry);
+  const annihilate=castsInWindow(P.annihilate.cd,60,ctx.cdr),warding=castsInWindow(P.warding.cd,60,ctx.cdr);
+  const fixed=annihilate+warding;
+  const filler=Math.max(0,ctx.actionBudget-fixed),judgment=Math.ceil(filler*.7),vicious=filler-judgment;
+  const damage60=ctx.hit(P.annihilate.flat,{count:annihilate,mult:P.annihilate.bossMult})+
+    ctx.hit(P.warding.flat,{count:warding})+
+    ctx.hit(P.judgment.flat,{count:judgment,crit:true})+
+    ctx.hit(P.vicious.flat,{count:vicious,multiBonus:50});
+  return {dps:damage60/60,damage60,attackPower:ctx.attackPower,counts:{annihilate,warding,judgment,vicious},confidence:"BETA v0.1 · Global client boss benchmark"};
+}
+
+export const GLADIATOR_SIM_PRESET=Object.freeze({
+  skills:{ruinous:{flat:2387,cd:45,buffSeconds:20},rush:{flat:330,cd:10},crushing:{flat:206,cd:20},overhead:{flat:174},keen:{flat:51}}
+});
+
+export function simulateGladiatorDps(entry){
+  const P=GLADIATOR_SIM_PRESET.skills,pre=betaClassContext(entry);
+  const ruinous=castsInWindow(P.ruinous.cd,60,pre.cdr);
+  const buffUptime=clamp((ruinous*P.ruinous.buffSeconds)/60,0,1);
+  const ctx=betaClassContext(entry,{pvePct:20*buffUptime,critStat:100*buffUptime});
+  const rush=castsInWindow(P.rush.cd,60,ctx.cdr);
+  const crushingBase=castsInWindow(P.crushing.cd,60,ctx.cdr);
+  const crushing=crushingBase*(1+ctx.critChance*.35);
+  const fixed=ruinous+rush+Math.ceil(crushing);
+  const filler=Math.max(0,ctx.actionBudget-fixed),overhead=Math.ceil(filler*.7),keen=filler-overhead;
+  const damage60=ctx.hit(P.ruinous.flat,{count:ruinous,multi:true})+
+    ctx.hit(P.rush.flat,{count:rush})+
+    ctx.hit(P.crushing.flat,{count:crushing})+
+    ctx.hit(P.overhead.flat,{count:overhead,crit:true})+
+    ctx.hit(P.keen.flat,{count:keen,multiBonus:50});
+  return {dps:damage60/60,damage60,attackPower:ctx.attackPower,counts:{ruinous,rush,crushing,overhead,keen},confidence:"BETA v0.1 · Global client skill benchmark"};
+}
+
+export const ASSASSIN_SIM_PRESET=Object.freeze({
+  skills:{explosion:{flat:967,cd:7},shadowstrike:{flat:52,cd:20},heart:{flat:111,cd:5},quick:{flat:58}}
+});
+
+export function simulateAssassinDps(entry){
+  const P=ASSASSIN_SIM_PRESET.skills,pre=betaClassContext(entry);
+  const shadowstrike=castsInWindow(P.shadowstrike.cd,60,pre.cdr);
+  const ctx=betaClassContext(entry,{critDamage:20*clamp((shadowstrike*5)/60,0,1)});
+  const explosion=castsInWindow(P.explosion.cd,60,ctx.cdr);
+  const heartBase=castsInWindow(P.heart.cd,60,ctx.cdr);
+  const heart=heartBase*clamp(.35+ctx.critChance*.65,.35,1);
+  const fixed=shadowstrike+explosion+Math.ceil(heart);
+  const quick=Math.max(0,ctx.actionBudget-fixed);
+  const damage60=ctx.hit(P.explosion.flat,{count:explosion,multiBonus:50})+
+    ctx.hit(P.shadowstrike.flat,{count:shadowstrike})+
+    ctx.hit(P.heart.flat,{count:heart,multi:true})+
+    ctx.hit(P.quick.flat,{count:quick,crit:true,multiBonus:50});
+  return {dps:damage60/60,damage60,attackPower:ctx.attackPower,counts:{explosion,shadowstrike,heart,quick},confidence:"BETA v0.1 · Global client skill benchmark"};
+}
+
 export function simulateOffensiveProxy(entry,{goal="boss"}={}){
   const s=entry?.stats||{},t=entry?.evaluation?.totals||{};
   const pureAttack=Number(t.pureAttack)||pureAttackFromStats(s)||0;
