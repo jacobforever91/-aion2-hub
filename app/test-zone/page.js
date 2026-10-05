@@ -31,6 +31,15 @@ export default function TestZonePage(){
           </div>
         </section>
 
+        <section style={{border:"1px solid rgba(217,189,120,.34)",background:"linear-gradient(135deg,rgba(82,61,24,.18),rgba(7,17,27,.88))",borderRadius:16,padding:22,marginBottom:24,display:"grid",gridTemplateColumns:"1fr auto",gap:20,alignItems:"center"}}>
+          <div>
+            <div style={{fontSize:11,letterSpacing:2,color:"#d6b566",marginBottom:8}}>NEW · EXPERIMENTAL</div>
+            <h2 style={{margin:"0 0 7px",fontSize:25}}>DAEVEXUS DPS Lab v0.1</h2>
+            <p style={{margin:0,color:"#9eafbd",fontSize:14,lineHeight:1.6,maxWidth:820}}>Ranger Global optimizer using the same read-only yellow/Unique catalog as Build Lab. Compare Top 5 loadouts, lock pieces, tune Accuracy/Crit/Speed/CDR targets and inspect exactly which systems are included or excluded from the research model.</p>
+          </div>
+          <Link href="/test-zone/dps-lab" style={{border:"1px solid rgba(222,185,96,.58)",color:"#f1d89a",textDecoration:"none",padding:"13px 17px",borderRadius:9,whiteSpace:"nowrap",background:"rgba(111,83,31,.16)",fontWeight:800}}>Open DPS Lab →</Link>
+        </section>
+
         <section style={{marginBottom:28}}>
           <div style={{display:"flex",alignItems:"baseline",justifyContent:"space-between",gap:16,marginBottom:14}}>
             <h2 style={{margin:0,fontSize:22}}>Integration Board</h2>
