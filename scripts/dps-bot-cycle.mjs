@@ -12,7 +12,7 @@ import globalUniqueWeaponData from '../app/equipment/globalUniqueWeaponData.js';
 import globalVakronData from '../app/equipment/globalVakronData.js';
 import * as model from '../public/build-lab-assets/model.mjs';
 import * as engine from '../public/dps-lab-assets/engine.mjs';
-import {simulateRangerDps,simulateOffensiveProxy} from '../public/dps-lab-assets/simulators.mjs';
+import {simulateRangerDps,simulateSorcererDps,simulateOffensiveProxy} from '../public/dps-lab-assets/simulators.mjs';
 
 export const CLASS_CYCLE=Object.freeze(['ranger','sorcerer','spiritmaster','cleric','chanter','templar','gladiator','assassin']);
 
@@ -86,9 +86,14 @@ function formatNumber(value){
 
 export function objectiveForClass(classSlug,goal='boss'){
   if(classSlug==='ranger')return {
-    kind:'DPS',
-    confidence:'BETA v0.4',
+    kind:'DPS BETA',
+    confidence:'BETA v0.4 · Ranger rotation model',
     evaluate:entry=>simulateRangerDps(entry).dps
+  };
+  if(classSlug==='sorcerer')return {
+    kind:'DPS BETA',
+    confidence:'BETA v0.1 · normalized client-skill benchmark',
+    evaluate:entry=>simulateSorcererDps(entry).dps
   };
   return {
     kind:'DPS PROXY',
@@ -152,13 +157,15 @@ export async function runClassSearch({
 }
 
 export function reportMarkdown(result){
+  const beta=result.kind==='DPS BETA';
   const real=result.kind==='DPS';
-  const label=real?'Best simulated 60s DPS':'Best experimental DPS proxy';
+  const simulated=real||beta;
+  const label=real?'Best simulated 60s DPS':beta?'Best beta simulated 60s DPS':'Best experimental DPS proxy';
   const minutes=(Number(result.durationMs)||0)/60000;
   const lines=[
     `## ${result.className} · ${result.goal==='boss'?'PvE Boss':result.goal}`,
     '',
-    `**${label}: ${formatNumber(result.bestScore)}${real?' /s':''}**`,
+    `**${label}: ${formatNumber(result.bestScore)}${simulated?' /s':''}**`,
     '',
     `- Model: **${result.confidence}**`,
     `- Search slot: **${minutes.toFixed(1)} minutes**`,
@@ -168,7 +175,8 @@ export function reportMarkdown(result){
     `- Loadout: **${result.filledSlots}/${result.slotCount} slots**`,
     `- Main weapon: **${result.weapon}**`
   ];
-  if(!real)lines.push('', '> This class does not have a validated rotation simulator yet. The bot is searching gear with the offensive proxy and will switch to real DPS automatically when its class simulator is added.');
+  if(beta)lines.push('', '> Beta DPS is a search benchmark, not a guaranteed combat-meter parse. It is used consistently across candidates so the bot can improve the class build without pretending the model is fully calibrated.');
+  if(!simulated)lines.push('', '> This class does not have a class-specific DPS simulator yet. The bot is searching gear with the offensive proxy and will switch automatically when its class model is added.');
   if(result.missingSlots.length)lines.push('',`Catalog gaps: ${result.missingSlots.join(', ')}`);
   lines.push('',`Next class in cycle: **${CLASS_CYCLE[(CLASS_CYCLE.indexOf(result.classSlug)+1)%CLASS_CYCLE.length]}**`);
   return lines.join('\n');
