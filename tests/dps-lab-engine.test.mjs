@@ -6,7 +6,9 @@ import {
   normalizeStatLabel,
   statsFromSource,
   scoreStats,
-  optimizeEquipment
+  optimizeEquipment,
+  imprintLineCount,
+  bestImprintStats
 } from '../public/dps-lab-assets/engine.mjs';
 
 test('parses fixed numeric, percent and theoretical range values',()=>{
@@ -63,4 +65,27 @@ test('optimizer respects locked equipment and returns ordered top builds',()=>{
   assert.equal(result[0].gear.ring1.id,'r2');
   assert.ok(result[0].score>=result[1].score);
   assert.equal(result[0].index,100);
+});
+
+test('PvP-only damage lines are not treated as PvE Damage Boost',()=>{
+  assert.equal(normalizeStatLabel('PvP Damage Boost'),null);
+});
+
+test('Soul Binding line counts follow Global Unique rules',()=>{
+  assert.equal(imprintLineCount({name:"Ludra's Fatal Bow",group:'Weapon',grade:'Unique'}),3);
+  assert.equal(imprintLineCount({name:'Vakron Breastplate',grade:'Unique'}),4);
+  assert.equal(imprintLineCount({name:'Splendent Star Dragon Lord Ring',grade:'Unique'}),5);
+});
+
+test('theoretical imprint optimizer selects only the allowed number of lines',()=>{
+  const source={name:'Test Unique',grade:'Unique',imprints:[
+    {label:'Attack',value:'10 ~ 20'},
+    {label:'Critical Hit',value:'10 ~ 20'},
+    {label:'Accuracy',value:'10 ~ 20'},
+    {label:'Damage Boost',value:'1 ~ 2'},
+    {label:'Weapon Damage Boost',value:'1 ~ 2'},
+    {label:'Might',value:'10 ~ 20'}
+  ]};
+  const out=bestImprintStats(source,{}, {targetAccuracy:1500,targetCrit:1600,targetSpeed:88.1,targetCdr:33,potentialMode:'max'});
+  assert.ok(Object.keys(out).length<=4);
 });
