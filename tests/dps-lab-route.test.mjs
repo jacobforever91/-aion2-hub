@@ -90,3 +90,15 @@ test('Best Build Finder automatically deepens the search instead of stopping at 
   assert.match(html,/Deep Search:/);
   assert.match(html,/SEARCH COMPLETE/);
 });
+
+
+test('DPS Lab colors item names from catalog rarity metadata', async()=>{
+  const html=await GET().text();
+  assert.match(html,/function rarityColor\(item\)/);
+  assert.match(html,/item\?\.rarityColor/);
+  assert.match(html,/rare:\\?"#5aa7ff\\?"/);
+  assert.match(html,/epic:\\?"#c47cff\\?"/);
+  assert.match(html,/unique:\\?"#f0d36f\\?"/);
+  assert.match(html,/class=\\"rarityName\\"/);
+  assert.match(html,/paintSelect/);
+});
