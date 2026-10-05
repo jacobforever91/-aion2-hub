@@ -9,6 +9,7 @@ import jewelry from '../../equipment/jewelryData.js';
 import brooch from '../../equipment/broochData.js';
 import specialSlotData from '../../equipment/specialSlotData.js';
 import globalUniqueWeaponData from '../../equipment/globalUniqueWeaponData.js';
+import globalVakronData from '../../equipment/globalVakronData.js';
 import progression from '../../progression/catalogData.json';
 import arcana from '../../arcana/arcana-data.json';
 import pets from '../../progression/petIcons.json';
@@ -19,7 +20,7 @@ const types=w=>w?(aliases[w.name]||[w.name.toLowerCase()]):[];
 const pairs=rows=>(Array.isArray(rows)?rows:[]).map(r=>Array.isArray(r)?{label:r[0],value:r[1]}:r).filter(r=>r&&r.label&&r.value!=null).map(r=>({label:String(r.label),value:String(r.value)}));
 const normalize=x=>({id:String(x.id),name:x.name||String(x.id),region:x.region||'GLOBAL',grade:x.grade||x.rarity||'Common',rarityColor:x.rarityColor||'',category:x.category||x.itemType||'',equipType:x.equipType||'',group:x.group||'',itemLevel:x.itemLevel||'',requiredLevel:x.requiredLevel||'',classRestrictions:x.classRestrictions||'',icon:x.icon||((x.group==='Weapon')?`/equipment-icons/${x.id}.webp`:'/equipment-art/armor.webp'),stats:pairs(x.stats),imprints:pairs(x.imprints),upgrades:x.upgrades||'',obtain:x.obtain||[],details:pairs(x.details),verificationStatus:x.verificationStatus||'',source:x.source||null});
 export function GET(){
- const items=[...new Map([...(equipment.items||[]),...weapons,...armor,...chest,...moreArmor,...jewelry,...brooch,...specialSlotData,...globalUniqueWeaponData].map(x=>[`${x.region||'GLOBAL'}:${x.id}`,normalize(x)])).values()].filter(x=>x.region==='GLOBAL'&&(x.grade==='Unique'||(x.category==='Rune'&&x.grade==='Special')));
+ const items=[...new Map([...(equipment.items||[]),...weapons,...armor,...chest,...moreArmor,...jewelry,...brooch,...specialSlotData,...globalUniqueWeaponData,...globalVakronData].map(x=>[`${x.region||'GLOBAL'}:${x.id}`,normalize(x)])).values()].filter(x=>x.region==='GLOBAL'&&(x.grade==='Unique'||(x.category==='Rune'&&x.grade==='Special')));
  const classes=classList.map(c=>{const d=classData[c.slug],w=classWeapons[c.slug],ids=skillIconIds[c.slug]||[];return {slug:c.slug,name:c.name,role:d.role,mainTypes:[...types(w?.main),...(w?.secondary?.kind==='Alternate main weapon'?types(w.secondary):[])],offTypes:w?.secondary?.kind==='Off-hand'?types(w.secondary):[],skills:[...d.active.map((name,i)=>({id:ids[i],name,type:i<13?'active':'stigma'})),...d.passive.map((name,i)=>({id:ids[d.active.length+i],name,type:'passive'}))].filter(s=>s.id).map(s=>({...s,icon:s.id==='18790000'?'https://aion2.app/db-item-icons/ICON_GL_SKILL_Passive_009.webp':`https://aion2hub.com/api/skill-icon/${s.id}`}))};});
  // Wing/pet snapshots were KR/TW-only in the original adapter. Keep them out until
  // a separate Global record is actually supplied; never relabel them as Global.
