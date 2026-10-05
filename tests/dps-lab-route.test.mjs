@@ -10,7 +10,7 @@ test('Best Build Finder ships its current-candidate filter before the optimizer 
   const use=html.indexOf('currentCandidate(i)');
   assert.ok(definition>=0,'currentCandidate definition is missing');
   assert.ok(use>definition,'currentCandidate must be defined before buildPools uses it');
-  assert.match(html,/engine\.mjs\?v=5/);
+  assert.match(html,/engine\.mjs\?v=6/);
 });
 
 test('Best Build Finder keeps the simple mobile action and 20-slot summary UI', async()=>{
@@ -45,7 +45,7 @@ test('visual Ranger build ships the expected skill stigma and Arcana icons', asy
   }
   assert.match(html,/function renderDaevanion\(\)/);
   assert.match(html,/function wireVisualPicks\(\)/);
-  assert.match(html,/engine\.mjs\?v=5/);
+  assert.match(html,/engine\.mjs\?v=6/);
 });
 
 test('Ranger prebuilt shows simulated DPS, exact rotation and stigma target levels', async()=>{
@@ -55,12 +55,24 @@ test('Ranger prebuilt shows simulated DPS, exact rotation and stigma target leve
   assert.match(html,/Burst DPS · 10s/);
   assert.match(html,/60s Damage/);
   assert.match(html,/Rotation used by the DPS model/);
-  assert.match(html,/Vaizel Lv20 → Bow of Blessing Lv20 → Supporting Fire Lv20 → Marking Shot Lv12/);
+  assert.match(html,/Vaizel Lv20 → Bow of Blessing Lv10 → Supporting Fire Lv10 → Marking Shot Lv12/);
   assert.match(html,/Deadshot Lv20 \(full charge\)/);
   assert.match(html,/Vaizel's Authority<\/strong><span class="stigmaLevel">Lv\.20 · PRIORITY #1/);
-  assert.match(html,/Bow of Blessing<\/strong><span class="stigmaLevel">Lv\.20 · PRIORITY #2/);
-  assert.match(html,/Supporting Fire<\/strong><span class="stigmaLevel">Lv\.20 · PRIORITY #3/);
-  assert.match(html,/Griffon Arrow<\/strong><span class="stigmaLevel">Lv\.20 · PRIORITY #4/);
+  assert.match(html,/Bow of Blessing<\/strong><span class="stigmaLevel">Lv\.10 · PRIORITY #2/);
+  assert.match(html,/Supporting Fire<\/strong><span class="stigmaLevel">Lv\.10 · PRIORITY #3/);
+  assert.match(html,/Griffon Arrow<\/strong><span class="stigmaLevel">Lv\.10 · PRIORITY #4/);
   assert.match(html,/function simulateRangerDps\(r\)/);
   assert.match(html,/function renderCombatSummary\(r\)/);
+});
+
+test('Ranger simulation preset matches the displayed target levels', async()=>{
+  const html=await GET().text();
+  assert.match(html,/active:\{deadshot:20,gale:20,drill:16,tempest:16,snipe:16,marking:12\}/);
+  assert.match(html,/stigma:\{vaizel:20,bow:10,supporting:10,griffon:10\}/);
+  assert.match(html,/Drill Dart<\/strong><span class="stigmaLevel">Lv\.16/);
+  assert.match(html,/Tempest Shot<\/strong><span class="stigmaLevel">Lv\.16/);
+  assert.match(html,/Snipe<\/strong><span class="stigmaLevel">Lv\.16/);
+  assert.match(html,/BETA v0\.2/);
+  assert.match(html,/rotationCounts/);
+  assert.match(html,/pureAttackFromStats/);
 });
