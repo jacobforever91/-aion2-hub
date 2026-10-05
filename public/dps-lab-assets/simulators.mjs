@@ -183,6 +183,38 @@ export function simulateSorcererDps(entry){
   };
 }
 
+
+export const SPIRITMASTER_SIM_PRESET=Object.freeze({
+  active:{coldShock:16,combustion:16,soulCry:16,elementalFusion:16,fireSpirit:16},
+  skills:{
+    coldShock:{flat:54},combustion:{flat:63},soulCry:{flat:246,cd:35},
+    elementalFusion:{flat:1075,interval:12,chargeMult:3,refundChance:.25},
+    fireSpiritSkill:{flat:68,uses60:8,statMult:1.20}
+  }
+});
+
+export function simulateSpiritmasterDps(entry){
+  const s=entry?.stats||{},t=entry?.evaluation?.totals||{},P=SPIRITMASTER_SIM_PRESET.skills;
+  const pureAttack=Number(t.pureAttack)||pureAttackFromStats(s)||0;
+  const weaponDamageBoost=Number(s["Weapon Damage Boost"])||0;
+  const might=Number(s.Might)||0;
+  const attackIncrease=(Number(s["Attack Increase"])||0)+(might*.1);
+  const attackPower=pureAttack*(1+weaponDamageBoost/100)*(1+attackIncrease/100);
+  const gearScale=Math.max(.25,1+(attackPower/1000));
+  const damageBucket=1+((Number(s["Damage Boost"])||0)+(Number(s["PvE Damage"])||0)+(Number(s["Boss Damage"])||0))/100;
+  const common=gearScale*damageBucket*expectedCritFactor(Number(t.crit)||0,Number(s["Critical Damage"])||0)*expectedMultiFactor(Number(s["Multi-Hit"])||0,0);
+  const hit=(skill,count=1,mult=1)=>skill.flat*common*count*mult;
+  const soulCasts=castsInWindow(P.soulCry.cd,60,Number(t.cdr)||0);
+  const fusionCasts=Math.max(1,Math.floor(60/P.elementalFusion.interval))*(1+P.elementalFusion.refundChance);
+  const spiritUses=P.fireSpiritSkill.uses60;
+  const actionBudget=Math.max(0,Math.floor(60*(1+(Number(t.speed)||0)/100)));
+  const fixedActions=soulCasts+Math.ceil(fusionCasts);
+  const filler=Math.max(0,actionBudget-fixedActions);
+  const combustion=Math.ceil(filler*.6),coldShock=Math.max(0,filler-combustion);
+  const damage60=hit(P.soulCry,soulCasts)+hit(P.elementalFusion,fusionCasts,P.elementalFusion.chargeMult)+hit(P.fireSpiritSkill,spiritUses,P.fireSpiritSkill.statMult)+hit(P.combustion,combustion)+hit(P.coldShock,coldShock);
+  return {dps:damage60/60,damage60,attackPower,counts:{soulCry:soulCasts,elementalFusion:fusionCasts,fireSpiritSkill:spiritUses,combustion,coldShock},confidence:"BETA v0.1 · Global client skill benchmark"};
+}
+
 export function simulateOffensiveProxy(entry,{goal="boss"}={}){
   const s=entry?.stats||{},t=entry?.evaluation?.totals||{};
   const pureAttack=Number(t.pureAttack)||pureAttackFromStats(s)||0;
