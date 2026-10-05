@@ -44,7 +44,7 @@ test('hourly report never presents proxy classes as validated DPS',()=>{
     weapon:'Test Sword',missingSlots:[],bestScore:12345
   });
   assert.match(md,/experimental DPS proxy/);
-  assert.match(md,/does not have a validated rotation simulator yet/);
+  assert.match(md,/does not have a class-specific DPS simulator yet/);
   assert.doesNotMatch(md,/Best simulated 60s DPS:/);
 });
 
