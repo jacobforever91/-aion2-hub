@@ -1,0 +1,42 @@
+name: DAEVEXUS hourly DPS bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7 * * * *"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: daevexus-hourly-dps-bot
+  cancel-in-progress: false
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Search one class for the hourly slot
+        env:
+          DPS_BOT_RUN_NUMBER: ${{ github.run_number }}
+          DPS_BOT_DURATION_MINUTES: "55"
+          DPS_BOT_GOAL: boss
+        run: node scripts/dps-bot-cycle.mjs
+
+      - name: Publish the hourly report
+        if: always() && hashFiles('dps-bot-report.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat dps-bot-report.md >> "$GITHUB_STEP_SUMMARY"
+          gh issue comment 2 --body-file dps-bot-report.md
