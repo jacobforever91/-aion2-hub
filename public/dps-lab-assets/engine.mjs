@@ -70,7 +70,9 @@ export function normalizeStatLabel(label){
     [/accuracy/i,"Accuracy"],
     [/\bmight\b/i,"Might"],
     [/\bprecision\b/i,"Precision"],
-    [/max\s*attack|min\s*attack|physical\s*attack|\battack\b/i,"Attack"]
+    [/^min\s*attack$/i,"Min Attack"],
+    [/^max\s*attack$/i,"Max Attack"],
+    [/physical\s*attack|\battack\b/i,"Attack"]
   ];
   for(const [re,name] of tests)if(re.test(s))return name;
   return null;
@@ -128,11 +130,22 @@ function progress(value,target){
   return Math.max(0,Math.min(1,(Number(value)||0)/t));
 }
 
+export function pureAttackFromStats(stats={}){
+  const flat=Number(stats?.Attack)||0;
+  const min=Number(stats?.["Min Attack"])||0;
+  const max=Number(stats?.["Max Attack"])||0;
+  const weaponAverage=(min||max)?((min+max)/2):0;
+  const perfect=Math.max(0,Number(stats?.Perfect)||0)/100;
+  const perfectBonus=(min||max)?(Math.max(0,max-min)/2)*Math.min(1,perfect):0;
+  return flat+weaponAverage+perfectBonus;
+}
+
 export function scoreStats(stats,profile={},weights=RANGER_WEIGHTS){
   const p={...DEFAULT_PROFILE,...profile};
   const might=Number(stats?.Might)||0;
   const precision=Number(stats?.Precision)||0;
   const effective={...stats};
+  effective["Attack"]=pureAttackFromStats(stats);
   effective["Attack Increase"]=(Number(effective["Attack Increase"])||0)+(might*0.1);
 
   let raw=0;
@@ -158,7 +171,7 @@ export function scoreStats(stats,profile={},weights=RANGER_WEIGHTS){
     score:raw+breakpointScore,
     rawScore:raw,
     breakpointScore,
-    totals:{accuracy,crit,speed,cdr,might,precision},
+    totals:{accuracy,crit,speed,cdr,might,precision,pureAttack:effective["Attack"]},
     caps
   };
 }
