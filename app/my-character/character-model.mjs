@@ -27,6 +27,13 @@ export function regionFromServerId(serverId){
   if(n>=1500&&n<1600)return "asia";
   return "";
 }
+export function regionFromProfileQuery(value){
+  const shard=String(value||"").trim().toLowerCase();
+  if(shard==="nae"||shard==="naw"||shard==="eu")return shard;
+  if(shard==="la"||shard==="sa")return "sa";
+  if(shard==="as"||shard==="asia")return "asia";
+  return "";
+}
 export function parseProfileUrl(input){
   let url;
   try{url=new URL(String(input||"").trim());}catch{throw new Error("Paste a valid official AION 2 character URL.");}
@@ -41,7 +48,7 @@ export function parseProfileUrl(input){
     const i=parts.indexOf("characters");
     const serverId=number(parts[i+1]),characterId=safeDecode(parts[i+2]);
     if(i<0||!serverId||!characterId||characterId==="index")throw new Error("This Global URL does not point to a character profile.");
-    const region=regionFromServerId(serverId);
+    const region=regionFromProfileQuery(url.searchParams.get("region"))||regionFromServerId(serverId);
     if(!region)throw new Error("The profile is valid, but DAEVEXUS cannot map this server to a Global shard yet.");
     return {region,serverId,characterId,profileUrl:buildProfileUrl(region,serverId,characterId)};
   }
@@ -49,7 +56,8 @@ export function parseProfileUrl(input){
 }
 export function buildProfileUrl(region,serverId,characterId){
   const cfg=REGIONS[region];if(!cfg)throw new Error("Unsupported region.");
-  return cfg.profileBase+"/"+Number(serverId)+"/"+encodeURIComponent(safeDecode(characterId));
+  const url=cfg.profileBase+"/"+Number(serverId)+"/"+encodeURIComponent(safeDecode(characterId));
+  return cfg.kind==="global"&&cfg.shard?url+"?region="+encodeURIComponent(cfg.shard):url;
 }
 const portrait=value=>{
   const v=cleanString(value,1000);if(!v)return "";
@@ -119,6 +127,13 @@ export function extractDaevanionBoards(info){
   return out;
 }
 
+function isArcanaEquipmentRow(row){
+  if(!row||typeof row!=="object")return false;
+  const slotPos=number(row.slotPos??row.slot??row.position);
+  const slotName=String(row.slotPosName??row.slotName??"").normalize("NFKC").toLowerCase().replace(/[^a-z0-9]+/g,"");
+  return slotName.startsWith("arcana")||(slotPos>=41&&slotPos<=50);
+}
+
 function extractArcana(info,equipment){
   const candidates=[
     equipment?.arcana?.arcanaList,
@@ -128,28 +143,35 @@ function extractArcana(info,equipment){
     info?.arcana?.arcanaList,
     info?.arcana?.cardList,
     info?.arcana?.equipmentList,
-    info?.arcanaList
+    info?.arcanaList,
+    list(equipment?.equipment?.equipmentList).filter(isArcanaEquipmentRow)
   ];
-  const rows=candidates.find(Array.isArray)||[];
+  const rows=candidates.flatMap(list);
   const seen=new Set(),out=[];
   for(const row of rows){
     if(!row||typeof row!=="object")continue;
     const rawId=row.id??row.itemId??row.arcanaId??row.cardId;
     const id=String(rawId??"").trim();
-    const key=id||String(row.name??row.itemName??row.arcanaName??"").trim();
+    const slotPos=number(row.slotPos??row.slot??row.position);
+    const slotName=englishText(row.slotPosName??row.slotName,"",80);
+    const name=englishText(row.name??row.itemName??row.arcanaName,id?("Arcana "+id):"Arcana",180);
+    const key=(slotPos?String(slotPos)+":":"")+(id||name);
     if(!key||seen.has(key))continue;
     seen.add(key);
     out.push({
       id,
-      name:englishText(row.name??row.itemName??row.arcanaName,id?("Arcana "+id):"Arcana",180),
+      name,
       grade:englishText(row.grade??row.gradeName??row.rarity,"",60),
       level:number(row.level??row.itemLevel??row.arcanaLevel),
-      slotPos:number(row.slotPos??row.slot??row.position),
-      equipped:flag(row.equipped??row.equip??row.isEquipped??row.active),
+      enchantLevel:number(row.enchantLevel??row.enchant??row.enhanceLevel),
+      exceedLevel:number(row.exceedLevel??row.exceedEnchantLevel),
+      slotPos,
+      slotName,
+      equipped:isArcanaEquipmentRow(row)||flag(row.equipped??row.equip??row.isEquipped??row.active),
       icon:asset(row.icon??row.iconPath??row.image)
     });
   }
-  return out;
+  return out.sort((a,b)=>(a.slotPos||999)-(b.slotPos||999));
 }
 
 export function normalizeCharacter(info,equipment,ref){
@@ -158,7 +180,8 @@ export function normalizeCharacter(info,equipment,ref){
     const type=englishText(x?.type,"Stat",80);
     return {type,name:englishText(x?.name,type,120),value:number(x?.value),effects:englishList(x?.statSecondList)};
   });
-  const equipmentList=list(equipment?.equipment?.equipmentList).map(x=>{
+  const rawEquipmentRows=list(equipment?.equipment?.equipmentList);
+  const equipmentList=rawEquipmentRows.filter(row=>!isArcanaEquipmentRow(row)).map(x=>{
     const id=number(x?.id),slotPos=number(x?.slotPos);
     return {slotPos,slotName:englishText(x?.slotPosName,slotPos?("Slot "+slotPos):"Equipment",80),id,name:englishText(x?.name,id?("Item "+id):"Equipment",180),grade:englishText(x?.grade,"",60),enchantLevel:number(x?.enchantLevel),exceedLevel:number(x?.exceedLevel),icon:asset(x?.icon)};
   }).filter(x=>x.id||x.name);
@@ -286,7 +309,7 @@ export function buildCharacterResearchSample(character,syncedAt=""){
     skills:skills.map(skill=>({id:Number(skill?.id)||0,category:String(skill?.category||""),normalizedCategory:classifyCharacterSkill(skill?.category),level:Number(skill?.level)||0,needLevel:Number(skill?.needLevel)||0,acquired:skill?.acquired===true,equipped:skill?.equipped===true})),
     pet:character?.pet?{id:Number(character.pet.id)||0,level:Number(character.pet.level)||0}:null,
     wing:character?.wing?{id:Number(character.wing.id)||0,grade:String(character.wing.grade||""),enchantLevel:Number(character.wing.enchantLevel)||0}:null,
-    arcana:(Array.isArray(character?.arcana)?character.arcana:[]).map(card=>({id:String(card?.id||""),grade:String(card?.grade||""),level:Number(card?.level)||0,equipped:card?.equipped===true})),
+    arcana:(Array.isArray(character?.arcana)?character.arcana:[]).map(card=>({id:String(card?.id||""),grade:String(card?.grade||""),level:Number(card?.level)||0,enchantLevel:Number(card?.enchantLevel)||0,slotPos:Number(card?.slotPos)||0,slotName:String(card?.slotName||""),equipped:card?.equipped===true})),
     daevanion:boards.map(board=>({id:Number(board?.id)||0,name:String(board?.name||""),openNodes:Number(board?.openNodes)||0,totalNodes:Number(board?.totalNodes)||0,detailNodes:Array.isArray(board?.detail?.nodes)?board.detail.nodes.length:0})),
   };
 }
