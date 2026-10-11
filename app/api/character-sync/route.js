@@ -87,6 +87,7 @@ export async function GET(request){
     character.profile.level=level.level||character.profile.level;
     character.levelSources=level;
     character.equipment=character.equipment.map(item=>({...item,detail:itemPack.map.get(String(item.slotPos)+":"+String(item.id))||null}));
+    character.arcana=character.arcana.map(card=>({...card,detail:itemPack.map.get(String(card.slotPos)+":"+String(card.id))||null}));
     character.daevanion=character.daevanion.map(board=>({...board,detail:boardPack.map.get(Number(board.id))||null}));
     character.weaponDamage=weaponDamageFromEquipment(character.equipment);
     const warnings=[searchReading.error,...itemPack.errors,...boardPack.errors].filter(Boolean);
@@ -96,6 +97,7 @@ export async function GET(request){
       official:true,
       levelCrossChecked:!!searchReading.row,
       equipmentDetails:{loaded:character.equipment.filter(item=>item.detail).length,total:character.equipment.length},
+      arcanaDetails:{loaded:character.arcana.filter(card=>card.detail).length,total:character.arcana.length},
       daevanionBoards:{known:rawBoards.length,unlocked:unlockedBoards.length||rawBoards.length},
       daevanionDetails:{loaded:detailBoards.filter(board=>boardPack.map.get(Number(board.id))).length,total:detailBoards.length},
       warnings
