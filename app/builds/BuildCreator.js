@@ -67,6 +67,7 @@ const daevanionBoards=[
 ];
 const daevanionClassNames={templar:"Templar",gladiator:"Gladiator",assassin:"Assassin",ranger:"Ranger",sorcerer:"Sorcerer",spiritmaster:"Elementalist",cleric:"Cleric",chanter:"Chanter"};
 const emptyAdvanced=()=>({arcana:Array(10).fill(""),daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""});
+const arcanaSlotCountForRegion=region=>region==="GLOBAL"?5:10;
 const emptyBuild=()=>({title:"",classSlug:"templar",level:45,region:"GLOBAL",goal:"PvE · Group",skills:[],skillLevels:{},skillSpecializations:{},gear:{},wingId:"",petId:"",petLevel:1,advanced:emptyAdvanced(),imported:null});
 const CHARACTER_STORAGE="daevexus.character-link.v1";
 const currentClasses=classList;
@@ -335,8 +336,10 @@ export default function BuildCreator(){
   const petDetails=catalogPet?catalogData.petDetails[catalogPet.id]:null;
   const petLevelRow=petDetails?.baseStats?.rows?.find((row)=>String(row[0])===String(build.petLevel));
   const petLevelStats=petLevelRow&&petDetails?.baseStats?.columns?petDetails.baseStats.columns.slice(1).map((label,index)=>[label,petLevelRow[index+1]]).filter(([,value])=>value&&value!=="—"&&value!=="-"):[];
-  const selectedArcana=useMemo(()=>build.advanced.arcana.map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana]);
-  const arcanaCount=selectedArcana.length;
+  const arcanaSlotCount=arcanaSlotCountForRegion(build.region);
+  const visibleArcanaIds=build.advanced.arcana.slice(0,arcanaSlotCount);
+  const selectedArcana=useMemo(()=>build.advanced.arcana.slice(0,arcanaSlotCount).map((id,index)=>({card:arcanaCatalog.items.find((item)=>item.id===String(id)),index})).filter((entry)=>entry.card),[build.advanced.arcana,arcanaSlotCount]);
+  const arcanaCount=visibleArcanaIds.filter(Boolean).length;
   const daevanionPaths=build.advanced.daevanionPaths||Array.from({length:8},()=>[]);
   const daevanionPlanCount=daevanionPaths.filter((path)=>Array.isArray(path)&&path.length>0).length;
   const daevanionTotalNodes=daevanionPaths.reduce((total,path)=>total+(Array.isArray(path)?path.length:0),0);
@@ -597,7 +600,7 @@ export default function BuildCreator(){
 
           {tab==="overview"&&<section className={styles.panel}>
             <div className={styles.panelHeading}><span className={styles.panelIcon}><Shield size={19}/></span><div><h2>Character setup</h2><p>Choose the class, region and kind of content this build is for.</p></div></div>
-            {build.imported&&<div className={styles.importedSnapshot}><div><strong>Official character snapshot</strong><span>{build.imported.character.name} · {build.imported.character.className} · {build.imported.character.serverName||build.imported.sourceRegion}</span></div><small>{build.imported.counts.equipment} mapped gear · {build.imported.counts.acquiredSkills} acquired skills · {build.imported.counts.equippedStigmas} equipped Stigmas</small></div>}
+            {build.imported&&<div className={styles.importedSnapshot}><div><strong>Official character snapshot</strong><span>{build.imported.character.name} · {build.imported.character.className} · {build.imported.character.serverName||build.imported.sourceRegion}</span></div><small>{build.imported.counts.equipment} mapped gear · {build.imported.counts.acquiredSkills} acquired skills · {build.imported.counts.equippedStigmas} equipped Stigmas · {build.imported.counts.arcana||0} Arcana</small></div>}
             <div className={styles.formGrid}>
               <label className={styles.field}><span>CLASS</span><select value={build.classSlug} onChange={(event)=>{changeClass(event.target.value);setEditingSkillKey("")}}>{currentClasses.map((item)=><option key={item.slug} value={item.slug}>{item.name}</option>)}<option value="brawler" disabled>Brawler · data sync pending</option></select></label>
               <label className={styles.field}><span>LEVEL</span><input type="number" min="1" max="50" value={build.level} onChange={(event)=>patch("level",Math.max(1,Math.min(50,Number(event.target.value)||1)))}/></label>
@@ -813,8 +816,8 @@ export default function BuildCreator(){
   
           </section>}
           {tab==="arcana"&&<section id="arcana-setup" className={styles.panel}>
-            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to 10 cards for this build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>
-            <div className={styles.fieldBlock}><h3>Selected cards · {arcanaCount}/10</h3><p>Choose a card for each slot. Selected Arcana and their listed stats appear in the build summary.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:<span className={styles.arcanaEmptySlot}>{value?"Saved note · "+value:"No card selected"}</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{item?"Change":"Choose"}</button>{item&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
+            <div className={styles.panelHeading}><span className={styles.panelIcon}><Sparkles size={19}/></span><div><h2>Arcana</h2><p>Choose up to {arcanaSlotCount} cards for this {build.region==="GLOBAL"?"Global":"KR / TW"} build. Their icons, rarity and listed stats stay with your saved build.</p></div></div>
+            <div className={styles.fieldBlock}><h3>Selected cards · {arcanaCount}/{arcanaSlotCount}</h3><p>Choose a card for each slot. Selected Arcana and their listed stats appear in the build summary.</p><div className={styles.arcanaBuildSlots}>{build.advanced.arcana.slice(0,arcanaSlotCount).map((value,index)=>{const item=arcanaCatalog.items.find((entry)=>entry.id===String(value));const importedCard=build.imported?.arcana?.find((entry)=>entry.slotIndex===index||String(entry.id)===String(value));return <div className={styles.arcanaBuildSlot} key={index}><small className={styles.arcanaSlotIndex}>CARD {index+1}</small>{item?<span className={styles.arcanaBuildCard}><img src={item.icon} alt="" loading="lazy" decoding="async"/><span><strong>{item.name}</strong><small>{item.rarity} · {item.stats?.[0]?.label}: {item.stats?.[0]?.value}</small></span></span>:value?<span className={styles.arcanaEmptySlot}>{importedCard?.name||"Official Arcana"} · ID {value}</span>:<span className={styles.arcanaEmptySlot}>No card selected</span>}<span className={styles.arcanaSlotActions}><button type="button" onClick={()=>openArcanaPicker(index)}>{value?"Change":"Choose"}</button>{value&&<button type="button" onClick={()=>updateAdvancedSlot("arcana",index,"")} aria-label={"Clear Arcana card "+(index+1)}>Clear</button>}</span></div>})}</div></div>
             <div className={styles.dataFootnote}>Community reference · Global · Snapshot {arcanaCatalog.snapshot}. Arcana stats are shown by card; this prototype does not calculate combat or DPS totals.</div>
           </section>}
           {tab==="compare"&&<section className={styles.panel}>
@@ -825,11 +828,12 @@ export default function BuildCreator(){
                 const snapshot=comparisonSlots[slot];
                 const info=snapshot?classData[snapshot.classSlug]:null;
                 const savedGear=snapshot?activeGearSlots(snapshot.classSlug,snapshot.region).filter((gearSlot)=>Boolean(snapshot.gear?.[gearSlot.id])).length:0;
-                const savedArcana=(snapshot?.advanced?.arcana||[]).filter(Boolean).length;
+                const savedArcanaLimit=snapshot?arcanaSlotCountForRegion(snapshot.region):0;
+                const savedArcana=(snapshot?.advanced?.arcana||[]).slice(0,savedArcanaLimit).filter(Boolean).length;
                 return <article className={styles.compareBuildCard} key={slot}>
                   <div className={styles.compareCardLabel}>BUILD {slot}</div>
                   <h3>{snapshot?.title||"No build saved"}</h3>
-                  {snapshot?<><p>{info?.name||"Class"} · {snapshot.goal} · Lv. {snapshot.level}</p><small>{savedGear} equipment pieces · {savedArcana}/10 Arcana</small></>:<p>Capture the current setup here.</p>}
+                  {snapshot?<><p>{info?.name||"Class"} · {snapshot.goal} · Lv. {snapshot.level}</p><small>{savedGear} equipment pieces · {savedArcana}/{savedArcanaLimit} Arcana</small></>:<p>Capture the current setup here.</p>}
                   <div className={styles.compareCardActions}><button type="button" onClick={()=>captureComparisonSlot(slot)}>{snapshot?"Replace with current":"Save current as "+slot}</button>{snapshot&&<button type="button" onClick={()=>clearComparisonSlot(slot)} aria-label={"Clear Build "+slot}>Clear</button>}</div>
                 </article>;
               })}
