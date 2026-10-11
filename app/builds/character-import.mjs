@@ -140,6 +140,39 @@ function selectedSkillsFromCharacter(skills=[]){
   return {selected,levels};
 }
 
+function arcanaSlotIndex(card,fallbackIndex){
+  const slotPos=Number(card?.slotPos)||0;
+  if(slotPos>=41&&slotPos<=50)return slotPos-41;
+  const match=text(card?.slotName).match(/arcana\D*(\d+)/i);
+  if(match){
+    const index=Number(match[1])-1;
+    if(index>=0&&index<10)return index;
+  }
+  return fallbackIndex;
+}
+
+export function arcanaFromCharacter(cards=[],region="GLOBAL"){
+  const slots=Array(10).fill("");
+  const imported=[];
+  const limit=region==="GLOBAL"?5:10;
+  let fallbackIndex=0;
+  for(const card of Array.isArray(cards)?cards:[]){
+    const id=text(card?.id);
+    if(!id)continue;
+    const slotPos=Number(card?.slotPos)||0;
+    const slotName=text(card?.slotName);
+    const looksEquipped=card?.equipped===true||(slotPos>=41&&slotPos<=50)||normalized(slotName).startsWith("arcana");
+    if(!looksEquipped)continue;
+    while(fallbackIndex<limit&&slots[fallbackIndex])fallbackIndex++;
+    const index=arcanaSlotIndex(card,fallbackIndex);
+    if(index<0||index>=limit||slots[index])continue;
+    slots[index]=id;
+    imported.push({...card,id,slotIndex:index});
+    if(index===fallbackIndex)fallbackIndex++;
+  }
+  return {slots,imported};
+}
+
 export function createBuildFromCharacter(character){
   if(!character||typeof character!=="object")throw new Error("No synced character snapshot is available.");
   const classSlug=classSlugFromOfficial(character?.profile?.className);
@@ -147,6 +180,7 @@ export function createBuildFromCharacter(character){
   const equipment=equipmentFromCharacter(character.equipment);
   const skillSelection=selectedSkillsFromCharacter(character.skills);
   const region=character.region==="tw"?"KR_TW":"GLOBAL";
+  const arcana=arcanaFromCharacter(character.arcana,region);
   const pet=character.pet?{...character.pet,id:text(character.pet.id)}:null;
   const wing=character.wing?{...character.wing,id:text(character.wing.id)}:null;
   const stigmaSkills=(Array.isArray(character.skills)?character.skills:[]).filter(skill=>classifyCharacterSkill(skill?.category)==="stigma");
@@ -165,7 +199,7 @@ export function createBuildFromCharacter(character){
     wingId:wing?.id||"",
     petId:pet?.id||"",
     petLevel:Math.max(1,Number(pet?.level)||1),
-    advanced:{arcana:Array(10).fill(""),daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""},
+    advanced:{arcana:arcana.slots,daevanion:Array(8).fill(""),daevanionPaths:Array.from({length:8},()=>[]),pantheon:"",genusInsight:"",rotation:""},
     imported:{
       source:"NC public character API",
       official:true,
@@ -174,11 +208,12 @@ export function createBuildFromCharacter(character){
       pet,
       wing,
       wingSkin:character.wingSkin?{...character.wingSkin,id:text(character.wingSkin.id)}:null,
+      arcana:arcana.imported,
       daevanion:Array.isArray(character.daevanion)?character.daevanion:[],
       skills:Array.isArray(character.skills)?character.skills:[],
       equipmentSlots:(Array.isArray(character.equipment)?character.equipment:[]).map(item=>({slotPos:Number(item?.slotPos)||0,slotName:text(item?.slotName),id:text(item?.id),name:text(item?.name)})),
       unknownEquipmentSlots:equipment.unknown,
-      counts:{equipment:Object.keys(equipment.gear).length,acquiredSkills:acquiredSkills.length,equippedStigmas:selectedStigmas.length,daevanion:Array.isArray(character.daevanion)?character.daevanion.length:0},
+      counts:{equipment:Object.keys(equipment.gear).length,acquiredSkills:acquiredSkills.length,equippedStigmas:selectedStigmas.length,arcana:arcana.imported.length,daevanion:Array.isArray(character.daevanion)?character.daevanion.length:0},
     },
   };
 }
