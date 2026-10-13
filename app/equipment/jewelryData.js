@@ -9003,7 +9003,8 @@ const jewels = [
   "upgrade": "At +10: Attack 16, Defense 65",
   "binding": "Bind on Pickup",
   "recipe": [
-    "Global acquisition not listed; KR/TW: Ultimate Berk (Krao Cave), Eternal Ludra (Abyssal Forge: Ludra)."
+    "Item #310140026: Global acquisition not listed; KR/TW: Ultimate Berk (Krao Cave), Eternal Ludra (Abyssal Forge: Ludra).",
+    "Related Global item #310140044: Abyssal Forge: Ludra raid reward or Party Dungeon."
   ],
   "id": "310140026",
   "name": "Division Necklace",
@@ -9024,7 +9025,8 @@ const jewels = [
   "upgrade": "At +10: Attack 18, Defense 70",
   "binding": "Bind on Pickup",
   "recipe": [
-    "Global acquisition not listed; KR/TW: Divine Auldor (Urugugu Canyon), Eternal Ludra (Abyssal Forge: Ludra)."
+    "Item #310140027: Global acquisition not listed; KR/TW: Divine Auldor (Urugugu Canyon), Eternal Ludra (Abyssal Forge: Ludra).",
+    "Related Global item #310140045: Abyssal Forge: Ludra raid reward or Party Dungeon."
   ],
   "id": "310140027",
   "name": "Divine Canyon Necklace",
@@ -9045,7 +9047,8 @@ const jewels = [
   "upgrade": "At +10: Attack 18, Defense 73",
   "binding": "Bind on Pickup",
   "recipe": [
-    "Global acquisition not listed; KR/TW: Kromede's Desire (Fire Temple), Eternal Ludra (Abyssal Forge: Ludra)."
+    "Item #310140028: Global acquisition not listed; KR/TW: Kromede's Desire (Fire Temple), Eternal Ludra (Abyssal Forge: Ludra).",
+    "Related Global item #310140046: Abyssal Forge: Ludra raid reward or Party Dungeon."
   ],
   "id": "310140028",
   "name": "Corrupted Judicator Necklace",
