@@ -3963,7 +3963,139 @@ const imprintPools = {
   ],
 "neck:wise-splendent": [["Combat Speed","3.74% ~ 4.37%"],["Might","11 ~ 20"],["Precision","11 ~ 20"],["Intelligence","15 ~ 24"],["Flight Power","31,080 ~ 35,749"],["Attack","27 ~ 38"],["Critical Hit","41 ~ 54"],["Accuracy","55 ~ 70"],["Defense","323 ~ 378"],["Evasion","32 ~ 44"],["Critical Hit Resist","58 ~ 74"],["Block","33 ~ 45"],["MP","124 ~ 150"],["HP","249 ~ 293"],["Natural MP Regen","29 ~ 40"],["Natural HP Regen","58 ~ 74"]],
 "ear:wise-splendent": [["Move Speed","5.55% ~ 6.45%"],["Might","8 ~ 16"],["Precision","8 ~ 16"],["Intelligence","13 ~ 22"],["Flight Power","26,640 ~ 30,643"],["Attack","23 ~ 33"],["Critical Hit","35 ~ 47"],["Accuracy","47 ~ 61"],["Defense","277 ~ 326"],["Evasion","27 ~ 38"],["Critical Hit Resist","49 ~ 63"],["Block","28 ~ 39"],["MP","106 ~ 129"],["HP","214 ~ 253"],["Natural MP Regen","25 ~ 36"],["Natural HP Regen","49 ~ 63"]],
-"ring:wise-splendent": [["Might","6 ~ 14"],["Precision","6 ~ 14"],["Intelligence","11 ~ 20"],["Flight Power","22,200 ~ 25,537"],["Attack","19 ~ 29"],["Critical Hit","29 ~ 40"],["Accuracy","39 ~ 52"],["Defense","231 ~ 273"],["Evasion","23 ~ 33"],["Critical Hit Resist","41 ~ 54"],["Block","24 ~ 35"],["MP","88 ~ 108"],["HP","178 ~ 212"],["Natural MP Regen","21 ~ 31"],["Natural HP Regen","41 ~ 54"]]
+"ring:wise-splendent": [["Might","6 ~ 14"],["Precision","6 ~ 14"],["Intelligence","11 ~ 20"],["Flight Power","22,200 ~ 25,537"],["Attack","19 ~ 29"],["Critical Hit","29 ~ 40"],["Accuracy","39 ~ 52"],["Defense","231 ~ 273"],["Evasion","23 ~ 33"],["Critical Hit Resist","41 ~ 54"],["Block","24 ~ 35"],["MP","88 ~ 108"],["HP","178 ~ 212"],["Natural MP Regen","21 ~ 31"],["Natural HP Regen","41 ~ 54"]],
+"neck:divine-canyon": [
+  [
+    "Combat Speed",
+    "2.36% ~ 2.78%"
+  ],
+  [
+    "Might",
+    "7 ~ 15"
+  ],
+  [
+    "Precision",
+    "7 ~ 15"
+  ],
+  [
+    "Intelligence",
+    "9 ~ 17"
+  ],
+  [
+    "Flight Power",
+    "19,600 ~ 22,547"
+  ],
+  [
+    "Attack",
+    "17 ~ 27"
+  ],
+  [
+    "Critical Hit",
+    "26 ~ 37"
+  ],
+  [
+    "Accuracy",
+    "35 ~ 47"
+  ],
+  [
+    "Defense",
+    "203 ~ 240"
+  ],
+  [
+    "Evasion",
+    "20 ~ 30"
+  ],
+  [
+    "Critical Hit Resist",
+    "37 ~ 50"
+  ],
+  [
+    "Block",
+    "20 ~ 30"
+  ],
+  [
+    "MP",
+    "78 ~ 97"
+  ],
+  [
+    "HP",
+    "157 ~ 188"
+  ],
+  [
+    "Natural MP Regen",
+    "18 ~ 28"
+  ],
+  [
+    "Natural HP Regen",
+    "37 ~ 50"
+  ]
+],
+"neck:corrupted-judicator": [
+  [
+    "Combat Speed",
+    "2.53% ~ 2.98%"
+  ],
+  [
+    "Might",
+    "7 ~ 15"
+  ],
+  [
+    "Precision",
+    "7 ~ 15"
+  ],
+  [
+    "Intelligence",
+    "10 ~ 19"
+  ],
+  [
+    "Flight Power",
+    "21,000 ~ 24,157"
+  ],
+  [
+    "Attack",
+    "18 ~ 28"
+  ],
+  [
+    "Critical Hit",
+    "28 ~ 39"
+  ],
+  [
+    "Accuracy",
+    "37 ~ 50"
+  ],
+  [
+    "Defense",
+    "218 ~ 258"
+  ],
+  [
+    "Evasion",
+    "22 ~ 32"
+  ],
+  [
+    "Critical Hit Resist",
+    "39 ~ 52"
+  ],
+  [
+    "Block",
+    "22 ~ 32"
+  ],
+  [
+    "MP",
+    "84 ~ 104"
+  ],
+  [
+    "HP",
+    "169 ~ 201"
+  ],
+  [
+    "Natural MP Regen",
+    "19 ~ 29"
+  ],
+  [
+    "Natural HP Regen",
+    "39 ~ 52"
+  ]
+]
 };
 const skillPools = {
   "defensive": [
@@ -8859,6 +8991,69 @@ const jewels = [
   "defense": "169",
   "pool": "neck:pact",
   "sell": "583 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "40",
+  "required": "37",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 16, Defense 65",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Ultimate Berk (Krao Cave), Eternal Ludra (Abyssal Forge: Ludra)."
+  ],
+  "id": "310140026",
+  "name": "Division Necklace",
+  "category": "Necklace",
+  "attack": "70",
+  "defense": "169",
+  "pool": "neck:pact",
+  "sell": "583 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "43",
+  "required": "45",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 18, Defense 70",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Divine Auldor (Urugugu Canyon), Eternal Ludra (Abyssal Forge: Ludra)."
+  ],
+  "id": "310140027",
+  "name": "Divine Canyon Necklace",
+  "category": "Necklace",
+  "attack": "85",
+  "defense": "203",
+  "pool": "neck:divine-canyon",
+  "sell": "1,002 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "45",
+  "required": "45",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 18, Defense 73",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Global acquisition not listed; KR/TW: Kromede's Desire (Fire Temple), Eternal Ludra (Abyssal Forge: Ludra)."
+  ],
+  "id": "310140028",
+  "name": "Corrupted Judicator Necklace",
+  "category": "Necklace",
+  "attack": "99",
+  "defense": "238",
+  "pool": "neck:corrupted-judicator",
+  "sell": "1,721 Gold",
   "skills": "defensive"
 }
 ];
