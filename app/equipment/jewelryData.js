@@ -9058,6 +9058,50 @@ const jewels = [
   "pool": "neck:corrupted-judicator",
   "sell": "1,721 Gold",
   "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "43",
+  "required": "45",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 18, Defense 70",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Item #310140047: Global acquisition not listed; KR/TW: Vakron (Vakron Sky Island), Eternal Ludra (Abyssal Forge: Ludra).",
+    "Related Global item #310140049: Abyssal Forge: Ludra raid reward or Party Dungeon."
+  ],
+  "id": "310140047",
+  "name": "Unyielding Necklace",
+  "category": "Necklace",
+  "attack": "85",
+  "defense": "203",
+  "pool": "neck:divine-canyon",
+  "sell": "1,002 Gold",
+  "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "45",
+  "required": "45",
+  "sockets": "3",
+  "imprintSlots": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 18, Defense 73",
+  "binding": "Bind on Pickup",
+  "recipe": [
+    "Item #310140048: acquisition route not listed.",
+    "Related Global item #310140050: Party Dungeon."
+  ],
+  "id": "310140048",
+  "name": "Fera Necklace",
+  "category": "Necklace",
+  "attack": "99",
+  "defense": "238",
+  "pool": "neck:corrupted-judicator",
+  "sell": "1,721 Gold",
+  "skills": "defensive"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
