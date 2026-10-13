@@ -9102,6 +9102,44 @@ const jewels = [
   "pool": "neck:corrupted-judicator",
   "sell": "1,721 Gold",
   "skills": "defensive"
+},
+{
+  "grade": "Epic",
+  "level": "33",
+  "required": "",
+  "sockets": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 13, Defense 54",
+  "binding": "Bound",
+  "recipe": [
+    "Quest: Bloodstained Rose (Lv. 37)."
+  ],
+  "id": "310140034",
+  "name": "Avenger Necklace",
+  "category": "Necklace",
+  "attack": "58",
+  "defense": "138",
+  "pool": "neck:drifter",
+  "sell": "273 Gold"
+},
+{
+  "grade": "Epic",
+  "level": "43",
+  "required": "",
+  "sockets": "3",
+  "enchant": "+10",
+  "upgrade": "At +10: Attack 18, Defense 70",
+  "binding": "Bound",
+  "recipe": [
+    "Quest: I'm a Believer! (Lv. 45)."
+  ],
+  "id": "310140035",
+  "name": "Liberator Necklace",
+  "category": "Necklace",
+  "attack": "76",
+  "defense": "182",
+  "pool": "neck:pilgrim",
+  "sell": "536 Gold"
 }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
