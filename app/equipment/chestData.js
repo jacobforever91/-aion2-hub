@@ -1,5 +1,7 @@
 const imprintLabels = ["Damage Boost","Regeneration","Perfect Chance","Defense increase","Double Resist","Status Effect Resist","Weapon Damage Tolerance","Dexterity","Constitution","Willpower","Attack","Critical Hit","Accuracy","Defense","Evasion","Critical Damage Defense","Back Defense","Front Defense","Critical Hit Resist","Block","MP","HP","Natural MP Regen","Natural HP Regen"];
 const imprintValues = {
+  "dragon62": ["4.43% ~ 5.16%","1.95% ~ 2.31%","3.91% ~ 4.57%","2.61% ~ 3.07%","2.61% ~ 3.07%","5.59% ~ 6.5%","6.52% ~ 7.57%","9 ~ 17","15 ~ 24","7 ~ 15","18 ~ 28","27 ~ 38","37 ~ 50","217 ~ 257","21 ~ 31","223 ~ 263","223 ~ 263","223 ~ 263","39 ~ 52","22 ~ 32","83 ~ 102","167 ~ 199","20 ~ 30","39 ~ 52"],
+  "dragon78": ["4.89% ~ 5.69%","2.16% ~ 2.55%","4.32% ~ 5.04%","2.88% ~ 3.38%","2.88% ~ 3.38%","6.17% ~ 7.17%","7.2% ~ 8.35%","10 ~ 19","17 ~ 27","8 ~ 16","20 ~ 30","30 ~ 42","41 ~ 54","240 ~ 283","24 ~ 35","246 ~ 290","246 ~ 290","246 ~ 290","43 ~ 56","24 ~ 35","92 ~ 113","185 ~ 220","22 ~ 32","43 ~ 56"],
   "fallen46": ["4.13% ~ 4.82%","1.82% ~ 2.16%","3.64% ~ 4.26%","2.43% ~ 2.86%","2.43% ~ 2.86%","5.2% ~ 6.05%","6.07% ~ 7.05%","8 ~ 16","14 ~ 23","7 ~ 15","17 ~ 27","25 ~ 36","34 ~ 46","202 ~ 239","20 ~ 30","208 ~ 246","208 ~ 246","208 ~ 246","36 ~ 48","21 ~ 31","77 ~ 96","156 ~ 186","18 ~ 28","36 ~ 48"],
   "holy41": ["3.97% ~ 4.64%","1.75% ~ 2.08%","3.51% ~ 4.11%","2.34% ~ 2.76%","2.34% ~ 2.76%","5.01% ~ 5.83%","5.85% ~ 6.8%","8 ~ 16","14 ~ 23","7 ~ 15","16 ~ 25","24 ~ 35","33 ~ 45","195 ~ 231","19 ~ 29","200 ~ 237","200 ~ 237","200 ~ 237","35 ~ 47","20 ~ 30","74 ~ 92","150 ~ 180","17 ~ 27","35 ~ 47"],
   "level13": [
@@ -134,6 +136,10 @@ const imprintValues = {
   ]
 };
 const breastplates = [
+  {"id":"210130013","name":"Artisan's Splendent Orichalcum Breastplate (Elyos)","grade":"Unique","level":"44","required":"34","defense":"371","hp":"176","pool":"fallen46","sockets":"4","faction":"Elyos","sell":"2,285 Gold","enchant":"+15","upgrade":"At +15: Defense 219, HP 78","obtain":["Tailoring Lv 30 at the Armorsmithing Table (Light, Verteron).","Recipe: Expert's Splendent Orichalcum Breastplate ×1, Artisan's Refining Stone ×3, Pure Orichalcum Ore ×5, Pure Odyle ×3."]},
+  {"id":"210130014","name":"Artisan's Splendent Orichalcum Breastplate (Asmodians)","grade":"Unique","level":"44","required":"34","defense":"371","hp":"176","pool":"fallen46","sockets":"4","faction":"Asmodians","sell":"2,285 Gold","enchant":"+15","upgrade":"At +15: Defense 219, HP 78","obtain":["Tailoring Lv 30 at the Armorsmithing Table (Dark, Verteron).","Recipe: Expert's Splendent Orichalcum Breastplate ×1, Artisan's Refining Stone ×3, Pure Orichalcum Ore ×5, Pure Odyle ×3."]},
+  {"id":"210130015","name":"True Dragon Lord Breastplate","grade":"Unique","level":"62","required":"45","defense":"527","hp":"248","pool":"dragon62","sockets":"4","imprintSelection":"5","faction":"Elyos","sell":"20,604 Gold","enchant":"+15","upgrade":"At +15: Defense 310, HP 110. Exceed +1: Defense 31, HP 31, Damage Tolerance 0.5%, HP increase 0.5%.","obtain":["Tailoring Lv 55 at the Armorsmithing Table (Light, Verteron).","Recipe: Artisan's Splendent Orichalcum Breastplate ×1, Artisan's Ultimate Refining Stone ×3, Tanned Thick Balaur Leather ×15, Wrathful Mind ×7, Radiant Orichalcum Ore ×6, Radiant Odyle ×3."]},
+  {"id":"210130016","name":"White Dragon Lord Breastplate","grade":"Unique","level":"78","required":"45","defense":"665","hp":"312","pool":"dragon78","sockets":"4","imprintSelection":"5","faction":"Elyos","sell":"35,402 Gold","enchant":"+15","upgrade":"At +15: Defense 391, HP 138. Exceed +3: Defense 114, HP 114, Damage Tolerance 1.5%, HP increase 1.5%."},
   {"id":"210130010","name":"Tranquility Breastplate","grade":"Unique","level":"36","required":"30","defense":"302","hp":"144","pool":"unique","sockets":"4","sell":"1,162 Gold","enchant":"+15","upgrade":"At +15: Defense 178, HP 64"},
   {"id":"210130011","name":"Courage Breastplate","grade":"Unique","level":"41","required":"35","defense":"346","hp":"164","pool":"holy41","sockets":"4","sell":"1,629 Gold","enchant":"+15","upgrade":"At +15: Defense 204, HP 73","obtain":["Chaotic Lower Reshanta enemy drops (Global)."]},
   {"id":"210130012","name":"Fallen Ancient God Breastplate","grade":"Unique","level":"46","required":"40","defense":"389","hp":"184","pool":"fallen46","sockets":"4","sell":"2,285 Gold","enchant":"+15","upgrade":"At +15: Defense 229, HP 82","obtain":["Chaotic Lower Reshanta bosses and Abyss enemies (Global)."]},
@@ -252,7 +258,8 @@ export default breastplates.map((item) => ({
   details: [
     {label: "Binding", value: "Bind on Equip"},
     {label: "Manastone sockets", value: item.sockets},
-    {label: "Soul imprint selection", value: "Choose " + item.sockets + " sub-stats"},
+    {label: "Soul imprint selection", value: "Choose " + (item.imprintSelection || item.sockets) + " sub-stats"},
+    ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
     {label: "Sell price", value: item.sell},
     {label: "Enchantable to", value: item.enchant},
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
