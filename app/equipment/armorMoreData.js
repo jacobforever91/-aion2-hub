@@ -1,4 +1,5 @@
 const imprintPools = {
+  "2:holy41": [["Damage Tolerance","7.02% ~ 8.14%"],["Perfect Chance","3.21% ~ 3.76%"],["Endurance","2.14% ~ 2.53%"],["Attack increase","1.43% ~ 1.71%"],["Double Resist","2.14% ~ 2.53%"],["Status Effect Resist","4.59% ~ 5.35%"],["Multi-hit Resist","3.21% ~ 3.76%"],["Dexterity","7 ~ 15"],["Constitution","10 ~ 19"],["Willpower","8 ~ 16"],["Attack","15 ~ 24"],["Critical Hit","22 ~ 32"],["Accuracy","30 ~ 42"],["Defense","178 ~ 212"],["Evasion","17 ~ 27"],["Critical Damage Defense","183 ~ 217"],["Back Defense","183 ~ 217"],["Front Defense","183 ~ 217"],["Critical Hit Resist","32 ~ 44"],["Block","18 ~ 28"],["MP","68 ~ 85"],["HP","137 ~ 165"],["Natural MP Regen","16 ~ 25"],["Natural HP Regen","32 ~ 44"]],
   "2:common13": [
     [
       "Damage Tolerance",
@@ -2451,6 +2452,9 @@ const imprintPools = {
   ]
 };
 const armorPieces = [
+  {"id":"210230002","name":"Holy Spirit Greaves","category":"Pants","grade":"Unique","level":"41","required":"35","equipType":"Pants","defense":"288","hp":"123","pool":"2:holy41","sockets":"4","sell":"1,222 Gold","enchant":"+15","upgrade":"At +15: Defense 204, HP 73","obtain":["Named world bosses, including Neikel of the East"]},
+  {"id":"210230005","name":"Fantasy Greaves","category":"Pants","grade":"Unique","level":"36","required":"30","equipType":"Pants","defense":"252","hp":"108","pool":"2:unique","sockets":"4","sell":"871 Gold","enchant":"+15","upgrade":"At +15: Defense 178, HP 64","obtain":["Altgard world bosses, including Melted Danar"]},
+  {"id":"210230006","name":"Spectral Greaves","category":"Pants","grade":"Unique","level":"41","required":"35","equipType":"Pants","defense":"288","hp":"123","pool":"2:holy41","sockets":"4","sell":"1,222 Gold","enchant":"+15","upgrade":"At +15: Defense 204, HP 73","obtain":["Altgard world bosses, including Melted Danar"]},
   {
     "id": "210260017",
     "name": "Forgotten Greaves",
@@ -3036,6 +3040,7 @@ export default armorPieces.map((item) => ({
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
   ],
   upgrades: item.upgrade,
+  obtain: item.obtain,
   source: {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",

@@ -1,5 +1,6 @@
 const imprintLabels = ["Damage Boost","Regeneration","Perfect Chance","Defense increase","Double Resist","Status Effect Resist","Weapon Damage Tolerance","Dexterity","Constitution","Willpower","Attack","Critical Hit","Accuracy","Defense","Evasion","Critical Damage Defense","Back Defense","Front Defense","Critical Hit Resist","Block","MP","HP","Natural MP Regen","Natural HP Regen"];
 const imprintValues = {
+  "holy41": ["3.97% ~ 4.64%","1.75% ~ 2.08%","3.51% ~ 4.11%","2.34% ~ 2.76%","2.34% ~ 2.76%","5.01% ~ 5.83%","5.85% ~ 6.8%","8 ~ 16","14 ~ 23","7 ~ 15","16 ~ 25","24 ~ 35","33 ~ 45","195 ~ 231","19 ~ 29","200 ~ 237","200 ~ 237","200 ~ 237","35 ~ 47","20 ~ 30","74 ~ 92","150 ~ 180","17 ~ 27","35 ~ 47"],
   "level13": [
     "1.68% ~ 2%",
     "0.74% ~ 0.92%",
@@ -132,6 +133,9 @@ const imprintValues = {
   ]
 };
 const breastplates = [
+  {"id":"210130002","name":"Holy Spirit Breastplate","grade":"Unique","level":"41","required":"35","defense":"346","hp":"164","pool":"holy41","sockets":"4","sell":"1,629 Gold","enchant":"+15","upgrade":"At +15: Defense 204, HP 73","obtain":["Named world bosses, including Neikel of the East"]},
+  {"id":"210130005","name":"Fantasy Breastplate","grade":"Unique","level":"36","required":"30","defense":"302","hp":"144","pool":"unique","sockets":"4","sell":"1,162 Gold","enchant":"+15","upgrade":"At +15: Defense 178, HP 64","obtain":["Altgard world bosses, including Melted Danar"]},
+  {"id":"210130006","name":"Spectral Breastplate","grade":"Unique","level":"41","required":"35","defense":"346","hp":"164","pool":"holy41","sockets":"4","sell":"1,629 Gold","enchant":"+15","upgrade":"At +15: Defense 204, HP 73","obtain":["Altgard world bosses, including Melted Danar"]},
   {
     "id": "210160017",
     "name": "Forgotten Breastplate",
@@ -250,6 +254,7 @@ export default breastplates.map((item) => ({
     {label: "Region/version", value: "Global Launch Scale Test client · 2026-09-19"},
   ],
   upgrades: item.upgrade,
+  obtain: item.obtain,
   source: {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
