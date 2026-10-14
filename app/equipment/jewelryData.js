@@ -4631,6 +4631,50 @@ const skillPools = {
 };
 const jewels = [
   {
+    "id": "310240079",
+    "name": "Ritual Diamond Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "23",
+    "required": "20",
+    "binding": "Bind on Pickup",
+    "attack": "33",
+    "defense": "79",
+    "pool": "earring:epic",
+    "sockets": "3",
+    "sell": "148 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 10, Defense 37",
+    "recipe": []
+  },
+  {
+    "grade": "Unique",
+    "level": "102",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "faction": "Elyos",
+    "sockets": "4",
+    "imprintSlots": "5",
+    "enchant": "+15",
+    "upgrade": "At +15: Attack 62, Defense 251; Exceed to +5: Attack 41, Defense 122, Damage Boost 2.5%",
+    "recipe": [
+      "Global recipe: Jewelcrafting at a Handicrafting Table (Elyos, Verteron).",
+      "Artisan's Ultimate Refining Stone ×1",
+      "Enhanced Durable Balaur Scale ×11",
+      "Wrathful Ego ×4",
+      "Radiant Diamond Gemstone ×2",
+      "Radiant Odyle ×2"
+    ],
+    "id": "310230121",
+    "name": "Splendent Wise Dragon Lord Earrings (Bind on Pickup)",
+    "category": "Earring",
+    "attack": "152",
+    "defense": "364",
+    "pool": "ear:wise-splendent",
+    "sell": "59,798 Gold",
+    "skills": "defensive"
+  },
+  {
     "grade": "Unique",
     "level": "94",
     "required": "45",
@@ -5906,7 +5950,7 @@ const jewels = [
   },
   {
     "id": "310240009",
-    "name": "Ritual Diamond Earrings",
+    "name": "Ritual Diamond Earrings (Bind on Equip)",
     "category": "Earring",
     "grade": "Epic",
     "level": "23",
@@ -9442,7 +9486,7 @@ const jewels = [
       "Global acquisition not listed in the Launch Scale Test client (2026-09-19)."
     ],
     "id": "310230040",
-    "name": "Splendent Wise Dragon Lord Earrings",
+    "name": "Splendent Wise Dragon Lord Earrings (Bind on Equip)",
     "category": "Earring",
     "attack": "152",
     "defense": "364",
