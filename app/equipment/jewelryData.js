@@ -4631,6 +4631,65 @@ const skillPools = {
 };
 const jewels = [
   {
+    "id": "310340046",
+    "name": "Division Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "40",
+    "required": "37",
+    "binding": "Bind on Pickup",
+    "attack": "47",
+    "defense": "112",
+    "pool": "ring:pact",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "350 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 16, Defense 65",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310340047",
+    "name": "Divine Canyon Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "56",
+    "defense": "135",
+    "pool": "ring:wind-forest",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "601 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310340048",
+    "name": "Rotan Loop",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "45",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "66",
+    "defense": "158",
+    "pool": "ring:black-claw",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "1,033 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 73"
+  },
+  {
     "id": "310340034",
     "name": "Avenger Ring",
     "category": "Ring",
