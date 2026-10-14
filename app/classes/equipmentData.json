@@ -146,7 +146,7 @@
       "class": "templar",
       "group": "Armor",
       "category": "Helmet",
-      "name": "Tempest Helm",
+      "name": "Tempest Helm (Bind on Pickup)",
       "grade": "Rare",
       "itemLevel": "15",
       "requiredLevel": "15",
