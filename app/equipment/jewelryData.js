@@ -4177,6 +4177,46 @@ const skillPools = {
 };
 const jewels = [
   {
+    "id": "310240034",
+    "name": "Avenger Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "48",
+    "defense": "115",
+    "pool": "ear:drifter",
+    "sockets": "3",
+    "sell": "218 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Quest: Traveling Merchant's Conundrum (Lv. 33)",
+      "Quest: Spacetime Rift: Proof (Lv. 45)"
+    ]
+  },
+  {
+    "id": "310240035",
+    "name": "Liberator Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "63",
+    "defense": "151",
+    "pool": "ear:pilgrim",
+    "sockets": "3",
+    "sell": "429 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Quest: Lost Memories (Lv. 45)",
+      "Quest: Herb Pouch Heist (Lv. 44)"
+    ]
+  },
+  {
     "id": "310160005",
     "name": "Dawn Necklace",
     "category": "Necklace",
@@ -4589,11 +4629,20 @@ const jewels = [
     "attack": "41",
     "defense": "99",
     "pool": "neck:common18",
+    "skills": "defensive",
     "sockets": "1",
     "sell": "53 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 5, Defense 15",
-    "faction": "Elyos"
+    "faction": "Elyos",
+    "recipe": [
+      "Jewelcrafting Lv. 10",
+      "Ruby Decoration ×1",
+      "Refining Stone ×4",
+      "Odyle ×1",
+      "25% chance to craft an upgraded Combo version",
+      "Crafted at Handicrafting Table LIGHT in Verteron"
+    ]
   },
   {
     "id": "310160018",
@@ -4606,11 +4655,20 @@ const jewels = [
     "attack": "41",
     "defense": "99",
     "pool": "neck:common18",
+    "skills": "defensive",
     "sockets": "1",
     "sell": "53 Gold",
     "enchant": "+5",
     "upgrade": "At +5: Attack 5, Defense 15",
-    "faction": "Asmodians"
+    "faction": "Asmodians",
+    "recipe": [
+      "Jewelcrafting Lv. 10",
+      "Ruby Decoration ×1",
+      "Refining Stone ×4",
+      "Odyle ×1",
+      "25% chance to craft an upgraded Combo version",
+      "Crafted at Handicrafting Table DARK in Verteron"
+    ]
   },
   {
     "id": "310160019",
@@ -4623,6 +4681,7 @@ const jewels = [
     "attack": "34",
     "defense": "82",
     "pool": "neck:common18",
+    "skills": "defensive",
     "sockets": "1",
     "sell": "46 Gold",
     "enchant": "+5",
@@ -4639,6 +4698,7 @@ const jewels = [
     "attack": "34",
     "defense": "82",
     "pool": "neck:common18",
+    "skills": "defensive",
     "sockets": "1",
     "sell": "46 Gold",
     "enchant": "+5",
