@@ -4631,6 +4631,67 @@ const skillPools = {
 };
 const jewels = [
   {
+    "id": "310340022",
+    "name": "Incomplete Test Subject Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "25",
+    "required": "22",
+    "binding": "Bind on Pickup",
+    "attack": "29",
+    "defense": "69",
+    "pool": "ring:starlight",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "127 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 10, Defense 40",
+    "recipe": [
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310340024",
+    "name": "Rotan Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Pickup",
+    "attack": "44",
+    "defense": "107",
+    "pool": "ring:vowed",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "306 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62",
+    "recipe": [
+      "Fire Temple Accessory Selection Chest (Bound)"
+    ]
+  },
+  {
+    "id": "310340025",
+    "name": "Anguish Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "40",
+    "required": "37",
+    "binding": "Bind on Pickup",
+    "attack": "47",
+    "defense": "112",
+    "pool": "ring:pact",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "350 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 16, Defense 65",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
+  {
     "id": "310340046",
     "name": "Division Ring",
     "category": "Ring",
