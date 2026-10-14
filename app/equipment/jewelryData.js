@@ -1,4 +1,128 @@
 const imprintPools = {
+"ring:wind-forest": [
+  [
+    "Might",
+    "4 ~ 12"
+  ],
+  [
+    "Precision",
+    "4 ~ 12"
+  ],
+  [
+    "Intelligence",
+    "7 ~ 15"
+  ],
+  [
+    "Flight Power",
+    "14,000 ~ 16,107"
+  ],
+  [
+    "Attack",
+    "12 ~ 21"
+  ],
+  [
+    "Critical Hit",
+    "18 ~ 28"
+  ],
+  [
+    "Accuracy",
+    "25 ~ 36"
+  ],
+  [
+    "Defense",
+    "145 ~ 174"
+  ],
+  [
+    "Evasion",
+    "14 ~ 23"
+  ],
+  [
+    "Critical Hit Resist",
+    "26 ~ 37"
+  ],
+  [
+    "Block",
+    "14 ~ 23"
+  ],
+  [
+    "MP",
+    "56 ~ 71"
+  ],
+  [
+    "HP",
+    "112 ~ 136"
+  ],
+  [
+    "Natural MP Regen",
+    "13 ~ 22"
+  ],
+  [
+    "Natural HP Regen",
+    "26 ~ 37"
+  ]
+],
+"ring:black-claw": [
+  [
+    "Might",
+    "4 ~ 12"
+  ],
+  [
+    "Precision",
+    "4 ~ 12"
+  ],
+  [
+    "Intelligence",
+    "7 ~ 15"
+  ],
+  [
+    "Flight Power",
+    "15,000 ~ 17,257"
+  ],
+  [
+    "Attack",
+    "13 ~ 22"
+  ],
+  [
+    "Critical Hit",
+    "20 ~ 30"
+  ],
+  [
+    "Accuracy",
+    "27 ~ 38"
+  ],
+  [
+    "Defense",
+    "156 ~ 186"
+  ],
+  [
+    "Evasion",
+    "15 ~ 24"
+  ],
+  [
+    "Critical Hit Resist",
+    "28 ~ 39"
+  ],
+  [
+    "Block",
+    "15 ~ 24"
+  ],
+  [
+    "MP",
+    "60 ~ 76"
+  ],
+  [
+    "HP",
+    "120 ~ 145"
+  ],
+  [
+    "Natural MP Regen",
+    "14 ~ 23"
+  ],
+  [
+    "Natural HP Regen",
+    "28 ~ 39"
+  ]
+],
 "ear:divine-canyon": [
   [
     "Move Speed",
@@ -4506,6 +4630,87 @@ const skillPools = {
   ]
 };
 const jewels = [
+  {
+    "id": "310340034",
+    "name": "Avenger Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "",
+    "binding": "Bound",
+    "attack": "38",
+    "defense": "92",
+    "pool": "ring:drifter",
+    "sockets": "3",
+    "sell": "164 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Quest: Spacetime Rift: An Honest Shugo (Lv. 45)",
+      "Quest: Finders Keepers (Lv. 33)"
+    ]
+  },
+  {
+    "id": "310340035",
+    "name": "Liberator Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "",
+    "binding": "Bound",
+    "attack": "50",
+    "defense": "121",
+    "pool": "ring:pilgrim",
+    "sockets": "3",
+    "sell": "322 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Quest: A Perfect Wedding (Lv. 45)",
+      "Quest: Restoration Materials (Lv. 45)"
+    ]
+  },
+  {
+    "id": "310340051",
+    "name": "Wind Forest Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "56",
+    "defense": "135",
+    "pool": "ring:wind-forest",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "601 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310340052",
+    "name": "Black Claw Ring",
+    "category": "Ring",
+    "grade": "Epic",
+    "level": "45",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "66",
+    "defense": "158",
+    "pool": "ring:black-claw",
+    "skills": "offensive",
+    "sockets": "3",
+    "sell": "1,033 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 73",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
   {
     "id": "310240051",
     "name": "Unyielding Earrings",
