@@ -1,4 +1,202 @@
 const imprintPools = {
+"ear:brave-warrior": [
+  [
+    "Move Speed",
+    "3.12% ~ 3.66%"
+  ],
+  [
+    "Might",
+    "5 ~ 13"
+  ],
+  [
+    "Precision",
+    "5 ~ 13"
+  ],
+  [
+    "Intelligence",
+    "7 ~ 15"
+  ],
+  [
+    "Flight Power",
+    "15,000 ~ 17,257"
+  ],
+  [
+    "Attack",
+    "13 ~ 22"
+  ],
+  [
+    "Critical Hit",
+    "20 ~ 30"
+  ],
+  [
+    "Accuracy",
+    "27 ~ 38"
+  ],
+  [
+    "Defense",
+    "156 ~ 186"
+  ],
+  [
+    "Evasion",
+    "15 ~ 24"
+  ],
+  [
+    "Critical Hit Resist",
+    "28 ~ 39"
+  ],
+  [
+    "Block",
+    "15 ~ 24"
+  ],
+  [
+    "MP",
+    "60 ~ 76"
+  ],
+  [
+    "HP",
+    "120 ~ 145"
+  ],
+  [
+    "Natural MP Regen",
+    "14 ~ 23"
+  ],
+  [
+    "Natural HP Regen",
+    "28 ~ 39"
+  ]
+],
+"ear:judicator": [
+  [
+    "Move Speed",
+    "3.25% ~ 3.81%"
+  ],
+  [
+    "Might",
+    "5 ~ 13"
+  ],
+  [
+    "Precision",
+    "5 ~ 13"
+  ],
+  [
+    "Intelligence",
+    "7 ~ 15"
+  ],
+  [
+    "Flight Power",
+    "15,600 ~ 17,947"
+  ],
+  [
+    "Attack",
+    "14 ~ 23"
+  ],
+  [
+    "Critical Hit",
+    "21 ~ 31"
+  ],
+  [
+    "Accuracy",
+    "28 ~ 39"
+  ],
+  [
+    "Defense",
+    "162 ~ 193"
+  ],
+  [
+    "Evasion",
+    "16 ~ 25"
+  ],
+  [
+    "Critical Hit Resist",
+    "29 ~ 40"
+  ],
+  [
+    "Block",
+    "16 ~ 25"
+  ],
+  [
+    "MP",
+    "62 ~ 78"
+  ],
+  [
+    "HP",
+    "125 ~ 151"
+  ],
+  [
+    "Natural MP Regen",
+    "14 ~ 23"
+  ],
+  [
+    "Natural HP Regen",
+    "29 ~ 40"
+  ]
+],
+"ear:saraswati": [
+  [
+    "Move Speed",
+    "3.37% ~ 3.95%"
+  ],
+  [
+    "Might",
+    "5 ~ 13"
+  ],
+  [
+    "Precision",
+    "5 ~ 13"
+  ],
+  [
+    "Intelligence",
+    "8 ~ 16"
+  ],
+  [
+    "Flight Power",
+    "16,200 ~ 18,637"
+  ],
+  [
+    "Attack",
+    "14 ~ 23"
+  ],
+  [
+    "Critical Hit",
+    "21 ~ 31"
+  ],
+  [
+    "Accuracy",
+    "29 ~ 40"
+  ],
+  [
+    "Defense",
+    "168 ~ 200"
+  ],
+  [
+    "Evasion",
+    "17 ~ 27"
+  ],
+  [
+    "Critical Hit Resist",
+    "30 ~ 42"
+  ],
+  [
+    "Block",
+    "17 ~ 27"
+  ],
+  [
+    "MP",
+    "64 ~ 81"
+  ],
+  [
+    "HP",
+    "130 ~ 157"
+  ],
+  [
+    "Natural MP Regen",
+    "15 ~ 24"
+  ],
+  [
+    "Natural HP Regen",
+    "30 ~ 42"
+  ]
+],
 "neck:argo": [
   [
     "Combat Speed",
@@ -4176,6 +4374,67 @@ const skillPools = {
   ]
 };
 const jewels = [
+  {
+    "id": "310240023",
+    "name": "Brave Warrior Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "33",
+    "required": "30",
+    "binding": "Bind on Pickup",
+    "attack": "48",
+    "defense": "115",
+    "pool": "ear:brave-warrior",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "291 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 13, Defense 54",
+    "recipe": [
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310240024",
+    "name": "Judicator Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "38",
+    "required": "35",
+    "binding": "Bind on Pickup",
+    "attack": "56",
+    "defense": "133",
+    "pool": "ear:judicator",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "408 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 15, Defense 62",
+    "recipe": [
+      "Party Dungeon",
+      "Fire Temple Accessory Selection Chest (Bound)"
+    ]
+  },
+  {
+    "id": "310240025",
+    "name": "Saraswati Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "40",
+    "required": "37",
+    "binding": "Bind on Pickup",
+    "attack": "59",
+    "defense": "141",
+    "pool": "ear:saraswati",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "467 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 16, Defense 65",
+    "recipe": [
+      "Party Dungeon"
+    ]
+  },
   {
     "id": "310240034",
     "name": "Avenger Earrings",
