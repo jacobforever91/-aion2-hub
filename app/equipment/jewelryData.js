@@ -4507,6 +4507,48 @@ const skillPools = {
 };
 const jewels = [
   {
+    "id": "310240051",
+    "name": "Unyielding Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "71",
+    "defense": "169",
+    "pool": "ear:divine-canyon",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "801 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
+  {
+    "id": "310240052",
+    "name": "Black Claw Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "45",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "83",
+    "defense": "198",
+    "pool": "ear:murute",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "1,377 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 73",
+    "recipe": [
+      "Abyssal Forge: Ludra",
+      "Party Dungeon"
+    ]
+  },
+  {
     "id": "310240026",
     "name": "Division Earrings",
     "category": "Earring",
