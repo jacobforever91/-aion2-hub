@@ -139,6 +139,12 @@ const imprintValues = {
   ]
 };
 const breastplates = [
+  {"id":"210130026","name":"Guardian Decanus Breastplate","grade":"Unique","level":"62","required":"40","defense":"527","hp":"248","pool":"dragon62","sockets":"4","binding":"Bind on Pickup","sell":"16,819 Gold","enchant":"+15","upgrade":"At +15: Defense 310, HP 110. Exceed +1: Defense 31, HP 31, Damage Tolerance 0.5%, HP increase 0.5%."},
+  {"id":"210130027","name":"Guardian Centurion Breastplate","grade":"Unique","level":"78","required":"45","defense":"665","hp":"312","pool":"dragon78","sockets":"4","binding":"Bind on Pickup","sell":"54,591 Gold","enchant":"+15","upgrade":"At +15: Defense 391, HP 138. Exceed +3: Defense 114, HP 114, Damage Tolerance 1.5%, HP increase 1.5%."},
+  {"id":"210130028","name":"Guardian Tribunus Breastplate","grade":"Unique","level":"94","required":"45","defense":"803","hp":"376","pool":"dragon94","sockets":"4","binding":"Bind on Pickup","sell":"156,200 Gold","enchant":"+15","upgrade":"At +15: Defense 472, HP 166. Exceed +5: Defense 230, HP 230, Damage Tolerance 2.5%, HP increase 2.5%."},
+  {"id":"210130030","name":"Archon Decanus Breastplate","grade":"Unique","level":"62","required":"40","defense":"527","hp":"248","pool":"dragon62","sockets":"4","binding":"Bind on Pickup","sell":"16,819 Gold","enchant":"+15","upgrade":"At +15: Defense 310, HP 110. Exceed +1: Defense 31, HP 31, Damage Tolerance 0.5%, HP increase 0.5%."},
+  {"id":"210130031","name":"Archon Centurion Breastplate","grade":"Unique","level":"78","required":"45","defense":"665","hp":"312","pool":"dragon78","sockets":"4","binding":"Bind on Pickup","sell":"54,591 Gold","enchant":"+15","upgrade":"At +15: Defense 391, HP 138. Exceed +3: Defense 114, HP 114, Damage Tolerance 1.5%, HP increase 1.5%."},
+  {"id":"210130032","name":"Archon Tribunus Breastplate","grade":"Unique","level":"94","required":"45","defense":"803","hp":"376","pool":"dragon94","sockets":"4","binding":"Bind on Pickup","sell":"156,200 Gold","enchant":"+15","upgrade":"At +15: Defense 472, HP 166. Exceed +5: Defense 230, HP 230, Damage Tolerance 2.5%, HP increase 2.5%."},
   {"id":"210130021","name":"Splendent Star Dragon Lord Breastplate","grade":"Unique","level":"70","required":"45","defense":"596","hp":"280","pool":"dragon70","sockets":"4","imprintSelection":"5","faction":"Asmodians","sell":"40,511 Gold","enchant":"+15","upgrade":"At +15: Defense 351, HP 124. Exceed +3: Defense 103, HP 103, Damage Tolerance 1.5%, HP increase 1.5%.","obtain":["Tailoring Lv 55 at the Armorsmithing Table (Dark, Verteron).","Recipe: Artisan's Splendent Orichalcum Breastplate ×1, Artisan's Ultimate Refining Stone ×3, Tanned Thick Balaur Leather ×15, Wrathful Mind ×7, Radiant Orichalcum Ore ×6, Radiant Odyle ×3."]},
   {"id":"210130022","name":"Splendent Dark Dragon Lord Breastplate","grade":"Unique","level":"86","required":"45","defense":"734","hp":"344","pool":"dragon86","sockets":"4","imprintSelection":"5","faction":"Asmodians","sell":"69,606 Gold","enchant":"+15","upgrade":"At +15: Defense 432, HP 152. Exceed +5: Defense 210, HP 210, Damage Tolerance 2.5%, HP increase 2.5%."},
   {"id":"210130023","name":"Wise Dragon Lord Breastplate","grade":"Unique","level":"94","required":"45","defense":"803","hp":"376","pool":"dragon94","sockets":"4","imprintSelection":"5","faction":"Elyos","sell":"60,826 Gold","enchant":"+15","upgrade":"At +15: Defense 472, HP 166. Exceed +5: Defense 230, HP 230, Damage Tolerance 2.5%, HP increase 2.5%."},
@@ -267,7 +273,7 @@ export default breastplates.map((item) => ({
   stats: pairs([["Defense", item.defense], ["HP", item.hp]]),
   imprints: pairs(imprintLabels.map((label, index) => [label, imprintValues[item.pool][index]])),
   details: [
-    {label: "Binding", value: "Bind on Equip"},
+    {label: "Binding", value: item.binding || "Bind on Equip"},
     {label: "Manastone sockets", value: item.sockets},
     {label: "Soul imprint selection", value: "Choose " + (item.imprintSelection || item.sockets) + " sub-stats"},
     ...(item.faction ? [{label: "Faction", value: item.faction}] : []),
