@@ -1,4 +1,136 @@
 const imprintPools = {
+"ear:divine-canyon": [
+  [
+    "Move Speed",
+    "3.5% ~ 4.1%"
+  ],
+  [
+    "Might",
+    "5 ~ 13"
+  ],
+  [
+    "Precision",
+    "5 ~ 13"
+  ],
+  [
+    "Intelligence",
+    "8 ~ 16"
+  ],
+  [
+    "Flight Power",
+    "16,800 ~ 19,327"
+  ],
+  [
+    "Attack",
+    "15 ~ 24"
+  ],
+  [
+    "Critical Hit",
+    "22 ~ 32"
+  ],
+  [
+    "Accuracy",
+    "30 ~ 42"
+  ],
+  [
+    "Defense",
+    "174 ~ 207"
+  ],
+  [
+    "Evasion",
+    "17 ~ 27"
+  ],
+  [
+    "Critical Hit Resist",
+    "31 ~ 43"
+  ],
+  [
+    "Block",
+    "17 ~ 27"
+  ],
+  [
+    "MP",
+    "67 ~ 84"
+  ],
+  [
+    "HP",
+    "135 ~ 162"
+  ],
+  [
+    "Natural MP Regen",
+    "15 ~ 24"
+  ],
+  [
+    "Natural HP Regen",
+    "31 ~ 43"
+  ]
+],
+"ear:murute": [
+  [
+    "Move Speed",
+    "3.75% ~ 4.38%"
+  ],
+  [
+    "Might",
+    "6 ~ 14"
+  ],
+  [
+    "Precision",
+    "6 ~ 14"
+  ],
+  [
+    "Intelligence",
+    "9 ~ 17"
+  ],
+  [
+    "Flight Power",
+    "18,000 ~ 20,707"
+  ],
+  [
+    "Attack",
+    "16 ~ 25"
+  ],
+  [
+    "Critical Hit",
+    "24 ~ 35"
+  ],
+  [
+    "Accuracy",
+    "32 ~ 44"
+  ],
+  [
+    "Defense",
+    "187 ~ 222"
+  ],
+  [
+    "Evasion",
+    "18 ~ 28"
+  ],
+  [
+    "Critical Hit Resist",
+    "34 ~ 46"
+  ],
+  [
+    "Block",
+    "18 ~ 28"
+  ],
+  [
+    "MP",
+    "72 ~ 90"
+  ],
+  [
+    "HP",
+    "144 ~ 173"
+  ],
+  [
+    "Natural MP Regen",
+    "17 ~ 27"
+  ],
+  [
+    "Natural HP Regen",
+    "34 ~ 46"
+  ]
+],
 "ear:brave-warrior": [
   [
     "Move Speed",
@@ -4374,6 +4506,57 @@ const skillPools = {
   ]
 };
 const jewels = [
+  {
+    "id": "310240026",
+    "name": "Division Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "40",
+    "required": "37",
+    "binding": "Bind on Pickup",
+    "attack": "59",
+    "defense": "141",
+    "pool": "ear:saraswati",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "467 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 16, Defense 65"
+  },
+  {
+    "id": "310240027",
+    "name": "Divine Canyon Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "43",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "71",
+    "defense": "169",
+    "pool": "ear:divine-canyon",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "801 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 70"
+  },
+  {
+    "id": "310240028",
+    "name": "Murute Earrings",
+    "category": "Earring",
+    "grade": "Epic",
+    "level": "45",
+    "required": "45",
+    "binding": "Bind on Pickup",
+    "attack": "83",
+    "defense": "198",
+    "pool": "ear:murute",
+    "skills": "defensive",
+    "sockets": "3",
+    "sell": "1,377 Gold",
+    "enchant": "+10",
+    "upgrade": "At +10: Attack 18, Defense 73"
+  },
   {
     "id": "310240023",
     "name": "Brave Warrior Earrings",
