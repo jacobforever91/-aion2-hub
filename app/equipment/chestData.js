@@ -341,7 +341,7 @@ export default breastplates.map((item) => ({
   category: "Chest",
   grade: item.grade,
   itemLevel: item.level,
-  requiredLevel: item.required || item.level,
+  requiredLevel: item.required || undefined,
   equipType: "Torso",
   itemType: "Armor",
   icon: "/equipment-icons/" + item.id + ".webp",
