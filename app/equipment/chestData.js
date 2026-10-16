@@ -334,19 +334,6 @@ const breastplates = [
     "upgrade": "At +5: Defense 29, HP 11"
   },
   {
-    "id": "210150008",
-    "name": "Tempest Breastplate",
-    "grade": "Rare",
-    "level": "15",
-    "defense": "121",
-    "hp": "60",
-    "pool": "rare",
-    "sockets": "2",
-    "sell": "106 Gold",
-    "enchant": "+5",
-    "upgrade": "At +5: Defense 24, HP 9"
-  },
-  {
     "id": "210140002",
     "name": "Elder Breastplate",
     "grade": "Epic",
