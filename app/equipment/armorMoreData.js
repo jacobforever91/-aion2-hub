@@ -2477,6 +2477,8 @@ const imprintPools = {
   ]
 };
 const armorPieces = [
+  {"category":"Pants","grade":"Rare","equipType":"Pants","sockets":"2","enchant":"+5","level":"15","required":"15","defense":"101","hp":"45","pool":"2:rare","sell":"79 Gold","upgrade":"At +5: Defense 24, HP 9","id":"210250003","name":"Rainy Forest Greaves","obtain":["Drop: Marsh Targon, Ellun River Sylphen and other creatures (Verteron)"]},
+  {"category":"Pants","grade":"Epic","equipType":"Pants","sockets":"3","enchant":"+10","level":"40","required":"37","defense":"281","hp":"120","pool":"2:epicCraft40","sell":"700 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210240089","name":"Shylak Greaves","obtain":["Drop: Sharp Shylak (Lv 45 world boss, Altgard)"]},
   {"category":"Pants","grade":"Epic","equipType":"Pants","sockets":"3","enchant":"+10","level":"40","required":"37","defense":"281","hp":"120","pool":"2:epicCraft40","sell":"700 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210240082","name":"Setram Greaves","obtain":["Drop: Researcher Setram (Lv 45 world boss, Verteron)"]},
   {"category":"Pants","grade":"Epic","equipType":"Pants","sockets":"3","enchant":"+10","level":"40","required":"37","defense":"281","hp":"120","pool":"2:epicCraft40","sell":"700 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210240083","name":"Kasia Greaves","obtain":["Drop: Phantasm Kasia (Lv 45 world boss, Verteron)"]},
   {"category":"Pants","grade":"Epic","equipType":"Pants","sockets":"3","enchant":"+10","level":"40","required":"37","defense":"281","hp":"120","pool":"2:epicCraft40","sell":"700 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210240086","name":"Shujakan Greaves","obtain":["Drop: Veteran Shujakan (Lv 45 world boss)"]},
