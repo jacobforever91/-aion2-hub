@@ -10,6 +10,7 @@ import brooch from '../app/equipment/broochData.js';
 import specialSlotData from '../app/equipment/specialSlotData.js';
 import globalUniqueWeaponData from '../app/equipment/globalUniqueWeaponData.js';
 import globalVakronData from '../app/equipment/globalVakronData.js';
+import globalBakarmaData from '../app/equipment/globalBakarmaData.js';
 import * as model from '../public/build-lab-assets/model.mjs';
 import * as engine from '../public/dps-lab-assets/engine.mjs';
 import {simulateRangerDps,simulateSorcererDps,simulateOffensiveProxy} from '../public/dps-lab-assets/simulators.mjs';
@@ -36,7 +37,7 @@ async function readJson(relative){
 export async function loadBotCatalog(){
   const equipment=await readJson('../app/classes/equipmentData.json');
   const items=[...new Map([
-    ...(equipment.items||[]),...weapons,...armor,...chest,...moreArmor,...jewelry,...brooch,...specialSlotData,...globalUniqueWeaponData,...globalVakronData
+    ...(equipment.items||[]),...weapons,...armor,...chest,...moreArmor,...jewelry,...brooch,...specialSlotData,...globalUniqueWeaponData,...globalVakronData,...globalBakarmaData
   ].map(x=>[`${x.region||'GLOBAL'}:${x.id}`,normalize(x)])).values()]
     .filter(x=>x.region==='GLOBAL'&&(x.grade==='Unique'||(x.category==='Rune'&&x.grade==='Special')));
   const classes=classList.map(c=>{
