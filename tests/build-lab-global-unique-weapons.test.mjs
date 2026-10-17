@@ -52,7 +52,38 @@ test('cross-checked Global weapon rows preserve base stats and provenance',()=>{
     assert.ok(item);
     assert.ok(item.stats.length>0);
     assert.ok(item.imprints.length>0);
-    assert.equal(item.source.clientVersion,'1.0.21.0');
     assert.equal(item.source.official,false);
+  }
+  assert.equal(greatsword.source.clientVersion,'1.0.21.0');
+  assert.equal(guard.source.clientVersion,'1.0.21.0');
+});
+
+test('current Global 2.0.7 Spiritforged family covers every main weapon type',()=>{
+  const rows=globalUniqueWeapons.filter(item=>item.name.startsWith('Spiritforged ')&&item.equipType==='MainHand');
+  assert.equal(rows.length,8);
+  assert.deepEqual(new Set(rows.map(item=>item.category)),new Set([
+    'Greatsword','Longsword','Dagger','Bow','Spellbook','Orb','Mace','Staff'
+  ]));
+  assert.ok(rows.every(item=>item.itemLevel==='45'));
+  assert.ok(rows.every(item=>item.source.clientVersion==='2.0.7.0'));
+  assert.ok(rows.every(item=>item.verificationStatus==='GLOBAL_207_CROSSCHECKED'));
+  const bow=rows.find(item=>item.id==='110430048');
+  assert.equal(bow.stats.find(row=>row.label==='Min Attack').value,'177');
+  assert.equal(bow.stats.find(row=>row.label==='Max Attack').value,'223');
+});
+
+test('current Global Guard candidates include Spiritforged Bakarma and Vakron',()=>{
+  const expected={
+    '115030040':['Spiritforged Guard','45','92'],
+    '115030038':['Bakarma Guard','54','110'],
+    '115030052':['Vakron Guard','70','144']
+  };
+  for(const [id,[name,itemLevel,attack]] of Object.entries(expected)){
+    const item=globalUniqueWeapons.find(row=>row.id===id);
+    assert.ok(item,id);
+    assert.equal(item.name,name);
+    assert.equal(item.itemLevel,itemLevel);
+    assert.equal(item.stats.find(row=>row.label==='Attack').value,attack);
+    assert.equal(item.source.clientVersion,'2.0.7.0');
   }
 });
