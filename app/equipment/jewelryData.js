@@ -11250,6 +11250,19 @@ const jewels = [
   }
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
+const GLOBAL_207_SYNC = new Set([
+  "310330015","310330111","310330017","310330113",
+  "310230015","310230111","310230017","310230113",
+  "310130015","310130109","310130017","310130111"
+]);
+const current207Source = {
+  name: "gaming.tools AION 2 Global client database",
+  region: "GLOBAL",
+  clientVersion: "2.0.7.0",
+  capturedAt: "2026-10-14",
+  official: false,
+  status: "GLOBAL_CLIENT_CROSSCHECKED"
+};
 
 export default jewels.map((item) => ({
   id: item.id,
@@ -11276,7 +11289,8 @@ export default jewels.map((item) => ({
   ],
   upgrades: item.upgrade,
   obtain: item.recipe || [],
-  source: {
+  verificationStatus: GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
+  source: GLOBAL_207_SYNC.has(item.id) ? current207Source : {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
