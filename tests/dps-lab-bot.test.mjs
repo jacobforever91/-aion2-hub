@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {CLASS_CYCLE,classForRun,objectiveForClass,reportMarkdown} from '../scripts/dps-bot-cycle.mjs';
+import {CLASS_CYCLE,classForRun,objectiveForClass,observedMetaForClass,reportMarkdown} from '../scripts/dps-bot-cycle.mjs';
 import {optimizeEquipmentDeep} from '../public/dps-lab-assets/engine.mjs';
 
 test('hourly bot rotates all eight classes then starts again',()=>{
@@ -58,4 +58,29 @@ test('beta DPS reports are separated from both calibrated DPS and proxy scores',
   assert.match(md,/\/s/);
   assert.match(md,/not a guaranteed combat-meter parse/);
   assert.doesNotMatch(md,/experimental DPS proxy/);
+});
+
+
+test('DPS bot carries the current Global armory sample into each class report',()=>{
+  const ranger=observedMetaForClass('ranger');
+  assert.equal(ranger.clientReference.version,'2.0.7.0');
+  assert.equal(ranger.sampledAt,'2026-10-16');
+  assert.equal(ranger.sampleSize,1600);
+  assert.equal(ranger.ranger.active.find(x=>x.name==='Deadshot').avgLevel,13.3);
+  assert.equal(ranger.ranger.passive.find(x=>x.name==='Focused Eye').avgLevel,13.6);
+  assert.equal(ranger.topStigmas[0].name,"Vaizel's Authority");
+});
+
+test('DPS report prints current observed meta when supplied',()=>{
+  const observedMeta=observedMetaForClass('ranger');
+  const md=reportMarkdown({
+    className:'Ranger',classSlug:'ranger',goal:'boss',kind:'DPS BETA',confidence:'BETA v0.4',
+    durationMs:55*60*1000,evaluations:1000,iterations:2,improvements:2,filledSlots:20,slotCount:20,
+    weapon:"Ludra's Fatal Bow",missingSlots:[],bestScore:26000,observedMeta
+  });
+  assert.match(md,/client 2\.0\.7\.0/);
+  assert.match(md,/armory sample.*2026-10-16/);
+  assert.match(md,/Observed top Stigmas/);
+  assert.match(md,/Deadshot Lv13\.3/);
+  assert.match(md,/Focused Eye Lv13\.6/);
 });
