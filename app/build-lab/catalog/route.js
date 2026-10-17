@@ -14,6 +14,7 @@ import progression from '../../progression/catalogData.json';
 import arcana from '../../arcana/arcana-data.json';
 import pets from '../../progression/petIcons.json';
 import boards from '../../builds/daevanion-boards.json';
+import globalMetaSnapshot from '../../meta/globalMetaSnapshot.js';
 export const dynamic='force-static';
 const aliases={Longsword:['longsword','sword'],Shield:['shield','guard','guarder'],Guard:['shield','guard','guarder'],Daggers:['dagger'],Dagger:['dagger']};
 const types=w=>w?(aliases[w.name]||[w.name.toLowerCase()]):[];
@@ -26,6 +27,6 @@ export function GET(){
  // a separate Global record is actually supplied; never relabel them as Global.
  const wings=(progression.wings||[]).filter(x=>x.region==='GLOBAL').map(x=>({...x,id:String(x.id),stats:pairs(x.stats)}));
  const companions=(progression.pets||[]).filter(x=>x.region==='GLOBAL').map(x=>({...x,id:String(x.id),detail:x.detail||{},icon:typeof pets[x.id]==='string'?pets[x.id]:(pets[x.id]?.icon||pets[x.id]?.iconUrl||'')}));
- return Response.json({version:'lab-global-1 / local-reference-2026-09',region:'GLOBAL',source:'DAEVEXUS Global community reference snapshots. Not official Global validation.',equipmentPolicy:{grade:'Unique',color:'Yellow',scope:'Global equipable catalog',specialSlots:{Rune:'Special'}},classes,equipment:items,wings,pets:companions,
+ return Response.json({version:'lab-global-2 / mixed-reference-through-2026-10-17',region:'GLOBAL',source:'DAEVEXUS mixed Global records. Item-level provenance is retained; newer references are not silently relabeled onto legacy rows.',referenceStatus:{latestKnownClientVersion:globalMetaSnapshot.latestClientReference.version,clientReferenceUpdated:globalMetaSnapshot.latestClientReference.updatedAt,armorySampledAt:globalMetaSnapshot.sampledAt,armorySampleSize:globalMetaSnapshot.sampleSize,patchDate:globalMetaSnapshot.patchDate},observedMeta:globalMetaSnapshot,equipmentPolicy:{grade:'Unique',color:'Yellow',scope:'Global equipable catalog',specialSlots:{Rune:'Special'}},classes,equipment:items,wings,pets:companions,
  arcana:(arcana.items||[]).map(x=>normalize({...x,region:x.region||arcana.region||'GLOBAL'})).filter(x=>x.region==='GLOBAL'),boards}, {headers:{'Cache-Control':'public, max-age=0, must-revalidate','X-Content-Type-Options':'nosniff'}});
 }
