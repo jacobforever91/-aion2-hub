@@ -204,6 +204,8 @@ export function reportMarkdown(result){
       const active=Object.fromEntries(observed.ranger.active.map(x=>[x.name,x.avgLevel]));
       const passive=Object.fromEntries(observed.ranger.passive.map(x=>[x.name,x.avgLevel]));
       lines.push(`- Ranger observed averages: Deadshot Lv${active.Deadshot} · Gale Lv${active['Gale Arrow']} · Drill Lv${active['Drill Dart']} · Focused Eye Lv${passive['Focused Eye']} · Hunter's Resolve Lv${passive["Hunter's Resolve"]}`);
+      const g=observed.ranger.observedGear?.slots||{};
+      if(g.mainHand)lines.push(`- Ranger armory baseline: ${g.mainHand.name} ${g.mainHand.share}% · ${g.offHand?.name||'—'} ${g.offHand?.share||0}% · ${g.chest?.name||'—'} ${g.chest?.share||0}% · ${g.amulet?.name||'—'} ${g.amulet?.share||0}%`);
     }
   }
   if(beta)lines.push('', '> Beta DPS is a search benchmark, not a guaranteed combat-meter parse. It is used consistently across candidates so the bot can improve the class build without pretending the model is fully calibrated.');
