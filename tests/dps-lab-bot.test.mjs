@@ -83,4 +83,6 @@ test('DPS report prints current observed meta when supplied',()=>{
   assert.match(md,/Observed top Stigmas/);
   assert.match(md,/Deadshot Lv13\.3/);
   assert.match(md,/Focused Eye Lv13\.6/);
+  assert.match(md,/Ranger armory baseline: Spiritforged Bow 41%/);
+  assert.match(md,/Bakarma Breastplate 45\.2%/);
 });
