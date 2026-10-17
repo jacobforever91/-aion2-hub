@@ -21,6 +21,34 @@ export const GLOBAL_META_SNAPSHOT = Object.freeze({
     source: "https://aion2.gaming.tools/"
   },
   ranger: {
+    observedGear: {
+      sampleSize:200,
+      sampledAt:"2026-10-16",
+      slots:{
+        mainHand:{name:"Spiritforged Bow",share:41,medianEnchant:10,p90Enchant:12},
+        offHand:{name:"Spiritforged Guard",share:40.5,medianEnchant:10,p90Enchant:10},
+        helmet:{name:"Vakron Helm",share:24.1,medianEnchant:5,p90Enchant:10},
+        shoulders:{name:"Liberator Pauldrons",share:21.1,medianEnchant:5,p90Enchant:10},
+        chest:{name:"Bakarma Breastplate",share:45.2,medianEnchant:5,p90Enchant:10},
+        pants:{name:"Vakron Greaves",share:23.6,medianEnchant:5,p90Enchant:10},
+        gloves:{name:"Bakarma Gloves",share:21,medianEnchant:5,p90Enchant:10},
+        boots:{name:"Bakarma Boots",share:24,medianEnchant:5,p90Enchant:10},
+        cloak:{name:"Bakarma Cloak",share:24.6,medianEnchant:5,p90Enchant:10},
+        necklace:{name:"Pilgrim Necklace",share:24.1,medianEnchant:5,p90Enchant:10},
+        earring1:{name:"Liberator Earrings",share:23,medianEnchant:5,p90Enchant:10},
+        earring2:{name:"Liberator Earrings",share:30.5,medianEnchant:5,p90Enchant:10},
+        ring1:{name:"Aulamus Ring",share:23,medianEnchant:5,p90Enchant:10},
+        ring2:{name:"Liberator Ring",share:25.5,medianEnchant:5,p90Enchant:10},
+        bracelet1:{name:"Ascension Bracelet",share:39.5,medianEnchant:8,p90Enchant:10},
+        bracelet2:{name:"Liberator Bracelet",share:34,medianEnchant:5,p90Enchant:10},
+        belt:{name:"Noble Belt",share:62.5,medianEnchant:0,p90Enchant:5},
+        amulet:{name:"Revelation Amulet",share:80,medianEnchant:0,p90Enchant:7},
+        rune1:{name:"Clash Rune",share:100,medianEnchant:2,p90Enchant:4},
+        rune2:{name:"Clash Rune",share:100,medianEnchant:2,p90Enchant:3}
+      },
+      wings:[{name:"Ultimate Daeva Wings",share:38.5}],
+      pets:[{name:"Pagati",share:33.5},{name:"Tayga",share:5.5},{name:"Papis",share:2.5}]
+    },
     active: [
       {name:"Snare Shot",usedBy:97,avgLevel:12.2},
       {name:"Snipe",usedBy:100,avgLevel:13.7},
