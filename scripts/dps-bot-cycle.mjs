@@ -13,6 +13,7 @@ import globalVakronData from '../app/equipment/globalVakronData.js';
 import * as model from '../public/build-lab-assets/model.mjs';
 import * as engine from '../public/dps-lab-assets/engine.mjs';
 import {simulateRangerDps,simulateSorcererDps,simulateOffensiveProxy} from '../public/dps-lab-assets/simulators.mjs';
+import globalMetaSnapshot from '../app/meta/globalMetaSnapshot.js';
 
 export const CLASS_CYCLE=Object.freeze(['ranger','sorcerer','spiritmaster','cleric','chanter','templar','gladiator','assassin']);
 
@@ -48,6 +49,19 @@ export async function loadBotCatalog(){
 export function classForRun(runNumber=1){
   const n=Math.max(1,Number(runNumber)||1);
   return CLASS_CYCLE[(n-1)%CLASS_CYCLE.length];
+}
+
+export function observedMetaForClass(classSlug){
+  const topStigmas=globalMetaSnapshot.topStigmasByClass?.[classSlug]||[];
+  return {
+    sampledAt:globalMetaSnapshot.sampledAt,
+    sampleSize:globalMetaSnapshot.sampleSize,
+    perClassSample:globalMetaSnapshot.perClassSample,
+    patchDate:globalMetaSnapshot.patchDate,
+    clientReference:globalMetaSnapshot.latestClientReference,
+    topStigmas,
+    ...(classSlug==='ranger'?{ranger:globalMetaSnapshot.ranger}: {})
+  };
 }
 
 function currentCandidate(item){
@@ -150,6 +164,7 @@ export async function runClassSearch({
   return {
     classSlug,className:catalog.classes.find(c=>c.slug===classSlug)?.name||classSlug,
     goal,kind:objective.kind,confidence:objective.confidence,durationMs:Number(durationMs),
+    observedMeta:observedMetaForClass(classSlug),
     iterations,evaluations,improvements,slotCount:slots.length,filledSlots:slots.filter(s=>best?.gear?.[s.id]).length,
     missingSlots:missing.map(s=>s.label),bestScore:Number(best?.score)||0,bestGear:best?.gear||{},
     bestKey:best?gearKey(best,slots):'',weapon:best?.gear?.mainHand?.name||'—'
@@ -175,6 +190,20 @@ export function reportMarkdown(result){
     `- Loadout: **${result.filledSlots}/${result.slotCount} slots**`,
     `- Main weapon: **${result.weapon}**`
   ];
+  const observed=result.observedMeta;
+  if(observed){
+    lines.push(
+      `- Global data reference: **client ${observed.clientReference?.version||'—'}** · armory sample **${observed.sampledAt||'—'} (n=${Number(observed.sampleSize||0).toLocaleString()})**`
+    );
+    if(observed.topStigmas?.length){
+      lines.push(`- Observed top Stigmas: ${observed.topStigmas.slice(0,5).map(x=>`${x.name} ${x.usedBy}% / avg Lv${x.avgLevel}`).join(' · ')}`);
+    }
+    if(result.classSlug==='ranger'&&observed.ranger){
+      const active=Object.fromEntries(observed.ranger.active.map(x=>[x.name,x.avgLevel]));
+      const passive=Object.fromEntries(observed.ranger.passive.map(x=>[x.name,x.avgLevel]));
+      lines.push(`- Ranger observed averages: Deadshot Lv${active.Deadshot} · Gale Lv${active['Gale Arrow']} · Drill Lv${active['Drill Dart']} · Focused Eye Lv${passive['Focused Eye']} · Hunter's Resolve Lv${passive["Hunter's Resolve"]}`);
+    }
+  }
   if(beta)lines.push('', '> Beta DPS is a search benchmark, not a guaranteed combat-meter parse. It is used consistently across candidates so the bot can improve the class build without pretending the model is fully calibrated.');
   if(!simulated)lines.push('', '> This class does not have a class-specific DPS simulator yet. The bot is searching gear with the offensive proxy and will switch automatically when its class model is added.');
   if(result.missingSlots.length)lines.push('',`Catalog gaps: ${result.missingSlots.join(', ')}`);
