@@ -35,3 +35,17 @@ test('all eight classes expose observed top Stigma references',()=>{
     assert.ok(rows.every(x=>Number.isFinite(x.usedBy)&&Number.isFinite(x.avgLevel)));
   }
 });
+
+
+test('Ranger observed gear baseline is tied to the current official-armory sample',()=>{
+  const gear=meta.ranger.observedGear;
+  assert.equal(gear.sampleSize,200);
+  assert.equal(gear.sampledAt,'2026-10-16');
+  assert.deepEqual(gear.slots.mainHand,{name:'Spiritforged Bow',share:41,medianEnchant:10,p90Enchant:12});
+  assert.equal(gear.slots.chest.name,'Bakarma Breastplate');
+  assert.equal(gear.slots.chest.share,45.2);
+  assert.equal(gear.slots.amulet.name,'Revelation Amulet');
+  assert.equal(gear.slots.amulet.share,80);
+  assert.equal(gear.slots.rune1.share,100);
+  assert.equal(gear.pets[0].name,'Pagati');
+});
