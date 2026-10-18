@@ -1,4 +1,5 @@
 const imprintPools = {
+  "2:quest16hp29": [["HP","29 ~ 29"]],
   "2:quest2hp26": [["HP","26 ~ 26"]],
   "2:quest9hp27": [["HP","27 ~ 27"]],
   "2:quest21": [["Defense","32 ~ 32"],["Natural MP Regen","7 ~ 7"]],
@@ -2484,6 +2485,9 @@ const imprintPools = {
   ]
 };
 const armorPieces = [
+  {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260029","name":"Facade Greaves","level":"16","defense":"108","hp":"48","pool":"2:quest16hp29","sell":"42 Gold","upgrade":"At +5: Defense 26, HP 10","binding":"Bound","fixedImprints":true,"obtain":["Quest reward: Transformation Prep (Lv 19)"]},
+  {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260030","name":"Old Mercenary Commander Greaves","level":"9","defense":"58","hp":"27","pool":"2:quest9hp27","sell":"26 Gold","upgrade":"At +5: Defense 14, HP 6","binding":"Bound","fixedImprints":true,"obtain":["Quest reward: Contaminated Area (Lv 11)"]},
+  {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260031","name":"Outsider Greaves","level":"16","defense":"108","hp":"48","pool":"2:quest16hp29","sell":"42 Gold","upgrade":"At +5: Defense 26, HP 10","binding":"Bound","fixedImprints":true,"obtain":["Quest reward: Malice Laid Bare (Lv 18)"]},
   {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260025","name":"Earth Greaves","level":"20","required":"20","defense":"137","hp":"60","pool":"2:common18","sell":"55 Gold","upgrade":"At +5: Defense 33, HP 12","obtain":["Drop from monsters in the Global client"]},
   {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260026","name":"Twilight Greaves","level":"2","defense":"7","hp":"6","pool":"2:quest2hp26","sell":"16 Gold","upgrade":"At +5: Defense 5, HP 5","binding":"Bound","fixedImprints":true,"obtain":["Quest reward: Making Yourself Useful (Lv 2)"]},
   {"category":"Pants","grade":"Common","equipType":"Pants","sockets":"1","enchant":"+5","id":"210260027","name":"Strange Karma Greaves","level":"2","defense":"7","hp":"6","pool":"2:quest2hp26","sell":"16 Gold","upgrade":"At +5: Defense 5, HP 5","binding":"Bound","fixedImprints":true,"obtain":["Quest reward: Prepare to Escape (Lv 2)"]},
