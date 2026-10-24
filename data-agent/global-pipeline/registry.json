@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "mode": "laboratory-only",
+  "automaticProductionWrites": false,
+  "region": "GLOBAL",
+  "shards": ["nae", "naw", "eu", "sa", "asia"],
+  "entityTypes": ["equipment", "skill", "stigma", "wing", "pet", "arcana", "daevanion"],
+  "requiredProvenance": ["region", "build", "source", "confidence", "lastVerified", "evidence"],
+  "promotionPolicy": {
+    "defaultProductionEligible": false,
+    "requiresHumanReview": true,
+    "notes": "No record created by this pipeline may be promoted automatically."
+  },
+  "confidencePolicy": {
+    "unverified": "Lead only; not safe for game-data claims.",
+    "observed": "Seen in one relevant source or real character observation.",
+    "cross-checked": "Supported by at least two evidence entries.",
+    "verified": "High-confidence record with at least two evidence entries and explicit human review.",
+    "rejected": "Known bad, incompatible, stale, or region-mismatched data."
+  }
+}
