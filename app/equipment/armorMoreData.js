@@ -2591,11 +2591,11 @@ const armorPieces = [
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":["Dropped by Argo, the Spirit King and other world bosses or monsters in Chaotic Lower Reshanta"],"id":"210640011","name":"Bloodthirsty Boots","level":"33","required":"30","defense":"184","hp":"66","pool":"3:boots33","sell":"363 Gold","upgrade":"At +10: Defense 109, HP 39"},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","level":"33","defense":"196","hp":"70","pool":"3:bootsExpert33","sell":"416 Gold","upgrade":"At +10: Defense 109, HP 39","id":"210640012","name":"Expert's Splendent Orichalcum Boots (Elyos)","required":"26","faction":"Elyos","crafting":"Tailoring Lv 25: Splendent Orichalcum Boots ×1, Expert's Refining Stone ×2, Fine Orichalcum Ore ×3, Fine Odyle ×1 (25% Combo chance)","obtain":["Crafted at Light Armorsmithing Table, Verteron"]},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","level":"33","defense":"196","hp":"70","pool":"3:bootsExpert33","sell":"416 Gold","upgrade":"At +10: Defense 109, HP 39","id":"210640014","name":"Expert's Splendent Orichalcum Boots (Asmodians)","required":"26","faction":"Asmodians","crafting":"Tailoring Lv 25: Splendent Orichalcum Boots ×1, Expert's Refining Stone ×2, Fine Orichalcum Ore ×3, Fine Odyle ×1 (25% Combo chance)","obtain":["Crafted at Dark Armorsmithing Table, Verteron"]},
-  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":["Dropped by named world bosses and monsters in Altgard, including Melted Danar and Black Warrior Aed"],"id":"210640008","name":"Destruction Boots","level":"33","required":"30","defense":"184","hp":"66","pool":"3:boots33","sell":"363 Gold","upgrade":"At +10: Defense 109, HP 39"},
+  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Pickup","selections":"3","obtain":["Field event: Jump Jump","Field event: Wraith Evasion","Field event: Mysterious Track","Field event: Hidden Lugi","Field event: Odyle Flight Frenzy","Field event: Goldrin's Treasure","Field event: Defend Shugo Merchants","Field event: Up! Up! Up!","Field event: Not This Tile?"],"id":"210640098","name":"Destruction Boots","level":"33","required":"30","defense":"184","hp":"66","pool":"3:boots33","sell":"363 Gold","upgrade":"At +10: Defense 109, HP 39"},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":[],"id":"210640009","name":"Defender Boots","level":"23","required":"20","defense":"127","hp":"46","pool":"3:boots23","sell":"185 Gold","upgrade":"At +10: Defense 75, HP 28"},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":[],"id":"210640010","name":"Whispering Oblivion Boots","level":"28","required":"25","defense":"156","hp":"56","pool":"3:boots28","sell":"259 Gold","upgrade":"At +10: Defense 92, HP 33"},
-  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":["Dropped by monsters in Altgard, including Daeva Renegade Assassin and Daeva Renegade Ranger"],"id":"210640006","name":"Relic Collector Boots","level":"23","required":"20","defense":"127","hp":"46","pool":"3:boots23","sell":"185 Gold","upgrade":"At +10: Defense 75, HP 28"},
-  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Equip","selections":"3","obtain":["Dropped by monsters in Altgard, including Contaminated Shulak Worker and Contaminated Shulak Miner"],"id":"210640007","name":"Pragmatist Boots","level":"28","required":"25","defense":"156","hp":"56","pool":"3:boots28","sell":"259 Gold","upgrade":"At +10: Defense 92, HP 33"},
+  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Pickup","selections":"3","obtain":["Field event: Jump Jump","Field event: Wraith Evasion","Field event: Mysterious Track","Field event: Hidden Lugi","Field event: Odyle Flight Frenzy","Field event: Goldrin's Treasure","Field event: Defend Shugo Merchants","Field event: Up! Up! Up!","Field event: Not This Tile?"],"id":"210640096","name":"Relic Collector Boots","level":"23","required":"20","defense":"127","hp":"46","pool":"3:boots23","sell":"185 Gold","upgrade":"At +10: Defense 75, HP 28"},
+  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","binding":"Bind on Pickup","selections":"3","obtain":["Field event: Jump Jump","Field event: Wraith Evasion","Field event: Mysterious Track","Field event: Hidden Lugi","Field event: Odyle Flight Frenzy","Field event: Goldrin's Treasure","Field event: Defend Shugo Merchants","Field event: Up! Up! Up!","Field event: Not This Tile?"],"id":"210640097","name":"Pragmatist Boots","level":"28","required":"25","defense":"156","hp":"56","pool":"3:boots28","sell":"259 Gold","upgrade":"At +10: Defense 92, HP 33"},
   {
     "category": "Boots",
     "grade": "Epic",
@@ -3547,6 +3547,15 @@ const armorPieces = [
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210230015","210230017"]);
+const AION2HUB_MANUAL_SYNC = new Set(["210640096","210640097","210640098"]);
+const aion2HubManualSource = {
+  name: "AION2 Hub item database (manual reference)",
+  region: "Global Launch Scale Test snapshot",
+  capturedAt: "2026-10-25",
+  dataSnapshotAt: "2026-09-19",
+  official: false,
+  status: "MANUALLY_REVIEWED"
+};
 const current207Source = {
   name: "gaming.tools AION 2 Global client database",
   region: "GLOBAL",
@@ -3582,8 +3591,8 @@ export default armorPieces.map((item) => ({
   ],
   upgrades: item.upgrade,
   obtain: item.obtain,
-  verificationStatus: GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
-  source: GLOBAL_207_SYNC.has(item.id) ? current207Source : {
+  verificationStatus: AION2HUB_MANUAL_SYNC.has(item.id) ? "MANUALLY_REVIEWED" : GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
+  source: AION2HUB_MANUAL_SYNC.has(item.id) ? aion2HubManualSource : GLOBAL_207_SYNC.has(item.id) ? current207Source : {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
