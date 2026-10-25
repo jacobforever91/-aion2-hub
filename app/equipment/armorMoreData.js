@@ -3544,7 +3544,7 @@ const armorPieces = [
     "enchant": "+15",
     "upgrade": "At +15: Defense 178, HP 64"
   }
-  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Pickup","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640136","name":"Kasia Boots","obtain":["Found in chest: Kasia\\u0027s Loot Chest (Bound)"]},
+  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Pickup","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640136","name":"Kasia Boots","obtain":["Found in chest: Kasia\u0027s Loot Chest (Bound)"]},
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210230015","210230017"]);
