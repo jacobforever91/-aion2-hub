@@ -2539,7 +2539,7 @@ const imprintPools = {
   ]
 };
 const armorPieces = [
-  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Equip","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640086","name":"Shujakan Boots","obtain":["Dropped by Veteran Shujakan (Lv 45 named world boss)"]},
+  {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Pickup","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640137","name":"Shujakan Boots","obtain":["Found in chest: Shujakan's Loot Chest (Bound)"]},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Equip","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640087","name":"Karuka Boots","obtain":["Dropped by Visionary Karuka (Lv 45 named world boss, Altgard)"]},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Equip","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640088","name":"Vishwada Boots","obtain":["Dropped by Dark Shadow Vishwada (Lv 45 named world boss, Altgard)"]},
   {"category":"Boots","grade":"Epic","equipType":"Boots","sockets":"3","enchant":"+10","selections":"3","level":"40","required":"37","defense":"225","hp":"80","pool":"3:bootsArtisan40","binding":"Bind on Equip","sell":"583 Gold","upgrade":"At +10: Defense 133, HP 47","id":"210640089","name":"Shylak Boots","obtain":["Dropped by Sharp Shylak (Lv 45 named world boss, Altgard)"]},
@@ -3548,7 +3548,7 @@ const armorPieces = [
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210230015","210230017"]);
-const AION2HUB_MANUAL_SYNC = new Set(["210640096","210640097","210640098","210640099","210640100","210640101","210640102","210640103","210640104","210640111","210640112","210640113","210640114","210640115","210640116","210640117","210640118","210640119","210640120","210640121","210640122","210640123","210640124","210640125","210640126","210640127","210640128","210640129","210640130","210640131","210640132","210640133","210640134","210640135","210640136"]);
+const AION2HUB_MANUAL_SYNC = new Set(["210640096","210640097","210640098","210640099","210640100","210640101","210640102","210640103","210640104","210640111","210640112","210640113","210640114","210640115","210640116","210640117","210640118","210640119","210640120","210640121","210640122","210640123","210640124","210640125","210640126","210640127","210640128","210640129","210640130","210640131","210640132","210640133","210640134","210640135","210640136","210640137"]);
 const aion2HubManualSource = {
   name: "AION2 Hub item database (manual reference)",
   region: "Global Launch Scale Test snapshot",
