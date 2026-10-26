@@ -1,0 +1,63 @@
+{
+  "dataset": "DAEVEXUS AION 2 data",
+  "schema_version": "1.0.0",
+  "generated_at": "2026-10-25",
+  "runtime_external_dependencies": [],
+  "policy": {
+    "external_sites_are_research_inputs_not_runtime_dependencies": true,
+    "unverified_fields_must_be_labeled": true,
+    "never_merge_regions_without_id_and_mechanics_match": true,
+    "retain_raw_fields_and_provenance": true
+  },
+  "datasets": [
+    {
+      "entity_type": "skill",
+      "status": "verified",
+      "record_count": 4538,
+      "record_count_scope": "records in prior packet validation; raw export is not yet checked into this branch",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "equipment",
+      "status": "provisional",
+      "record_count": 0,
+      "record_count_scope": "not inventoried in this branch yet",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "pet",
+      "status": "provisional",
+      "record_count": 0,
+      "record_count_scope": "not inventoried in this branch yet",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "wing",
+      "status": "provisional",
+      "record_count": 0,
+      "record_count_scope": "not inventoried in this branch yet",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "stigma",
+      "status": "provisional",
+      "record_count": 0,
+      "record_count_scope": "not inventoried in this branch yet",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "arcana",
+      "status": "provisional",
+      "record_count": 0,
+      "record_count_scope": "not inventoried in this branch yet",
+      "artifact_path": null
+    },
+    {
+      "entity_type": "daevanion",
+      "status": "disputed",
+      "record_count": 0,
+      "record_count_scope": "current Global board list and currency rules require confirmation",
+      "artifact_path": null
+    }
+  ]
+}
