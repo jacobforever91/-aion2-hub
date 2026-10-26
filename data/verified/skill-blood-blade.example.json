@@ -1,0 +1,39 @@
+{
+  "id": "skill:11340000",
+  "entity_type": "skill",
+  "status": "verified",
+  "region": "unknown",
+  "game_version": null,
+  "fields": {
+    "skill_id": "11340000",
+    "name_en": "Blood Blade",
+    "class": "Gladiator",
+    "effective_level": 10,
+    "original_level": 10,
+    "level_increments": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "cooldown": null,
+    "cooldown_note": "Packet includes cooldown; exact unit/value not reproduced in this summary."
+  },
+  "localization": {
+    "en": {
+      "name": "Blood Blade"
+    }
+  },
+  "evidence": [
+    {
+      "type": "packet",
+      "source_ref": "0x5100 MySkillList_NT; prior validation summary",
+      "observed_at": "2026-10-01",
+      "artifact_sha256": null,
+      "note": "Previously checked example. Aggregate packet validation reported 4,538/4,538 records; original capture/export must be attached to make this independently reproducible."
+    }
+  ],
+  "relations": [],
+  "updated_at": "2026-10-25"
+}
