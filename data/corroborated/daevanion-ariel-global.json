@@ -1,0 +1,59 @@
+{
+  "id": "daevanion:ariel:Global:2026-10-21",
+  "entity_type": "daevanion",
+  "status": "corroborated",
+  "region": "Global",
+  "game_version": "Global patch 2026-10-20 PDT / 2026-10-21 CEST",
+  "fields": {
+    "name": "Ariel",
+    "board_role": "PvE",
+    "introduced_in_global_patch": "2026-10-21",
+    "unlock_level": null,
+    "currency_name": "Daevanion Crystal: Ariel (Bound)",
+    "fragment_item": "Ariel Fragments (Bound)",
+    "conversion": {
+      "route": "Substance Morph > Special > Daevanion",
+      "fragments_per_crystal": 100,
+      "max_conversions_per_character": 30,
+      "limit_scope": "The amount obtainable through morphing is limited separately for each Hard expedition."
+    },
+    "fragment_sources": [
+      "Krao Cave (Hard)",
+      "Draupnir (Hard)"
+    ],
+    "excess_fragment_exchange": "1 Ariel Fragment can be exchanged for 5 Enhance Stones without a stated exchange limit.",
+    "node_count": null,
+    "node_values": null,
+    "notes": "Board existence and currency loop are supported by the Global patch notes as transcribed by Aion2t and cross-linked to NC's official notice. Detailed board node layout, node count and stat values are intentionally left blank until verified from the Global client/API."
+  },
+  "localization": {
+    "en": {
+      "name": "Ariel"
+    }
+  },
+  "evidence": [
+    {
+      "type": "official_source",
+      "source_ref": "https://aion2.plaync.com/en-us/board/update/view?articleId=6ad85be86cfe4756db5b8e92",
+      "observed_at": "2026-10-26",
+      "artifact_sha256": null,
+      "note": "NC official Global patch-note page for Oct. 20 (PDT) / Oct. 21 (CEST); page is client-rendered in the web fetch, so details are cross-checked against the linked transcription below."
+    },
+    {
+      "type": "community_source",
+      "source_ref": "https://aion2t.com/news/53",
+      "observed_at": "2026-10-26",
+      "artifact_sha256": null,
+      "note": "Patch transcription states that Global adds the Ariel Daevanion board; 100 Ariel Fragments convert to one bound Ariel crystal, with a limit of 30 conversions per character and separate per-dungeon morph limits."
+    },
+    {
+      "type": "community_source",
+      "source_ref": "https://aion2maps.com/guides/daevanion-boards/",
+      "observed_at": "2026-10-26",
+      "artifact_sha256": null,
+      "note": "Independent research guide reports the 21 October Global client build contains Ariel as a PvE board. Its detailed node data is not copied into this record."
+    }
+  ],
+  "relations": [],
+  "updated_at": "2026-10-26"
+}
