@@ -24,7 +24,17 @@
     "excess_fragment_exchange": "1 Ariel Fragment can be exchanged for 5 Enhance Stones without a stated exchange limit.",
     "node_count": null,
     "node_values": null,
-    "notes": "Board existence and currency loop are supported by the Global patch notes as transcribed by Aion2t and cross-linked to NC's official notice. Detailed board node layout, node count and stat values are intentionally left blank until verified from the Global client/API."
+    "notes": "Board existence and currency loop are supported by the Global patch notes as transcribed by Aion2t and cross-linked to NC's official notice. Detailed board node layout, node count and stat values are intentionally left blank until verified from the Global client/API.",
+    "global_board_inventory": [
+      "Nezekan",
+      "Zikel",
+      "Vaizel",
+      "Triniel",
+      "Azphel",
+      "Ariel"
+    ],
+    "global_board_inventory_count": 6,
+    "inventory_scope_note": "This six-board inventory is corroborated by the Global 2026-10-21 client research guide; the detailed board node maps and exact values are not included here."
   },
   "localization": {
     "en": {
@@ -52,6 +62,20 @@
       "observed_at": "2026-10-26",
       "artifact_sha256": null,
       "note": "Independent research guide reports the 21 October Global client build contains Ariel as a PvE board. Its detailed node data is not copied into this record."
+    },
+    {
+      "type": "community_source",
+      "source_ref": "https://aion2builder.com/guides/daevanion-board/",
+      "observed_at": "2026-10-12",
+      "artifact_sha256": null,
+      "note": "This guide reports five Global boards and explicitly says it was checked against the Oct. 7 patch / reviewed Oct. 12. It predates the Oct. 21 Ariel update, so it is a stale snapshot rather than evidence that Ariel is absent in the current build."
+    },
+    {
+      "type": "community_source",
+      "source_ref": "https://aion2maps.com/guides/daevanion-boards/",
+      "observed_at": "2026-10-26",
+      "artifact_sha256": null,
+      "note": "Current guide updated Oct. 21 and citing the Global client build of Oct. 21 lists six boards: Nezekan, Zikel, Vaizel, Triniel, Azphel and Ariel. Used only to corroborate the board inventory; node values are not imported."
     }
   ],
   "relations": [],
