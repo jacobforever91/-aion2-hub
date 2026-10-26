@@ -18,7 +18,7 @@ The isolated `research/verified-data-foundation` branch contains a provenance-aw
 - [Dataset manifest](data/manifest.json)
 - [Ingestion workflow and release gate](docs/data-ingestion-workflow.md)
 
-Important: the reported 4,538 skill-record validation is prior research; the original export is not yet in this branch. The manifest makes that limitation explicit. Daevanion board coverage remains disputed until verified against the current Global build.
+Important: the reported 4,538 skill-record validation is prior research; the original export is not yet in this branch. The manifest makes that limitation explicit. The original Daevanion board inventory was stale: the Oct. 21 Global patch added Ariel. A sourced record now lists six current boards, while detailed Ariel node data remains unverified.
 
 
 ## Latest verified research update — 2026-10-26
