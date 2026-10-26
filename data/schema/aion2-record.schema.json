@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daevexus.local/schemas/aion2-record.schema.json",
+  "title": "DAEVEXUS AION 2 Record",
+  "type": "object",
+  "required": [
+    "id",
+    "entity_type",
+    "status",
+    "region",
+    "fields",
+    "evidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entity_type": {
+      "enum": [
+        "skill",
+        "equipment",
+        "pet",
+        "wing",
+        "stigma",
+        "arcana",
+        "daevanion",
+        "class",
+        "map",
+        "dungeon",
+        "crafting",
+        "other"
+      ]
+    },
+    "status": {
+      "enum": [
+        "verified",
+        "corroborated",
+        "provisional",
+        "disputed",
+        "stale"
+      ]
+    },
+    "region": {
+      "enum": [
+        "Global",
+        "KR",
+        "TW",
+        "unknown"
+      ]
+    },
+    "game_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fields": {
+      "type": "object"
+    },
+    "localization": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "observed_at",
+          "note"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "packet",
+              "client_export",
+              "in_game_observation",
+              "official_source",
+              "community_source",
+              "manual_analysis",
+              "unknown"
+            ]
+          },
+          "source_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date"
+          },
+          "artifact_sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "relation",
+          "target_id",
+          "status"
+        ],
+        "properties": {
+          "relation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "verified",
+              "corroborated",
+              "provisional",
+              "disputed",
+              "stale"
+            ]
+          }
+        }
+      }
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "additionalProperties": false
+}
