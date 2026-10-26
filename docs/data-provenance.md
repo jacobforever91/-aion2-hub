@@ -49,7 +49,7 @@ Do not merge same-looking records across regions or patches unless IDs and mecha
 
 ## Open verification queue
 - Identify which systems contribute to the five skill-level increment fields by correlating controlled observations with Daevanion, Arcana, equipment, and other modifiers.
-- Confirm the current Global Daevanion board list and node/currency rules. Public guides conflict on board availability; do not treat any disputed board list as confirmed.
+- **Board existence update (2026-10-26):** the Global patch dated 2026-10-20 PDT / 2026-10-21 CEST adds Ariel, so the pre-patch five-board list is stale. A board-level Ariel record is now stored at `data/corroborated/daevanion-ariel-global.json`. Its existence and fragment/currency loop are corroborated against the official patch-note link and independent transcriptions. Detailed node layout, node count and stat values remain unverified in this dataset.
 - Inventory existing DAEVEXUS data loaders and UI before adding a parallel schema or replacing current behavior.
 - Build a small golden test set from independently verified records before bulk ingestion.
 
