@@ -210,8 +210,8 @@ const breastplates = [
   {"id":"210150005","name":"Comet Breastplate","grade":"Rare","level":"25","required":"25","defense":"208","hp":"100","pool":"rare25","sockets":"2","binding":"Bind on Equip","sell":"207 Gold","enchant":"+5","upgrade":"At +5: Defense 41, HP 15","skillRoll":true,"obtain":["Dropped by multiple monsters and world bosses, including Neikel of the East and Rotten Kutar."]},
   {"id":"210150008","name":"Tempest Breastplate","grade":"Rare","level":"15","required":"15","defense":"121","hp":"60","pool":"rare","sockets":"2","binding":"Bind on Equip","sell":"106 Gold","enchant":"+5","upgrade":"At +5: Defense 24, HP 9","skillRoll":true,"obtain":["Dropped by monsters in Altgard, including Rafflesia and Vampire Vivel."]},
   {"id":"210140135","name":"Setram Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Pickup","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Found in chest: Setram's Loot Chest (Bound) (Item #533700370)."]},
-  {"id":"210140083","name":"Kasia Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Equip","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Dropped by Phantasm Kasia (Lv 45 world boss, Verteron)."]},
-  {"id":"210140086","name":"Shujakan Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Equip","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Dropped by Veteran Shujakan (Lv 45 world boss)."]},
+  {"id":"210140136","name":"Kasia Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Pickup","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Found in chest: Kasia's Loot Chest (Bound) (Item #533700371)."]},
+  {"id":"210140137","name":"Shujakan Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Pickup","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Found in chest: Shujakan's Loot Chest (Bound) (Item #533700392)."]},
   {"id":"210140087","name":"Karuka Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Equip","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Dropped by Visionary Karuka (Lv 45 world boss, Altgard)."]},
   {"id":"210140088","name":"Vishwada Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Equip","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Dropped by Dark Shadow Vishwada (Lv 45 world boss, Altgard)."]},
   {"id":"210140130","name":"Axios Breastplate","grade":"Epic","level":"40","required":"37","defense":"337","hp":"160","pool":"epicCraft40","sockets":"3","binding":"Bind on Pickup","sell":"933 Gold","enchant":"+10","upgrade":"At +10: Defense 133, HP 47","skillRoll":true,"obtain":["Found in chest: Axios's Loot Chest (Bound) (Item #533700388)."]},
@@ -417,11 +417,11 @@ const breastplates = [
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210130108","210130015","210130110","210130017"]);
-const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135"]);
+const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135","210140136","210140137"]);
 const aion2HubManualSource = {
   name: "AION2 Hub Global item database (manual item-page review)",
   region: "Global Launch Scale Test snapshot",
-  capturedAt: "2026-10-29",
+  capturedAt: "2026-10-30",
   dataSnapshotAt: "2026-09-19",
   official: false,
   status: "MANUALLY_REVIEWED"
