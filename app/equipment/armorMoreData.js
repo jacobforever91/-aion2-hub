@@ -2536,7 +2536,7 @@ const imprintPools = {
       "Natural HP Regen",
       "22 ~ 32"
     ]
-  ]
+  ],
   "4:epicCraft40": [
     ["Critical Damage Boost","6.75% ~ 7.83%"],["Regeneration","1.01% ~ 1.23%"],["Double Chance","0.9% ~ 1.11%"],["Defense increase","1.35% ~ 1.62%"],["Endurance Penetration","1.01% ~ 1.23%"],["Status Effect Resist","2.89% ~ 3.39%"],["Perfect Resist","1.69% ~ 2.01%"],["Dexterity","9 ~ 17"],["Constitution","6 ~ 14"],["Willpower","12 ~ 21"],["Attack","9 ~ 17"],["Critical Hit","14 ~ 23"],["Accuracy","19 ~ 29"],["Defense","112 ~ 136"],["Evasion","11 ~ 20"],["Critical Damage Defense","115 ~ 139"],["Back Defense","115 ~ 139"],["Front Defense","115 ~ 139"],["Critical Hit Resist","20 ~ 30"],["Block","11 ~ 20"],["MP","43 ~ 56"],["HP","86 ~ 106"],["Natural MP Regen","10 ~ 19"],["Natural HP Regen","20 ~ 30"]
   ],
