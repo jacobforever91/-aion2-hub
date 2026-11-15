@@ -288,4 +288,53 @@ export default [
       note: "Current Global acquisition cross-check: Abyssal Forge: Ludra / weapon selection chest."
     },
   }
+
+  {
+    id: "110120003",
+    name: "Ludra's Blade of Extinction",
+    region: "GLOBAL",
+    grade: "Unique",
+    rarityColor: "Yellow",
+    group: "Weapon",
+    category: "Greatsword",
+    itemType: "Greatsword",
+    equipType: "MainHand",
+    itemLevel: "102",
+    requiredLevel: "45",
+    tier: "4",
+    icon: "/equipment-icons/110120003.png",
+    stats: pairs([
+      ["Min Attack", "446"], ["Max Attack", "604"], ["Accuracy", "100"],
+      ["Critical Hit", "150"], ["Block", "150"],
+      ["Parry Damage Reduction Rate", "33%"], ["Parry Damage Reduction Amount", "100000"],
+    ]),
+    imprints: pairs([
+      ["Combat Speed", "11.23 ~ 12.98"], ["Damage Boost", "6.29 ~ 7.30"],
+      ["Multi-hit Chance", "8.32 ~ 9.64"], ["Weapon Damage Boost", "8.32 ~ 9.64"],
+      ["Status Effect Chance", "22.20 ~ 25.60"], ["Might", "22 ~ 32"],
+      ["Precision", "22 ~ 32"], ["Attack", "38 ~ 51"], ["Critical Hit", "59 ~ 75"],
+      ["Critical Attack", "83 ~ 102"], ["Back Attack", "83 ~ 102"],
+      ["Front Attack", "83 ~ 102"], ["Accuracy", "79 ~ 98"], ["Block", "48 ~ 62"],
+      ["MP", "177 ~ 211"], ["HP", "357 ~ 418"],
+    ]),
+    imprintSlots: 3,
+    obtain: ["Abyssal Forge: Ludra", "Abyssal Forge: Weapon Selection Chest (Bound)"],
+    details: [
+      {label: "Weapon range", value: "1.5 m"},
+      {label: "Manastone slots", value: "4"},
+      {label: "Godstone slots", value: "1"},
+      {label: "Binding", value: "Bind on pickup"},
+      {label: "Sell price", value: "59,720 Kina (Bound)"},
+      {label: "Alternate client item ID", value: "110120014 (same item variant)"},
+      {label: "Region/version", value: "AION 2 Global 1.0.21.0"},
+    ],
+    upgrades: "Enchantable to +15; breakthrough to +5.",
+    verificationStatus: "GLOBAL_CLIENT_CROSSCHECKED",
+    source: {
+      ...source,
+      primary: "AION 2 Global Database (gaming.tools)",
+      crossCheck: "AION2Hub item card manually reviewed on 2026-11-15",
+      note: "Global item ID, name, level, grade, slot, stats and imprint pool reviewed against independent client-derived item references. Alternate client ID 110120014 is the same item variant and is not listed separately.",
+    },
+  },
 ];
