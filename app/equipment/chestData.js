@@ -417,7 +417,7 @@ const breastplates = [
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210130108","210130015","210130110","210130017"]);
-const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135","210140136","210140137","210140139","210140140""210140046",]);
+const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135","210140136","210140137","210140139","210140140","210140046",]);
 const aion2HubManualSource = {
   name: "AION2 Hub Global item database (manual item-page review)",
   region: "Global Launch Scale Test snapshot",
