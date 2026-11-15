@@ -242,7 +242,7 @@ const breastplates = [
   {"id":"210140039","name":"Discipline Breastplate","grade":"Epic","level":"38","required":"35","defense":"320","hp":"152","pool":"epicCraft33","sockets":"3","binding":"Bind on Equip","sell":"815 Gold","enchant":"+10","upgrade":"At +10: Defense 126, HP 45","skillRoll":true,"obtain":["Dropped by named bosses and other monsters in Altgard; the reference lists 62 sources."]},
   {"id":"210140040","name":"Vowed Breastplate","grade":"Epic","level":"38","required":"35","defense":"320","hp":"152","pool":"epicCraft33","sockets":"3","binding":"Bind on Equip","sell":"815 Gold","enchant":"+10","upgrade":"At +10: Defense 126, HP 45","skillRoll":true},
   {"id":"210140045","name":"Unyielding Breastplate","grade":"Epic","level":"43","required":"45","defense":"406","hp":"192","pool":"epic43","sockets":"3","binding":"Bind on Pickup","sell":"1,602 Gold","enchant":"+10","upgrade":"At +10: Defense 143, HP 51","skillRoll":true},
-  {"id":"210140046","name":"Black Claw Breastplate","grade":"Epic","level":"45","required":"45","defense":"475","hp":"224","pool":"epic45","sockets":"3","binding":"Bind on Pickup","sell":"2,753 Gold","enchant":"+10","upgrade":"At +10: Defense 149, HP 53","skillRoll":true},
+  {"id":"210140046","name":"Black Claw Breastplate","grade":"Epic","level":"45","required":"45","defense":"475","hp":"224","pool":"epic45","sockets":"3","binding":"Bind on Pickup","sell":"2,753 Gold","enchant":"+10","upgrade":"At +10: Defense 149, HP 53","skillRoll":true,"obtain":["Raid reward: Abyssal Forge: Ludra","Party Dungeon reward"],"manuallyReviewedAt":"2026-11-15","manualReviewNote":"Global item card manually checked for stats, imprint values, sockets, binding, sale value, enhancement and listed acquisition."},
   {"id":"210140053","name":"Lunatic Breastplate","grade":"Epic","level":"45","required":"45","defense":"570","hp":"268","pool":"lunatic45","sockets":"3","binding":"Bind on Pickup","sell":"5,793 Gold","enchant":"+10","upgrade":"At +10: Defense 149, HP 53","skillRoll":true,"obtain":["Raid reward: Abyssal Forge: Ludra."]},
   {"id":"210140030","name":"Drifter Breastplate","grade":"Epic","level":"31","defense":"259","hp":"124","imprintPairs":[["Defense","46 ~ 46"],["MP","29 ~ 29"],["Natural MP Regen","9 ~ 9"]],"sockets":"3","binding":"Bound","selectionText":"3 listed sub-stats","sell":"381 Gold","enchant":"+10","upgrade":"At +10: Defense 102, HP 37","obtain":["Quest reward: Priests of Zumion (Lv 34)."]},
   {"id":"210140031","name":"Pilgrim Breastplate","grade":"Epic","level":"38","defense":"320","hp":"152","imprintPairs":[["Defense","50 ~ 50"],["MP","31 ~ 31"],["Natural MP Regen","10 ~ 10"]],"sockets":"3","binding":"Bound","selectionText":"3 listed sub-stats","sell":"611 Gold","enchant":"+10","upgrade":"At +10: Defense 126, HP 45","obtain":["Quest reward: Sowing Seeds of Chaos (Lv 41)."]},
@@ -417,7 +417,7 @@ const breastplates = [
 ];
 const pairs = (entries) => entries.map(([label, value]) => ({label, value}));
 const GLOBAL_207_SYNC = new Set(["210130108","210130015","210130110","210130017"]);
-const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135","210140136","210140137","210140139","210140140"]);
+const AION2HUB_MANUAL_SYNC = new Set(["210140128","210140129","210140130","210140131","210140132","210140133","210140134","210140135","210140136","210140137","210140139","210140140""210140046",]);
 const aion2HubManualSource = {
   name: "AION2 Hub Global item database (manual item-page review)",
   region: "Global Launch Scale Test snapshot",
@@ -461,7 +461,7 @@ export default breastplates.map((item) => ({
   upgrades: item.upgrade,
   obtain: item.obtain,
   verificationStatus: AION2HUB_MANUAL_SYNC.has(item.id) ? "MANUALLY_REVIEWED" : GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
-  source: AION2HUB_MANUAL_SYNC.has(item.id) ? aion2HubManualSource : GLOBAL_207_SYNC.has(item.id) ? current207Source : {
+  source: AION2HUB_MANUAL_SYNC.has(item.id) ? {...aion2HubManualSource, capturedAt: item.manuallyReviewedAt || aion2HubManualSource.capturedAt, note: item.manualReviewNote} : GLOBAL_207_SYNC.has(item.id) ? current207Source : {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
     capturedAt: "2026-09-19",
