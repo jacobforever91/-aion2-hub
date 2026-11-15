@@ -890,4 +890,58 @@ weaponsData.push(
   }
 );
 
+
+weaponsData.push(
+  {
+    id: "110140048",
+    name: "Black Claw Greatsword",
+    region: "GLOBAL",
+    grade: "Epic",
+    rarityColor: "Purple",
+    group: "Weapon",
+    category: "Greatsword",
+    itemType: "Greatsword",
+    equipType: "MainHand",
+    itemLevel: "45",
+    requiredLevel: "45",
+    tier: "2",
+    icon: "/equipment-icons/110140048.webp",
+    stats: toPairs([
+      ["Min Attack", "281"], ["Max Attack", "380"], ["Accuracy", "100"],
+      ["Critical Hit", "150"], ["Block", "150"],
+      ["Parry Damage Reduction Rate", "29%"], ["Parry Damage Reduction Amount", "100000"],
+    ]),
+    imprints: toPairs([
+      ["Combat Speed", "7.6% ~ 8.81%"], ["Damage Boost", "4.24% ~ 4.95%"],
+      ["Multi-hit Chance", "5.62% ~ 6.53%"], ["Weapon Damage Boost", "5.62% ~ 6.53%"],
+      ["Status Effect Chance", "15% ~ 17.32%"], ["Might", "15 ~ 24"],
+      ["Precision", "15 ~ 24"], ["Attack", "27 ~ 38"], ["Critical Hit", "40 ~ 53"],
+      ["Critical Attack", "57 ~ 73"], ["Back Attack", "57 ~ 73"], ["Front Attack", "57 ~ 73"],
+      ["Accuracy", "54 ~ 69"], ["Block", "31 ~ 43"], ["MP", "120 ~ 145"], ["HP", "241 ~ 284"],
+    ]),
+    imprintSlots: 3,
+    obtain: ["Abyssal Forge: Ludra raid reward", "Party Dungeon reward"],
+    details: [
+      {label: "Weapon range", value: "1.5 m"},
+      {label: "Manastone sockets", value: "3"},
+      {label: "Godstone sockets", value: "1"},
+      {label: "Binding", value: "Bind on Pickup"},
+      {label: "Sell price", value: "4,129 Gold"},
+      {label: "Enhancement", value: "Up to +10; at +10, Min and Max Attack each gain 37"},
+      {label: "Region/version", value: "AION 2 Global Launch Scale Test client"},
+    ],
+    upgrades: "Enchantable to +10.",
+    verificationStatus: "GLOBAL_CLIENT_CROSSCHECKED",
+    source: {
+      name: "AION 2 Global Database (AION2 Hub)",
+      url: "https://aion2hub.com/database/items/110140048",
+      region: "GLOBAL",
+      capturedAt: "2026-11-15",
+      official: false,
+      crossCheck: "Individual Global item page manually reviewed on 2026-11-15",
+      note: "Checked item ID, grade, levels, greatsword slot, Global base stats, imprint ranges, sockets and listed acquisition sources. Korea/Taiwan variant values were excluded.",
+    },
+  }
+);
+
 export default weaponsData;
