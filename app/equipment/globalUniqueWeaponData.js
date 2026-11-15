@@ -287,8 +287,7 @@ export default [
       primary: "AION 2 Global Database (gaming.tools)",
       note: "Current Global acquisition cross-check: Abyssal Forge: Ludra / weapon selection chest."
     },
-  }
-
+  },
   {
     id: "110120003",
     name: "Ludra's Blade of Extinction",
