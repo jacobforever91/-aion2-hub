@@ -66,6 +66,12 @@
       "url": "https://aion2t.com/db",
       "mode": "blocked-from-automation",
       "reason": "Its published terms prohibit scraping, copying, or redistributing site content without permission."
+    },
+    {
+      "name": "gaming.tools AION 2 Global Database",
+      "url": "https://aion2.gaming.tools/items",
+      "mode": "manual-review-only",
+      "reason": "Individual item pages may be reviewed one at a time; reuse permission and automated access were not verified."
     }
   ]
 }
