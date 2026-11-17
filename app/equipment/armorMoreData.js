@@ -3751,7 +3751,7 @@ export default armorPieces.map((item) => ({
   ],
   upgrades: item.upgrade,
   obtain: item.obtain,
-  verificationStatus: AION2HUB_MANUAL_SYNC.has(item.id) ? "MANUALLY_REVIEWED" : GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
+  verificationStatus: AION2HUB_MANUAL_SYNC.has(item.id) || COMMUNITY_MANUAL_SYNC.has(item.id) ? "MANUALLY_REVIEWED" : GLOBAL_207_SYNC.has(item.id) ? "GLOBAL_207_CROSSCHECKED" : "",
   source: COMMUNITY_MANUAL_SYNC.has(item.id) ? {...communityManualSource, clientVersion: item.sourceVersion || communityManualSource.clientVersion, referenceUrl: item.sourcePage} : AION2HUB_MANUAL_SYNC.has(item.id) ? {...aion2HubManualSource, capturedAt: item.manuallyReviewedAt || aion2HubManualSource.capturedAt, ...(item.sourcePage ? {referenceUrl: item.sourcePage} : {})} : GLOBAL_207_SYNC.has(item.id) ? current207Source : {
     name: "AION 2 VISION independent item database",
     region: "Global Launch Scale Test snapshot",
