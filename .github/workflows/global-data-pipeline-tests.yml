@@ -1,0 +1,31 @@
+name: Global data pipeline lab tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data-agent/global-pipeline/**"
+      - "tests/global-data-pipeline.test.mjs"
+      - ".github/workflows/global-data-pipeline-tests.yml"
+  pull_request:
+    paths:
+      - "data-agent/global-pipeline/**"
+      - "tests/global-data-pipeline.test.mjs"
+      - ".github/workflows/global-data-pipeline-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run Global data pipeline lab tests
+        run: node --test tests/global-data-pipeline.test.mjs
